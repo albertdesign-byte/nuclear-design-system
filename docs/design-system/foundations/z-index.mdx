@@ -1,0 +1,318 @@
+---
+title: Z-Index
+description: Sistema de capas Medmo — prioridad de interacción, no profundidad visual. Siete tokens semánticos.
+status: complete
+version: 1.0.0
+lastUpdated: 2026-07-17
+phase: foundations
+---
+
+# Z-Index
+
+> Z-index no es elevación visual.
+> Es quién recibe el clic primero.
+
+---
+
+## Z-Index Intent
+
+Esta sección explica **por qué** existe el Z-Index System — no qué contiene.
+
+### Prioridad de interacción ≠ profundidad visual
+
+Un dropdown no está "más alto" porque tenga sombra dramática — está encima porque debe recibir clicks antes que el contenido de la página. La profundidad visual vive en **Colors** (superficies) y **Shadows** (`shadow-md`). Z-index solo resuelve **stacking context** para interacción.
+
+**Implicación:** No usar z-index para "hacer flotar" visualmente — usar `color-surface-floating` + `shadow-md`.
+
+### Siete capas — memorizable
+
+Una escala 0–9999 invita a `z-index: 99999` como fix local. Siete responsabilidades semánticas con pasos de 10 (0–60) caben en memoria: base, sticky, dropdown, popover, tooltip, toast, modal.
+
+**Implicación:** La API pública son **exactamente siete tokens**. Nueva capa requiere justificación al Design System.
+
+### Menos tokens, más intención
+
+Antes de proponer `z-sidebar` o `z-command`:
+
+> "¿Este token representa una decisión de diseño reutilizable o simplemente un valor?"
+
+Sidebar persistente → `z-sticky`. Command palette blocking → `z-modal`. Un solo consumidor → no merece token.
+
+---
+
+## Filosofía
+
+| Principio | Aplicación |
+|-----------|------------|
+| **Interaction priority** | Z-index = click target order |
+| **Not visual depth** | Elevation → Shadows + Colors |
+| **Seven layers only** | 0, 10, 20, 30, 40, 50, 60 |
+| **Semantic names** | `--z-modal`, never `--z-layer-60` in components |
+| **No arms race** | Prohibido z-9999 |
+| **Small scale** | Steps of 10 — one emergency gap max with DS approval |
+
+---
+
+## Arquitectura
+
+```
+scale.ts (primitivos z-layer-0 … z-layer-60 — internos)
+        ↓
+semantics.ts (z-base … z-modal)
+        ↓
+z-index.css
+        ↓
+Components: z-index: var(--z-modal);
+```
+
+```
+Visual depth (NOT z-index)              Interaction stack (z-index)
+──────────────────────────              ────────────────────────────
+color-surface-floating                  z-dropdown
+shadow-md                               z-popover
+color-overlay + z-modal                 z-modal
+```
+
+---
+
+## Stack completo
+
+Orden de prioridad (abajo → arriba):
+
+```
+┌─────────────────────────────────────────────┐
+│  modal (60)     Dialog, Sheet, AlertDialog  │  ← blocking
+├─────────────────────────────────────────────┤
+│  toast (50)     Sonner notifications        │
+├─────────────────────────────────────────────┤
+│  tooltip (40)   Contextual hints            │
+├─────────────────────────────────────────────┤
+│  popover (30)   Popover, DatePicker panel   │
+├─────────────────────────────────────────────┤
+│  dropdown (20)  Select, DropdownMenu        │
+├─────────────────────────────────────────────┤
+│  sticky (10)    Sticky headers, sidebar     │
+├─────────────────────────────────────────────┤
+│  base (0)       Page content                │
+└─────────────────────────────────────────────┘
+```
+
+### Reglas de stacking (obligatorias)
+
+| Regla | Detalle |
+|-------|---------|
+| Tooltip **>** Popover **>** Dropdown | Floating UI sibling order |
+| Modal **>** Toast | Modal bloquea; toast nunca encima |
+| Modal **>** Tooltip | Backdrop captura interacción |
+| Sticky **<** Dropdown | Menús portaled superan sticky local |
+| Sticky **<** Modal | Headers sticky quedan bajo backdrop |
+
+---
+
+## Capas semánticas
+
+### z-base — 0
+
+**Prioridad:** Flujo normal del documento.
+
+**Usar en:** Cards, tables, forms, page content, inline UI.
+
+**No usar en:** Cualquier elemento portaled o sticky.
+
+```css
+z-index: var(--z-base); /* often omitted — auto/0 is default */
+```
+
+---
+
+### z-sticky — 10
+
+**Prioridad:** Permanece visible al scroll — pero **debajo** de overlays portaled.
+
+**Usar en:** Sticky table header, PageHeader sticky, sidebar shell persistente, sticky filter bar.
+
+**No usar en:** Dropdowns, modals. **Sticky nunca supera modal.**
+
+---
+
+### z-dropdown — 20
+
+**Prioridad:** Superficies de menú/lista — primer tier flotante interactivo.
+
+**Usar en:** Select content, DropdownMenu, Combobox list, autocomplete menu.
+
+**No usar en:** Popover genérico (use `z-popover`), tooltips.
+
+---
+
+### z-popover — 30
+
+**Prioridad:** Panel detached — **sobre** dropdown a nivel página.
+
+**Usar en:** Popover, filter panel portaled, DatePicker calendar, color picker panel.
+
+**No usar en:** Select menu (use dropdown tier unless design specifies popover pattern).
+
+---
+
+### z-tooltip — 40
+
+**Prioridad:** Hint contextual — **siempre sobre** popover y dropdown.
+
+**Usar en:** Tooltip content — incluso tooltips dentro de popovers o junto a dropdown triggers.
+
+**No usar en:** Modals (modal backdrop block interaction).
+
+---
+
+### z-toast — 50
+
+**Prioridad:** Notificación no bloqueante — sobre tooltips, **bajo** modal.
+
+**Usar en:** Sonner toast stack, global notification bar.
+
+**No usar en:** Sobre modal content — **modal siempre gana**.
+
+---
+
+### z-modal — 60
+
+**Prioridad:** Interacción bloqueante — capa estándar más alta.
+
+**Usar en:** Dialog, AlertDialog, Sheet (modal), drawer con backdrop, loading overlay blocking.
+
+**No usar en:** `z-9999`, nuevas capas `z-super-modal` desde apps.
+
+---
+
+## Nested floating UI
+
+Cuando un Select abre **dentro** de un Popover:
+
+- Portal del Select usa `z-popover` (mismo tier que panel padre) — **no** inventar z-index numérico
+- Tooltip dentro del Popover usa `z-tooltip` — gana sobre popover
+
+Documentar en primitivo; nunca `z-index: 9999` como fix local.
+
+---
+
+## Reglas por contexto
+
+### Tablas
+
+- TableHead sticky: `z-sticky`
+- Row actions dropdown: `z-dropdown` on portaled content
+- Modal sobre tabla: `z-modal` — sticky header queda bajo backdrop
+
+### Dashboards
+
+- Sticky dashboard toolbar: `z-sticky`
+- Widget popover: `z-popover`
+- Toast notification: `z-toast`
+
+### Formularios
+
+- Inline form: `z-base`
+- Select dropdown: `z-dropdown`
+- Validation modal: `z-modal`
+
+### Modals
+
+- Overlay backdrop + content: both in modal stacking context, content `z-modal`
+- Toast while modal open: toast stays `z-toast` — **below** modal (user focuses modal task)
+
+---
+
+## Reglas de uso
+
+### DO
+
+- `z-index: var(--z-modal)` en DialogContent portal
+- `z-index: var(--z-tooltip)` en TooltipContent
+- Consultar stack rules antes de añadir capa
+
+### DON'T
+
+- `z-index: 9999`, `z-50`, `z-[100]`
+- Crear `--z-sidebar` — use `--z-sticky`
+- Usar z-index para profundidad visual
+- Subir toast sobre modal "para que se vea"
+
+---
+
+## Archivos
+
+| Archivo | Descripción |
+|---------|-------------|
+| `foundations/z-index/types.ts` | Tipos + stack order |
+| `foundations/z-index/scale.ts` | Primitivos 0–60 |
+| `foundations/z-index/semantics.ts` | Siete capas |
+| `foundations/z-index/contract.ts` | Registro + stacking rules |
+| `foundations/z-index/resolve.ts` | Resolvers + `isAbove()` |
+| `foundations/z-index/z-index.css` | CSS custom properties |
+| `foundations/z-index/rules.md` | DO/DON'T |
+| `foundations/z-index/tokens.ts` | Barrel export |
+
+---
+
+## Import
+
+```css
+@import "../../foundations/z-index/z-index.css";
+```
+
+```typescript
+import { resolveZIndexLayer, isAbove, zIndexStackingRules } from "../../foundations/z-index/tokens"
+```
+
+---
+
+## Dependencias
+
+| Foundation | Relación |
+|------------|----------|
+| **Shadows** | Visual float — orthogonal to z-index |
+| **Colors** | Surface hierarchy — orthogonal to z-index |
+| **Motion** | Modal/dropdown enter — independent of layer value |
+
+Sin dependencia de Spacing, Opacity, Breakpoints.
+
+---
+
+## Revisión crítica de arquitectura
+
+### ¿Podemos eliminar capas?
+
+| Capa | ¿Eliminable? | Veredicto |
+|------|--------------|-----------|
+| **base** | No | Anchor default — required |
+| **sticky** | No | Distinta de base — scroll behavior sin portaling |
+| **dropdown** | Evaluado merge con popover | **Mantener** — regla "popover > dropdown" resuelve conflictos sibling; menus vs panels son intenciones distintas |
+| **popover** | Evaluado merge con dropdown | **Mantener** — ver arriba |
+| **tooltip** | No | Debe ganar sobre popover/dropdown — no reutilizable con popover |
+| **toast** | Evaluado merge con modal | **Mantener** — modal > toast es regla explícita; toasts existen sin modal |
+| **modal** | No | Blocking layer cap |
+
+**Conclusión:** Las siete capas propuestas son el mínimo para las reglas de stacking documentadas. Merge dropdown+popover en `z-floating` eliminaría la regla tooltip > popover > dropdown a nivel sibling — **rechazado**.
+
+**Alternativa descartada:** Escala de 3 capas (base / floating / modal) — demasiado gruesa; pierde toast-vs-modal y tooltip-vs-popover.
+
+### Otras decisiones
+
+| Decisión | Por qué |
+|----------|---------|
+| Steps 0–60, increment 10 | Memorable; gap para un insert con aprobación DS |
+| No `z-sidebar` | Sidebar = sticky responsibility |
+| No `z-drawer` | Modal (blocking) o popover (non-blocking) |
+| `isAbove()` helper | Tooling/docs — not component API |
+
+**Oportunidad futura:** Command palette — evaluar `z-modal` primero; nueva capa solo si blocking behavior difiere de Dialog.
+
+---
+
+## Relacionados
+
+- [Shadows](./shadows.mdx) — profundidad visual
+- [Colors — Superficies](./colors.mdx)
+- [Opacity](./opacity.mdx) — token creation principle
+- [Motion — modal/dropdown presets](./motion.mdx)

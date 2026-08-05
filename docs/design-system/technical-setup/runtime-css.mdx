@@ -1,0 +1,143 @@
+---
+title: Runtime CSS
+description: Flujo de carga del CSS — Foundations, Tailwind bridge, providers y dark mode.
+status: living-document
+version: 1.0.0
+lastUpdated: 2026-07-17
+---
+
+# Runtime CSS
+
+> Cómo fluye el CSS desde Foundations hasta los componentes en runtime.
+> Technical Setup — no contiene decisiones de diseño.
+
+---
+
+## Arquitectura de capas
+
+```
+foundations/tokens/index.css     ← valores (single source of truth)
+        ↓
+src/app/globals.css              ← entry point de la app
+        ↓
+Tailwind + shadcn + theme.css    ← utilities + aliases
+        ↓
+next/font (layout.tsx)           ← fuentes optimizadas → --font-family-*
+        ↓
+next-themes (ThemeProvider)      ← clase .dark en <html>
+        ↓
+Componentes (className)          ← consumen utilities Tailwind
+```
+
+**Regla:** Foundations define valores. `theme.css` solo alias. `globals.css` no redefine tokens.
+
+---
+
+## Orden de carga (`globals.css`)
+
+| # | Import | Rol |
+|---|--------|-----|
+| 1 | `foundations/tokens/index.css` | Todos los `--color-*`, `--spacing-*`, `--radius-*`, etc. |
+| 2 | `tailwindcss` | Motor de utilities v4 |
+| 3 | `tw-animate-css` | Animaciones shadcn |
+| 4 | `shadcn/tailwind.css` | Base shadcn/base-nova |
+| 5 | `./theme.css` | `@theme inline` — aliases shadcn → Foundation |
+
+Después, `@layer base` aplica defaults de página:
+
+- `border-border` en `*`
+- `bg-background text-foreground` en `body`
+- `font-sans` en `html`
+
+---
+
+## Bridge Tailwind (`theme.css`)
+
+`@theme inline` mapea nombres de utility shadcn/Tailwind a variables Foundation.
+
+Ejemplos:
+
+| Utility | Alias `@theme` | Foundation |
+|---------|----------------|------------|
+| `bg-background` | `--color-background` | `--color-background` |
+| `text-foreground` | `--color-foreground` | `--color-text-primary` |
+| `bg-primary` | `--color-primary` | `--color-action-primary` |
+| `rounded-lg` | `--radius-lg` | `--radius-lg` |
+| `font-sans` | `--font-sans` | `--font-family-sans` |
+
+Ver validación: `npm run validate:theme`
+
+---
+
+## Tipografía (`next/font`)
+
+Archivo: `src/lib/fonts.ts`
+
+| Fuente | next/font | Variable CSS | Foundation |
+|--------|-----------|--------------|------------|
+| IBM Plex Sans Condensed | `IBM_Plex_Sans_Condensed` | `--font-family-sans` | `typography.css` |
+| IBM Plex Mono | `IBM_Plex_Mono` | `--font-family-mono` | `typography.css` |
+
+Las clases de fuente se aplican en `<html>` desde `layout.tsx`. `next/font` sobrescribe el stack de fallback de Foundation con la fuente optimizada self-hosted — **sin modificar** `foundations/`.
+
+Weights cargados:
+
+- Sans Condensed: 300, 400, 500, 600, 700
+- Mono: 400, 500, 600
+
+---
+
+## Dark mode
+
+| Pieza | Ubicación | Comportamiento |
+|-------|-----------|----------------|
+| Valores dark | `foundations/colors/colors.css` (`.dark`) | Tokens `--color-*` para dark |
+| Shadows dark | `foundations/shadows/shadows.css` (`.dark`) | `--shadow-*` ajustados |
+| Variant Tailwind | `globals.css` `@custom-variant dark` | `(&:is(.dark *))` |
+| Toggle runtime | `ThemeProvider` (`next-themes`) | Añade/quita `.dark` en `<html>` |
+
+**Sin hacks:** no `prefers-color-scheme` duplicado, no inline styles, no tokens legacy shadcn.
+
+`suppressHydrationWarning` en `<html>` evita mismatch SSR con `next-themes`.
+
+---
+
+## Providers (`layout.tsx`)
+
+```
+<html>  ← fonts + suppressHydrationWarning
+  <body>
+    <ThemeProvider attribute="class" enableSystem>
+      <AppProviders>
+        {children}
+        <Toaster />        ← Sonner, usa useTheme()
+        <TooltipProvider>  ← Base UI tooltips
+      </AppProviders>
+    </ThemeProvider>
+  </body>
+</html>
+```
+
+Archivos:
+
+- `src/components/providers/theme-provider.tsx` — wrapper `next-themes`
+- `src/components/providers/app-providers.tsx` — TooltipProvider + Toaster
+
+---
+
+## Validaciones
+
+```bash
+npm run validate:css      # Foundation CSS — referencias rotas
+npm run validate:theme    # theme.css bridge — sin legacy shadcn
+npm run validate:runtime  # layout, fonts, providers
+npm run build             # compilación Next.js
+```
+
+---
+
+## Qué NO va aquí
+
+- Nuevos tokens → `foundations/`
+- Componentes del DS → Fase 3 (Component Library)
+- ESLint boundaries → siguiente infra task

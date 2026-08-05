@@ -1,0 +1,58 @@
+/**
+ * Docs shell — layout chrome aligned to Figma Nuclear_DS.
+ * Uses Foundation tokens; docs-specific radii/spacing only where Figma defines shell geometry.
+ */
+.docs-shell {
+  --docs-header-height: var(--spacing-64);
+  --docs-sidebar-width: 360px;
+  --docs-toc-width: 288px;
+  --docs-main-max-width: 720px;
+  --docs-page-padding-x: var(--space-page);
+  --docs-preview-radius: 1.125rem; /* Figma preview card — 18px */
+  --docs-preview-min-height: 18rem; /* Figma preview area — 288px */
+  --docs-code-bg: var(--color-surface-muted);
+  --docs-code-header-bg: var(--color-surface-muted);
+  --docs-chrome-border: var(--color-border-subtle);
+  --docs-nav-active-bg: var(--color-surface-muted);
+  --docs-inline-code-bg: var(--color-surface-muted);
+}
+
+.docs-nav-accordion .docs-nav-accordion-item {
+  overflow: visible;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.docs-nav-accordion .docs-nav-accordion-header {
+  display: flex;
+}
+
+.docs-nav-accordion .docs-nav-accordion-trigger {
+  flex: 1;
+  justify-content: space-between;
+  border-radius: var(--radius-button);
+  padding-inline: var(--space-inline-sm);
+  padding-block: var(--space-stack-xs);
+  font-size: var(--text-caption-size);
+  font-weight: 500;
+  line-height: var(--text-caption-line-height);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.docs-nav-accordion .docs-nav-accordion-trigger:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-text-secondary);
+}
+
+.docs-nav-accordion .docs-nav-accordion-content {
+  overflow: visible;
+  animation: none;
+}
+
+.docs-nav-accordion .docs-nav-accordion-content > div {
+  padding-inline: 0;
+  padding-block: 0;
+}

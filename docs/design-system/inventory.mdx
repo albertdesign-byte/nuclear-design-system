@@ -1,0 +1,669 @@
+---
+title: Design System Inventory
+description: Inventario completo del estado actual del Design System de Medmo.
+status: audit-complete
+version: 0.1.0
+lastUpdated: 2026-07-17
+---
+
+# Design System Inventory
+
+> **Propósito de este documento**
+>
+> Registrar con precisión el estado actual del producto antes de construir cualquier componente nuevo.
+> Este inventario es la fuente de verdad para decisiones de arquitectura, unificación y eliminación.
+
+---
+
+## Resumen ejecutivo
+
+| Métrica | Valor |
+|---------|-------|
+| Componentes primitivos instalados | 19 |
+| Componentes compuestos | 0 |
+| Patrones implementados | 0 |
+| Templates implementados | 0 |
+| Componentes de dominio | 0 |
+| Tokens TypeScript (legacy) | **Eliminados** (Hardening) — API en `foundations/tokens/` |
+| Tokens CSS activos | **11 Foundations** agregadas en `foundations/tokens/index.css` |
+| Brand identity aplicada | **No** |
+| Tipografía oficial aplicada | **No** |
+| Componentes en uso en la app | **0** |
+
+**Diagnóstico (2026-07-17, post-Hardening):** Foundations completas en `foundations/`. Legacy tokens en `src/lib/design-system/tokens/` eliminados. API pública en `@medmo/tokens`. Technical Setup (Phase 3) pendiente — `globals.css` aún no importa foundations.
+
+> **Nota:** Las secciones 2.2–2.3 documentan el estado **pre-Foundations** al momento del audit inicial. Los hallazgos de tokens huérfanos fueron resueltos en Hardening.
+
+---
+
+## Metodología de auditoría
+
+Se auditaron todos los archivos de interfaz en el repositorio:
+
+- `src/components/ui/` — 19 componentes
+- `src/lib/utils.ts` — utilidad `cn()`
+- `src/app/` — layout, página principal, globals.css
+- `components.json` — configuración shadcn
+- `public/` — assets estáticos
+- Dependencias UI en `package-lock.json`
+
+**Alcance excluido:** `node_modules`, código de terceros.
+
+---
+
+## 1. Foundations
+
+Foundations son las bases visuales y técnicas sobre las que se construye todo el sistema.
+
+### 1.1 Framework y runtime
+
+| Elemento | Estado actual | Propósito | Veredicto |
+|---------|---------------|-----------|-----------|
+| Next.js 16.2 (App Router) | Activo | Framework de aplicación y documentación | **Mantener** |
+| React 19.2 | Activo | Runtime de componentes | **Mantener** |
+| TypeScript | Activo | Tipado estático | **Mantener** |
+| Tailwind CSS v4 | Activo | Sistema de utilidades CSS | **Mantener** — alinear con tokens Medmo |
+
+### 1.2 Librerías de UI
+
+| Elemento | Estado actual | Propósito | Veredicto |
+|---------|---------------|-----------|-----------|
+| shadcn/ui v4 (`base-nova`) | Activo | Generador y convenciones de componentes | **Mantener** — personalizar hacia Medmo |
+| Base UI (`@base-ui/react`) | Activo | Primitivos headless (no Radix) | **Mantener** — capa de accesibilidad |
+| class-variance-authority | Activo | Variantes tipadas (Button, Badge, Tabs) | **Mantener** |
+| lucide-react | Activo | Iconografía | **Mantener** — estandarizar tamaños |
+| clsx + tailwind-merge | Activo | Composición de clases via `cn()` | **Mantener** |
+| next-themes | Instalado, no conectado | Toggle light/dark | **Unificar** — conectar en layout |
+| sonner | Instalado, no conectado | Notificaciones toast | **Mantener** — montar en layout |
+| tw-animate-css | Activo | Animaciones de entrada/salida | **Mantener** — alinear con motion tokens |
+
+### 1.3 Librerías instaladas sin implementar
+
+| Elemento | Propósito previsto | Veredicto |
+|---------|-------------------|-----------|
+| react-hook-form + zod + @hookform/resolvers | Sistema de formularios | **Mantener** — implementar en capa Composite |
+| @tanstack/react-table | Tablas de datos | **Mantener** — implementar en capa Pattern |
+| next-mdx-remote + gray-matter + shiki | Sitio de documentación | **Mantener** — implementar para docs vivos |
+| recharts | Gráficos | **No instalado aún** — agregar cuando se documenten charts |
+
+### 1.4 Tipografía
+
+| Elemento | Estado actual | Inconsistencias | Veredicto |
+|---------|---------------|-----------------|-----------|
+| Fuente cargada | Geist Sans + Geist Mono (`next/font`) | No es IBM Plex Sans Condensed | **Reemplazar** |
+| Token `--font-sans` | `var(--font-sans)` en globals.css | **Referencia circular** — Geist nunca se aplica | **Corregir** |
+| Token `--font-heading` | Hereda `--font-sans` roto | Sin escala tipográfica definida | **Redefinir** |
+| Token `--font-mono` | `var(--font-geist-mono)` | Funcional pero no alineado a Medmo | **Evaluar** — monoespaciada para código/datos |
+
+**Oportunidad de estandarización:** Definir escala tipográfica completa (display, h1–h6, body, caption, overline) basada en IBM Plex Sans Condensed con pesos 300–700.
+
+### 1.5 Color e identidad de marca
+
+| Elemento | Estado actual | Inconsistencias | Veredicto |
+|---------|---------------|-----------------|-----------|
+| Color primario | `oklch(0.205 0 0)` — negro neutro | **No es `#242F50`** | **Reemplazar** |
+| Paleta semántica | Neutral shadcn (background, muted, accent, destructive) | Sin colores de estado médico (success, warning, info) | **Extender** |
+| Sidebar tokens | 8 variables CSS definidas | Sin componente Sidebar | **Mantener tokens** — usar cuando exista Sidebar |
+| Chart tokens | 5 variables en escala de grises | Sin colores de datos diferenciados | **Redefinir** |
+| Dark mode | CSS `.dark` definido | Sin ThemeProvider ni toggle | **Completar infraestructura** |
+
+### 1.6 Theming e infraestructura
+
+| Elemento | Estado actual | Veredicto |
+|---------|---------------|-----------|
+| CSS variables en `:root` / `.dark` | Activo | **Mantener** — migrar a tokens Medmo |
+| ThemeProvider | No montado en layout | **Implementar** |
+| Toaster (Sonner) | No montado en layout | **Implementar** |
+| TooltipProvider | No montado en layout | **Implementar** |
+| Metadata de app | "Create Next App" | **Reemplazar** con identidad Medmo |
+
+### 1.7 Assets
+
+| Asset | Ubicación | Uso | Veredicto |
+|-------|-----------|-----|-----------|
+| next.svg, vercel.svg | `public/` | Homepage boilerplate | **Eliminar** de producto |
+| globe.svg, window.svg, file.svg | `public/` | Sin uso | **Eliminar** |
+| Logo Medmo | No existe | — | **Crear** |
+| Favicon Medmo | No existe | — | **Crear** |
+
+---
+
+## 2. Design Tokens
+
+### 2.1 Tokens CSS activos (`src/app/globals.css`)
+
+Estos tokens están conectados a Tailwind via `@theme inline` y son los únicos tokens realmente funcionales hoy.
+
+#### Colores semánticos
+
+| Token | Valor light | Valor dark | Usado por | Veredicto |
+|-------|-------------|------------|-----------|-----------|
+| `--background` | white | near-black | body, surfaces | **Mantener** — ajustar tono Medmo |
+| `--foreground` | near-black | near-white | texto principal | **Mantener** |
+| `--primary` | achromatic dark | achromatic light | Button, Checkbox, Switch, links | **Reemplazar** con `#242F50` |
+| `--primary-foreground` | white | near-black | texto sobre primary | **Recalcular** |
+| `--secondary` | gray-100 | gray-800 | Button secondary | **Mantener** — derivar de neutral Medmo |
+| `--muted` | gray-100 | gray-800 | fondos sutiles | **Mantener** |
+| `--muted-foreground` | gray-500 | gray-400 | texto secundario | **Mantener** |
+| `--accent` | gray-100 | gray-800 | hover states | **Mantener** |
+| `--destructive` | red-orange | lighter red | acciones destructivas | **Mantener** — verificar contraste WCAG |
+| `--border` | gray-200 | white/10% | bordes | **Mantener** — posiblemente más sutil |
+| `--input` | gray-200 | white/15% | bordes de inputs | **Mantener** |
+| `--ring` | gray-400 | gray-500 | focus rings | **Recalcular** desde primary |
+| `--card` / `--card-foreground` | white / near-black | dark / white | Card | **Mantener** |
+| `--popover` / `--popover-foreground` | white / near-black | dark / white | Select, Dialog, Tooltip | **Mantener** |
+| `--sidebar-*` (8 tokens) | definidos | definidos | Sin componente | **Mantener** para futuro |
+| `--chart-1` a `--chart-5` | grayscale | grayscale | Sin charts | **Redefinir** |
+
+#### Radius
+
+| Token | Derivación | Veredicto |
+|-------|-----------|-----------|
+| `--radius` | `0.625rem` (10px) | **Mantener** como base |
+| `--radius-sm` a `--radius-4xl` | Multiplicadores de `--radius` | **Mantener** — documentar escala |
+
+#### Tipografía (CSS)
+
+| Token | Estado | Veredicto |
+|-------|--------|-----------|
+| `--font-sans` | Referencia circular | **Corregir** |
+| `--font-mono` | Funcional (Geist Mono) | **Reemplazar** o mantener para código |
+| `--font-heading` | Hereda sans roto | **Corregir** |
+
+### 2.2 Tokens TypeScript legacy — RESUELTO (Hardening)
+
+Los archivos `src/lib/design-system/tokens/{spacing,elevation,motion}.ts` fueron **eliminados**. La API pública vive en `foundations/tokens/` (`@medmo/tokens`).
+
+~~#### spacing.ts~~ — eliminado  
+~~#### elevation.ts~~ — eliminado (no elevation API en Medmo)  
+~~#### motion.ts~~ — eliminado
+
+### 2.3 Tokens faltantes (no existen en ninguna capa)
+
+| Categoría | Tokens necesarios | Prioridad |
+|-----------|------------------|-----------|
+| **Colors** | primary, neutral scale, success, warning, info, surface layers | Crítica |
+| **Typography** | font-family, size scale, line-height, letter-spacing, weight | Crítica |
+| **Spacing** | Escala 0–24 (TS existe, CSS no) | Alta |
+| **Radius** | Documentación de escala existente | Media |
+| **Elevation** | Sombras sutiles (TS existe, CSS no) | Alta |
+| **Motion** | Duraciones y curvas (TS existe, CSS no) | Media |
+| **Icons** | Tamaños (xs, sm, md, lg), stroke width | Alta |
+| **Z-index** | modal, popover, toast, tooltip, overlay | Alta |
+| **Opacity** | disabled, hover, overlay | Media |
+| **Breakpoints** | sm, md, lg, xl, 2xl | Media |
+
+### 2.4 Valores hardcodeados detectados
+
+| Ubicación | Valor | Problema | Veredicto |
+|-----------|-------|----------|-----------|
+| `switch.tsx` | `h-[18.4px]`, `w-[32px]`, `h-[14px]`, `w-[24px]` | Dimensiones mágicas | **Tokenizar** |
+| `checkbox.tsx` | `rounded-[4px]` | Radius fuera de escala | **Unificar** con `--radius-sm` |
+| `dialog.tsx` | `bg-black/10` overlay | Color hardcodeado | **Tokenizar** como `--overlay` |
+| `tooltip.tsx` | `max-w-xs`, offsets px | Layout hardcodeado | **Tokenizar** |
+| `page.tsx` | `#383838`, `#ccc`, `#1a1a1a`, `zinc-*` | Bypass total del DS | **Eliminar** — reemplazar homepage |
+| Varios | `ring-3` vs `ring-[3px]` | Inconsistencia de sintaxis | **Estandarizar** a `ring-3` |
+| Varios | `sideOffset=4`, `h-8`, `h-7`, `p-2` | Spacing implícito | **Mapear** a spacing tokens |
+
+---
+
+## 3. Primitive Components
+
+Primitivos son piezas atómicas, sin lógica de negocio, construidas sobre Base UI o elementos nativos. Todos viven en `src/components/ui/`.
+
+**Convenciones compartidas detectadas:**
+- Atributo `data-slot` para identificación
+- Focus ring: `focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50`
+- Invalid state: `aria-invalid:border-destructive aria-invalid:ring-destructive/20`
+- Altura de control default: `h-8`, small: `h-7`
+- Border radius default: `rounded-lg`
+
+---
+
+### 3.1 Button
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/button.tsx` |
+| **Propósito** | Disparador de acciones primarias y secundarias |
+| **Dependencia** | `@base-ui/react/button` |
+| **Variantes** | `default`, `outline`, `secondary`, `ghost`, `destructive`, `link` |
+| **Tamaños** | `default` (h-8), `xs` (h-6), `sm` (h-7), `lg` (h-9), `icon`, `icon-xs`, `icon-sm`, `icon-lg` |
+| **Estados** | hover, active (`translate-y-px`), disabled (`opacity-50`), focus-visible, `aria-invalid`, `aria-expanded` |
+| **Duplicados** | Ninguno |
+| **Inconsistencias** | Secondary usa `color-mix()` inline; primary no refleja `#242F50` |
+| **Estandarización** | Excelente base CVA; exporta `buttonVariants` para composición |
+| **Veredicto** | **Mantener** — personalizar tokens, base para IconButton/SplitButton/DropdownButton |
+
+---
+
+### 3.2 Input
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/input.tsx` |
+| **Propósito** | Campo de texto de una línea |
+| **Dependencia** | `@base-ui/react/input` |
+| **Variantes** | Ninguna |
+| **Tamaños** | Fijo `h-8`; responsive `text-base md:text-sm` |
+| **Estados** | focus-visible, disabled, `aria-invalid`, placeholder |
+| **Duplicados** | Ninguno |
+| **Inconsistencias** | Textarea usa `<textarea>` nativo, Input usa Base UI — primitivos diferentes |
+| **Estandarización** | Patrón de invalid/focus consistente con el resto |
+| **Veredicto** | **Mantener** — agregar variantes de tamaño si se necesitan |
+
+---
+
+### 3.3 Textarea
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/textarea.tsx` |
+| **Propósito** | Campo de texto multilínea |
+| **Dependencia** | Elemento nativo `<textarea>` |
+| **Variantes** | Ninguna |
+| **Tamaños** | `min-h-16`, auto-sizing via `field-sizing-content` |
+| **Estados** | Mismo patrón que Input |
+| **Duplicados** | Ninguno |
+| **Inconsistencias** | No usa Base UI (Input sí); estilos duplicados manualmente |
+| **Estandarización** | Extraer estilos compartidos de form control a token/mixin |
+| **Veredicto** | **Mantener** — unificar primitivo base con Input |
+
+---
+
+### 3.4 Select
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/select.tsx` |
+| **Propósito** | Selección de opciones en dropdown |
+| **Dependencia** | `@base-ui/react/select` |
+| **Sub-componentes** | Root, Group, Value, Trigger, Content, Label, Item, Separator, ScrollUpButton, ScrollDownButton |
+| **Tamaños** | Trigger: `sm` (h-7), `default` (h-8) |
+| **Estados** | open/close con animaciones, disabled, placeholder, `aria-invalid`, focus |
+| **Duplicados** | Ninguno (Combobox no existe aún) |
+| **Inconsistencias** | Trigger usa `w-fit` vs Input/Textarea `w-full` |
+| **Estandarización** | Buena composición; falta variante full-width |
+| **Veredicto** | **Mantener** — agregar prop `fullWidth`; base para Combobox |
+
+---
+
+### 3.5 Checkbox
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/checkbox.tsx` |
+| **Propósito** | Toggle booleano |
+| **Dependencia** | `@base-ui/react/checkbox` |
+| **Variantes** | Ninguna |
+| **Tamaños** | Fijo `size-4` (16px) |
+| **Estados** | checked, disabled, `aria-invalid`, focus |
+| **Duplicados** | Ninguno |
+| **Inconsistencias** | `rounded-[4px]` hardcodeado vs escala de radius |
+| **Estandarización** | Hit area expandida con pseudo-elemento — buen patrón a11y |
+| **Veredicto** | **Mantener** — alinear radius con tokens |
+
+---
+
+### 3.6 Radio Group
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/radio-group.tsx` |
+| **Propósito** | Selección única dentro de un grupo |
+| **Dependencia** | `@base-ui/react/radio`, `@base-ui/react/radio-group` |
+| **Sub-componentes** | `RadioGroup`, `RadioGroupItem` |
+| **Tamaños** | Fijo `size-4` |
+| **Estados** | checked, disabled, `aria-invalid`, focus |
+| **Duplicados** | Ninguno |
+| **Inconsistencias** | Patrón checked idéntico a Checkbox — correcto |
+| **Veredicto** | **Mantener** |
+
+---
+
+### 3.7 Switch
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/switch.tsx` |
+| **Propósito** | Toggle on/off |
+| **Dependencia** | `@base-ui/react/switch` |
+| **Tamaños** | `default` (18.4×32px), `sm` (14×24px) |
+| **Estados** | checked/unchecked, disabled, `aria-invalid`, focus |
+| **Duplicados** | Ninguno |
+| **Inconsistencias** | **Componente más off-token** — todas las dimensiones en px hardcodeados |
+| **Estandarización** | Migrar dimensiones a spacing/size tokens |
+| **Veredicto** | **Mantener** — refactorizar a tokens |
+
+---
+
+### 3.8 Badge
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/badge.tsx` |
+| **Propósito** | Etiqueta de estado o categoría |
+| **Dependencia** | `@base-ui/react/merge-props`, `@base-ui/react/use-render` |
+| **Variantes** | `default`, `secondary`, `destructive`, `outline`, `ghost`, `link` |
+| **Tamaños** | Fijo `h-5`, `text-xs` |
+| **Estados** | focus-visible, `aria-invalid`, hover en links |
+| **Duplicados** | Solapamiento parcial con Button variant `link` |
+| **Inconsistencias** | Focus ring usa `ring-[3px]` vs `ring-3` en otros |
+| **Veredicto** | **Mantener** — agregar tamaños sm/lg; base para StatusBadge de dominio |
+
+---
+
+### 3.9 Avatar
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/avatar.tsx` |
+| **Propósito** | Imagen de perfil con fallback |
+| **Dependencia** | `@base-ui/react/avatar` |
+| **Sub-componentes** | Root, Image, Fallback, Badge, Group, GroupCount |
+| **Tamaños** | `sm` (24px), `default` (32px), `lg` (40px) |
+| **Estados** | fallback cuando imagen falla |
+| **Duplicados** | Ninguno |
+| **Inconsistencias** | `mix-blend-darken/lighten` hardcodeado en overlay |
+| **Veredicto** | **Mantener** — base para ProviderAvatar, PatientAvatar (dominio) |
+
+---
+
+### 3.10 Card
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/card.tsx` |
+| **Propósito** | Contenedor de contenido agrupado |
+| **Dependencia** | Ninguna (divs nativos) |
+| **Sub-componentes** | Card, Header, Title, Description, Action, Content, Footer |
+| **Tamaños** | `default`, `sm` (via `--card-spacing` CSS var) |
+| **Estados** | Ninguno interactivo |
+| **Duplicados** | Ninguno |
+| **Inconsistencias** | Usa `--spacing(4)` de Tailwind v4 — buen uso de tokens nativos |
+| **Veredicto** | **Mantener** — excelente composición; base para StatCard, PatientCard |
+
+---
+
+### 3.11 Table
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/table.tsx` |
+| **Propósito** | Display tabular de datos |
+| **Dependencia** | Elementos nativos `<table>` |
+| **Sub-componentes** | Table, Header, Body, Footer, Row, Head, Cell, Caption |
+| **Tamaños** | Header `h-10`, cells `p-2` |
+| **Estados** | row hover, selected (`data-[state=selected]`), expanded |
+| **Duplicados** | Ninguno (DataTable pattern no existe) |
+| **Inconsistencias** | `@tanstack/react-table` instalado pero no conectado |
+| **Veredicto** | **Mantener** — primitivo base para Pattern DataTable |
+
+---
+
+### 3.12 Tabs
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/tabs.tsx` |
+| **Propósito** | Navegación por pestañas |
+| **Dependencia** | `@base-ui/react/tabs` |
+| **Sub-componentes** | Tabs, List, Trigger, Content |
+| **Variantes (List)** | `default` (pill muted), `line` (underline indicator) |
+| **Orientación** | horizontal (default), vertical |
+| **Estados** | active, disabled, focus |
+| **Duplicados** | Ninguno |
+| **Inconsistencias** | Focus ring `ring-[3px]` |
+| **Veredicto** | **Mantener** — exporta `tabsListVariants` para composición |
+
+---
+
+### 3.13 Dialog
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/dialog.tsx` |
+| **Propósito** | Modal overlay para acciones y confirmaciones |
+| **Dependencia** | `@base-ui/react/dialog` |
+| **Sub-componentes** | Root, Trigger, Portal, Close, Overlay, Content, Header, Footer, Title, Description |
+| **Props** | `showCloseButton` en Content/Footer |
+| **Estados** | open/close con animaciones |
+| **Duplicados** | Solapamiento futuro con AlertDialog, Sheet |
+| **Inconsistencias** | Overlay `bg-black/10` hardcodeado; max-width `sm:max-w-sm` fijo |
+| **Veredicto** | **Mantener** — base para ModalForm template |
+
+---
+
+### 3.14 Tooltip
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/tooltip.tsx` |
+| **Propósito** | Información contextual al hover/focus |
+| **Dependencia** | `@base-ui/react/tooltip` |
+| **Sub-componentes** | Provider, Root, Trigger, Content |
+| **Defaults** | `delay=0`, `side=top`, `sideOffset=4` |
+| **Estados** | open/close |
+| **Duplicados** | Ninguno |
+| **Inconsistencias** | Provider no montado en layout |
+| **Veredicto** | **Mantener** — montar Provider globalmente |
+
+---
+
+### 3.15 Scroll Area
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/scroll-area.tsx` |
+| **Propósito** | Contenedor con scrollbar personalizado |
+| **Dependencia** | `@base-ui/react/scroll-area` |
+| **Sub-componentes** | ScrollArea, ScrollBar |
+| **Estados** | Ninguno |
+| **Veredicto** | **Mantener** |
+
+---
+
+### 3.16 Separator
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/separator.tsx` |
+| **Propósito** | Divisor visual |
+| **Dependencia** | `@base-ui/react/separator` |
+| **Orientación** | horizontal (default), vertical |
+| **Veredicto** | **Mantener** |
+
+---
+
+### 3.17 Skeleton
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/skeleton.tsx` |
+| **Propósito** | Placeholder de carga |
+| **Dependencia** | Ninguna |
+| **Animación** | `animate-pulse` |
+| **Duplicados** | Solapamiento con Spinner para loading states |
+| **Veredicto** | **Mantener** — usar en Pattern LoadingState |
+
+---
+
+### 3.18 Spinner
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/spinner.tsx` |
+| **Propósito** | Indicador de carga activa |
+| **Dependencia** | lucide `Loader2Icon` |
+| **Tamaños** | Default `size-4` |
+| **A11y** | `role="status"`, `aria-label="Loading"` |
+| **Duplicados** | Spinner en Sonner usa Loader2Icon también |
+| **Veredicto** | **Mantener** — agregar tamaños sm/md/lg |
+
+---
+
+### 3.19 Sonner (Toaster)
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/ui/sonner.tsx` |
+| **Propósito** | Notificaciones toast |
+| **Dependencia** | `sonner`, `next-themes` |
+| **Variantes** | success, info, warning, error, loading (via iconos lucide) |
+| **Estados** | Mapeados a tokens CSS via inline style |
+| **Duplicados** | Ninguno |
+| **Inconsistencias** | No montado; depende de ThemeProvider ausente |
+| **Veredicto** | **Mantener** — montar en layout raíz |
+
+---
+
+### 3.20 Primitivos faltantes (instalados en shadcn pero no en repo)
+
+Estos primitivos son necesarios para completar el sistema y están referenciados en la estructura de documentación objetivo:
+
+| Componente | Prioridad | Justificación |
+|------------|-----------|---------------|
+| Label | Crítica | Requerido para Form system |
+| Popover | Alta | Base para Combobox, DatePicker |
+| Dropdown Menu | Alta | Acciones contextuales, SplitButton |
+| Command | Alta | Base para Combobox, search |
+| Alert | Alta | Feedback inline |
+| Alert Dialog | Alta | Confirmaciones destructivas |
+| Sheet / Drawer | Media | Paneles laterales |
+| Sidebar | Media | Tokens ya existen |
+| Progress | Media | Loading de procesos |
+| Breadcrumb | Media | Navegación |
+| Pagination | Media | Listas paginadas |
+| Calendar / DatePicker | Media | Formularios médicos |
+| Collapsible | Baja | Acordeones |
+| Toggle / Toggle Group | Baja | Filtros |
+| Slider | Baja | Rangos numéricos |
+
+---
+
+## 4. Composite Components
+
+Componentes compuestos combinan primitivos para resolver interacciones comunes. **Ninguno existe actualmente.**
+
+| Componente compuesto | Primitivos base | Estado | Veredicto |
+|---------------------|-----------------|--------|-----------|
+| FormField | Label + Input/Select/Checkbox + error message | No existe | **Crear** |
+| InputGroup | Input + Button/Icon prefix/suffix | No existe | **Crear** |
+| IconButton | Button size=icon | No existe como wrapper | **Crear** — composición de Button |
+| SearchInput | Input + Search icon | No existe | **Crear** |
+| Form | react-hook-form + FormField[] | Deps instaladas, no implementado | **Crear** |
+| ButtonGroup | Button[] | No existe | **Crear** |
+| StatCard | Card + typography + badge | No existe | **Crear** |
+| ConfirmDialog | AlertDialog + Button | No existe | **Crear** |
+
+---
+
+## 5. Patterns
+
+Patrones son composiciones de componentes que resuelven escenarios UX recurrentes. **Ninguno existe actualmente.**
+
+| Pattern | Componentes involucrados | Estado | Prioridad |
+|---------|-------------------------|--------|-----------|
+| Data Table | Table + TanStack Table + Pagination + Sort | No existe | Crítica |
+| Page Header | Title + Description + Actions (Button) | No existe | Alta |
+| Search Toolbar | SearchInput + FilterButton + Actions | No existe | Alta |
+| Filter Toolbar | Select/Checkbox + Badge + Clear | No existe | Alta |
+| Form Layout | Form + FormField grid + Submit | No existe | Alta |
+| Empty State | Icon + Title + Description + CTA | No existe | Alta |
+| Loading State | Skeleton grid / Spinner overlay | No existe | Alta |
+| Error State | Alert + Retry Button | No existe | Media |
+| Notification Stack | Sonner (montado) | Parcial — componente existe, no montado | Alta |
+
+---
+
+## 6. Templates
+
+Templates son layouts de página completos que combinan patterns. **Ninguno existe actualmente.**
+
+| Template | Patterns involucrados | Estado | Prioridad |
+|----------|----------------------|--------|-----------|
+| Dashboard | Sidebar + PageHeader + StatCards + Charts | No existe | Alta |
+| List Page | PageHeader + SearchToolbar + DataTable + Pagination | No existe | Crítica |
+| Detail Page | PageHeader + Tabs + Card sections | No existe | Alta |
+| Settings Page | Sidebar nav + Form Layout sections | No existe | Media |
+| Modal Form | Dialog + Form Layout + Actions | No existe | Alta |
+
+**Estado actual de la app:**
+
+| Elemento | Archivo | Problema | Veredicto |
+|---------|---------|----------|-----------|
+| Homepage | `src/app/page.tsx` | Boilerplate create-next-app con colores hardcodeados | **Eliminar** — reemplazar con docs landing |
+| App shell | `src/app/layout.tsx` | Sin providers, metadata genérica, fuente incorrecta | **Reemplazar** |
+
+---
+
+## 7. Domain Components
+
+Componentes específicos del dominio médico de Medmo. **Ninguno existe actualmente.**
+
+Estos componentes viven fuera del Design System core y consumen primitivos/patterns:
+
+| Componente | Composición base | Prioridad |
+|------------|-----------------|-----------|
+| PatientCard | Card + Avatar + Badge + metadata | Futura |
+| ProviderAvatar | Avatar + status indicator | Futura |
+| AppointmentBadge | Badge + date/time formatting | Futura |
+| MedicalStatusIndicator | Badge variant + color semántico | Futura |
+| ClinicalTimeline | Vertical list + Card + Separator | Futura |
+| VitalSignDisplay | StatCard + trend indicator | Futura |
+| OrderStatusChip | Badge + icon + color de estado | Futura |
+
+**Regla:** Los domain components nunca redefinen tokens ni primitivos. Consumen el Design System.
+
+---
+
+## 8. Utilidades compartidas
+
+| Utilidad | Archivo | Propósito | Veredicto |
+|----------|---------|-----------|-----------|
+| `cn()` | `src/lib/utils.ts` | Merge de clases Tailwind | **Mantener** |
+
+**Faltantes:**
+
+| Utilidad | Propósito | Veredicto |
+|----------|-----------|-----------|
+| `foundations/tokens/index.ts` | API pública `@medmo/tokens` | **Completado** (Hardening) |
+| `src/hooks/` | Hooks compartidos (useMediaQuery, useDebounce) | **Crear** — alias ya configurado |
+
+---
+
+## 9. Mapa de inconsistencias globales
+
+| # | Inconsistencia | Componentes afectados | Severidad | Acción |
+|---|---------------|----------------------|-----------|--------|
+| 1 | Primary color no es `#242F50` | Todos los que usan `bg-primary` | Crítica | Migrar en Foundations |
+| 2 | Fuente Geist en lugar de IBM Plex | Global | Crítica | Migrar en Foundations |
+| 3 | ~~Tokens TS huérfanos~~ | **Resuelto** — eliminados; API en `@medmo/tokens` | — | Hardening |
+| 4 | Focus ring `ring-3` vs `ring-[3px]` | Tabs, Badge, ScrollArea vs resto | Baja | Estandarizar |
+| 5 | Select `w-fit` vs Input `w-full` | Select, Input | Media | Agregar prop fullWidth |
+| 6 | Switch dimensiones hardcodeadas | Switch | Media | Tokenizar |
+| 7 | Textarea nativo vs Input Base UI | Input, Textarea | Baja | Documentar decisión |
+| 8 | ThemeProvider/Toaster/TooltipProvider no montados | Global | Alta | Conectar en layout |
+| 9 | 19 componentes sin uso en app | Todos | Info | Crear docs con previews |
+| 10 | Sidebar tokens sin componente | globals.css | Info | Instalar Sidebar cuando se necesite |
+| 11 | `package.json` ausente | Proyecto | Alta | Restaurar desde lockfile |
+
+---
+
+## 10. Resumen de veredictos
+
+| Categoría | Mantener | Unificar | Reemplazar | Eliminar | Crear |
+|-----------|----------|----------|------------|----------|-------|
+| Foundations | 8 | 2 | 3 | 3 | 4 |
+| Design Tokens | 12 | 6 | 4 | 0 | 8 |
+| Primitives | 19 | 4 | 0 | 0 | 15+ |
+| Composites | 0 | 0 | 0 | 0 | 8 |
+| Patterns | 0 | 0 | 0 | 0 | 9 |
+| Templates | 0 | 0 | 1 | 1 | 5 |
+| Domain | 0 | 0 | 0 | 0 | 7+ |
+
+---
+
+## Próximo paso
+
+Con este inventario completo, el siguiente entregable es el **Blueprint** (`docs/design-system/blueprint.mdx`) que define la arquitectura futura del Design System, seguido de la implementación de **Foundations**.

@@ -1,0 +1,31 @@
+/**
+ * Medmo Opacity System — CSS Custom Properties
+ *
+ * Public API (entire surface):
+ *   --opacity-subtle, --opacity-muted
+ *   --opacity-skeleton-from, --opacity-skeleton-to
+ *
+ * Overlay, focus, disabled alpha live in Colors — not here.
+ */
+
+:root {
+  /* ─── Primitive Opacity (internal — mapped by semantics only) ─────────── */
+  --opacity-20: 0.2;
+  --opacity-60: 0.6;
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * SEMANTIC OPACITY — components consume ONLY these (+ skeleton preset)
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  --opacity-subtle: var(--opacity-20);
+  --opacity-muted: var(--opacity-60);
+
+  /* Preset: skeleton pulse range (pairs with motion-skeleton) */
+  --opacity-skeleton-from: 0.5;
+  --opacity-skeleton-to: 1;
+}
+
+/**
+ * Dark mode: Same values — opacity modifiers are relative to underlying color.
+ * Disabled/overlay/focus: unchanged — use Colors tokens.
+ */

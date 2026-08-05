@@ -1,0 +1,107 @@
+/**
+ * Medmo Breakpoint System — CSS Custom Properties
+ *
+ * Mobile-first responsive behavior. Semantic viewport names are canonical;
+ * Tailwind aliases (sm/md/lg/xl/2xl) map 1:1 for Technical Setup integration.
+ *
+ * Dependency: Spacing primitives (--spacing-*) must be loaded first when
+ * layout-page-padding references them. Token aggregation order in
+ * foundations/tokens/index.css will enforce this.
+ *
+ * Components consume ONLY --container-* and --layout-* semantic tokens.
+ * Never --breakpoint-* or raw px/rem in component styles.
+ */
+
+:root {
+  /* ─── Primitive Breakpoints (internal — @media queries & tooling) ─────────
+   * Min-width values. Base styles apply below compact (< 640px).
+   */
+  --breakpoint-compact: 40rem;   /* 640px — alias: sm */
+  --breakpoint-medium: 48rem;    /* 768px — alias: md */
+  --breakpoint-expanded: 64rem; /* 1024px — alias: lg */
+  --breakpoint-large: 80rem;   /* 1280px — alias: xl */
+  --breakpoint-wide: 96rem;    /* 1536px — alias: 2xl */
+
+  /* ─── Primitive Container Max (internal) ───────────────────────────────── */
+  --container-xs-max: 30rem;  /* 480px */
+  --container-sm-max: 40rem;  /* 640px */
+  --container-md-max: 48rem;  /* 768px */
+  --container-lg-max: 64rem;  /* 1024px */
+  --container-xl-max: 80rem;  /* 1280px */
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * SEMANTIC CONTAINERS — components consume ONLY these
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  --container-xs: var(--container-xs-max);
+  --container-sm: var(--container-sm-max);
+  --container-md: var(--container-md-max);
+  --container-lg: var(--container-lg-max);
+  --container-xl: var(--container-xl-max);
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * SEMANTIC LAYOUT — responsive shell tokens (mobile-first base below)
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  /* Narrow base (< compact): tighter inset for small screens */
+  --layout-page-padding: var(--spacing-16);
+  --layout-content-width: 100%;
+  --layout-reading-width: min(100%, 42rem);
+  --layout-dashboard-width: 100%;
+}
+
+/* ─── Compact (sm) ─────────────────────────────────────────────────────────
+ * Why padding increases: Clinical mobile use is quick lookup; compact+ is
+ * sustained work — match space-page (24px) for comfortable inset.
+ */
+@media (min-width: 640px) {
+  :root {
+    --layout-page-padding: var(--spacing-24);
+    --layout-content-width: min(100%, var(--container-sm));
+  }
+}
+
+/* ─── Medium (md) ──────────────────────────────────────────────────────────
+ * Why container-md: Two-column forms and settings nav + content fit this cap.
+ */
+@media (min-width: 768px) {
+  :root {
+    --layout-content-width: min(100%, var(--container-md));
+  }
+}
+
+/* ─── Expanded (lg) ────────────────────────────────────────────────────────
+ * Why container-lg: List pages and clinical worklists — primary desktop tier.
+ */
+@media (min-width: 1024px) {
+  :root {
+    --layout-content-width: min(100%, var(--container-lg));
+    --layout-dashboard-width: min(100%, var(--container-xl));
+  }
+}
+
+/* ─── Large (xl) ───────────────────────────────────────────────────────────
+ * Dashboard and table layouts stabilize at desktop width.
+ */
+@media (min-width: 1280px) {
+  :root {
+    --layout-content-width: min(100%, var(--container-lg));
+    --layout-dashboard-width: min(100%, var(--container-xl));
+  }
+}
+
+/* ─── Wide (2xl) ─────────────────────────────────────────────────────────────
+ * Why cap at container-xl: Prevents ultra-wide line lengths and table stretch
+ * on 4K monitors — calm interfaces, data scannability preserved.
+ */
+@media (min-width: 1536px) {
+  :root {
+    --layout-content-width: min(100%, var(--container-xl));
+    --layout-dashboard-width: min(100%, var(--container-xl));
+  }
+}
+
+/**
+ * Dark mode: Breakpoint and layout values identical to light.
+ * Density (future): may adjust layout-page-padding via spacing overrides.
+ */

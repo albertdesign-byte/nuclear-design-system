@@ -1,0 +1,124 @@
+---
+title: Foundation Documentation Standard
+description: Estructura estándar para documentar cada Foundation del Design System Medmo.
+status: approved
+version: 1.0.0
+lastUpdated: 2026-07-17
+phase: foundations
+---
+
+# Foundation Documentation Standard
+
+> Cada Foundation documenta **por qué** existe antes de **qué** contiene.
+> Colors es la referencia. Todas las Foundations siguen esta estructura.
+
+---
+
+## Estructura obligatoria
+
+Cada archivo `docs/design-system/foundations/{name}.mdx` debe contener estas secciones **en este orden**:
+
+### 1. Design Intent / Typography Intent
+
+Explica por qué existe esta Foundation. Responde:
+
+- ¿Qué problema resuelve en una plataforma médica de 8+ horas?
+- ¿Qué principios del Design System aplica?
+- ¿Qué decisiones NO debe tomar un diseñador o desarrollador?
+
+**Referencias:**
+- [colors.mdx — Design Intent](./colors.mdx#design-intent)
+- [typography.mdx — Typography Intent](./typography.mdx#typography-intent)
+- [spacing.mdx — Spacing Intent](./spacing.mdx#spacing-intent)
+
+### 2. Filosofía
+
+Resumen ejecutivo de las decisiones clave y restricciones de la Foundation.
+
+### 3. Arquitectura
+
+Cómo se organizan los tokens (capas, dependencias, flujo primitivo → semántico → CSS).
+
+### 4. Tokens / Escala
+
+Documentación detallada de cada token o step con:
+
+- Propósito
+- Casos de uso
+- Qué NO debe usarlo
+- Ejemplo visual (swatch, escala, medida)
+
+### 5. Reglas de uso
+
+DO / DON'T concretos. Referencia al archivo `rules.md` en `foundations/{name}/` si existe.
+
+### 6. Archivos
+
+Tabla de archivos en `foundations/{name}/` con descripción.
+
+### 7. Import
+
+Cómo se consume en runtime (CSS) vs tooling (TypeScript).
+
+### 8. Futuro (opcional)
+
+Tokens o extensiones planificadas que dependen de esta Foundation.
+
+---
+
+## Design Intent — guía por Foundation
+
+| Foundation | Pregunta central del Design Intent |
+|------------|-----------------------------------|
+| **Colors** | ¿Por qué el color comunica significado y no decoración? |
+| **Typography** | ¿Por qué la legibilidad clínica depende de peso y tamaño, no de color? |
+| **Spacing** | ¿Por qué el espacio es el principal creador de jerarquía? |
+| **Breakpoints** | ¿Por qué el responsive es comportamiento de layout, no solo ancho? |
+| **Radius** | ¿Por qué bordes discretos reducen ruido visual? |
+| **Shadows** | ¿Por qué la profundidad es tonal y la sombra solo refuerza? |
+| **Motion** | ¿Por qué el movimiento explica cambios y nunca decora? |
+| **Opacity** | ¿Por qué la opacidad es último recurso y Colors posee el alpha semántico? |
+| **Z-Index** | ¿Por qué z-index es prioridad de interacción, no profundidad visual? |
+| **Iconography** | ¿Por qué los iconos refuerzan texto y nunca lo reemplazan? |
+| **Density** | ¿Por qué la densidad es una preferencia de usuario, no un rediseño? |
+
+---
+
+## Token Creation Principle
+
+> Menos tokens, más intención.
+
+Antes de crear un token en cualquier Foundation:
+
+> "¿Este token representa una decisión de diseño reutilizable o simplemente un valor?"
+
+| Respuesta | Acción |
+|-----------|--------|
+| Solo un valor | Primitivo interno — no expuesto en componentes |
+| Intención compartida | Semantic token o preset |
+| Dos tokens siempre juntos | Evaluar merge en preset |
+| Un solo consumidor | Probablemente no debe existir |
+
+Cada Foundation debe intentar **REDUCIR** tokens antes de aumentarlos. La simplicidad es criterio de calidad.
+
+Implementación: [`foundations/token-principle.ts`](../../../foundations/token-principle.ts)
+
+Referencia aplicada: [Opacity](./opacity.mdx) — API mínima (2 semantic + 1 preset).
+
+---
+
+Una Foundation no está documentada hasta que:
+
+- [ ] Tiene sección **Design Intent** / **Typography Intent** completa
+- [ ] Cada token/step tiene propósito, uso, anti-patterns
+- [ ] Incluye ejemplos visuales (no screenshots)
+- [ ] Reglas DO/DON'T documentadas
+- [ ] Roadmap actualizado con estado completado
+
+---
+
+## Referencia canónica
+
+- [Colors](./colors.mdx) — Design Intent + Primitive → Semantic
+- [Typography](./typography.mdx) — Typography Intent + 12 semantic roles
+- [Spacing](./spacing.mdx) — Spacing Intent + inline/stack/context tokens

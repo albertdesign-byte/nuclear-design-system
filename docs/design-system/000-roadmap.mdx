@@ -1,0 +1,342 @@
+---
+title: Design System Roadmap
+description: Índice maestro del Design System de Medmo. Estado, fases y progreso de construcción.
+status: living-document
+version: 0.3.0
+lastUpdated: 2026-07-17
+---
+
+# Design System Roadmap
+
+> Abre este archivo para entender el estado completo del Design System.
+> Cada fase tiene dependencias claras. Ninguna fase avanza sin completar la anterior.
+
+---
+
+## Visión
+
+Medmo necesita un Design System profesional — no un UI Kit — que funcione como el **lenguaje visual oficial** del producto durante años. Este roadmap documenta cada fase de construcción, su estado actual y sus entregables.
+
+**Regla principal:** El Design System es la única fuente de verdad. Las aplicaciones consumen; nunca redefinen.
+
+---
+
+## Mapa de fases
+
+```
+Principles ──→ Foundations ──→ Technical Setup ──→ Primitives ──→ Composites ──→ Patterns ──→ Templates
+  (filosofía)    (tokens)        (infraestructura)   (átomos)       (moléculas)    (organismos)   (páginas)
+```
+
+**Separación fundamental:**
+
+| Tipo | Qué es | Ejemplos |
+|------|--------|----------|
+| **Design Decisions** | Decisiones visuales y de diseño | Principles, Foundations, component API |
+| **Technical Implementation** | Infraestructura del framework | ThemeProvider, Tailwind mapping, providers |
+
+---
+
+## Estado general
+
+| Fase | Estado | Progreso |
+|------|--------|----------|
+| 0 — Audit | Completado | 100% |
+| 1 — Principles | En progreso | 100% (documentos iniciales) |
+| 2 — Foundations | Completado | 100% |
+| 2b — Hardening | Completado | 100% |
+| 2c — Infraestructura DS | Completado | 100% |
+| 3 — Technical Setup | Completado | 100% |
+| 4 — Component Library | Pendiente | 0% |
+| 5 — Composites | Pendiente | 0% |
+| 6 — Patterns | Pendiente | 0% |
+| 7 — Templates | Pendiente | 0% |
+| 8 — Domain (apps) | Pendiente | 0% |
+
+---
+
+## Fase 0 — Audit
+
+**Estado:** Completado
+
+Documentación del estado actual del producto antes de construir.
+
+| Entregable | Archivo | Estado |
+|------------|---------|--------|
+| Inventario completo | [inventory.mdx](./inventory.mdx) | Completado |
+| Blueprint arquitectónico | [blueprint.mdx](./blueprint.mdx) | Completado |
+
+**Hallazgos clave (histórico):**
+- 19 primitivos shadcn instalados, sin personalización Medmo
+- Brand identity (`#242F50`, IBM Plex Sans Condensed) no aplicada en app
+- Foundations completas en `foundations/` — legacy tokens eliminados en Hardening
+- 0 composites, patterns, templates o domain components
+
+---
+
+## Fase 1 — Principles
+
+**Estado:** Completado (documentos iniciales)
+
+Filosofía del sistema. Define **por qué** antes de **qué**. Ningún token visual se crea sin estos principios.
+
+| Entregable | Archivo | Estado |
+|------------|---------|--------|
+| Brand Language | [principles/brand-language.mdx](./principles/brand-language.mdx) | Completado |
+| Design Principles | [principles/design-principles.mdx](./principles/design-principles.mdx) | Completado |
+| Accessibility | [principles/accessibility.mdx](./principles/accessibility.mdx) | Completado |
+| Motion Philosophy | [principles/motion-philosophy.mdx](./principles/motion-philosophy.mdx) | Completado |
+| Foundation Doc Standard | [foundations/README.mdx](./foundations/README.mdx) | Completado |
+
+**Definición de Done:**
+- [x] Brand language documentado
+- [x] Design principles documentados
+- [x] Accessibility guidelines documentados
+- [ ] Revisión con equipo de diseño y producto
+
+---
+
+## Fase 2 — Foundations
+
+**Estado:** Completado — Hardening aplicado. **STOP** antes de Phase 3.
+
+Lenguaje visual del sistema. Framework-agnostic. Solo decisiones de diseño.
+
+**Ubicación:** `foundations/` (raíz del repositorio)
+
+| # | Foundation | Carpeta | Docs MDX | Estado |
+|---|------------|---------|----------|--------|
+| 1 | Color System | `foundations/colors/` | `foundations/colors.mdx` | **Completado** |
+| 2 | Typography | `foundations/typography/` | `foundations/typography.mdx` | **Completado** |
+| 3 | Spacing | `foundations/spacing/` | `foundations/spacing.mdx` | **Completado** |
+| 4 | Breakpoints | `foundations/breakpoints/` | `foundations/breakpoints.mdx` | **Completado** |
+| 5 | Radius | `foundations/radius/` | `foundations/radius.mdx` | **Completado** |
+| 6 | Shadows | `foundations/shadows/` | `foundations/shadows.mdx` | **Completado** |
+| 7 | Motion | `foundations/motion/` | `foundations/motion.mdx` | **Completado** |
+| 8 | Opacity | `foundations/opacity/` | `foundations/opacity.mdx` | **Completado** |
+| 9 | Z-Index | `foundations/z-index/` | `foundations/z-index.mdx` | **Completado** |
+| 10 | Iconography | `foundations/iconography/` | `foundations/icons.mdx` | **Completado** |
+| 11 | Token Aggregation | `foundations/tokens/` | `foundations/tokens.mdx` | **Completado** |
+| — | **Density** (futuro) | `foundations/density/` | `foundations/density.mdx` | **Planificado** |
+| — | **Data Visualization** (futuro) | `foundations/data-visualization/` | — | **Planificado** |
+
+**Orden de implementación:** Colors → Typography → Spacing → Breakpoints → Radius → Shadows → Motion → Opacity → Z-Index → Iconography → Token Aggregation → *(Density, post Typography+Spacing)* → *(Data Viz, post Patterns)*
+
+**Nota:** No existe foundation Elevation. La profundidad visual se documenta en Shadows como regla de diseño; la API pública son solo tokens `shadow-*`.
+
+**Capas de tokens planificadas (no implementadas):**
+
+| Capa | Estado | Documentación |
+|------|--------|---------------|
+| Interaction Tokens | Planificado | [blueprint.mdx](./blueprint.mdx#interaction-tokens-planificado) |
+| Data Visualization Tokens | Reservado | [blueprint.mdx](./blueprint.mdx#data-visualization-tokens-planificado) |
+| Density Foundation | Planificado | [blueprint.mdx](./blueprint.mdx#density-foundation-planificado) |
+
+**Definición de Done por foundation:**
+- [x] Sección **Design Intent** / **Typography Intent** en documentación MDX
+- [x] Escala primitiva definida
+- [x] Tokens semánticos mapeados
+- [x] CSS custom properties exportadas
+- [x] TypeScript types exportados
+- [x] Documentación MDX con escala visual
+- [x] Validación de contraste (donde aplique)
+
+**Hardening (post-audit):** Ver [FOUNDATION_AUDIT.md](../../FOUNDATION_AUDIT.md) y [HARDENING.md](../../HARDENING.md).
+
+**Evolución futura:** Ver [Decisión: packages/foundations](#decisión-packagesfoundations) en blueprint.
+
+---
+
+## Fase 3 — Technical Setup
+
+**Estado:** Completado
+
+Infraestructura del proyecto. **No contiene decisiones de diseño.**
+
+| Tarea | Estado |
+|-------|--------|
+| Restaurar `package.json` | Completado (Hardening — incluye `exports` para `@medmo/tokens`) |
+| Importar `foundations/tokens/index.css` en `globals.css` | Completado |
+| Mapear tokens a Tailwind `@theme inline` | Completado (`src/app/theme.css`) |
+| Configurar IBM Plex Sans Condensed via `next/font` | Completado (`src/lib/fonts.ts`) |
+| Montar ThemeProvider (next-themes) | Completado |
+| Montar Toaster (Sonner) | Completado |
+| Montar TooltipProvider | Completado |
+| Migrar metadata y layout de app | Completado |
+| Documentar flujo runtime CSS | Completado ([runtime-css.mdx](./technical-setup/runtime-css.mdx)) |
+| Sitio de documentación MDX (routing) | Pendiente |
+| Eliminar boilerplate create-next-app | Completado (shell mínimo) |
+
+**Depende de:** Fase 2 (Foundations) completada.
+
+---
+
+## Fase 4 — Component Library (Primitives)
+
+**Estado:** Pendiente — 19 instalados sin personalizar
+
+Componentes atómicos. Personalización Medmo + documentación MDX.
+
+| Componente | Personalizar | Documentar | Instalar |
+|------------|-------------|------------|----------|
+| Button | Pendiente | Pendiente | Existe |
+| Input | Pendiente | Pendiente | Existe |
+| Textarea | Pendiente | Pendiente | Existe |
+| Select | Pendiente | Pendiente | Existe |
+| Checkbox | Pendiente | Pendiente | Existe |
+| Radio Group | Pendiente | Pendiente | Existe |
+| Switch | Pendiente | Pendiente | Existe |
+| Badge | Pendiente | Pendiente | Existe |
+| Avatar | Pendiente | Pendiente | Existe |
+| Card | Pendiente | Pendiente | Existe |
+| Table | Pendiente | Pendiente | Existe |
+| Tabs | Pendiente | Pendiente | Existe |
+| Dialog | Pendiente | Pendiente | Existe |
+| Tooltip | Pendiente | Pendiente | Existe |
+| Scroll Area | Pendiente | Pendiente | Existe |
+| Separator | Pendiente | Pendiente | Existe |
+| Skeleton | Pendiente | Pendiente | Existe |
+| Spinner | Pendiente | Pendiente | Existe |
+| Sonner | Pendiente | Pendiente | Existe |
+| Label | — | Pendiente | Instalar |
+| Popover | — | Pendiente | Instalar |
+| Dropdown Menu | — | Pendiente | Instalar |
+| Command | — | Pendiente | Instalar |
+| Alert | — | Pendiente | Instalar |
+| Alert Dialog | — | Pendiente | Instalar |
+
+**Definición de Done por primitivo:** Diseñado · Implementado · Usa tokens · Accesible · Documentado · Ejemplos · Exportado · Revisado
+
+**Depende de:** Fase 2 + Fase 3 completadas.
+
+---
+
+## Fase 5 — Composites
+
+**Estado:** Pendiente
+
+| Componente | Estado |
+|------------|--------|
+| FormField | Pendiente |
+| InputGroup | Pendiente |
+| IconButton | Pendiente |
+| SearchInput | Pendiente |
+| Form | Pendiente |
+| ButtonGroup | Pendiente |
+| StatCard | Pendiente |
+| ConfirmDialog | Pendiente |
+
+**Depende de:** Fase 4 (primitivos base: Button, Input, Label, Dialog).
+
+---
+
+## Fase 6 — Patterns
+
+**Estado:** Pendiente
+
+| Pattern | Docs | Estado |
+|---------|------|--------|
+| DataTable | `patterns/data-table.mdx` | Pendiente |
+| PageHeader | `patterns/page-header.mdx` | Pendiente |
+| SearchToolbar | `patterns/search-toolbar.mdx` | Pendiente |
+| FilterToolbar | `patterns/filter-toolbar.mdx` | Pendiente |
+| FormLayout | `patterns/form-layout.mdx` | Pendiente |
+| EmptyState | `patterns/empty-state.mdx` | Pendiente |
+| LoadingState | `patterns/loading-state.mdx` | Pendiente |
+| ErrorState | — | Pendiente |
+| NotificationStack | — | Pendiente |
+
+**Depende de:** Fase 4 + Fase 5.
+
+---
+
+## Fase 7 — Templates
+
+**Estado:** Pendiente
+
+| Template | Docs | Estado |
+|----------|------|--------|
+| DashboardLayout | `templates/dashboard.mdx` | Pendiente |
+| ListPageLayout | `templates/list-page.mdx` | Pendiente |
+| DetailPageLayout | `templates/detail-page.mdx` | Pendiente |
+| SettingsPageLayout | `templates/settings-page.mdx` | Pendiente |
+| ModalFormLayout | `templates/modal-form.mdx` | Pendiente |
+
+**Depende de:** Fase 6 (patterns).
+
+---
+
+## Fase 8 — Domain Components
+
+**Estado:** Pendiente — vive en aplicaciones consumidoras, no en el DS core
+
+| Componente | App | Estado |
+|------------|-----|--------|
+| PatientCard | medmo-app | Pendiente |
+| ProviderAvatar | medmo-app | Pendiente |
+| OrderStatusChip | medmo-app | Pendiente |
+| MedicalStatusIndicator | medmo-app | Pendiente |
+| ClinicalTimeline | medmo-app | Pendiente |
+
+**Depende de:** Fase 4–7 completadas en el DS.
+
+---
+
+## Estructura de documentación
+
+```
+docs/design-system/
+├── 000-roadmap.mdx                 ← Este documento
+├── inventory.mdx
+├── blueprint.mdx
+│
+├── principles/                     ← Fase 1
+│   ├── brand-language.mdx
+│   ├── design-principles.mdx
+│   ├── accessibility.mdx
+│   └── motion-philosophy.mdx
+│
+├── foundations/                    ← Fase 2 (docs MDX)
+│   ├── README.mdx                  ← Estándar Design Intent
+│   ├── colors.mdx
+│   ├── typography.mdx
+│   └── ...
+│
+├── components/                     ← Fase 4
+│   ├── button.mdx
+│   └── ...
+│
+├── patterns/                       ← Fase 6
+│   └── ...
+│
+└── templates/                      ← Fase 7
+    └── ...
+```
+
+---
+
+## Decisiones arquitectónicas registradas
+
+| # | Decisión | Documento |
+|---|----------|-----------|
+| 1 | Separar Design Decisions de Technical Implementation | [blueprint.mdx](./blueprint.mdx) |
+| 2 | Foundations framework-agnostic en `foundations/` | [blueprint.mdx](./blueprint.mdx) |
+| 3 | Posible evolución a `packages/foundations` | [blueprint.mdx](./blueprint.mdx#evolución-futura-packagesfoundations) |
+| 4 | Domain components viven en apps, no en DS | [blueprint.mdx](./blueprint.mdx) |
+| 5 | Color primario `#242F50` inmutable sin autorización | [principles/brand-language.mdx](./principles/brand-language.mdx) |
+| 6 | Interaction Tokens — capa sobre Semantic | [blueprint.mdx](./blueprint.mdx#interaction-tokens-planificado) |
+| 7 | Data Visualization Tokens — separados de UI feedback | [blueprint.mdx](./blueprint.mdx#data-visualization-tokens-planificado) |
+| 8 | Density Foundation — Comfortable / Compact / Dense | [blueprint.mdx](./blueprint.mdx#density-foundation-planificado) |
+| 9 | Motion existe para explicar, no decorar | [principles/motion-philosophy.mdx](./principles/motion-philosophy.mdx) |
+| 10 | Design Intent obligatorio en cada Foundation | [foundations/README.mdx](./foundations/README.mdx) |
+| 11 | Spacing grid 4px base, ritmo 8px, primitivo → semántico | [foundations/spacing.mdx](./foundations/spacing.mdx) |
+| 12 | Sin foundation Elevation — profundidad en Shadows, API solo `shadow-*` | [foundations/shadows.mdx](./foundations/shadows.mdx) |
+| 13 | Menos tokens, más intención — reducir antes de añadir | [foundations/README.mdx](./foundations/README.mdx#token-creation-principle) |
+
+---
+
+## Próximo paso
+
+**Fase 2b — Hardening → STOP antes de Phase 3**
+
+Foundation Audit completado. Hardening aplicado: legacy eliminado, API pública simplificada, subpath exports definidos. Revisar [HARDENING.md](../../HARDENING.md) antes de Technical Setup.

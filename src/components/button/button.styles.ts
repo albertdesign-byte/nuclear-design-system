@@ -1,0 +1,136 @@
+import { cva } from "class-variance-authority";
+
+const focusRing =
+  "focus-visible:border-[var(--color-focus-ring)] focus-visible:ring-[length:var(--focus-ring-width)] focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-[length:var(--focus-ring-offset)]";
+
+const disabledStyles =
+  "disabled:pointer-events-none disabled:border-[var(--color-disabled-border)] disabled:bg-[var(--color-disabled-background)] disabled:text-[var(--color-disabled-text)] disabled:shadow-none";
+
+const labelTypography =
+  "text-[length:var(--text-label-size)] leading-[var(--text-label-line-height)] tracking-[var(--text-label-letter-spacing)] font-medium";
+
+export const buttonVariants = cva(
+  [
+    "group/button inline-flex shrink-0 items-center justify-center border border-transparent",
+    labelTypography,
+    "whitespace-nowrap select-none outline-none",
+    "transition-[var(--motion-hover)]",
+    focusRing,
+    disabledStyles,
+    "aria-expanded:bg-[var(--color-surface-active)]",
+    "aria-invalid:border-[var(--color-error-border)] aria-invalid:ring-[length:var(--focus-ring-width)] aria-invalid:ring-[var(--color-error-border)]/30",
+    "[&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "[&_svg:not([class*='size-'])]:size-4",
+  ].join(" "),
+  {
+    variants: {
+      variant: {
+        primary: "",
+        secondary: "",
+        outline: "",
+        ghost: "border-transparent bg-transparent",
+      },
+      intent: {
+        default: "",
+        danger: "",
+      },
+      size: {
+        sm: [
+          "h-[var(--spacing-28)] min-h-[var(--spacing-28)] px-[var(--space-inline-sm)] gap-[var(--space-inline-sm)]",
+          "rounded-[var(--radius-md)]",
+          "[&_svg:not([class*='size-'])]:size-3.5",
+        ].join(" "),
+        md: [
+          "h-[var(--spacing-32)] min-h-[var(--spacing-32)] px-[var(--space-inline-sm)] gap-[var(--space-inline-sm)]",
+          "rounded-[var(--radius-button)]",
+        ].join(" "),
+        lg: [
+          "h-[var(--spacing-36)] min-h-[var(--spacing-36)] px-[var(--space-inline-md)] gap-[var(--space-inline-sm)]",
+          "rounded-[var(--radius-button)]",
+        ].join(" "),
+        "icon-sm": [
+          "size-[var(--spacing-28)] rounded-[var(--radius-md)] p-0",
+          "[&_svg:not([class*='size-'])]:size-3.5",
+        ].join(" "),
+        "icon-md": "size-[var(--spacing-32)] rounded-[var(--radius-button)] p-0",
+        "icon-lg": "size-[var(--spacing-36)] rounded-[var(--radius-button)] p-0",
+      },
+    },
+    compoundVariants: [
+      {
+        variant: "primary",
+        intent: "default",
+        className: [
+          "bg-[var(--color-action-primary)] text-[var(--color-action-primary-text)]",
+          "hover:bg-[var(--color-action-primary-hover)] active:bg-[var(--color-action-primary-active)]",
+        ].join(" "),
+      },
+      {
+        variant: "primary",
+        intent: "danger",
+        className: [
+          "bg-[var(--color-error-foreground)] text-[var(--color-action-primary-text)]",
+          "hover:bg-[var(--color-error-text)] active:bg-[var(--color-error-foreground)]",
+        ].join(" "),
+      },
+      {
+        variant: "secondary",
+        intent: "default",
+        className: [
+          "bg-[var(--color-surface-muted)] text-[var(--color-text-secondary)]",
+          "border-[var(--color-border-subtle)]",
+          "hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)]",
+          "active:bg-[var(--color-surface-active)]",
+        ].join(" "),
+      },
+      {
+        variant: "secondary",
+        intent: "danger",
+        className: [
+          "bg-[var(--color-error-background)] text-[var(--color-error-text)]",
+          "border-[var(--color-error-border)]",
+          "hover:bg-[var(--color-error-background)] hover:text-[var(--color-error-foreground)]",
+        ].join(" "),
+      },
+      {
+        variant: "outline",
+        intent: "default",
+        className: [
+          "border-[var(--color-border)] bg-[var(--color-background)] text-[var(--color-text-primary)]",
+          "hover:bg-[var(--color-surface-muted)] hover:border-[var(--color-border-strong)]",
+          "active:bg-[var(--color-surface-active)]",
+        ].join(" "),
+      },
+      {
+        variant: "outline",
+        intent: "danger",
+        className: [
+          "border-[var(--color-error-border)] bg-[var(--color-background)] text-[var(--color-error-text)]",
+          "hover:bg-[var(--color-error-background)] hover:border-[var(--color-error-foreground)]",
+        ].join(" "),
+      },
+      {
+        variant: "ghost",
+        intent: "default",
+        className: [
+          "text-[var(--color-text-primary)]",
+          "hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-text-primary)]",
+          "active:bg-[var(--color-surface-active)]",
+        ].join(" "),
+      },
+      {
+        variant: "ghost",
+        intent: "danger",
+        className: [
+          "text-[var(--color-error-text)]",
+          "hover:bg-[var(--color-error-background)] hover:text-[var(--color-error-foreground)]",
+        ].join(" "),
+      },
+    ],
+    defaultVariants: {
+      variant: "primary",
+      intent: "default",
+      size: "md",
+    },
+  }
+);

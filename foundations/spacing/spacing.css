@@ -1,0 +1,97 @@
+/**
+ * Medmo Spacing System — CSS Custom Properties
+ *
+ * Grid: 4px base. Component rhythm: 8px.
+ * Components consume ONLY --space-* semantic tokens. Never --spacing-*.
+ */
+
+:root {
+  /* ─── Primitive Spacing (internal — do not use in components) ────────────
+   * Official scale: 2px hairline + multiples of 4 through 96px.
+   */
+  --spacing-2: 0.125rem;
+  --spacing-4: 0.25rem;
+  --spacing-8: 0.5rem;
+  --spacing-12: 0.75rem;
+  --spacing-16: 1rem;
+  --spacing-20: 1.25rem;
+  --spacing-24: 1.5rem;
+  --spacing-28: 1.75rem;
+  --spacing-32: 2rem;
+  --spacing-36: 2.25rem;
+  --spacing-40: 2.5rem;
+  --spacing-48: 3rem;
+  --spacing-56: 3.5rem;
+  --spacing-64: 4rem;
+  --spacing-72: 4.5rem;
+  --spacing-80: 5rem;
+  --spacing-96: 6rem;
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * SEMANTIC SPACING — components consume ONLY these
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  /* ─── Inline (horizontal) ───────────────────────────────────────────────
+   * Why separate axis: Toolbars and button rows need different rhythm than
+   * vertical form stacks. 8px sm is the default component inline rhythm.
+   */
+  --space-inline-xs: var(--spacing-4);
+  --space-inline-sm: var(--spacing-8);
+  --space-inline-md: var(--spacing-12);
+  --space-inline-lg: var(--spacing-16);
+
+  /* ─── Stack (vertical) ───────────────────────────────────────────────────
+   * Why 16px md default: Matches body line-height rhythm — one "line" of
+   * breathing room between related components without excessive whitespace.
+   */
+  --space-stack-xs: var(--spacing-4);
+  --space-stack-sm: var(--spacing-8);
+  --space-stack-md: var(--spacing-16);
+  --space-stack-lg: var(--spacing-24);
+  --space-stack-xl: var(--spacing-32);
+
+  /* ─── Context: Page ──────────────────────────────────────────────────────
+   * Why 24px: Comfortable page inset without wasting horizontal space on
+   * clinical data tables. Density (future) may reduce to 16px in Compact mode.
+   */
+  --space-page: var(--spacing-24);
+
+  /* ─── Context: Section ─────────────────────────────────────────────────────
+   * Why 48px: Clear visual break between major regions (header → content →
+   * footer) without requiring borders or dividers.
+   */
+  --space-section: var(--spacing-48);
+
+  /* ─── Context: Card ────────────────────────────────────────────────────────
+   * Why 16px: Matches stack-md — card content breathes at same rhythm as
+   * form fields. Calm, not spacious.
+   */
+  --space-card: var(--spacing-16);
+
+  /* ─── Context: Form ────────────────────────────────────────────────────────
+   * Why 16px between fields: Enough separation to distinguish fields in long
+   * clinical forms without excessive scrolling.
+   */
+  --space-form: var(--spacing-16);
+
+  /* ─── Context: Table ───────────────────────────────────────────────────────
+   * Why 8px: Clinical tables prioritize data density. 8px cell padding aligns
+   * to component rhythm while keeping rows scannable.
+   */
+  --space-table: var(--spacing-8);
+
+  /* ─── Context: Dialog ──────────────────────────────────────────────────────
+   * Why 24px: Modals need more inset than cards — focused task, fewer distractions.
+   */
+  --space-dialog: var(--spacing-24);
+
+  /* ─── Context: Extended ──────────────────────────────────────────────────── */
+  --space-form-label: var(--spacing-4);
+  --space-form-group: var(--spacing-32);
+  --space-card-gap: var(--spacing-16);
+}
+
+/**
+ * Dark mode: Spacing values identical to light.
+ * Density (future): data-density="compact|dense" overrides semantic tokens.
+ */

@@ -1,0 +1,122 @@
+---
+title: Button
+description: Acción primaria del Medmo Design System — variant × intent, Foundation tokens, accesible by default.
+status: published
+version: 1.0.0
+lastUpdated: 2026-07-17
+---
+
+# Button
+
+> Commit de acción directa: guardar, confirmar, cancelar, eliminar.
+> Navegación → `Link`. Toggle persistente → componentes dedicados.
+
+## Intent
+
+El Button habilita **acciones inmediatas** en flujos clínicos y administrativos. Una sola acción primary por contexto visual. Danger desaturado para evitar alarm fatigue.
+
+**Fuera de scope:** navegación, selección persistente, FAB mobile.
+
+## Public API
+
+```tsx
+<Button>Guardar cambios</Button>
+<Button variant="outline">Cancelar</Button>
+<Button intent="danger" variant="primary">Eliminar registro</Button>
+<Button loading loadingLabel="Guardando…">Guardar</Button>
+<Button variant="ghost" size="icon-md" aria-label="Eliminar">
+  <TrashIcon />
+</Button>
+```
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `variant` | `primary` \| `secondary` \| `outline` \| `ghost` | `primary` | Énfasis visual |
+| `intent` | `default` \| `danger` | `default` | Semántica de la acción |
+| `size` | `sm` \| `md` \| `lg` \| `icon-sm` \| `icon-md` \| `icon-lg` | `md` | Escala |
+| `loading` | `boolean` | `false` | Spinner + `aria-busy`, deshabilita interacción |
+| `loadingLabel` | `string` | `"Loading"` | Texto para screen readers |
+| `fullWidth` | `boolean` | `false` | Ancho completo del contenedor |
+| `disabled` | `boolean` | `false` | Estado deshabilitado |
+| `type` | `button` \| `submit` \| `reset` | `button` | Tipo nativo |
+| `render` | Base UI render | — | Polimorfismo restringido (ej. `Link`) |
+
+## Variants × Intent
+
+| variant | default | danger |
+|---------|---------|--------|
+| **primary** | Acción principal | Confirmación destructiva |
+| **secondary** | Acción alternativa | Raro — preferir outline/ghost |
+| **outline** | Cancelar, secundaria en forms | Eliminar (baja prioridad) |
+| **ghost** | Toolbar, row actions | Quitar item |
+
+## States
+
+| State | Comportamiento |
+|-------|----------------|
+| Rest | Tokens base por variant × intent |
+| Hover / Active | `--color-action-*-hover/active`, `--color-surface-*` |
+| Focus-visible | `--color-focus-ring`, `--focus-ring-width/offset` |
+| Disabled | `--color-disabled-*` — sin opacity global |
+| Loading | Spinner + `aria-busy` |
+| Expanded | `aria-expanded` → `--color-surface-active` |
+| Invalid | `aria-invalid` → `--color-error-border` |
+
+## Sizes
+
+| Size | Altura | Uso |
+|------|--------|-----|
+| `sm` | 28px | Toolbars densas, headers |
+| `md` | 32px | Default |
+| `lg` | 36px | CTAs prominentes |
+| `icon-*` | Igual altura | Solo icono — `aria-label` obligatorio |
+
+## Tokens consumed
+
+- **Actions:** `--color-action-primary`, `-hover`, `-active`, `-text`
+- **Surfaces:** `--color-surface-muted`, `-hover`, `-active`, `--color-background`
+- **Text:** `--color-text-primary`, `-secondary`
+- **Borders:** `--color-border`, `-subtle`, `-strong`
+- **Error:** `--color-error-background`, `-border`, `-text`, `-foreground`
+- **Disabled:** `--color-disabled-background`, `-border`, `-text`
+- **Focus:** `--color-focus-ring`, `--focus-ring-width`, `--focus-ring-offset`
+- **Radius:** `--radius-button`, `--radius-md` (sm)
+- **Spacing:** `--spacing-28/32/36`, `--space-inline-sm/md`
+- **Typography:** `--text-label-*`
+- **Motion:** `--motion-hover`
+
+## Accessibility
+
+- Elemento nativo `<button>` por defecto
+- Focus visible en todos los variants
+- Icon-only requiere `aria-label`
+- Loading: `aria-busy` + `loadingLabel`
+- Touch: usar `icon-lg` o `size="lg"` en contextos mobile críticos
+
+## Do / Don't
+
+| Do | Don't |
+|----|-------|
+| Una primary por barra de acciones | Dos primary filled juntas |
+| Verbos claros: "Guardar cambios" | "OK", "Sí" |
+| `outline` para Cancel | `ghost` en footer de modal |
+| `intent="danger"` + copy explícito | Icon-only delete sin confirmación |
+| `loading` en saves async | Double-submit |
+
+## Playground
+
+- Ruta: `/playground/button`
+- Controles: variant, intent, size, disabled, loading, fullWidth, theme
+
+## Pantalla real
+
+- Ruta: `/examples/patient-record`
+- Header actions, form footer, danger zone
+
+## Import
+
+```tsx
+import { Button } from "@/components/button";
+```
+
+Legacy re-export: `@/components/ui/button` → `@/components/button`.

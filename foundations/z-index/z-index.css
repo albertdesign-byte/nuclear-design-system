@@ -1,0 +1,35 @@
+/**
+ * Medmo Z-Index System — CSS Custom Properties
+ *
+ * Interaction priority stack — NOT visual depth.
+ * Seven layers. Steps of 10 (0–60). No z-9999.
+ *
+ * Components consume ONLY --z-{layer}. Never --z-layer-* or raw numbers.
+ */
+
+:root {
+  /* ─── Primitive Steps (internal — do not use in components) ────────────── */
+  --z-layer-0: 0;
+  --z-layer-10: 10;
+  --z-layer-20: 20;
+  --z-layer-30: 30;
+  --z-layer-40: 40;
+  --z-layer-50: 50;
+  --z-layer-60: 60;
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * SEMANTIC LAYERS — components consume ONLY these
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  --z-base: var(--z-layer-0);
+  --z-sticky: var(--z-layer-10);
+  --z-dropdown: var(--z-layer-20);
+  --z-popover: var(--z-layer-30);
+  --z-tooltip: var(--z-layer-40);
+  --z-toast: var(--z-layer-50);
+  --z-modal: var(--z-layer-60);
+}
+
+/**
+ * Dark mode: Identical values — z-index is not theme-dependent.
+ */

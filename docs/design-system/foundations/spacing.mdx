@@ -1,0 +1,453 @@
+---
+title: Spacing
+description: Sistema de espaciado Medmo — grid 4px/8px, tokens semánticos inline, stack y context.
+status: complete
+version: 1.0.0
+lastUpdated: 2026-07-17
+phase: foundations
+---
+
+# Spacing
+
+> El espacio es el principal creador de jerarquía en Medmo.
+> La tipografía y el color refuerzan — el espaciado lidera.
+
+---
+
+## Spacing Intent
+
+Esta sección explica **por qué** existe el Spacing System — no qué contiene.
+
+### El espacio crea jerarquía antes que el color
+
+En interfaces clínicas de 8+ horas, la diferencia entre un grupo de campos y una sección de página no debe depender de bordes o colores de fondo. El espaciado vertical (`space-stack-*`, `space-section`) comunica relación y separación de forma silenciosa — sin añadir ruido visual.
+
+**Implicación:** No usamos divisores decorativos cuando `space-section` (48px) o `space-stack-lg` (24px) ya separan regiones con claridad.
+
+### El ritmo de 8px reduce decisiones y fatiga cognitiva
+
+La mayoría de gaps entre componentes (botones, inputs, filas de tabla) caen en múltiplos de 8px. Esto crea un ritmo predecible: el usuario escanea la interfaz sin micro-variaciones arbitrarias de 10px, 14px o 18px que distraen en tablas densas.
+
+**Implicación:** `space-inline-sm` y `space-stack-sm` (8px) son el default para componentes. Los pasos intermedios (12, 20, 28…) existen para precisión — no para inventar nuevos ritmos.
+
+### Los tokens semánticos codifican intención, no píxeles
+
+"16px" no le dice nada a un desarrollador sobre si va en una celda de tabla o en el padding de un card. `space-card` y `space-table` pueden compartir el mismo primitivo subyacente pero tienen **intenciones distintas** — y pueden divergir cuando Density modifique valores globalmente.
+
+**Implicación:** Los componentes consumen `--space-*` exclusivamente. Nunca `--spacing-16` ni valores raw.
+
+### La grid de 4px garantiza precisión sin caos
+
+La unidad base de 4px alinea todo al pixel grid. La excepción de 2px (hairline) queda reservada para offsets ópticos — nunca para gaps entre componentes.
+
+**Implicación:** Cualquier valor fuera de la escala oficial requiere justificación documentada y aprobación del equipo de Design System.
+
+---
+
+## Filosofía
+
+| Principio | Aplicación |
+|-----------|------------|
+| **4px base, 8px rhythm** | Componentes en múltiplos de 8; layout en múltiplos de 4 |
+| **Semantic, not primitive** | `space-stack-md`, nunca `spacing-16` |
+| **Axis separation** | Inline (horizontal) y Stack (vertical) son categorías distintas |
+| **Context over scale** | `space-dialog` en modales, `space-table` en tablas — aunque el px coincida |
+| **Calm density** | Tablas densas (8px) sin sacrificar legibilidad de formularios (16px) |
+
+---
+
+## Grid System
+
+```
+Unidad base:     4px
+Ritmo componente: 8px (inline-sm, stack-sm, space-table)
+Excepción:       2px hairline (focus offset, ajustes ópticos)
+```
+
+### Escala primitiva (interna)
+
+Los primitivos existen para mapear valores en CSS y TypeScript. **Los componentes nunca los consumen.**
+
+| Token | Valor | Uso interno |
+|-------|-------|-------------|
+| `spacing-2` | 2px | Hairline — focus offset, excepciones ópticas |
+| `spacing-4` | 4px | Unidad mínima — label gaps, inline xs |
+| `spacing-8` | 8px | Ritmo principal — botones, inputs, tablas |
+| `spacing-12` | 12px | Intermedio — inline md |
+| `spacing-16` | 16px | Stack md, card, form |
+| `spacing-20` | 20px | Intermedio — padding interno compacto |
+| `spacing-24` | 24px | Page, dialog, stack lg |
+| `spacing-28` | 28px | Intermedio — balance óptico |
+| `spacing-32` | 32px | Form groups, stack xl |
+| `spacing-36` | 36px | Intermedio |
+| `spacing-40` | 40px | Bloques internos amplios |
+| `spacing-48` | 48px | Section spacing |
+| `spacing-56` | 56px | Intermedio — layout grande |
+| `spacing-64` | 64px | Separación mayor entre regiones |
+| `spacing-72` | 72px | Intermedio — empty states |
+| `spacing-80` | 80px | Márgenes amplios en viewports wide |
+| `spacing-96` | 96px | Máximo — respiración vertical de página |
+
+---
+
+## Arquitectura
+
+```
+Primitives (interno)          Semantic Tokens (componentes)         Futuro (Primitives phase)
+─────────────────────         ─────────────────────────────         ─────────────────────────
+spacing-8                  →  space-inline-sm                  →   button-padding-inline
+spacing-16                 →  space-stack-md                   →   input-padding-block
+spacing-16                 →  space-card                       →   card-padding
+spacing-8                  →  space-table                      →   table-cell-padding
+spacing-24                 →  space-dialog                     →   dialog-padding
+```
+
+**Regla:** Los componentes **nunca** consumen primitivos. Solo `--space-*`.
+
+Modificar la escala completa = cambiar primitivos en `spacing.css`. Cero cambios en componentes.
+
+---
+
+## Inline Spacing
+
+Gaps **horizontales** entre elementos en fila. Usar con `gap`, `column-gap`, `padding-inline`, `margin-inline`.
+
+### space-inline-xs — 4px
+
+**Propósito:** Gap horizontal mínimo.
+
+**Usar en:** Icono pegado a texto en controles compactos, badge interno, checkbox a label.
+
+**No usar en:** Márgenes de página, stacks verticales, padding de cards.
+
+<div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '16px' }}>
+  <span style={{ width: '16px', height: '16px', background: '#242F50', borderRadius: '2px', display: 'inline-block' }} />
+  <span style={{ fontSize: '14px', color: '#343842' }}>inline-xs — icon + label</span>
+</div>
+
+### space-inline-sm — 8px
+
+**Propósito:** Gap horizontal default — ritmo de 8px.
+
+**Usar en:** Botón icono+label, campos inline en formulario, chips de filtro, grupos de acciones.
+
+**No usar en:** Layout de página, padding de cards, separación de secciones.
+
+<div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+  <span style={{ padding: '6px 12px', background: '#242F50', color: '#fff', borderRadius: '6px', fontSize: '14px' }}>Save</span>
+  <span style={{ padding: '6px 12px', border: '1px solid #B5B7BE', borderRadius: '6px', fontSize: '14px', color: '#343842' }}>Cancel</span>
+</div>
+
+### space-inline-md — 12px
+
+**Propósito:** Gap horizontal cómodo.
+
+**Usar en:** Separación de items en toolbar, grupos de botones, acciones de search bar.
+
+**No usar en:** Gap interno default de botón (usar sm).
+
+<div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+  <span style={{ fontSize: '14px', color: '#343842' }}>Filter</span>
+  <span style={{ fontSize: '14px', color: '#343842' }}>Export</span>
+  <span style={{ fontSize: '14px', color: '#343842' }}>Refresh</span>
+</div>
+
+### space-inline-lg — 16px
+
+**Propósito:** Gap horizontal amplio entre clusters distintos.
+
+**Usar en:** Clusters de acciones separados, acciones de page header, grupos inline distintos.
+
+**No usar en:** Stack vertical, gaps entre campos de formulario.
+
+<div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
+  <span style={{ fontSize: '14px', color: '#343842' }}>← Back</span>
+  <span style={{ marginLeft: 'auto', display: 'flex', gap: '8px' }}>
+    <span style={{ padding: '6px 12px', border: '1px solid #B5B7BE', borderRadius: '6px', fontSize: '14px' }}>Edit</span>
+    <span style={{ padding: '6px 12px', background: '#242F50', color: '#fff', borderRadius: '6px', fontSize: '14px' }}>Submit</span>
+  </span>
+</div>
+
+---
+
+## Stack Spacing
+
+Gaps **verticales** entre elementos en columna. Usar con `gap`, `row-gap`, `padding-block`, `margin-block`.
+
+### space-stack-xs — 4px
+
+**Propósito:** Gap vertical mínimo.
+
+**Usar en:** Label a input, caption bajo campo, metadata bajo título.
+
+**No usar en:** Entre campos de formulario, separación de secciones.
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '16px' }}>
+  <span style={{ fontSize: '14px', fontWeight: 500, color: '#343842' }}>Patient ID</span>
+  <span style={{ fontSize: '14px', color: '#6B7280' }}>MRN-2024-00891</span>
+</div>
+
+### space-stack-sm — 8px
+
+**Propósito:** Stack vertical compacto — ritmo de 8px.
+
+**Usar en:** Items de lista relacionados, líneas de metadata compactas, contenido denso en cards.
+
+**No usar en:** Secciones de página, padding de dialogs.
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>
+  <span style={{ fontSize: '14px', color: '#343842' }}>Dr. Sarah Chen</span>
+  <span style={{ fontSize: '14px', color: '#6B7280' }}>Cardiology · Room 204</span>
+  <span style={{ fontSize: '14px', color: '#6B7280' }}>Last visit: Jul 12, 2026</span>
+</div>
+
+### space-stack-md — 16px
+
+**Propósito:** Gap vertical default entre componentes.
+
+**Usar en:** Campos en un grupo de formulario, header de card a contenido, grupos de list items.
+
+**No usar en:** Separación mayor de secciones de página (usar `space-section`).
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '16px', maxWidth: '320px' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+    <span style={{ fontSize: '14px', fontWeight: 500 }}>First name</span>
+    <div style={{ border: '1px solid #B5B7BE', borderRadius: '6px', padding: '8px 12px', fontSize: '14px' }}>Maria</div>
+  </div>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+    <span style={{ fontSize: '14px', fontWeight: 500 }}>Last name</span>
+    <div style={{ border: '1px solid #B5B7BE', borderRadius: '6px', padding: '8px 12px', fontSize: '14px' }}>García</div>
+  </div>
+</div>
+
+### space-stack-lg — 24px
+
+**Propósito:** Gap vertical cómodo entre bloques distintos.
+
+**Usar en:** Entre cards distintos en un panel, header de dialog a body, secciones internas de panel.
+
+**No usar en:** Separación mayor de página (usar `space-section`).
+
+### space-stack-xl — 32px
+
+**Propósito:** Gap vertical grande.
+
+**Usar en:** Separación de grupos de formulario, bloques de categoría en settings, empty state a CTA.
+
+**No usar en:** Padding de página (usar `space-page`).
+
+---
+
+## Context Spacing
+
+Tokens nombrados por **contexto de UI**. Codifican intención — no solo magnitud.
+
+### space-page — 24px
+
+**Propósito:** Inset horizontal del área de contenido principal.
+
+**Usar en:** Padding horizontal del layout shell, márgenes de página en mobile, contenido principal.
+
+**No usar en:** Padding interno de cards, celdas de tabla, gaps inline.
+
+<div style={{ background: '#F9FAFB', padding: '24px', borderRadius: '8px', marginBottom: '16px' }}>
+  <div style={{ background: '#fff', border: '1px solid #D5D7DD', borderRadius: '8px', padding: '16px', fontSize: '14px', color: '#343842' }}>
+    Page content with 24px horizontal inset
+  </div>
+</div>
+
+### space-section — 48px
+
+**Propósito:** Separación entre regiones mayores de página.
+
+**Usar en:** PageHeader → contenido, contenido → paginación, categoría → categoría en settings.
+
+**No usar en:** Gaps entre campos de formulario, padding interno de cards, spacing inline.
+
+<div style={{ marginBottom: '16px' }}>
+  <div style={{ fontSize: '18px', fontWeight: 600, color: '#343842', marginBottom: '48px' }}>Section Header</div>
+  <div style={{ fontSize: '14px', color: '#343842' }}>Content begins after 48px section gap</div>
+</div>
+
+### space-card — 16px
+
+**Propósito:** Padding interno de contenedores de contenido.
+
+**Usar en:** Card, Panel, StatCard — todos los lados salvo override explícito.
+
+**No usar en:** Márgenes de página, gap entre cards en grid (usar `space-card-gap`), celdas de tabla.
+
+<div style={{ background: '#fff', border: '1px solid #D5D7DD', borderRadius: '8px', padding: '16px', marginBottom: '16px' }}>
+  <div style={{ fontSize: '16px', fontWeight: 500, marginBottom: '8px', color: '#343842' }}>Vital Signs</div>
+  <div style={{ fontSize: '14px', color: '#6B7280' }}>Card with 16px internal padding</div>
+</div>
+
+### space-form — 16px
+
+**Propósito:** Gap vertical entre campos en el mismo grupo.
+
+**Usar en:** FormField items consecutivos, input groups en una sección.
+
+**No usar en:** Label a input (usar `space-form-label` o `space-stack-xs`), separación de grupos (usar `space-form-group`).
+
+### space-table — 8px
+
+**Propósito:** Padding de celdas — optimizado para datos clínicos densos.
+
+**Usar en:** TableHead, TableCell — padding vertical y horizontal.
+
+**No usar en:** Padding de página, cards, gaps de sección.
+
+<div style={{ marginBottom: '16px', border: '1px solid #D5D7DD', borderRadius: '8px', overflow: 'hidden' }}>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', background: '#F3F4F6', fontSize: '12px', fontWeight: 500, color: '#343842' }}>
+    <div style={{ padding: '8px' }}>Patient</div>
+    <div style={{ padding: '8px' }}>Status</div>
+    <div style={{ padding: '8px' }}>Date</div>
+  </div>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', fontSize: '14px', color: '#343842', borderTop: '1px solid #D5D7DD' }}>
+    <div style={{ padding: '8px' }}>García, M.</div>
+    <div style={{ padding: '8px' }}>Active</div>
+    <div style={{ padding: '8px' }}>Jul 17</div>
+  </div>
+</div>
+
+### space-dialog — 24px
+
+**Propósito:** Padding interno de modales y drawers.
+
+**Usar en:** DialogContent, modal body, drawer content.
+
+**No usar en:** Padding de página (mismo valor, distinta intención semántica), celdas de tabla.
+
+<div style={{ background: 'rgba(18,22,32,0.4)', padding: '24px', borderRadius: '8px', marginBottom: '16px' }}>
+  <div style={{ background: '#fff', borderRadius: '8px', padding: '24px', maxWidth: '360px', margin: '0 auto' }}>
+    <div style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px', color: '#343842' }}>Confirm action</div>
+    <div style={{ fontSize: '14px', color: '#6B7280' }}>Dialog with 24px internal padding</div>
+  </div>
+</div>
+
+### Tokens extendidos
+
+| Token | Valor | Propósito |
+|-------|-------|-----------|
+| `space-form-label` | 4px | Gap vertical entre Label y control |
+| `space-form-group` | 32px | Separación entre secciones de formulario |
+| `space-card-gap` | 16px | Gap entre cards en grid/flex layout |
+
+---
+
+## Reglas de uso
+
+### DO
+
+- Consumir solo tokens semánticos: `var(--space-stack-md)`, `var(--space-card)`
+- Usar `space-inline-*` para gaps horizontales en flex/grid
+- Usar `space-stack-*` para gaps verticales en flex/grid
+- Usar tokens de contexto para su propósito nombrado
+- Usar `space-form-label` (4px) entre label e input
+- Usar `space-section` (48px) entre regiones mayores de página
+
+### DO NOT
+
+- Usar primitivos `--spacing-16` en componentes
+- Hardcodear valores: `padding: 16px`, `gap: 1rem`, clases Tailwind primitivas (`p-4`)
+- Usar `space-page` como padding interno de card
+- Usar `space-table` para gaps entre campos de formulario
+- Usar `space-section` entre campos individuales
+- Usar 2px para gaps entre componentes
+
+### Guía rápida
+
+| Escenario | Token |
+|-----------|-------|
+| Icono + texto en botón | `space-inline-sm` |
+| Acciones en toolbar | `space-inline-md` |
+| Label → Input | `space-form-label` |
+| Campos en grupo | `space-form` |
+| Separación de sección en form | `space-form-group` |
+| Padding interno de card | `space-card` |
+| Cards en grid | `space-card-gap` |
+| Celda de tabla | `space-table` |
+| Body de dialog | `space-dialog` |
+| Inset de página | `space-page` |
+| Header → contenido | `space-section` |
+
+### Ejemplo CSS
+
+```css
+/* ✅ Correcto — token semántico */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-form);
+}
+
+.card {
+  padding: var(--space-card);
+}
+
+/* ❌ Incorrecto — primitivo directo */
+.card {
+  padding: var(--spacing-16);
+}
+
+/* ❌ Incorrecto — valor hardcodeado */
+.card {
+  padding: 16px;
+}
+```
+
+Ver `foundations/spacing/rules.md` para guía completa.
+
+---
+
+## Relación con Density (planificado)
+
+La futura Density Foundation modificará valores semánticos globalmente:
+
+| Mode | Spacing factor | Ejemplo: space-form |
+|------|----------------|---------------------|
+| Comfortable | 100% (default) | 16px |
+| Compact | ~85% | ~14px |
+| Dense | ~70% | ~11px |
+
+Los componentes seguirán consumiendo `--space-form` — Density cambia el valor, no el componente.
+
+---
+
+## Component Spacing (futuro)
+
+En la fase Primitives, los componentes tendrán tokens propios que mapean desde semánticos:
+
+```
+space-card        →  card-padding
+space-table       →  table-cell-padding
+space-inline-sm   →  button-gap
+```
+
+Los componentes consumirán `--button-padding-*` — nunca primitivos ni semánticos directamente en múltiples lugares.
+
+---
+
+## Archivos
+
+| Archivo | Contenido |
+|---------|-----------|
+| `foundations/spacing/primitives/scale.ts` | Escala primitiva 2–96px |
+| `foundations/spacing/semantic/` | Inline, stack, context tokens |
+| `foundations/spacing/spacing.css` | CSS custom properties |
+| `foundations/spacing/contract.ts` | Registro de nombres permitidos |
+| `foundations/spacing/resolve.ts` | Resolución primitivo → semántico |
+| `foundations/spacing/rules.md` | DO / DON'T detallado |
+
+---
+
+## Import
+
+```css
+@import "../../foundations/spacing/spacing.css";
+```
+
+```typescript
+import { semanticSpacing, allSemanticSpacingTokens } from "../../foundations/spacing/tokens"
+```

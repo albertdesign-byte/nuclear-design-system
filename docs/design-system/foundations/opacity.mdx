@@ -1,0 +1,315 @@
+---
+title: Opacity
+description: Sistema de opacidad Medmo — API mínima. Alpha modifiers donde Colors no aplica. Menos tokens, más intención.
+status: complete
+version: 1.0.0
+lastUpdated: 2026-07-17
+phase: foundations
+---
+
+# Opacity
+
+> La opacidad es el último recurso — no el primero.
+> Si Colors ya resuelve el alpha, no crees un token de opacidad.
+
+---
+
+## Opacity Intent
+
+Esta sección explica **por qué** existe el Opacity System — y por qué es **tan pequeño**.
+
+### Colors ya posee la mayoría del alpha
+
+`color-overlay` incluye 40% de alpha. `color-focus-ring` incluye 50%. `color-disabled-*` son colores explícitos — no `opacity-50`. Duplicar esos valores como tokens de opacidad crearía dos fuentes de verdad y rompería cálculos de contraste WCAG.
+
+**Implicación:** Opacity no reemplaza Colors. Complementa solo cuando se aplica alpha a un **color semántico** como modificador, o en casos no cubiertos (decorativo, skeleton pulse).
+
+### Menos tokens, más intención
+
+Antes de añadir cualquier token:
+
+> "¿Este token representa una decisión de diseño reutilizable o simplemente un valor?"
+
+Si es solo un valor → primitivo interno. Si es intención compartida → semantic o preset. Si tendría un solo consumidor → probablemente no debe existir.
+
+**Implicación:** La API pública completa de Opacity son **4 variables CSS** (2 semantic + 1 preset de 2 valores). No crecerá sin aprobación del Design System.
+
+### Opacity nunca arregra disabled mal implementado
+
+El audit encontró `disabled:opacity-50` en 19 primitivos. Eso reduce contraste de forma impredecible. Disabled tiene tokens dedicados en Colors.
+
+**Implicación:** `opacity-disabled` **no existe** y nunca existirá.
+
+### Skeleton es el único preset porque from/to siempre viajan juntos
+
+Animar skeleton requiere un rango (0.5 → 1). Dos tokens sueltos invitarían a usar solo uno. Un preset documenta la pareja.
+
+---
+
+## Filosofía
+
+| Principio | Aplicación |
+|-----------|------------|
+| **Colors first** | Overlay, focus, disabled, hover → color tokens |
+| **Minimal API** | 2 semantic + 1 preset — nothing else public |
+| **No opacity on clinical text** | Legibility → `color-text-*` |
+| **Pair with color** | `opacity-subtle` + `color-error-border`, not alone |
+| **Reduce before add** | New token needs 3+ component consumers |
+| **Simplicity = quality** | Small system, clear reason per token |
+
+Ver: [Token Creation Principle](#token-creation-principle)
+
+---
+
+## Arquitectura
+
+```
+scale.ts (primitivos 20–80 — internos)
+        ↓
+semantics.ts (opacity-subtle, opacity-muted + skeleton preset)
+        ↓
+opacity.css
+        ↓
+Components: opacity: var(--opacity-muted) on decorative icons only
+```
+
+```
+Rejected (documented, NOT tokens)          Owned by Colors
+─────────────────────────────────          ─────────────────
+opacity-disabled                           color-disabled-*
+opacity-overlay                            color-overlay
+opacity-focus                              color-focus-ring
+opacity-hover                              color-surface-hover
+```
+
+---
+
+## Token Creation Principle
+
+Aplica a **todas** las Foundations — no solo Opacity.
+
+1. ¿Representa una **decisión reutilizable** o solo un **valor**?
+2. Valor → primitivo interno
+3. Intención compartida → semantic o preset
+4. Si dos tokens siempre viajan juntos → **preset**
+5. Si un token tendría **un solo consumidor** → probablemente no debe existir
+6. Intentar **REDUCIR** tokens antes de aumentarlos
+
+Implementación: `foundations/token-principle.ts`
+
+---
+
+## Primitivos (internos)
+
+| Primitivo | Valor | Notas |
+|-----------|-------|-------|
+| `opacity-20` | 0.2 | Maps to `opacity-subtle` |
+| `opacity-40` | 0.4 | Internal — baked in `color-overlay` light |
+| `opacity-50` | 0.5 | Internal — baked in `color-focus-ring` |
+| `opacity-60` | 0.6 | Maps to `opacity-muted` |
+| `opacity-80` | 0.8 | Internal — not public |
+
+**Regla:** Componentes nunca usan `--opacity-20`. Solo `--opacity-subtle`.
+
+---
+
+## Tokens semánticos (API pública)
+
+### opacity-subtle — 0.2
+
+**Intención:** Alpha wash sutil paired con un color semántico.
+
+**Usar en:**
+- Anillo invalid (`aria-invalid`) con `color-destructive` / `color-error-border`
+- Fondos de feedback muy tenues combinados con tokens de color
+- Tintes de icono de estado — no texto
+
+**No usar en:**
+- Disabled (→ `color-disabled-*`)
+- Overlays (→ `color-overlay`)
+- Texto clínico legible
+- Contenedores enteros sin color base
+
+```css
+/* Invalid ring wash — pair with color token */
+box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-error-border) var(--opacity-subtle), transparent);
+```
+
+---
+
+### opacity-muted — 0.6
+
+**Intención:** Presencia decorativa reducida — no legibilidad de datos.
+
+**Usar en:**
+- Iconos decorativos con `aria-hidden="true"`
+- Chrome no esencial (separadores decorativos, watermark UI)
+- Tabs inactivos **junto con** `color-text-secondary` — no solo opacity
+
+**No usar en:**
+- Datos clínicos, labels, valores numéricos
+- Disabled controls
+- Sustituto de `color-text-muted`
+
+---
+
+## Preset: skeleton
+
+| Variable | Valor |
+|----------|-------|
+| `opacity-skeleton-from` | 0.5 |
+| `opacity-skeleton-to` | 1 |
+
+**Usar con:** `motion-skeleton` — única animación de opacidad infinita permitida.
+
+**No usar en:** UI estática, disabled, texto.
+
+```css
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: var(--opacity-skeleton-from); }
+  50% { opacity: var(--opacity-skeleton-to); }
+}
+```
+
+---
+
+## Opacity Philosophy (reglas — no tokens)
+
+### Delegación a Colors
+
+| Necesidad | Token correcto | ❌ Incorrecto |
+|-----------|----------------|---------------|
+| Backdrop modal | `color-overlay` | `bg-black/40`, `opacity-backdrop` |
+| Focus ring | `color-focus-ring` | `ring-ring/50`, `opacity-focus` |
+| Control disabled | `color-disabled-*` | `opacity-50`, `disabled:opacity-50` |
+| Hover de fila | `color-surface-hover` | `hover:opacity-80` |
+| Texto secundario | `color-text-secondary` | `opacity-60` on text |
+
+### Cuándo Opacity sí aplica
+
+- Modificar alpha de un **color token existente** en composición (`color-mix` + `opacity-subtle`)
+- Reducir presencia de elementos **puramente decorativos**
+- Rango de pulse skeleton (preset)
+
+### Anti-patterns del audit
+
+| Hallazgo en primitivos | Corrección Fase 4 |
+|------------------------|-------------------|
+| `disabled:opacity-50` | `color-disabled-background` + `color-disabled-text` |
+| `ring-ring/50` | `color-focus-ring` |
+| `dark:bg-input/80` | Evaluar token de color dedicado — no opacity suelta |
+
+---
+
+## Reglas por contexto
+
+### Tablas
+
+- Filas: hover via `color-surface-hover` — **sin opacity**
+- Texto de celdas: nunca `opacity-muted`
+- Row selected: `color-surface-active`
+
+### Dashboards
+
+- Stat cards: sin opacity en métricas
+- Iconos decorativos de widget: `opacity-muted` + `aria-hidden`
+
+### Formularios
+
+- Invalid: `opacity-subtle` + `color-error-*` — no `opacity-50` en el field entero
+- Disabled field: `color-disabled-*` — nunca opacity
+
+### Modals
+
+- Backdrop: `color-overlay` only — opacity preset not needed
+
+---
+
+## Reglas de uso
+
+### DO
+
+- Pair `opacity-subtle` with semantic color tokens
+- Use skeleton preset + motion-skeleton together
+- Ask the token creation question before proposing new opacity
+
+### DON'T
+
+- Add `opacity-10` through `opacity-90` scale to public API
+- Use opacity to mute clinical text
+- Create tokens for single-component needs
+- Duplicate Colors alpha responsibilities
+
+---
+
+## Archivos
+
+| Archivo | Descripción |
+|---------|-------------|
+| `foundations/opacity/types.ts` | Tipos |
+| `foundations/opacity/scale.ts` | Primitivos internos |
+| `foundations/opacity/semantics.ts` | API pública + skeleton preset |
+| `foundations/opacity/contract.ts` | Registro + rejected intents |
+| `foundations/opacity/resolve.ts` | Resolvers |
+| `foundations/opacity/opacity.css` | CSS custom properties |
+| `foundations/opacity/rules.md` | DO/DON'T |
+| `foundations/opacity/tokens.ts` | Barrel export |
+| `foundations/token-principle.ts` | Principio global del DS |
+
+---
+
+## Import
+
+```css
+@import "../../foundations/opacity/opacity.css";
+```
+
+```typescript
+import { resolveOpacitySemantic, rejectedOpacityIntents } from "../../foundations/opacity/tokens"
+import { tokenCreationPrinciple } from "../../foundations/token-principle"
+```
+
+---
+
+## Dependencias
+
+| Foundation | Relación |
+|------------|----------|
+| **Colors** | Owns overlay, focus, disabled alpha — Opacity defers |
+| **Motion** | `motion-skeleton` pairs with skeleton opacity preset |
+| **Accessibility** | No opacity on text that must meet WCAG |
+
+---
+
+## Revisión crítica de arquitectura
+
+| Decisión | Alternativa descartada | Por qué |
+|----------|------------------------|---------|
+| Solo 2 semantic tokens | Escala 0–100 pública (Tailwind default) | Escala invita a valores arbitrarios; Colors cubre la mayoría |
+| No `opacity-disabled` | `opacity-50` como estándar disabled | Rompe contraste; Colors tiene disabled dedicado |
+| No `opacity-overlay` | Token separado 40%/60% | Duplica `color-overlay` light/dark |
+| Skeleton as preset (from/to) | `opacity-skeleton-min` + `opacity-skeleton-max` sueltos | Siempre viajan juntos → preset |
+| 40/50/80 primitivos sin semantic | Exponer `opacity-50` público | Un solo consumidor each → internal only |
+| Rejected intents in contract | Silenciar anti-patterns | Documentar explícitamente previene reintroducción |
+
+**Tokens evaluados y rechazados en esta Foundation:**
+
+| Propuesta | Veredicto |
+|-----------|-----------|
+| `opacity-disabled` | ❌ Colors |
+| `opacity-overlay` | ❌ Colors |
+| `opacity-focus` | ❌ Colors |
+| `opacity-hover` | ❌ Colors |
+| `opacity-strong` (80%) | ❌ un consumidor (`input/80`) — resolver en Colors Fase 4 |
+| Escala completa 10–90 | ❌ viola principio "menos tokens" |
+
+**Oportunidad futura:** Si `color-mix` + `opacity-subtle` se repite en 5+ componentes para invalid rings, considerar **Interaction Token** compuesto — no nuevo opacity token.
+
+---
+
+## Relacionados
+
+- [Colors — Disabled tokens](./colors.mdx)
+- [Motion — skeleton preset](./motion.mdx)
+- [Accessibility](../principles/accessibility.mdx)
+- [Foundation Standard — Token principle](./README.mdx#token-creation-principle)

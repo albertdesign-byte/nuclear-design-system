@@ -1,0 +1,395 @@
+---
+title: Motion
+description: Sistema de motion Medmo — 4 duraciones, 3 easings, 6 presets. Animación funcional, nunca decorativa.
+status: complete
+version: 1.0.0
+lastUpdated: 2026-07-17
+phase: foundations
+---
+
+# Motion
+
+> El usuario no debería notar la animación.
+> Solo debería sentir que la interfaz responde de forma natural.
+
+---
+
+## Motion Intent
+
+Esta sección explica **por qué** existe el Motion System — no qué contiene.
+
+### Las animaciones preservan contexto clínico
+
+Cuando un coordinador cierra un panel de filtros o abre un dialog de confirmación, el movimiento responde: **"esta información vino de aquí"** y **"algo nuevo requiere atención"**. En datos clínicos, un corte abrupto obliga a re-orientarse — costoso en jornadas de 8+ horas.
+
+**Implicación:** Toda animación debe explicar un cambio de estado. Si no hay cambio que comunicar, no hay animación.
+
+### El sistema es pequeño a propósito
+
+Cuatro duraciones. Tres curvas. Seis presets. Más opciones no mejoran la experiencia — incrementan inconsistencia entre 19 primitivos y docenas de patterns.
+
+**Implicación:** Si un componente necesita un tiempo fuera de 100/150/200/300ms, la respuesta es revisar el diseño — no añadir un token.
+
+### Interaction Philosophy no es API
+
+Reglas como "nunca bounce" o "hover no mueve layout" **no se tokenizan**. Son restricciones de diseño documentadas aquí. Los tokens dicen **cómo** animar; la filosofía dice **qué está prohibido**.
+
+**Implicación:** No buscar `--motion-no-bounce`. Leer [Interaction Philosophy](#interaction-philosophy).
+
+### Reduced motion es comportamiento degradable, no excepción
+
+`prefers-reduced-motion: reduce` pone todas las duraciones primitivas en `0ms`. La interfaz sigue siendo funcional — solo instantánea.
+
+---
+
+## Filosofía
+
+| Principio | Aplicación |
+|-----------|------------|
+| **Functional only** | Contexto, confirmación, foco — nunca decoración |
+| **Imperceptible** | 100–200ms en el 90% de casos |
+| **Presets first** | `--motion-hover`, no `200ms ease-out` |
+| **Hover is visual only** | Color, opacity, shadow — never layout |
+| **No bounce / elastic** | Prohibido en todo el DS |
+| **300ms hard cap** | Except skeleton breathing cycle (2s) |
+| **Reduced motion** | Zero-duration fallback built into CSS |
+
+Ver también: [Motion Philosophy](../principles/motion-philosophy.mdx)
+
+---
+
+## Arquitectura
+
+```
+duration.ts + easing.ts (primitivos internos)
+        ↓
+presets.ts (semántica — API principal)
+        ↓
+motion.css (--motion-* variables)
+        ↓
+Components: transition: var(--motion-hover)
+```
+
+```
+Primitives (interno)              Semantic (componentes)              Futuro
+─────────────────────             ──────────────────────              ──────
+motion-duration-200            →  motion-default                 →   dialog-transition
+motion-ease-out                →  motion-ease-out                →   (Interaction Tokens)
+composed preset                →  motion-modal                   →   dialog-enter
+```
+
+**Regla:** Componentes consumen `--motion-{preset}`. Nunca `--motion-duration-*` ni valores raw.
+
+---
+
+## Durations
+
+Cuatro valores. Sin excepciones en transiciones UI (skeleton cycle documentado aparte).
+
+| Token semántico | Primitivo | Valor | Uso |
+|-----------------|-----------|-------|-----|
+| `motion-fast` | duration-100 | 100ms | Hover, focus |
+| `motion-moderate` | duration-150 | 150ms | Dropdown, toast |
+| `motion-default` | duration-200 | 200ms | Modal, toggles |
+| `motion-slow` | duration-300 | 300ms | Accordion height |
+
+### motion-fast — 100ms
+
+**Usar en:** Hover de botones, links, filas; focus ring transitions.
+
+**No usar en:** Modals, accordion, anything structural.
+
+---
+
+### motion-moderate — 150ms
+
+**Usar en:** Dropdown enter, toast slide+fade.
+
+**No usar en:** Modal (use default 200ms).
+
+---
+
+### motion-default — 200ms
+
+**Usar en:** Modal fade+scale, switch toggle, tab indicator.
+
+**No usar en:** Hover (too slow).
+
+---
+
+### motion-slow — 300ms
+
+**Usar en:** Accordion/collapsible height only.
+
+**No usar en:** Hover, dropdown — maximum cap, feels sluggish if overused.
+
+---
+
+## Easings
+
+Tres curvas. Mapeo funcional:
+
+| Token | Curva | Cuándo |
+|-------|-------|--------|
+| `motion-ease-out` | Decelerate | **Entradas** — open, show, enter |
+| `motion-ease-in` | Accelerate | **Salidas** — close, dismiss, leave |
+| `motion-ease-in-out` | Symmetric | **Estado in-place** — hover, toggle, focus |
+
+**Prohibido:** bounce, elastic, spring, custom bezier fuera de estas tres.
+
+---
+
+## Presets (API principal)
+
+### motion-hover
+
+| Propiedad | Valor |
+|-----------|-------|
+| Duración | 100ms |
+| Easing | in-out |
+| Propiedades | color, background-color, border-color, opacity, box-shadow |
+
+**Reglas:** Nunca transform. Nunca layout shift.
+
+```css
+transition: var(--motion-hover);
+```
+
+---
+
+### motion-dropdown
+
+| Propiedad | Valor |
+|-----------|-------|
+| Duración | 150ms |
+| Easing | out (enter) / in (exit) |
+| Movimiento | fade + translateY 4px → 0 |
+
+**Parámetro:** `--motion-dropdown-offset: 4px`
+
+```css
+transition: var(--motion-dropdown);
+/* transform: translateY(var(--motion-dropdown-offset)) when closed */
+```
+
+---
+
+### motion-modal
+
+| Propiedad | Valor |
+|-----------|-------|
+| Duración | 200ms |
+| Easing | out (enter) / in (exit) |
+| Movimiento | fade + scale 0.98 → 1 |
+
+**Parámetros:** `--motion-modal-scale-from: 0.98`, `--motion-modal-scale-to: 1`
+
+**Reglas:** Nunca bounce. Nunca slide from bottom.
+
+---
+
+### motion-toast
+
+| Propiedad | Valor |
+|-----------|-------|
+| Duración | 150ms |
+| Easing | out / in |
+| Movimiento | slide + fade desde borde |
+
+---
+
+### motion-accordion
+
+| Propiedad | Valor |
+|-----------|-------|
+| Duración | 300ms |
+| Easing | in-out |
+| Propiedades | height, grid-template-rows only |
+
+**Reglas:** Sin rebote. No animar opacity de hijos por separado.
+
+---
+
+### motion-skeleton
+
+| Propiedad | Valor |
+|-----------|-------|
+| Ciclo | 2s (`--motion-skeleton-cycle`) |
+| Easing | in-out |
+| Propiedad | opacity breathing |
+
+**Reglas:** Única animación infinita permitida. Sin shimmer agresivo. Detener al cargar datos.
+
+**Nota:** El ciclo de 2s es parámetro del preset — no expande la escala de duraciones UI.
+
+---
+
+## Interaction Philosophy
+
+Estas reglas **no son tokens**. Gobernan todo motion en Medmo.
+
+### Prohibido globalmente
+
+- Bounce, elastic, spring physics, overshoot
+- Parallax, scroll-triggered reveals, page transitions
+- Animaciones infinitas (excepto skeleton loading)
+- Celebratory effects, confetti, shake-to-refresh
+- Gradient shimmer on skeleton
+
+### Hover
+
+- **Solo** modifica: color, background-color, border-color, opacity, box-shadow
+- **Nunca** modifica: transform, scale, translate, width, height, padding, margin, gap
+- Duración: `motion-hover` (100ms)
+
+### Focus
+
+- Siempre visible — [Colors focus tokens](./colors.mdx)
+- Transición permitida via `motion-fast` en border-color/ring
+
+### Reduced motion
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  /* motion.css zeroes all primitive durations */
+}
+```
+
+Toda animación debe ser usable sin motion perceptible.
+
+### Test (antes de shippear)
+
+1. ¿Qué cambio de estado explica?
+2. ¿Funciona con reduced motion?
+3. ¿Es imperceptible en uso normal?
+4. ¿Usa un preset token existente?
+
+---
+
+## Reglas por contexto
+
+### Tablas
+
+- Row hover: `motion-hover` on background-color only
+- Row expand: `motion-accordion` if height change
+- No animate row reorder (layout thrash)
+
+### Dashboards
+
+- Stat card hover: `motion-hover`
+- Widget refresh: skeleton preset, not spinner animation
+- No animated chart entrances
+
+### Formularios
+
+- Field focus: border via motion-fast
+- Validation error appear: opacity + motion-moderate (no shake)
+- No animate label position on focus
+
+### Modals / overlays
+
+- Content: `motion-modal`
+- Backdrop: opacity only, same duration as modal
+- Focus trap required (Accessibility)
+
+---
+
+## Reglas de uso
+
+### DO
+
+- `transition: var(--motion-hover)` en Button
+- `transition: var(--motion-modal)` en DialogContent
+- Documentar preset usado en MDX del componente
+- Respetar Interaction Philosophy
+
+### DON'T
+
+- `transition: all 0.2s ease`
+- `hover:scale-105`
+- `animate-bounce`, tw-animate bounce variants
+- Crear `--motion-duration-250` ad hoc
+- Animaciones > 300ms (except skeleton cycle)
+
+---
+
+## Reduced motion
+
+`motion.css` incluye bloque `@media (prefers-reduced-motion: reduce)` que anula duraciones primitivas. Technical Setup puede extender con utilidad global — la decisión vive aquí.
+
+---
+
+## Archivos
+
+| Archivo | Descripción |
+|---------|-------------|
+| `foundations/motion/types.ts` | Tipos |
+| `foundations/motion/duration.ts` | 4 duraciones primitivas + semánticas |
+| `foundations/motion/easing.ts` | 3 curvas |
+| `foundations/motion/presets.ts` | 6 presets + transform constants |
+| `foundations/motion/contract.ts` | Registro API pública |
+| `foundations/motion/resolve.ts` | Resolvers |
+| `foundations/motion/motion.css` | CSS custom properties |
+| `foundations/motion/rules.md` | DO/DON'T + Interaction Philosophy |
+| `foundations/motion/tokens.ts` | Barrel export |
+
+---
+
+## Import
+
+```css
+@import "../../foundations/motion/motion.css";
+```
+
+```typescript
+import { resolvePreset, motionPresetRoles } from "../../foundations/motion/tokens"
+```
+
+---
+
+## Dependencias
+
+| Foundation | Relación |
+|------------|----------|
+| **Colors** | Focus ring transitions use motion-fast |
+| **Shadows** | Hover may animate box-shadow via motion-hover |
+| **Principles** | [motion-philosophy.mdx](../principles/motion-philosophy.mdx) |
+| **Accessibility** | Reduced motion, no seizure-inducing flash |
+
+Sin dependencia de Spacing, Breakpoints, o Radius.
+
+---
+
+## Futuro
+
+| Extensión | Notas |
+|-----------|-------|
+| Interaction Tokens | Compondrán motion + color para estados hover/pressed |
+| Component tokens | `button-transition` → alias `motion-hover` |
+| tw-animate-css | Alinear clases de entrada con presets en Technical Setup |
+
+---
+
+## Revisión crítica de arquitectura
+
+Decisiones tomadas para mantener el sistema **pequeño y elegante**:
+
+| Decisión | Alternativa descartada | Por qué |
+|----------|------------------------|---------|
+| 6 presets como API principal | Exponer duration+easing por separado en componentes | Un preset = una decisión; menos errores |
+| 4 duraciones fijas | Escala 0–500ms continua | Más pasos ≠ mejor UX clínica |
+| Skeleton 2s fuera de escala | Forzar 300ms max absoluto | Breathing legible requiere ciclo lento; única excepción documentada |
+| Interaction Philosophy en doc | Tokens `--motion-no-bounce` | Reglas prohibidas no se tokenizan — no son valores |
+| Estructura plana (duration.ts) | Subcarpetas primitives/semantic/ | Pedido explícito; 4 archivos TS son manejables |
+| Alias `--motion-hover` → `-transition` | Solo `-transition` suffix | Alias corto para ergonomía en componentes |
+| Modal 200ms no 180ms | Valor exacto 180ms | 180ms no está en escala; 200ms imperceptible vs 180ms |
+
+**Oportunidad futura (no implementada ahora):** Si todos los componentes usan presets exclusivamente, considerar deprecar `--motion-fast` etc. en contract para apps — reservarlos solo para autores del DS.
+
+---
+
+## Relacionados
+
+- [Motion Philosophy](../principles/motion-philosophy.mdx)
+- [Accessibility — Motion](../principles/accessibility.mdx#motion-y-animación)
+- [Shadows](./shadows.mdx) — hover shadow animation

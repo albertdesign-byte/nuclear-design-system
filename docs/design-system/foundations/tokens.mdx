@@ -1,0 +1,292 @@
+---
+title: Token Aggregation
+description: API pública del Design System — único punto de entrada para tokens CSS y TypeScript.
+status: complete
+version: 1.0.0
+lastUpdated: 2026-07-17
+phase: foundations
+---
+
+# Token Aggregation
+
+> Un Design System profesional expone una API, no una carpeta de archivos.
+> Token Aggregation es esa API.
+
+---
+
+## Design Intent
+
+### Por qué existe
+
+Cada Foundation vive en su propia carpeta con primitivos, semántica, CSS y contratos. Esa separación es correcta para **autores del DS**, pero incorrecta para **consumidores**.
+
+Sin agregación, cada aplicación elige qué importar, cuándo, y desde dónde — duplicando dependencias, rompiendo orden CSS, y filtrando primitivos internos al código de producto.
+
+### Qué resuelve
+
+| Problema | Solución |
+|----------|----------|
+| Imports dispersos | Un solo `index.ts` + `index.css` |
+| Primitivos filtrados a componentes | Solo contratos semánticos en API pública |
+| Orden CSS incorrecto | `index.css` respeta dependencias (spacing → breakpoints) |
+| Tooling sin registro central | `medmoContracts`, `allPublicCssVariables` |
+| Semver ambiguo | Frontera clara: estable vs interno |
+
+### Qué NO es
+
+- No crea tokens nuevos
+- No modifica Foundations existentes
+- No reemplaza documentación individual de cada Foundation
+- No es Technical Setup (Tailwind, ThemeProvider, `@theme`)
+
+---
+
+## Arquitectura
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    CONSUMIDORES                              │
+│         apps · componentes · tooling · docs                  │
+└──────────────────────────┬──────────────────────────────────┘
+                           │ import ONLY from here
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│              foundations/tokens/  (PUBLIC API)               │
+│  index.ts │ index.css │ medmoContracts │ medmoResolve        │
+└──────────────────────────┬──────────────────────────────────┘
+                           │ aggregates (no new values)
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│         foundations/{colors,spacing,…}/  (INTERNAL)          │
+│  primitives/ · semantic/ · *.css · contract.ts · resolve.ts  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Capas dentro de `foundations/tokens/`
+
+| Capa | Archivos | Rol |
+|------|----------|-----|
+| **Public API** | `index.ts` | Único export TypeScript |
+| **CSS runtime** | `index.css` | Todas las custom properties |
+| **Types** | `public/types.ts` | Re-export de tipos semánticos |
+| **Contracts** | `public/contracts.ts` | Registro de nombres estables |
+| **Resolve** | `public/resolve.ts` | Helpers semánticos (sin primitivos) |
+| **Constants** | `public/constants.ts` | Principios, metadata, definiciones |
+| **Internal docs** | `internal.md` | Lista explícita de exclusiones |
+
+---
+
+## Qué exporta
+
+### CSS — `foundations/tokens/index.css`
+
+Agrega en orden de dependencia:
+
+1. colors → typography → spacing → breakpoints → radius → shadows → motion → opacity → z-index → iconography
+
+### TypeScript — `foundations/tokens/index.ts`
+
+| Grupo | Símbolos principales |
+|-------|---------------------|
+| Contratos | `medmoContracts`, `allPublicCssVariables`, `allColorTokenNames`, `allSemanticSpacingTokens`, … |
+| Resolve | `medmoResolve`, `resolveIconSize`, `resolveShadowScale`, `toCssOklch`, `contrastMatrix`, … |
+| Tipos | `SemanticTypographyRole`, `ZIndexLayer`, `MotionPresetRole`, … |
+| Constantes | `tokenCreationPrinciple`, `surfaceArchitecture`, `motionPresets`, `iconLibrary`, … |
+| Arquitectura | `TOKEN_AGGREGATION_VERSION`, `tokenLayers`, `cssImportOrder`, `tokenPrefixGuide` |
+
+---
+
+## Qué NO exporta
+
+Ver [`foundations/tokens/internal.md`](../../../foundations/tokens/internal.md).
+
+Resumen:
+
+| Excluido | Ejemplo |
+|----------|---------|
+| Primitivos | `primitives/`, `--spacing-*`, `--z-layer-*` |
+| Resolve primitivo | `resolvePrimitiveSpacing`, `resolvePrimitiveColor` |
+| CSS individual | `foundations/colors/colors.css` |
+| Implementación | Archivos en `public/` — importar solo desde `index.ts` |
+
+---
+
+## Estabilidad
+
+### Estable (semver contract)
+
+- Nombres en `allPublicCssVariables` y `medmoContracts`
+- Prefijos documentados en `tokenPrefixGuide`
+- Firmas de resolve helpers exportados
+- Tipos re-exportados desde `public/types.ts`
+
+### Puede cambiar internamente (sin breaking en consumidores)
+
+- Rutas dentro de `foundations/{name}/`
+- Valores primitivos si la salida semántica no cambia
+- Organización de archivos dentro de cada Foundation
+- Implementación de resolve (mismo output)
+
+### Semver guidance
+
+| Cambio | Versión |
+|--------|---------|
+| Agregar token semántico | Minor |
+| Agregar resolve helper | Minor |
+| Renombrar/eliminar token en contrato | Major |
+| Cambiar firma de helper exportado | Major |
+
+---
+
+## Ejemplos de consumo
+
+### CSS en globals (Fase 3 — Technical Setup)
+
+```css
+@import "../../foundations/tokens/index.css";
+```
+
+### Componente — solo variables semánticas
+
+```css
+.card {
+  background: var(--color-surface-raised);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-sm);
+  z-index: var(--z-base);
+}
+```
+
+### TypeScript — validación de tokens
+
+```typescript
+import { allPublicCssVariables, medmoContracts } from "@medmo/tokens/contracts"
+
+// Lint: verificar que un componente solo usa tokens públicos
+const allowed = new Set(allPublicCssVariables)
+const spacingTokens = medmoContracts.spacing.cssVariables
+```
+
+### TypeScript — documentación / Storybook
+
+```typescript
+import { medmoResolve } from "@medmo/tokens"
+import { motionPresets } from "@medmo/tokens/tooling"
+
+const dropdown = medmoResolve.motion.preset("dropdown")
+// → { duration: "150ms", easing: "ease-out", ... }
+```
+
+### ❌ Anti-patterns
+
+```typescript
+// NO — import directo a Foundation
+import { semanticSpacing } from "../../foundations/spacing/semantic"
+import "../../foundations/colors/colors.css"
+
+// NO — primitivos en componentes
+style={{ zIndex: "var(--z-layer-60)" }}
+```
+
+---
+
+## Organización de imports
+
+Recomendación para consumidores:
+
+```typescript
+// 1. Contratos (validación, registries)
+import { medmoContracts, allPublicCssVariables } from "@medmo/tokens/contracts"
+
+// 2. Resolve (tooling, docs — raramente en runtime UI)
+import { medmoResolve } from "@medmo/tokens"
+
+// 3. Tipos
+import type { SemanticTypographyRole } from "@medmo/tokens"
+
+// 4. Metadata / tooling
+import { tokenCreationPrinciple } from "@medmo/tokens"
+import { iconLibrary } from "@medmo/tokens"
+```
+
+---
+
+## Autoauditoría crítica
+
+### ¿Hay exports redundantes?
+
+**Sí, intencionalmente controlado.**
+
+- `medmoContracts` agrupa todo; los exports individuales (`allSemanticSpacingTokens`, etc.) permiten tree-shaking y acceso tipado sin desanidar.
+- `medmoResolve` duplica los resolve helpers planos — ofrece API namespaced para tooling.
+- `export *` + exports nombrados en `index.ts` — mismo módulo resolve, sin conflicto.
+
+**Acción:** Mantener ambos patrones. Documentar cuándo usar cada uno. No agregar tercera forma (ej. `getToken()` genérico) hasta Fase 3+.
+
+### ¿Alguna Foundation expone cosas internas?
+
+**Revisado — sin fugas críticas.**
+
+| Riesgo | Estado |
+|--------|--------|
+| `lightSemantic` / `darkSemantic` | Exportados como metadata de arquitectura de color — no primitivos OKLCH |
+| `radiusBase` | Objeto con px/rem — útil para docs; no expone `--radius-pill` |
+| `motionTransformTokens` | Presets de transform, no primitivos de duración sueltos |
+| `zIndexStackOrder` | Orden semántico, no `--z-layer-*` |
+
+**Atención futura:** `contrastMatrix` expone matriz completa — aceptable para tooling a11y, no para componentes runtime.
+
+### ¿Podemos simplificar la API pública?
+
+**Parcialmente — no ahora.**
+
+Podríamos exportar solo `medmoContracts` + `medmoResolve` y eliminar re-exports planos. Eso complica tree-shaking y DX en foundations individuales.
+
+**Decisión:** API actual es el balance correcto para 10 foundations. Re-evaluar en Foundation Audit si crece verbosidad.
+
+### ¿Hay nombres inconsistentes?
+
+| Inconsistencia | Notas |
+|----------------|-------|
+| `allColorTokenNames` vs `allSemanticSpacingTokens` | Histórico — colors usa alias en contracts |
+| `zIndexSemanticLayers` vs `zIndexStackOrder` | Primer export renombra `zIndexLayers` para claridad |
+| `semanticRoles` (typography) vs `semanticSpacing` (objeto) | Convención por foundation — no unificar en aggregation |
+
+**Acción:** Documentar aliases. Unificar nombres solo en major semver si audit lo recomienda.
+
+### ¿La organización escala a 40+ componentes?
+
+**Sí — con reglas.**
+
+| Escalabilidad | Mecanismo |
+|---------------|-----------|
+| N nuevas Foundations | Agregar a `index.css`, `contracts.ts`, `types.ts`, `resolve.ts` — patrón repetible |
+| Component tokens (futuro) | Nueva capa en `medmoContracts.components` — no tocar foundations individuales |
+| 40+ primitivos shadcn | Consumen CSS vars vía Technical Setup — no importan tokens TS directamente |
+| Lint | `allPublicCssVariables` como allowlist |
+
+**Riesgo:** `medmoContracts` crece linealmente. A ~15 foundations considerar sub-path exports (`@medmo/tokens/contracts`) — post packages/foundations migration.
+
+---
+
+## Definition of Done
+
+- [x] `index.css` agrega las 10 Foundations en orden correcto
+- [x] `index.ts` es el único entry TypeScript
+- [x] Contratos públicos sin primitivos
+- [x] Resolve helpers semánticos únicamente
+- [x] Tipos públicos re-exportados
+- [x] Constantes y principios expuestos
+- [x] `internal.md` documenta exclusiones
+- [x] README de consumo
+- [x] Documentación MDX con autoauditoría
+- [x] Sin tokens nuevos, sin modificar Foundations
+- [x] TypeScript compila limpio
+
+---
+
+## Próximo paso
+
+**STOP — Foundation Audit completo** antes de Fase 3 (Technical Setup).
+
+Revisar las 11 Foundations + capa de agregación como sistema coherente.

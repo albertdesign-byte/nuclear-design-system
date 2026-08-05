@@ -1,0 +1,20 @@
+/**
+ * Medmo Design System — CSS runtime entry point.
+ *
+ * Import ONLY this file in application globals.css.
+ * Wired in: src/app/globals.css (first import — before Tailwind).
+ * Order respects cross-foundation dependencies (spacing before breakpoints).
+ *
+ * Does NOT define new tokens — aggregates existing foundation CSS.
+ */
+
+@import "../colors/colors.css";
+@import "../typography/typography.css";
+@import "../spacing/spacing.css";
+@import "../breakpoints/breakpoints.css";
+@import "../radius/radius.css";
+@import "../shadows/shadows.css";
+@import "../motion/motion.css";
+@import "../opacity/opacity.css";
+@import "../z-index/z-index.css";
+@import "../iconography/iconography.css";

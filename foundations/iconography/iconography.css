@@ -1,0 +1,36 @@
+/**
+ * Medmo Iconography — CSS Custom Properties
+ *
+ * Lucide-only (library constant in types.ts — not CSS).
+ * Four sizes. One stroke. currentColor in SVG — not a CSS var on container.
+ *
+ * Icon-to-text gap: use Spacing --space-inline-xs / --space-inline-sm.
+ */
+
+:root {
+  /* ─── Primitive Sizes (internal — do not use in components) ────────────── */
+  --icon-size-14: 0.875rem;
+  --icon-size-16: 1rem;
+  --icon-size-20: 1.25rem;
+  --icon-size-24: 1.5rem;
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * SEMANTIC SIZES — components consume ONLY these + --icon-size default
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  --icon-sm: var(--icon-size-14);
+  --icon-md: var(--icon-size-16);
+  --icon-lg: var(--icon-size-20);
+  --icon-xl: var(--icon-size-24);
+
+  /** System default — 16px */
+  --icon-size: var(--icon-md);
+
+  /** Single stroke width — Lucide strokeWidth={2} */
+  --icon-stroke: 2;
+}
+
+/**
+ * 24px grid base: icon-xl aligns to spacing rhythm (space-page, space-dialog).
+ * Dark mode: identical values.
+ */

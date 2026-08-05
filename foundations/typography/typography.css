@@ -1,0 +1,153 @@
+/**
+ * Medmo Typography System — CSS Custom Properties
+ *
+ * Primitive variables (--font-*) are implementation detail.
+ * Components consume ONLY semantic variables (--text-*).
+ *
+ * @import in globals.css during Technical Setup phase.
+ */
+
+:root {
+  /* ─── Primitive: Font Family ─────────────────────────────────────────────
+   * Why quoted stack: Fallback to system sans if IBM Plex not yet loaded
+   * (Technical Setup loads via next/font).
+   */
+  --font-family-sans: "IBM Plex Sans Condensed", sans-serif;
+  --font-family-mono: "IBM Plex Mono", monospace;
+
+  /* ─── Primitive: Font Size (internal — do not use in components) ─────── */
+  --font-size-2xs: 0.6875rem;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+
+  /* ─── Primitive: Font Weight (internal) ────────────────────────────────── */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ─── Primitive: Line Height (internal) ────────────────────────────────── */
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+
+  /* ─── Primitive: Letter Spacing (internal) ─────────────────────────────── */
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0em;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * SEMANTIC TYPOGRAPHY TOKENS — components consume ONLY these
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  /* Display — major page titles, max 1 per page */
+  --text-display-font-family: var(--font-family-sans);
+  --text-display-size: var(--font-size-4xl);
+  --text-display-weight: var(--font-weight-semibold);
+  --text-display-line-height: var(--line-height-tight);
+  --text-display-letter-spacing: var(--letter-spacing-tight);
+  --text-display-text-transform: none;
+
+  /* H1 — primary page heading */
+  --text-h1-font-family: var(--font-family-sans);
+  --text-h1-size: var(--font-size-3xl);
+  --text-h1-weight: var(--font-weight-semibold);
+  --text-h1-line-height: var(--line-height-tight);
+  --text-h1-letter-spacing: var(--letter-spacing-tight);
+  --text-h1-text-transform: none;
+
+  /* H2 — section heading */
+  --text-h2-font-family: var(--font-family-sans);
+  --text-h2-size: var(--font-size-2xl);
+  --text-h2-weight: var(--font-weight-semibold);
+  --text-h2-line-height: var(--line-height-snug);
+  --text-h2-letter-spacing: var(--letter-spacing-tight);
+  --text-h2-text-transform: none;
+
+  /* H3 — subsection heading */
+  --text-h3-font-family: var(--font-family-sans);
+  --text-h3-size: var(--font-size-xl);
+  --text-h3-weight: var(--font-weight-semibold);
+  --text-h3-line-height: var(--line-height-snug);
+  --text-h3-letter-spacing: var(--letter-spacing-normal);
+  --text-h3-text-transform: none;
+
+  /* Title — component-level titles (cards, dialogs) */
+  --text-title-font-family: var(--font-family-sans);
+  --text-title-size: var(--font-size-lg);
+  --text-title-weight: var(--font-weight-medium);
+  --text-title-line-height: var(--line-height-snug);
+  --text-title-letter-spacing: var(--letter-spacing-normal);
+  --text-title-text-transform: none;
+
+  /* Body Large — emphasized reading */
+  --text-body-large-font-family: var(--font-family-sans);
+  --text-body-large-size: var(--font-size-lg);
+  --text-body-large-weight: var(--font-weight-regular);
+  --text-body-large-line-height: var(--line-height-relaxed);
+  --text-body-large-letter-spacing: var(--letter-spacing-normal);
+  --text-body-large-text-transform: none;
+
+  /* Body — default clinical content */
+  --text-body-font-family: var(--font-family-sans);
+  --text-body-size: var(--font-size-base);
+  --text-body-weight: var(--font-weight-regular);
+  --text-body-line-height: var(--line-height-normal);
+  --text-body-letter-spacing: var(--letter-spacing-normal);
+  --text-body-text-transform: none;
+
+  /* Body Small — secondary content, minimum functional size */
+  --text-body-small-font-family: var(--font-family-sans);
+  --text-body-small-size: var(--font-size-sm);
+  --text-body-small-weight: var(--font-weight-regular);
+  --text-body-small-line-height: var(--line-height-normal);
+  --text-body-small-letter-spacing: var(--letter-spacing-normal);
+  --text-body-small-text-transform: none;
+
+  /* Label — form and control labels */
+  --text-label-font-family: var(--font-family-sans);
+  --text-label-size: var(--font-size-sm);
+  --text-label-weight: var(--font-weight-medium);
+  --text-label-line-height: var(--line-height-normal);
+  --text-label-letter-spacing: var(--letter-spacing-normal);
+  --text-label-text-transform: none;
+
+  /* Caption — timestamps, metadata (non-critical) */
+  --text-caption-font-family: var(--font-family-sans);
+  --text-caption-size: var(--font-size-xs);
+  --text-caption-weight: var(--font-weight-regular);
+  --text-caption-line-height: var(--line-height-normal);
+  --text-caption-letter-spacing: var(--letter-spacing-normal);
+  --text-caption-text-transform: none;
+
+  /* Overline — uppercase category labels */
+  --text-overline-font-family: var(--font-family-sans);
+  --text-overline-size: var(--font-size-2xs);
+  --text-overline-weight: var(--font-weight-medium);
+  --text-overline-line-height: var(--line-height-normal);
+  --text-overline-letter-spacing: var(--letter-spacing-wider);
+  --text-overline-text-transform: uppercase;
+
+  /* Code — monospace data and snippets */
+  --text-code-font-family: var(--font-family-mono);
+  --text-code-size: var(--font-size-sm);
+  --text-code-weight: var(--font-weight-regular);
+  --text-code-line-height: var(--line-height-normal);
+  --text-code-letter-spacing: var(--letter-spacing-normal);
+  --text-code-text-transform: none;
+}
+
+/**
+ * Dark mode: Typography values are identical to light mode.
+ * Contrast is handled by Color tokens (--color-text-*), not typography scale.
+ * Density (future) may override semantic sizes via data-density attribute.
+ */

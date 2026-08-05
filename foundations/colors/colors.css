@@ -1,0 +1,184 @@
+/**
+ * Medmo Color System — CSS Custom Properties
+ *
+ * Why CSS is the runtime source of truth:
+ * Tailwind v4, browsers, and Figma plugins all consume CSS variables natively.
+ * TypeScript files document decisions; this file is what components actually use.
+ *
+ * Usage: @import in globals.css during Technical Setup phase.
+ * Components consume ONLY --color-* and --focus-* tokens. Never --primitive-*.
+ */
+
+:root {
+  /* ─── Focus Tokens ───────────────────────────────────────────────────────
+   * Why centralized: Every interactive element shares identical focus styling.
+   * Prevents the ring-3 vs ring-[3px] inconsistency found in the audit.
+   */
+  --focus-ring-width: 3px;
+  --focus-ring-offset: 2px;
+  --color-focus-ring: oklch(31.24% 0.0613 268.7 / 50%);
+
+  /* ─── Surface Hierarchy ──────────────────────────────────────────────────
+   * Why 5 levels: Background → Surface → Raised → Floating → Overlay
+   * enables Cards, Dropdowns, Popovers, and Modals without guessing.
+   * Light mode: off-white page, pure white containers.
+   */
+  --color-background: oklch(98.5% 0.002 268.7);
+  --color-surface: oklch(100% 0 0);
+  --color-surface-raised: oklch(100% 0 0);
+  --color-surface-floating: oklch(100% 0 0);
+  --color-surface-muted: oklch(97% 0.004 268.7);
+  --color-surface-hover: oklch(93.5% 0.006 268.7);
+  --color-surface-active: oklch(97.5% 0.008 268.7);
+  --color-overlay: oklch(20% 0.022 268.7 / 40%);
+
+  /* ─── Text ───────────────────────────────────────────────────────────────
+   * Why weight-based hierarchy: Text levels use neutral scale steps tuned
+   * for WCAG AA on both background and surface-muted (worst case).
+   */
+  --color-text-primary: oklch(34% 0.018 268.7);
+  --color-text-secondary: oklch(52% 0.014 268.7);
+  --color-text-muted: oklch(64% 0.012 268.7);
+  --color-text-disabled: oklch(78% 0.010 268.7);
+  --color-text-inverse: oklch(98.5% 0.002 268.7);
+  --color-text-link: oklch(31.24% 0.0613 268.7);
+  --color-text-link-hover: oklch(36% 0.061 268.7);
+
+  /* ─── Borders ────────────────────────────────────────────────────────────
+   * Why three levels: Subtle for dividers, default for inputs, strong for emphasis.
+   * Reduces visual noise — most UI uses subtle or default only.
+   */
+  --color-border: oklch(78% 0.010 268.7);
+  --color-border-subtle: oklch(88% 0.008 268.7);
+  --color-border-strong: oklch(64% 0.012 268.7);
+
+  /* ─── Actions ────────────────────────────────────────────────────────────
+   * Why primary-800: Brand anchor #242F50. Not 500 or 600.
+   */
+  --color-action-primary: oklch(31.24% 0.0613 268.7);
+  --color-action-primary-hover: oklch(36% 0.061 268.7);
+  --color-action-primary-active: oklch(26.5% 0.056 268.7);
+  --color-action-primary-text: oklch(100% 0 0);
+
+  /* ─── Disabled ───────────────────────────────────────────────────────────
+   * Why dedicated tokens (not opacity): Opacity breaks contrast calculations
+   * and creates inconsistent rendering. Primer/Carbon use explicit disabled colors.
+   */
+  --color-disabled-background: oklch(97% 0.004 268.7);
+  --color-disabled-border: oklch(88% 0.008 268.7);
+  --color-disabled-text: oklch(78% 0.010 268.7);
+
+  /* ─── Success ────────────────────────────────────────────────────────────
+   * Why 4 distinct tokens: Background, border, text, and foreground (solid)
+   * serve different purposes. Reusing one color for all creates flat, unclear UI.
+   */
+  --color-success-background: oklch(97% 0.015 162);
+  --color-success-border: oklch(80% 0.060 162);
+  --color-success-text: oklch(46% 0.078 162);
+  --color-success-foreground: oklch(52% 0.080 162);
+
+  /* ─── Warning ──────────────────────────────────────────────────────────── */
+  --color-warning-background: oklch(97.5% 0.020 72);
+  --color-warning-border: oklch(83% 0.085 72);
+  --color-warning-text: oklch(50% 0.105 72);
+  --color-warning-foreground: oklch(57% 0.110 72);
+
+  /* ─── Error ──────────────────────────────────────────────────────────────
+   * Why desaturated red: Alarm fatigue prevention in clinical dashboards.
+   */
+  --color-error-background: oklch(97.5% 0.010 29);
+  --color-error-border: oklch(82% 0.080 29);
+  --color-error-text: oklch(48% 0.175 29);
+  --color-error-foreground: oklch(54% 0.165 29);
+
+  /* ─── Info ───────────────────────────────────────────────────────────────
+   * Why distinct from primary: Info blue (H≈261°) vs brand navy (H≈269°).
+   * Prevents confusion between informational content and branded actions.
+   */
+  --color-info-background: oklch(97% 0.015 261);
+  --color-info-border: oklch(80% 0.100 261);
+  --color-info-text: oklch(48% 0.190 261);
+  --color-info-foreground: oklch(53% 0.185 261);
+
+  /* ─── Timeline Card (PX_task) ────────────────────────────────────────────
+   * Priority header and badge — default header uses --color-surface-muted.
+   */
+  --color-timeline-card-header-priority: oklch(95.5% 0.020 15);
+  --color-timeline-card-priority-badge: oklch(96.5% 0.018 15);
+}
+
+.dark {
+  /* ─── Focus (dark) ─────────────────────────────────────────────────────
+   * Why lighter ring: primary-800 at 50% opacity is invisible on dark backgrounds.
+   */
+  --color-focus-ring: oklch(70% 0.042 268.7 / 50%);
+
+  /* ─── Surface Hierarchy (dark) ───────────────────────────────────────────
+   * Why lighter steps for elevation: Dark mode depth = lightness increase.
+   * 950 (page) → 900 (card) → 800 (raised/floating).
+   */
+  --color-background: oklch(20% 0.022 268.7);
+  --color-surface: oklch(27% 0.020 268.7);
+  --color-surface-raised: oklch(34% 0.018 268.7);
+  --color-surface-floating: oklch(34% 0.018 268.7);
+  --color-surface-muted: oklch(27% 0.020 268.7);
+  --color-surface-hover: oklch(34% 0.018 268.7);
+  --color-surface-active: oklch(20.5% 0.048 268.7);
+  --color-overlay: oklch(20% 0.022 268.7 / 60%);
+
+  /* ─── Text (dark) ──────────────────────────────────────────────────────── */
+  --color-text-primary: oklch(97% 0.004 268.7);
+  --color-text-secondary: oklch(78% 0.010 268.7);
+  --color-text-muted: oklch(64% 0.012 268.7);
+  --color-text-disabled: oklch(52% 0.014 268.7);
+  --color-text-inverse: oklch(27% 0.020 268.7);
+  --color-text-link: oklch(70% 0.042 268.7);
+  --color-text-link-hover: oklch(82% 0.032 268.7);
+
+  /* ─── Borders (dark) ───────────────────────────────────────────────────── */
+  --color-border: oklch(42% 0.016 268.7);
+  --color-border-subtle: oklch(34% 0.018 268.7);
+  --color-border-strong: oklch(52% 0.014 268.7);
+
+  /* ─── Actions (dark) ─────────────────────────────────────────────────────
+   * Why lighter primary: primary-800 buttons disappear on neutral-900 surfaces.
+   */
+  --color-action-primary: oklch(36% 0.061 268.7);
+  --color-action-primary-hover: oklch(44% 0.058 268.7);
+  --color-action-primary-active: oklch(31.24% 0.0613 268.7);
+  --color-action-primary-text: oklch(100% 0 0);
+
+  /* ─── Disabled (dark) ──────────────────────────────────────────────────── */
+  --color-disabled-background: oklch(27% 0.020 268.7);
+  --color-disabled-border: oklch(34% 0.018 268.7);
+  --color-disabled-text: oklch(52% 0.014 268.7);
+
+  /* ─── Success (dark) ─────────────────────────────────────────────────────
+   * Why inverted steps: Dark backgrounds use 950, text uses lighter 300.
+   */
+  --color-success-background: oklch(28% 0.055 162);
+  --color-success-border: oklch(40% 0.072 162);
+  --color-success-text: oklch(80% 0.060 162);
+  --color-success-foreground: oklch(52% 0.080 162);
+
+  /* ─── Warning (dark) ───────────────────────────────────────────────────── */
+  --color-warning-background: oklch(32% 0.075 72);
+  --color-warning-border: oklch(44% 0.095 72);
+  --color-warning-text: oklch(83% 0.085 72);
+  --color-warning-foreground: oklch(57% 0.110 72);
+
+  /* ─── Error (dark) ─────────────────────────────────────────────────────── */
+  --color-error-background: oklch(30% 0.135 29);
+  --color-error-border: oklch(42% 0.170 29);
+  --color-error-text: oklch(82% 0.080 29);
+  --color-error-foreground: oklch(54% 0.165 29);
+
+  /* ─── Info (dark) ──────────────────────────────────────────────────────── */
+  --color-info-background: oklch(30% 0.145 261);
+  --color-info-border: oklch(42% 0.180 261);
+  --color-info-text: oklch(80% 0.100 261);
+  --color-info-foreground: oklch(53% 0.185 261);
+
+  --color-timeline-card-header-priority: oklch(30% 0.135 29);
+  --color-timeline-card-priority-badge: oklch(32% 0.120 29);
+}

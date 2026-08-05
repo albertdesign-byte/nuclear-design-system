@@ -1,0 +1,84 @@
+/**
+ * Tailwind v4 @theme bridge — aliases only.
+ *
+ * Maps shadcn/Tailwind utility names to Foundation CSS custom properties.
+ * Does NOT define token values — foundations/tokens/index.css owns all values.
+ */
+
+@theme inline {
+  /* ─── Colors (shadcn utility → Foundation) ─────────────────────────────── */
+
+  /* Same name — reference existing Foundation value */
+  --color-background: var(--color-background);
+  --color-border: var(--color-border);
+
+  /* shadcn semantic → Foundation semantic */
+  --color-foreground: var(--color-text-primary);
+  --color-card: var(--color-surface);
+  --color-card-foreground: var(--color-text-primary);
+  --color-popover: var(--color-surface-floating);
+  --color-popover-foreground: var(--color-text-primary);
+  --color-primary: var(--color-action-primary);
+  --color-primary-foreground: var(--color-action-primary-text);
+  --color-secondary: var(--color-surface-muted);
+  --color-secondary-foreground: var(--color-text-secondary);
+  --color-muted: var(--color-surface-muted);
+  --color-muted-foreground: var(--color-text-muted);
+  --color-accent: var(--color-surface-hover);
+  --color-accent-foreground: var(--color-text-primary);
+  --color-destructive: var(--color-error-foreground);
+  --color-input: var(--color-border);
+  --color-ring: var(--color-focus-ring);
+
+  /* ─── Typography ─────────────────────────────────────────────────────────── */
+
+  --font-sans: var(--font-family-sans);
+  --font-mono: var(--font-family-mono);
+  --font-heading: var(--text-title-font-family);
+
+  /* ─── Radius (Foundation owns --radius-* semantics) ──────────────────────── */
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
+  --radius-full: var(--radius-full);
+  /* shadcn badge — alias to Foundation full pill */
+  --radius-4xl: var(--radius-full);
+
+  /* ─── Shadows ──────────────────────────────────────────────────────────── */
+
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+
+  /* ─── Spacing (4px grid — Foundation primitive base unit) ──────────────── */
+
+  --spacing: var(--spacing-4);
+
+  /* ─── Breakpoints (compile-time mirror of Foundation --breakpoint-*) ───────
+   * Tailwind requires static lengths for @media generation.
+   * Values MUST match foundations/breakpoints/breakpoints.css primitives.
+   */
+  --breakpoint-sm: 40rem; /* compact — 640px */
+  --breakpoint-md: 48rem; /* medium — 768px */
+  --breakpoint-lg: 64rem; /* expanded — 1024px */
+  --breakpoint-xl: 80rem; /* large — 1280px */
+  --breakpoint-2xl: 96rem; /* wide — 1536px */
+
+  /* ─── Z-index (semantic layers — optional utilities) ───────────────────── */
+
+  --z-dropdown: var(--z-dropdown);
+  --z-popover: var(--z-popover);
+  --z-tooltip: var(--z-tooltip);
+  --z-toast: var(--z-toast);
+  --z-modal: var(--z-modal);
+
+  /* ─── Motion (default transition — Foundation preset) ─────────────────── */
+
+  --default-transition-duration: var(--motion-default);
+  --default-transition-timing-function: var(--motion-ease-in-out);
+}

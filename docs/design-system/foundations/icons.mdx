@@ -1,0 +1,339 @@
+---
+title: Iconography
+description: Iconografía Medmo — Lucide, 4 tamaños, 1 stroke, reglas de uso clínico.
+status: complete
+version: 1.0.0
+lastUpdated: 2026-07-17
+phase: foundations
+---
+
+# Iconography
+
+> Los iconos apoyan la comprensión.
+> Nunca reemplazan el texto. Nunca decoran.
+
+---
+
+## Iconography Intent
+
+Esta sección explica **por qué** existe Iconography — no solo qué tamaños usar.
+
+### Los iconos son apoyo cognitivo, no sustituto de texto
+
+En una plataforma clínica, "Completed" con un check puede reforzar un estado — pero un check solo sin texto falla para screen readers, usuarios con daltonismo, y scanning rápido en tablas densas. Los iconos **refuerzan** significado ya presente en texto o color semántico.
+
+**Implicación:** Icono + texto en acciones. Icono solo solo con `aria-label` en controles icon-only. Nunca icono solo para estado clínico crítico.
+
+### Menos iconos, usados consistentemente
+
+Cada icono distinto en una toolbar añade carga de parsing. Medmo prefiere **icon-md (16px)** en el 90% de casos, Lucide, stroke 2, `currentColor` — para que el usuario no re-aprenda vocabulario visual en cada pantalla.
+
+**Implicación:** Cuatro tamaños. Un stroke. Una biblioteca. Sin excepciones locales.
+
+### Claridad clínica sobre expresividad
+
+No ilustraciones, no iconos "friendly", no gradientes en glyphs. Linear/GitHub/Stripe — funcional, preciso, silencioso.
+
+**Implicación:** Casos donde **no** usar iconos documentados explícitamente.
+
+### Grid base 24px — no "default 24px everywhere"
+
+24px (`icon-xl`) es la **referencia de grid** alineada con spacing (space-page, space-dialog). El default de producto es **16px** (`icon-md`). xl es raro — empty state focal, una vez por vista.
+
+---
+
+## Filosofía
+
+| Principio | Aplicación |
+|-----------|------------|
+| **Support comprehension** | Icon reinforces text/state |
+| **Never replace text** | Clinical labels stay textual |
+| **Never decorate** | No icons "for beauty" |
+| **Lucide only** | No mixed libraries |
+| **currentColor** | Inherits semantic text/icon color |
+| **icon-md default** | 16px unless context says sm/lg/xl |
+| **One stroke (2)** | No thin decorative strokes |
+| **Spacing from Spacing** | gap via space-inline-* |
+
+---
+
+## Arquitectura
+
+```
+scale.ts + stroke.ts (primitivos)
+        ↓
+semantics.ts (icon-sm/md/lg/xl + context mappings)
+        ↓
+iconography.css
+        ↓
+Components: width/height var(--icon-md), strokeWidth 2, color currentColor
+```
+
+```
+Context (documented, not extra tokens)     Size        Gap (Spacing)
+──────────────────────────────────────     ────        ─────────────
+button                                     icon-md     space-inline-sm (8px)
+input prefix/suffix                        icon-md     space-inline-xs (4px)
+table row action                           icon-md     space-inline-xs
+empty-state focal                          icon-lg     —
+header action                              icon-md     space-inline-sm
+```
+
+---
+
+## Grid base: 24px
+
+| Concepto | Valor | Uso |
+|--------|-------|-----|
+| Grid base | 24px | Alineación con ritmo spacing — referencia de diseño |
+| Default producto | 16px (`icon-md`) | Botones, inputs, tablas |
+| Máximo frecuente | 20px (`icon-lg`) | Empty states |
+
+---
+
+## Tamaños permitidos (API pública)
+
+| Token | px | rem | Cuándo |
+|-------|-----|-----|--------|
+| `icon-sm` | 14 | 0.875 | Badge, Button xs — compact only |
+| `icon-md` | 16 | 1 | **Default** — buttons, inputs, tables, menus |
+| `icon-lg` | 20 | 1.25 | Empty state, stat auxiliary |
+| `icon-xl` | 24 | 1.5 | Grid base — hero empty state, max one per view |
+
+```css
+width: var(--icon-md);
+height: var(--icon-md);
+```
+
+**Rechazado:** `icon-xs` (12px) — demasiado pequeño para scanning clínico.
+
+---
+
+## Stroke
+
+| Token | Valor |
+|-------|-------|
+| `icon-stroke` | 2 |
+
+Lucide: `strokeWidth={2}`. Universal — sin excepciones.
+
+**Rechazado:** stroke 1.5 (decorativo), stroke 2.5+ (ruido visual).
+
+---
+
+## currentColor
+
+Regla general: el icono hereda el color del texto/contenedor padre.
+
+```tsx
+/* Lucide — color inherits via currentColor by default when using className text-* */
+<SearchIcon className="text-[inherit]" strokeWidth={2} />
+```
+
+En CSS/SVG: `stroke: currentColor; fill: none` (Lucide outline icons).
+
+**No hardcodear** `#242F50` en SVG de icono — usar tokens de color del padre (`color-text-primary`, `color-action-primary-text`, etc.).
+
+---
+
+## Espaciado icono + texto
+
+No duplicamos gap en Iconography — usamos **Spacing**:
+
+| Contexto | Gap token | Valor |
+|----------|-----------|-------|
+| Button icon + label | `space-inline-sm` | 8px |
+| Input icon + text | `space-inline-xs` | 4px |
+| Table cell icon + label | `space-inline-xs` | 4px |
+| Toolbar actions | `space-inline-md` | 12px (between buttons, not icon-text) |
+
+```css
+gap: var(--space-inline-sm); /* button with icon */
+```
+
+---
+
+## Uso por contexto
+
+### Botones
+
+- Tamaño: `icon-md` (16px)
+- Gap a label: `space-inline-sm`
+- Icon-only: **obligatorio** `aria-label` descriptivo
+- Stroke: 2
+- No usar `icon-lg` en button default
+
+### Inputs
+
+- Prefix/suffix (search, password toggle): `icon-md`
+- Gap: `space-inline-xs`
+- No reemplazar `<Label>` con icono
+- Chevron Select: `icon-md`, mismo stroke
+
+### Tablas
+
+- Row actions: `icon-md` — paired with text tooltip or aria-label
+- Sort indicator: `icon-md`
+- Status: **icon + text + color** — never icon-only for clinical status
+- No columna decorativa de iconos
+- No `icon-xl` en filas repetidas
+
+### Empty states
+
+- Focal icon: `icon-lg` default, `icon-xl` solo si es el único elemento visual grande
+- Una vez por vista — no repetir xl en dashboard tiles
+
+---
+
+## Accesibilidad
+
+| Regla | Implementación |
+|-------|----------------|
+| Icon-only button | `aria-label` obligatorio |
+| Decorative icon | `aria-hidden="true"` |
+| Functional icon | Texto visible adyacente o aria-label |
+| Estado clínico | Icon + text + color token — never color/icon alone |
+| Touch target | Icon-only button usa Button hit area (44px mobile) — no shrink icon below md for touch |
+| Contraste | currentColor sobre fondo — verificar par en Colors |
+
+---
+
+## Cuándo NO utilizar iconos
+
+- Etiquetas de campos clínicos críticos (medicación, diagnóstico)
+- Columnas de tabla donde texto + color bastan
+- Cada ítem de menú "para variedad visual"
+- Duplicar significado ya claro en heading
+- Marketing, wellness, celebración
+- Botones de acción destructiva **sin** texto confirmatorio (icon + label required)
+
+---
+
+## Do / Don't
+
+### DO
+
+| Escenario | Patrón |
+|-----------|--------|
+| Save button | `[SaveIcon md] + "Guardar"` + gap sm |
+| Search input | SearchIcon md prefix + xs gap |
+| Error state | AlertCircle md + error text + color-error-text |
+| Icon-only close | X md + `aria-label="Cerrar"` |
+| Empty list | Inbox lg + title + description (text) |
+
+### DON'T
+
+| Escenario | Por qué |
+|-----------|---------|
+| `[✓]` solo para "Completed" en tabla clínica | Screen reader, daltonismo |
+| Heroicon mezclado con Lucide | Inconsistencia |
+| `strokeWidth={1.5}` en todo | Rechazado — visibility |
+| Icon en cada column header sin valor | Ruido visual |
+| icon-xl en 20 filas de tabla | Fatiga, decoración |
+| `#3B82F6` hardcoded en SVG | Usar currentColor + tokens |
+
+---
+
+## Biblioteca oficial
+
+**Lucide** (`lucide-react`) — única fuente permitida.
+
+- Consistent stroke geometry
+- Ya instalado en el proyecto
+- No Heroicons, Font Awesome, SVG custom sets sin aprobación DS
+
+Constante: `foundations/iconography/types.ts` → `iconLibrary`
+
+---
+
+## Reglas de uso
+
+### DO
+
+- `var(--icon-md)` + `var(--icon-stroke)` + currentColor
+- Context mappings en `semantics.ts` para button/input/table
+- Preguntar token creation principle antes de nuevo tamaño
+
+### DON'T
+
+- `size-4`, `w-4 h-4` en código fuente de primitivos
+- Nueva biblioteca de iconos
+- Icon como único indicador de urgencia clínica
+
+---
+
+## Archivos
+
+| Archivo | Descripción |
+|---------|-------------|
+| `foundations/iconography/types.ts` | Tipos + Lucide constant |
+| `foundations/iconography/scale.ts` | 4 tamaños primitivos |
+| `foundations/iconography/stroke.ts` | Stroke único |
+| `foundations/iconography/semantics.ts` | Tamaños + context mappings |
+| `foundations/iconography/contract.ts` | Registro API |
+| `foundations/iconography/resolve.ts` | Resolvers |
+| `foundations/iconography/iconography.css` | CSS variables |
+| `foundations/iconography/rules.md` | DO/DON'T |
+| `foundations/iconography/tokens.ts` | Barrel export |
+
+---
+
+## Import
+
+```css
+@import "../../foundations/iconography/iconography.css";
+```
+
+```typescript
+import { resolveIconContext, iconLibrary, iconColorRule } from "../../foundations/iconography/tokens"
+```
+
+---
+
+## Dependencias
+
+| Foundation | Relación |
+|------------|----------|
+| **Spacing** | icon-text gap via space-inline-xs/sm |
+| **Colors** | currentColor inherits semantic text/action colors |
+| **Typography** | Icon size independent of text scale — md with text-sm/base |
+| **Accessibility** | aria-label, aria-hidden rules |
+
+---
+
+## Revisión crítica de arquitectura
+
+### ¿Más tamaños?
+
+| Propuesta | Veredicto |
+|-----------|-----------|
+| icon-xs (12px) | **Rechazado** — scan size clínico; sm cubre compact |
+| 5+ sizes (blueprint original) | **Reducido a 4** — md cubre 90% |
+| Per-component sizes | **Rechazado** — use context mapping |
+
+### ¿Más strokes?
+
+| Propuesta | Veredicto |
+|-----------|-----------|
+| stroke 1.5 thin | **Rechazado** — decorativo, peor legibilidad |
+| stroke 2.5 bold | **Rechazado** — ruido visual |
+| **Solo stroke 2** | **Aprobado** — Lucide default, clínico |
+
+### ¿Context tokens en CSS?
+
+**Rechazado** — context (button/input/table) es documentación + `semantics.ts`, no `--icon-button-size`. Evita proliferación; size + spacing tokens bastan.
+
+### ¿Gap tokens en Iconography?
+
+**Rechazado** — `space-inline-*` ya existe. Menos tokens, más intención.
+
+**Conclusión:** API mínima = 4 sizes + 1 stroke + `--icon-size` default. Todo lo demás es reglas de uso.
+
+---
+
+## Relacionados
+
+- [Spacing — inline gaps](./spacing.mdx)
+- [Accessibility](../principles/accessibility.mdx)
+- [Design Principles — Clarity over Decoration](../principles/design-principles.mdx)
+- [Brand Language](../principles/brand-language.mdx)

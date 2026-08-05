@@ -1,0 +1,169 @@
+---
+title: Brand Language
+description: Identidad visual y lenguaje de marca del Design System Medmo.
+status: approved
+version: 0.1.0
+lastUpdated: 2026-07-17
+phase: principles
+---
+
+# Brand Language
+
+> Medmo no busca una interfaz llamativa.
+> Busca una interfaz que desaparezca detrás de la información.
+> El usuario debe pensar en sus pacientes. No en la interfaz.
+
+---
+
+## Contexto del producto
+
+Medmo es una plataforma utilizada por equipos médicos durante **largas jornadas de trabajo**. Los usuarios pasan horas frente al sistema tomando decisiones clínicas, revisando datos de pacientes y coordinando equipos.
+
+Por eso la interfaz debe:
+
+- Reducir la carga cognitiva
+- Mantener la confianza durante sesiones prolongadas
+- Priorizar la información sobre la decoración
+- Sentirse profesional sin ser fría
+- Sentirse moderna sin ser experimental
+
+---
+
+## Personalidad de la marca
+
+La interfaz Medmo debe sentirse:
+
+| Atributo | Significado en UI |
+|----------|-------------------|
+| **Profesional** | Tipografía precisa, espaciado generoso, sin elementos lúdicos |
+| **Moderna** | Líneas limpias, componentes actuales, sin skeuomorphism |
+| **Elegante** | Restricción cromática, jerarquía tipográfica clara |
+| **Precisa** | Alineación exacta, datos legibles, estados claros |
+| **Confiable** | Consistencia total, feedback inmediato, sin sorpresas |
+| **Tranquila** | Colores contenidos, animaciones sutiles, mucho espacio en blanco |
+| **Limpia** | Pocos colores, bordes discretos, sombras casi imperceptibles |
+
+---
+
+## Referentes
+
+No nos inspiramos en Dribbble ni en interfaces de marketing.
+
+Nuestro estándar son productos que desaparecen detrás de la información:
+
+- **Linear** — Precisión, velocidad, densidad controlada
+- **GitHub** — Claridad funcional, jerarquía de datos
+- **Stripe Dashboard** — Profesionalismo, confianza, tipografía
+- **Vercel** — Minimalismo, espacio negativo
+- **Atlassian** — Escalabilidad enterprise, patterns consistentes
+- **Notion** — Calma visual, contenido protagonista
+
+Aplicado al mundo **Healthcare**: datos clínicos legibles, estados críticos visibles sin alarma innecesaria, workflows largos sin fatiga visual.
+
+---
+
+## Color primario
+
+```
+#242F50
+```
+
+Este es el color primario oficial de Medmo. **Nunca modificarlo sin autorización explícita del equipo de diseño.**
+
+Representa la identidad de la marca. Es un navy profundo, desaturado, que transmite confianza y profesionalismo sin agresividad.
+
+### Usos correctos
+
+- Primary Button
+- Active Navigation
+- Selected States
+- Links
+- Focus States
+- Elementos de acción importantes
+
+### Usos incorrectos
+
+- Fondos de página completos
+- Superficies grandes decorativas
+- Headers de sección como bloque de color
+- Decoración sin función
+
+**Regla:** El color primario crea **jerarquía**, no decoración.
+
+---
+
+## Tipografía
+
+La tipografía oficial del sistema es:
+
+```
+IBM Plex Sans Condensed
+```
+
+Debe utilizarse en toda la aplicación. Nunca reemplazarla por otra fuente sans-serif.
+
+### Pesos disponibles
+
+| Peso | Valor | Uso |
+|------|-------|-----|
+| Light | 300 | Uso limitado, datos secundarios |
+| Regular | 400 | Body text, contenido general |
+| Medium | 500 | Labels, subtítulos, énfasis moderado |
+| SemiBold | 600 | Headings, títulos de sección |
+| Bold | 700 | Títulos principales, datos críticos |
+
+### Jerarquía
+
+La jerarquía tipográfica se construye principalmente mediante:
+
+1. **Peso** — diferencia principal entre niveles
+2. **Tamaño** — escala modular controlada
+3. **Espaciado** — line-height y letter-spacing
+
+Nunca depender **únicamente del color** para crear jerarquía.
+
+---
+
+## Filosofía visual
+
+| Principio | Aplicación |
+|-----------|-----------|
+| Minimalista | Solo lo necesario. Cada elemento justifica su existencia. |
+| Silenciosa | La UI no compite con el contenido. |
+| Profesional | Sin gradientes decorativos, sin ilustraciones innecesarias. |
+| Muy limpia | Superficies blancas o casi blancas. Bordes discretos. |
+| Mucho espacio negativo | Respiración entre secciones y componentes. |
+| Muy pocos colores | Primary + neutrals + semánticos. Nada más. |
+| Sombras extremadamente sutiles | Preferir bordes sobre sombras cuando sea posible. |
+| Bordes discretos | `1px`, opacidad baja, color neutral. |
+
+---
+
+## Tono de voz en UI
+
+| Contexto | Tono | Ejemplo |
+|----------|------|---------|
+| Acciones | Directo, claro | "Guardar cambios" — no "¡Genial, guardemos!" |
+| Errores | Calmado, útil | "No se pudo guardar. Verifica la conexión." |
+| Confirmaciones | Breve | "Paciente registrado" |
+| Empty states | Orientador | "No hay pacientes registrados. Agrega el primero." |
+| Datos médicos | Preciso, sin ambigüedad | Fechas ISO, unidades explícitas |
+
+---
+
+## Lo que Medmo NO es
+
+- No es un dashboard colorido con charts decorativos
+- No es una app de wellness con gradientes y ilustraciones
+- No es un producto consumer con animaciones llamativas
+- No es un UI Kit genérico rebrandeado
+- No es una landing page convertida en aplicación
+
+---
+
+## Relación con Foundations
+
+Este documento define **por qué** existen las decisiones visuales.
+Los documentos en `foundations/` definen **qué valores** concretos implementan esta filosofía.
+
+Ningún token de color, tipografía o spacing se crea sin alinearse con este brand language.

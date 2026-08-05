@@ -1,0 +1,50 @@
+/**
+ * Medmo Radius System — CSS Custom Properties
+ *
+ * Subtle, discrete corners. Base default: 8px (--radius = --radius-lg).
+ * Components consume --radius-* scale or --radius-{context} semantic tokens.
+ * Never --radius-4, --radius-8 primitive px names in component styles.
+ */
+
+:root {
+  /* ─── Primitive Radius (internal — do not use in components) ───────────── */
+  --radius-0: 0;
+  --radius-4: 0.25rem;
+  --radius-6: 0.375rem;
+  --radius-8: 0.5rem;
+  --radius-12: 0.75rem;
+  --radius-16: 1rem;
+  --radius-pill: 9999px;
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * SEMANTIC SCALE — components may consume directly
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  --radius-none: var(--radius-0);
+  --radius-sm: var(--radius-4);
+  --radius-md: var(--radius-6);
+  --radius-lg: var(--radius-8);
+  --radius-xl: var(--radius-12);
+  --radius-2xl: var(--radius-16);
+  --radius-full: var(--radius-pill);
+
+  /* System default — shadcn/Tailwind compatibility anchor during Technical Setup */
+  --radius: var(--radius-lg);
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * SEMANTIC CONTEXT — preferred for components (encodes intent)
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  --radius-checkbox: var(--radius-sm);
+  --radius-badge: var(--radius-sm);
+  --radius-input: var(--radius-lg);
+  --radius-button: var(--radius-lg);
+  --radius-card: var(--radius-lg);
+  --radius-dialog: var(--radius-xl);
+  --radius-avatar: var(--radius-full);
+}
+
+/**
+ * Dark mode: Radius values identical to light.
+ * Density (future): does not modify radius — corners are not density-scaled.
+ */

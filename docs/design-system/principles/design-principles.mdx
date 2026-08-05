@@ -1,0 +1,205 @@
+---
+title: Design Principles
+description: Principios de diseño que gobiernan cada decisión del Design System Medmo.
+status: approved
+version: 0.1.0
+lastUpdated: 2026-07-17
+phase: principles
+---
+
+# Design Principles
+
+> Cada decisión visual debe mejorar la comprensión.
+> Nunca decorar por decorar.
+
+Estos principios gobiernan **todas** las decisiones del Design System — tokens, componentes, patterns y templates. Cuando haya duda, consultar estos principios antes de tomar una decisión.
+
+---
+
+## 1. Clarity over Decoration
+
+Toda decisión visual debe mejorar la comprensión del usuario. Nunca decorar por decorar.
+
+### En la práctica
+
+| Do | Don't |
+|----|-------|
+| Usar color para indicar estado (success, error) | Usar color para hacer la UI "más bonita" |
+| Usar iconos con significado funcional | Usar iconos decorativos sin propósito |
+| Usar espaciado para agrupar información relacionada | Usar líneas y bordes excesivos para separar |
+| Usar tipografía para crear jerarquía | Usar colores diferentes para cada heading |
+
+### Test
+
+Antes de agregar un elemento visual, preguntar: **"¿Esto ayuda al usuario a entender mejor la información?"** Si la respuesta es no, eliminarlo.
+
+---
+
+## 2. Data First
+
+La información siempre es más importante que la interfaz.
+
+### En la práctica
+
+- Las tablas de datos son el componente más importante del sistema
+- Los números y fechas deben ser legibles sin esfuerzo
+- Los estados clínicos deben ser identificables en menos de 1 segundo
+- El contenido ocupa el 80%+ del espacio visual; la UI el 20% restante
+- Reducir chrome (bordes, fondos, headers decorativos) al mínimo funcional
+
+### Test
+
+Diseñar primero el contenido. Después, agregar la mínima UI necesaria para contenerlo e interactuar con él.
+
+---
+
+## 3. Consistency Wins
+
+Nunca crear componentes duplicados. Nunca crear patrones duplicados. Nunca crear estilos duplicados.
+
+### En la práctica
+
+| Regla | Acción |
+|-------|--------|
+| Antes de crear | Buscar si ya existe en el DS |
+| Si existe | Reutilizar o extender via composición |
+| Si no existe | Crear, documentar y exportar |
+| En la app | Consumir del DS, nunca redefinir |
+
+### Test
+
+Si dos pantallas resuelven el mismo problema de forma diferente, una de las dos está mal.
+
+---
+
+## 4. Calm Interfaces
+
+Reducir ruido visual. Reducir bordes. Reducir sombras. Reducir colores. Incrementar espacio en blanco.
+
+### En la práctica
+
+- Máximo 1 color de acento por vista (primary)
+- Sombras casi imperceptibles — preferir `ring-1` sobre `shadow-md`
+- Bordes de 1px con opacidad baja, no bordes sólidos gruesos
+- Espaciado generoso entre secciones (spacing-8 mínimo)
+- Animaciones rápidas (100–200ms) e imperceptibles
+- Sin gradientes, sin patterns de fondo, sin texturas
+
+### Test
+
+Screenshot en escala de grises. Si la jerarquía se pierde, el problema es de tipografía/espaciado, no de color.
+
+---
+
+## 5. Accessibility by Default
+
+Todos los componentes nacen siendo accesibles. No es una tarea posterior.
+
+### En la práctica
+
+- Contraste mínimo WCAG AA en todo texto
+- Focus visible en todo elemento interactivo
+- Keyboard navigation completa
+- Screen reader labels en iconos y acciones
+- `aria-invalid` y `aria-describedby` en form controls
+- Respetar `prefers-reduced-motion`
+- Tamaños de touch target mínimo 44×44px en mobile
+
+Ver [accessibility.mdx](./accessibility.mdx) para guidelines completos.
+
+---
+
+## Principios de arquitectura
+
+Además de los principios visuales, el Design System sigue principios de arquitectura de software:
+
+### Composición sobre configuración
+
+Componentes pequeños que se combinan. Nunca monolitos configurables con 40 props.
+
+```
+Button → IconButton → SplitButton → DropdownButton
+```
+
+### Tokens antes que valores
+
+Ningún componente contiene valores hardcodeados. Todo sale de Design Tokens.
+
+```
+❌  color: #242F50
+✅  color: var(--color-primary)
+```
+
+### El DS es la única fuente de verdad
+
+Las aplicaciones consumen el Design System. Las aplicaciones **nunca** redefinen el Design System.
+
+Si una funcionalidad necesita algo nuevo:
+
+1. Primero mejorar el Design System
+2. Después construir la funcionalidad
+
+Nunca al revés.
+
+### Separación Design Decisions / Technical Implementation
+
+| Design Decisions | Technical Implementation |
+|-----------------|-------------------------|
+| Principles | ThemeProvider |
+| Foundations (tokens) | Tailwind mapping |
+| Component API | Next.js layout |
+| Patterns | Build configuration |
+
+El Design System debe poder existir independientemente del framework.
+
+---
+
+## Definición de Done
+
+Un componente solo está terminado cuando cumple **todos** estos criterios:
+
+- [ ] Está diseñado (alineado a estos principios)
+- [ ] Está implementado (en la capa correcta)
+- [ ] Utiliza Design Tokens (cero hardcoded values)
+- [ ] Es accesible (keyboard, screen reader, contrast)
+- [ ] Está documentado (MDX con preview interactivo)
+- [ ] Tiene ejemplos (variantes, tamaños, estados)
+- [ ] Está exportado (barrel export de su capa)
+- [ ] Fue revisado (consistencia con inventario y blueprint)
+
+Si falta alguno, **el componente no está terminado**.
+
+---
+
+## Resolución de conflictos
+
+Cuando dos principios entran en conflicto, esta es la prioridad:
+
+```
+1. Accessibility by Default     (nunca comprometer)
+2. Data First                   (información > estética)
+3. Clarity over Decoration      (función > forma)
+4. Consistency Wins             (patrón existente > solución nueva)
+5. Calm Interfaces              (aplicar cuando no hay conflicto)
+```
+
+---
+
+## Relación con otras capas
+
+```
+Principles (este documento)
+    ↓ informa
+Brand Language
+    ↓ informa
+Foundations (tokens)
+    ↓ consumen
+Primitives → Composites → Patterns → Templates
+```
+
+Los principles no cambian con frecuencia. Si un principle necesita cambiar, es una decisión de producto, no de implementación.
+
+### Documentos relacionados
+
+- [Motion Philosophy](./motion-philosophy.mdx) — animaciones explican cambios, no decoran
+- [Foundation Documentation Standard](../foundations/README.mdx) — Design Intent obligatorio

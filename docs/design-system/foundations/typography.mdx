@@ -1,0 +1,407 @@
+---
+title: Typography
+description: Sistema tipográfico Medmo — IBM Plex Sans Condensed, roles semánticos, accesibilidad clínica.
+status: complete
+version: 1.0.0
+lastUpdated: 2026-07-17
+phase: foundations
+---
+
+# Typography
+
+> La jerarquía se comunica con tamaño, peso y espacio — no con color.
+> IBM Plex Sans Condensed es la voz tipográfica de Medmo.
+
+---
+
+## Typography Intent
+
+Esta sección explica **por qué** existe el Typography System — no qué contiene.
+
+### Typography existe para maximizar legibilidad
+
+Medmo presenta datos clínicos, formularios complejos y tablas densas durante horas. Cada decisión tipográfica prioriza que el usuario **lea sin esfuerzo**: tamaños mínimos de 14px para UI funcional, 16px para contenido clínico, line-heights generosos (1.5+), y pesos con contraste suficiente entre body (400) y labels (500).
+
+**Implicación:** No reducimos tamaños para "caber más datos" a nivel de componente. Eso es responsabilidad de la futura Density Foundation — no de atajos tipográficos locales.
+
+### Debe reducir la fatiga visual en interfaces clínicas densas
+
+Condensed no significa comprimido hasta la incomodidad. IBM Plex Sans Condensed permite más caracteres por línea **sin reducir el tamaño físico**. Usamos la condensación de la fuente, no `font-size: 12px` en body text, para ganar densidad.
+
+**Implicación:** `body-small` (14px) es el piso funcional. `caption` (12px) y `overline` (11px) están restringidos a metadata no crítica.
+
+### La jerarquía se comunica principalmente mediante tamaño, peso y espacio
+
+Un H1 no es azul navy. Un label no es gris claro con color diferente al body. La distinción entre `h2` (24px/600) y `title` (18px/500) es dimensional — no cromática. El test de validación: screenshot en escala de grises; la jerarquía debe permanecer clara.
+
+**Implicación:** Los tokens de color (`color-text-primary`, `color-text-secondary`) complementan la tipografía — nunca la reemplazan.
+
+### IBM Plex Sans Condensed es identidad visual
+
+No es una preferencia estética intercambiable. Es la tipografía oficial de Medmo, igual que `#242F50` es el color oficial. Geist, Inter, system-ui y cualquier otra fuente están prohibidas en la interfaz del producto.
+
+**Implicación:** Solo el role `code` usa IBM Plex Mono. Todo lo demás usa IBM Plex Sans Condensed.
+
+---
+
+## Filosofía
+
+| Principio | Aplicación |
+|-----------|------------|
+| **Roles, not sizes** | Componentes usan `text-h2`, nunca `font-size-2xl` |
+| **Primitive → Semantic** | La escala visual es implementación interna |
+| **16px body baseline** | Contenido clínico legible sin zoom |
+| **Weight hierarchy** | 400 body → 500 label/title → 600 headings |
+| **Monospace for data** | IDs y valores alineados usan `code` |
+
+---
+
+## Arquitectura
+
+```
+Primitives (interno)          Semantic Tokens (componentes)       CSS Variables
+─────────────────────         ─────────────────────────────       ───────────────
+font-size-3xl              →  text-h1                        →  --text-h1-size
+font-weight-semibold         text-h1                        →  --text-h1-weight
+line-height-tight            text-h1                        →  --text-h1-line-height
+font-family-sans             text-body                      →  --text-body-font-family
+```
+
+**Regla:** Los componentes **nunca** consumen primitivos. Solo `--text-{role}-*`.
+
+Modificar la escala completa = cambiar primitivos en `typography.css`. Cero cambios en componentes.
+
+---
+
+## Semantic Typography Roles
+
+### Display
+
+| Propiedad | Valor |
+|-----------|-------|
+| Size | 36px (4xl) |
+| Weight | 600 |
+| Line height | 1.25 |
+| Letter spacing | -0.025em |
+
+**Propósito:** Título principal excepcional — máximo uno por página.
+
+**Usar en:** Dashboard welcome, landing de módulo.
+
+**No usar en:** Card titles, section headers, texto repetido.
+
+<p style={{ fontFamily: '"IBM Plex Sans Condensed", sans-serif', fontSize: '2.25rem', fontWeight: 600, lineHeight: 1.25, letterSpacing: '-0.025em', color: '#343842', margin: '0 0 24px' }}>Display — Dashboard Overview</p>
+
+---
+
+### H1
+
+| Propiedad | Valor |
+|-----------|-------|
+| Size | 30px (3xl) |
+| Weight | 600 |
+| Line height | 1.25 |
+
+**Propósito:** Encabezado principal de página.
+
+**Usar en:** PageHeader, título de pantalla.
+
+**No usar en:** Headings anidados, card titles.
+
+<p style={{ fontFamily: '"IBM Plex Sans Condensed", sans-serif', fontSize: '1.875rem', fontWeight: 600, lineHeight: 1.25, letterSpacing: '-0.025em', color: '#343842', margin: '0 0 8px' }}>H1 — Patient Records</p>
+
+---
+
+### H2
+
+| Propiedad | Valor |
+|-----------|-------|
+| Size | 24px (2xl) |
+| Weight | 600 |
+| Line height | 1.375 |
+
+**Propósito:** Encabezado de sección dentro de una página.
+
+**Usar en:** Grupos de formulario, paneles de tabs, settings sections.
+
+<p style={{ fontFamily: '"IBM Plex Sans Condensed", sans-serif', fontSize: '1.5rem', fontWeight: 600, lineHeight: 1.375, letterSpacing: '-0.025em', color: '#343842', margin: '16px 0 8px' }}>H2 — Contact Information</p>
+
+---
+
+### H3
+
+| Propiedad | Valor |
+|-----------|-------|
+| Size | 20px (xl) |
+| Weight | 600 |
+| Line height | 1.375 |
+
+**Propósito:** Subsección.
+
+**Usar en:** Card group headers, table section labels.
+
+<p style={{ fontFamily: '"IBM Plex Sans Condensed", sans-serif', fontSize: '1.25rem', fontWeight: 600, lineHeight: 1.375, color: '#343842', margin: '16px 0 8px' }}>H3 — Recent Orders</p>
+
+---
+
+### Title
+
+| Propiedad | Valor |
+|-----------|-------|
+| Size | 18px (lg) |
+| Weight | 500 |
+| Line height | 1.375 |
+
+**Propósito:** Título a nivel de componente — menor que headings de página.
+
+**Usar en:** CardTitle, DialogTitle, stat labels, list item primary.
+
+<p style={{ fontFamily: '"IBM Plex Sans Condensed", sans-serif', fontSize: '1.125rem', fontWeight: 500, lineHeight: 1.375, color: '#343842', margin: '0 0 8px' }}>Title — Blood Panel Results</p>
+
+---
+
+### Body Large
+
+| Propiedad | Valor |
+|-----------|-------|
+| Size | 18px (lg) |
+| Weight | 400 |
+| Line height | 1.625 |
+
+**Propósito:** Contenido body enfatizado.
+
+**Usar en:** Intro de resumen clínico, descripciones destacadas.
+
+<p style={{ fontFamily: '"IBM Plex Sans Condensed", sans-serif', fontSize: '1.125rem', fontWeight: 400, lineHeight: 1.625, color: '#343842', margin: '0 0 8px' }}>Body Large — Patient presents with elevated blood pressure readings over the past 72 hours requiring monitoring.</p>
+
+---
+
+### Body
+
+| Propiedad | Valor |
+|-----------|-------|
+| Size | 16px (base) |
+| Weight | 400 |
+| Line height | 1.5 |
+
+**Propósito:** Texto de lectura default — baseline clínico.
+
+**Usar en:** Párrafos, descripciones, celdas de tabla, copy general.
+
+<p style={{ fontFamily: '"IBM Plex Sans Condensed", sans-serif', fontSize: '1rem', fontWeight: 400, lineHeight: 1.5, color: '#343842', margin: '0 0 8px' }}>Body — Follow-up appointment scheduled for next Tuesday. Continue current medication regimen as prescribed.</p>
+
+---
+
+### Body Small
+
+| Propiedad | Valor |
+|-----------|-------|
+| Size | 14px (sm) |
+| Weight | 400 |
+| Line height | 1.5 |
+
+**Propósito:** Contenido secundario — tamaño mínimo funcional.
+
+**Usar en:** Helper text, descripciones secundarias, celdas compactas.
+
+**No usar en:** Datos clínicos críticos, instrucciones legales.
+
+<p style={{ fontFamily: '"IBM Plex Sans Condensed", sans-serif', fontSize: '0.875rem', fontWeight: 400, lineHeight: 1.5, color: '#656971', margin: '0 0 8px' }}>Body Small — Optional field. Leave blank if not applicable.</p>
+
+---
+
+### Label
+
+| Propiedad | Valor |
+|-----------|-------|
+| Size | 14px (sm) |
+| Weight | 500 |
+| Line height | 1.5 |
+
+**Propósito:** Etiquetas de formulario y controles UI.
+
+**Usar en:** Input labels, checkbox labels, select labels.
+
+<p style={{ fontFamily: '"IBM Plex Sans Condensed", sans-serif', fontSize: '0.875rem', fontWeight: 500, lineHeight: 1.5, color: '#343842', margin: '0 0 4px' }}>Label — Date of Birth</p>
+
+---
+
+### Caption
+
+| Propiedad | Valor |
+|-----------|-------|
+| Size | 12px (xs) |
+| Weight | 400 |
+| Line height | 1.5 |
+
+**Propósito:** Texto terciario no crítico.
+
+**Usar en:** Timestamps, metadata, anotaciones.
+
+**No usar en:** Valores clínicos, dosages, patient IDs.
+
+<p style={{ fontFamily: '"IBM Plex Sans Condensed", sans-serif', fontSize: '0.75rem', fontWeight: 400, lineHeight: 1.5, color: '#898C94', margin: '0 0 8px' }}>Caption — Last updated 3 minutes ago</p>
+
+---
+
+### Overline
+
+| Propiedad | Valor |
+|-----------|-------|
+| Size | 11px (2xs) |
+| Weight | 500 |
+| Letter spacing | 0.05em |
+| Transform | uppercase |
+
+**Propósito:** Categoría sobre un heading.
+
+**Usar en:** Label above h1/h2 ("PATIENTS", "ORDERS").
+
+<p style={{ fontFamily: '"IBM Plex Sans Condensed", sans-serif', fontSize: '0.6875rem', fontWeight: 500, lineHeight: 1.5, letterSpacing: '0.05em', textTransform: 'uppercase', color: '#898C94', margin: '0 0 4px' }}>Overline — Clinical Records</p>
+
+---
+
+### Code
+
+| Propiedad | Valor |
+|-----------|-------|
+| Size | 14px (sm) |
+| Weight | 400 |
+| Family | IBM Plex Mono |
+
+**Propósito:** Datos monospace — IDs, valores alineados, snippets.
+
+**Usar en:** Patient ID, order numbers, lab values en columnas.
+
+<p style={{ fontFamily: '"IBM Plex Mono", monospace', fontSize: '0.875rem', fontWeight: 400, lineHeight: 1.5, color: '#343842', background: '#F4F5F8', padding: '2px 6px', borderRadius: '4px', display: 'inline-block', margin: '0 0 8px' }}>MRN-28491</p>
+
+---
+
+## Jerarquía visual completa
+
+<div style={{ fontFamily: '"IBM Plex Sans Condensed", sans-serif', background: '#FFFFFF', border: '1px solid #D5D7DD', borderRadius: '8px', padding: '24px', marginBottom: '24px' }}>
+  <p style={{ fontSize: '0.6875rem', fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', color: '#898C94', margin: '0 0 4px' }}>Overline — Patients</p>
+  <p style={{ fontSize: '1.875rem', fontWeight: 600, lineHeight: 1.25, letterSpacing: '-0.025em', color: '#343842', margin: '0 0 16px' }}>H1 — Maria Gonzalez</p>
+  <p style={{ fontSize: '1.5rem', fontWeight: 600, lineHeight: 1.375, color: '#343842', margin: '0 0 8px' }}>H2 — Active Orders</p>
+  <p style={{ fontSize: '1.25rem', fontWeight: 600, lineHeight: 1.375, color: '#343842', margin: '0 0 8px' }}>H3 — Laboratory</p>
+  <p style={{ fontSize: '1.125rem', fontWeight: 500, lineHeight: 1.375, color: '#343842', margin: '0 0 8px' }}>Title — Complete Blood Count</p>
+  <p style={{ fontSize: '1rem', fontWeight: 400, lineHeight: 1.5, color: '#343842', margin: '0 0 8px' }}>Body — Results within normal range for all measured parameters.</p>
+  <p style={{ fontSize: '0.875rem', fontWeight: 500, lineHeight: 1.5, color: '#343842', margin: '0 0 2px' }}>Label — Ordering Physician</p>
+  <p style={{ fontSize: '0.875rem', fontWeight: 400, lineHeight: 1.5, color: '#656971', margin: '0 0 8px' }}>Body Small — Dr. Sarah Chen, Internal Medicine</p>
+  <p style={{ fontFamily: '"IBM Plex Mono", monospace', fontSize: '0.875rem', color: '#343842', margin: '0 0 8px' }}>Code — ORD-2026-00481</p>
+  <p style={{ fontSize: '0.75rem', fontWeight: 400, color: '#898C94', margin: 0 }}>Caption — Collected Feb 14, 2026 at 09:32 AM</p>
+</div>
+
+---
+
+## Primitive Scale (referencia interna)
+
+Los componentes **no consumen** esta tabla. Existe para mantenimiento del sistema.
+
+### Font Sizes
+
+| Step | rem | px | Uso interno |
+|------|-----|-----|-------------|
+| 2xs | 0.6875 | 11 | overline |
+| xs | 0.75 | 12 | caption |
+| sm | 0.875 | 14 | label, body-small, code |
+| base | 1 | 16 | body |
+| lg | 1.125 | 18 | title, body-large |
+| xl | 1.25 | 20 | h3 |
+| 2xl | 1.5 | 24 | h2 |
+| 3xl | 1.875 | 30 | h1 |
+| 4xl | 2.25 | 36 | display |
+
+### Font Weights
+
+| Step | Value | Uso interno |
+|------|-------|-------------|
+| light | 300 | Decorativo — nunca UI funcional |
+| regular | 400 | body |
+| medium | 500 | label, title, overline |
+| semibold | 600 | display, h1–h3 |
+| bold | 700 | Datos críticos — uso limitado |
+
+---
+
+## Accesibilidad
+
+| Regla | Requisito | Roles |
+|-------|-----------|-------|
+| Tamaño mínimo funcional | 14px | label, body-small, code |
+| Body baseline | 16px | body |
+| Line height mínimo | 1.5 | body, body-small, label |
+| Caption restringido | 12px, no crítico | caption |
+| Overline restringido | 11px, uppercase only | overline |
+| Jerarquía sin color | Grayscale test | h1–h3, title |
+| Datos monospace | Scan accuracy | code |
+
+Ver `foundations/typography/accessibility.ts` para reglas completas.
+
+---
+
+## Reglas de consumo
+
+```css
+/* ✅ Correcto — semantic token */
+.page-title {
+  font-family: var(--text-h1-font-family);
+  font-size: var(--text-h1-size);
+  font-weight: var(--text-h1-weight);
+  line-height: var(--text-h1-line-height);
+  letter-spacing: var(--text-h1-letter-spacing);
+  color: var(--color-text-primary);
+}
+
+/* ❌ Incorrecto — primitivo directo */
+.page-title {
+  font-size: var(--font-size-3xl);
+  font-weight: 600;
+}
+
+/* ❌ Incorrecto — valor hardcodeado */
+.page-title {
+  font-size: 30px;
+  font-family: Inter, sans-serif;
+}
+```
+
+Ver `foundations/typography/rules.md` para guía completa.
+
+---
+
+## Relación con Density (planificado)
+
+La futura Density Foundation modificará valores semánticos globalmente:
+
+| Mode | Body size | Spacing factor |
+|------|-----------|----------------|
+| Comfortable | 16px | 100% (default) |
+| Compact | 14px | ~85% |
+| Dense | 14px | ~70% |
+
+Los componentes seguirán consumiendo `--text-body-size` — Density cambia el valor, no el componente.
+
+---
+
+## Archivos
+
+| Archivo | Contenido |
+|---------|-----------|
+| `foundations/typography/primitives/` | Escalas internas |
+| `foundations/typography/semantic/roles.ts` | 12 roles semánticos |
+| `foundations/typography/typography.css` | CSS custom properties |
+| `foundations/typography/accessibility.ts` | Reglas WCAG + clínicas |
+| `foundations/typography/contract.ts` | Registro de nombres |
+
+---
+
+## Import
+
+```css
+@import "../../foundations/typography/typography.css";
+```
+
+```typescript
+import { semanticTypography, typographyA11yRules } from "../../foundations/typography/tokens"
+```

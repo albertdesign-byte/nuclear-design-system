@@ -19,7 +19,11 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@medmo/tokens": ["./foundations/tokens/index.ts"],
+      "@medmo/tokens/contracts": ["./foundations/tokens/contracts.ts"],
+      "@medmo/tokens/resolve": ["./foundations/tokens/resolve.ts"],
+      "@medmo/tokens/tooling": ["./foundations/tokens/tooling.ts"]
     }
   },
   "include": [

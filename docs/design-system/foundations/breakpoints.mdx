@@ -1,0 +1,417 @@
+---
+title: Breakpoints
+description: Sistema responsive Medmo — viewport semantics, container tokens y layout tokens.
+status: complete
+version: 1.0.0
+lastUpdated: 2026-07-17
+phase: foundations
+---
+
+# Breakpoints
+
+> El responsive no es solo ancho de pantalla.
+> Es el comportamiento del layout clínico en cada contexto de trabajo.
+
+---
+
+## Breakpoint Intent
+
+Esta sección explica **por qué** existe el Breakpoint System — no qué contiene.
+
+### El responsive codifica modos de trabajo clínico
+
+Un médico en el pasillo con el teléfono necesita información apilada y accesible en un scroll. Un coordinador en desktop revisa 200 órdenes en una tabla ancha con sidebar persistente. Esos no son "tamaños de pantalla" — son **modos de trabajo** distintos. Los nombres semánticos (Compact, Expanded, Wide) comunican capacidad de layout, no píxeles.
+
+**Implicación:** Documentamos y diseñamos en términos de Compact / Medium / Expanded, no de "768px". Los alias Tailwind (sm, md, lg) existen solo para integración técnica.
+
+### Los containers limitan el contenido; los breakpoints activan el layout
+
+Un viewport Wide no significa que el texto clínico deba ocupar 1920px. `layout-reading-width` (42rem) protege la legibilidad. `container-xl` limita el dashboard. Separar **viewport tier** de **content cap** evita interfaces que se estiran sin control en monitores grandes.
+
+**Implicación:** Nunca usar `width: 100vw` en tablas o formularios. Siempre un token de container o layout.
+
+### Mobile-first sin sacrificar densidad clínica
+
+La base estrecha (< Compact) prioriza acceso rápido: tablas con scroll horizontal, formularios en una columna, padding más ajustado (`spacing-16`). A partir de Compact, el padding sube a `spacing-24` — el mismo ritmo que `space-page` en Spacing.
+
+**Implicación:** Los estilos base son mobile. Cada breakpoint **añade** capacidad; no redefinen la experiencia core.
+
+### La integración con Tailwind es un alias, no la fuente de verdad
+
+Medmo nombra breakpoints semánticamente. Tailwind usa sm/md/lg/xl/2xl. Mapeamos 1:1 para que Technical Setup no requiera tablas de traducción — pero la documentación, diseño y reglas clínicas usan nombres Medmo.
+
+**Implicación:** En specs y MDX: "Expanded". En `@theme` de Tailwind: `lg`. Nunca al revés en documentación de producto.
+
+---
+
+## Filosofía
+
+| Principio | Aplicación |
+|-----------|------------|
+| **Semantic over px** | Compact, Medium, Expanded — no "1024px breakpoint" |
+| **Mobile-first base** | Estilos base para < 640px; tiers añaden capacidad |
+| **Container ≠ Breakpoint** | Viewport activa layout; container limita ancho de contenido |
+| **Layout archetypes** | content, reading, dashboard — tokens con intención |
+| **Calm at Wide** | Máximo ancho enforced — no stretch infinito en 4K |
+| **Alias for integration** | sm→Compact, md→Medium, lg→Expanded, xl→Large, 2xl→Wide |
+
+---
+
+## Arquitectura
+
+```
+Primitives (interno)              Semantic Tokens (componentes)           Futuro (Templates)
+─────────────────────             ─────────────────────────────           ────────────────────
+breakpoint-expanded            →  layout-content-width               →   list-page-max-width
+container-lg-max               →  container-lg                       →   worklist-max-width
+spacing-16 / spacing-24        →  layout-page-padding                →   page-shell-padding
+42rem cap                      →  layout-reading-width               →   clinical-note-max-width
+container-xl-max               →  layout-dashboard-width             →   dashboard-canvas-max
+```
+
+**Regla:** Los componentes consumen `--container-*` y `--layout-*`. Nunca `--breakpoint-*` ni valores raw.
+
+**Dependencia:** `layout-page-padding` referencia `--spacing-16` y `--spacing-24` de Spacing. Cargar `spacing.css` antes de `breakpoints.css`.
+
+---
+
+## Viewport Tiers
+
+Mobile-first. La base estrecha (< Compact) no es un token CSS — es el tier implícito por debajo de 640px.
+
+### Narrow base — &lt; 640px
+
+**Layout:** Navegación apilada, sidebar como drawer, tablas full-bleed con scroll horizontal, formularios una columna.
+
+**Padding:** `--layout-page-padding: var(--spacing-16)` (16px).
+
+**Cuándo aplica:** Teléfonos en portrait, acceso rápido en pasillo.
+
+**No hacer:** Sidebar persistente, grids de dashboard multi-columna, ocultar columnas críticas de tabla sin indicador.
+
+---
+
+### Compact — 640px+ (alias: sm)
+
+**Cuándo cambia:** Toolbar puede mostrar acciones en fila; padding de página sube a 24px; filtros inline en una fila compacta.
+
+**Layout:** Single-column dominante; tablas aún con scroll; modales casi full-width.
+
+**Usar para:** Tablets pequeños landscape, phones landscape, split-view iPad estrecho.
+
+**No usar para:** Sidebar fijo, formularios de dos columnas completos, dashboard de 3+ columnas.
+
+| Token primitivo | Valor |
+|-----------------|-------|
+| `--breakpoint-compact` | 40rem (640px) |
+
+---
+
+### Medium — 768px+ (alias: md)
+
+**Cuándo cambia:** Formularios pueden usar dos columnas para campos cortos; sidebar overlay; `layout-content-width` cap en `container-md`.
+
+**Layout:** Settings con nav lateral + contenido; detail view split; filtros en panel colapsable.
+
+**Usar para:** iPad portrait, tablets estándar, ventanas de laptop reducidas.
+
+**No usar para:** Tablas con 8+ columnas visibles sin scroll; dashboard coordinator full.
+
+| Token primitivo | Valor |
+|-----------------|-------|
+| `--breakpoint-medium` | 48rem (768px) |
+
+---
+
+### Expanded — 1024px+ (alias: lg)
+
+**Cuándo cambia:** Sidebar persistente; tablas multi-columna; PageHeader con acciones inline; `layout-content-width` → `container-lg`; dashboard activa `layout-dashboard-width`.
+
+**Layout:** List pages clínicas, worklists, dashboards con sidebar — **tier principal de trabajo desktop**.
+
+**Usar para:** Laptop estándar, tablet landscape, estación de enfermería.
+
+**No usar para:** Contenido de lectura long-form sin `layout-reading-width`.
+
+| Token primitivo | Valor |
+|-----------------|-------|
+| `--breakpoint-expanded` | 64rem (1024px) |
+
+---
+
+### Large — 1280px+ (alias: xl)
+
+**Cuándo cambia:** Grid de dashboard completo; tablas con columnas opcionales visibles; modals pueden usar `container-lg`.
+
+**Layout:** Flujo clínico desktop estándar — coordinador, médico en estación fija.
+
+**Usar para:** Monitores 1280–1535px, ventana maximizada en laptop 13".
+
+| Token primitivo | Valor |
+|-----------------|-------|
+| `--breakpoint-large` | 80rem (1280px) |
+
+---
+
+### Wide — 1536px+ (alias: 2xl)
+
+**Cuándo cambia:** `layout-content-width` y `layout-dashboard-width` cap en `container-xl` — no más stretch.
+
+**Layout:** Estaciones con monitor grande; review multi-panel; máximo ancho del sistema.
+
+**Usar para:** Monitores 27"+, ultrawide en ventana maximizada.
+
+**No hacer:** Añadir tiers más allá de Wide sin aprobación del Design System.
+
+| Token primitivo | Valor |
+|-----------------|-------|
+| `--breakpoint-wide` | 96rem (1536px) |
+
+---
+
+## Container Tokens
+
+Max-width para regiones de contenido. Independientes del viewport tier — un page en Expanded puede usar `container-md` para una sección de settings.
+
+### container-xs — 480px
+
+**Propósito:** Contenido enfocado y estrecho.
+
+**Usar en:** Modal forms, wizard steps, confirmaciones, paneles de alerta.
+
+**No usar en:** Páginas completas, tablas, dashboards.
+
+```css
+max-width: var(--container-xs);
+```
+
+---
+
+### container-sm — 640px
+
+**Propósito:** Columna única de contenido.
+
+**Usar en:** Auth, registro simple, empty states, páginas de error.
+
+**No usar en:** Tablas clínicas, formularios multi-sección anchos.
+
+---
+
+### container-md — 768px
+
+**Propósito:** Columna de contenido estándar.
+
+**Usar en:** Secciones de settings, resumen de paciente, formularios 2 columnas en md+.
+
+**No usar en:** Data tables full-width, stat grids.
+
+---
+
+### container-lg — 1024px
+
+**Propósito:** Ancho de listas y workspaces.
+
+**Usar en:** Worklists, list pages con filtros, detail + metadata en dos columnas.
+
+**No usar en:** Prosa long-form (usar `layout-reading-width`).
+
+---
+
+### container-xl — 1280px
+
+**Propósito:** Máximo ancho de contenido de aplicación.
+
+**Usar en:** Dashboard main area, DataTable canvas ancho, review clínico multi-widget.
+
+**No usar en:** Modales estrechos, notas clínicas legibles (usar reading width).
+
+---
+
+## Layout Tokens
+
+Tokens de shell responsive — valores cambian por `@media` en `breakpoints.css`.
+
+### layout-page-padding
+
+**Propósito:** Inset horizontal del área principal de página.
+
+**Valores:** 16px (narrow) → 24px (Compact+).
+
+**Usar en:** Shell de templates, padding-inline del main content.
+
+**No usar en:** Padding interno de cards (`space-card`), celdas de tabla (`space-table`).
+
+---
+
+### layout-content-width
+
+**Propósito:** Max-width default del contenido de página.
+
+**Valores:** 100% (narrow) → container-sm (Compact) → container-md (Medium) → container-lg (Expanded/Large) → container-xl (Wide).
+
+**Usar en:** Wrapper principal de settings, detail pages, list content.
+
+**No usar en:** Dashboards (`layout-dashboard-width`), notas clínicas (`layout-reading-width`).
+
+---
+
+### layout-reading-width
+
+**Propósito:** Longitud de línea óptima para lectura (~65 caracteres).
+
+**Valor:** `min(100%, 42rem)` — constante en todos los tiers.
+
+**Usar en:** Notas clínicas, consentimiento informado, help docs, descripciones en empty states.
+
+**No usar en:** Tablas de datos, métricas, form grids.
+
+---
+
+### layout-dashboard-width
+
+**Propósito:** Canvas máximo para dashboards y vistas analíticas.
+
+**Valores:** 100% (narrow–Medium) → min(100%, container-xl) (Expanded+).
+
+**Usar en:** DashboardLayout template, coordinator overview, stat card grids.
+
+**No usar en:** Formularios focalizados, contenido de lectura.
+
+---
+
+## Reglas por contexto clínico
+
+### Layouts clínicos densos
+
+- **Below Expanded:** tablas con scroll horizontal; primera columna sticky (Pattern DataTable); no eliminar columnas críticas (ID, nombre, estado).
+- **Expanded+:** mostrar columnas prioritarias; columnas secundarias en row expand o panel lateral.
+- Padding de celdas: `space-table` (8px) — no layout tokens.
+- Density (futuro) reduce spacing, **no** cambia breakpoint tiers.
+
+| Viewport | Comportamiento tabla |
+|----------|---------------------|
+| Narrow | Scroll horizontal, 3–4 columnas visibles |
+| Compact | Scroll horizontal, toolbar filtros en fila |
+| Medium | Filtros inline, 4–5 columnas |
+| Expanded+ | 6+ columnas, sidebar filtros persistente |
+
+---
+
+### Dashboards
+
+- Shell: `layout-dashboard-width` + `layout-page-padding`.
+- Stat grids: respetar cap `container-xl` en Wide — no métricas en una fila infinita.
+- Sidebar: drawer (Narrow–Medium), persistente (Expanded+).
+- Máximo 1 columna de widgets "hero" por fila en Narrow; grid 2–4 columnas en Expanded+.
+
+---
+
+### Formularios
+
+- **Narrow:** siempre una columna; labels siempre visibles (Accessibility).
+- **Medium+:** dos columnas solo para campos cortos emparejados (nombre + DOB); nunca 3 columnas en formularios clínicos.
+- Max width: `container-sm` (simple) o `container-md` (multi-sección).
+- **Nunca** `container-xl` para el cuerpo del formulario — fatiga visual y scanning horizontal.
+
+| Tipo de formulario | Container recomendado |
+|--------------------|----------------------|
+| Login / auth | container-sm |
+| Registro paciente | container-md |
+| Modal edit | container-xs |
+| Settings multi-section | container-md dentro de layout-content-width |
+
+---
+
+### Tablas
+
+- Wrapper: `layout-content-width` (listas) o `layout-dashboard-width` (embedded en dashboard).
+- **Nunca** `width: 100vw` — scroll contenido dentro del shell.
+- Below Expanded: overflow-x auto en contenedor de tabla, no en body.
+- Expanded+: ancho fluido hasta cap del layout token padre.
+- Columnas fijas mínimas: identificador, nombre/entidad, estado — documentar en Pattern DataTable.
+
+---
+
+## Reglas de uso
+
+### DO
+
+- Consumir `var(--layout-page-padding)` en templates de página
+- Envolver contenido de lectura en `max-width: var(--layout-reading-width)`
+- Usar nombres semánticos en specs: "a partir de Expanded"
+- Combinar layout tokens con spacing context (`space-page`, `space-section`)
+
+### DON'T
+
+- Hardcodear `max-width: 1280px` o `@media (min-width: 1024px)` con px en componentes
+- Usar `--breakpoint-*` en estilos de componente (solo CSS custom / docs tooling)
+- Documentar breakpoints como "sm breakpoint" en producto — usar Compact
+- Estirar formularios al ancho completo del dashboard
+
+---
+
+## Mapeo Tailwind (integración futura)
+
+Solo para referencia en Technical Setup — **no consumir en Foundations**.
+
+| Medmo semantic | Tailwind | Min-width |
+|----------------|----------|-----------|
+| Compact | sm | 640px |
+| Medium | md | 768px |
+| Expanded | lg | 1024px |
+| Large | xl | 1280px |
+| Wide | 2xl | 1536px |
+
+---
+
+## Archivos
+
+| Archivo | Descripción |
+|---------|-------------|
+| `foundations/breakpoints/types.ts` | Tipos compartidos |
+| `foundations/breakpoints/primitives/scale.ts` | Min-widths y container max primitivos |
+| `foundations/breakpoints/semantic/viewport.ts` | Comportamiento por viewport tier |
+| `foundations/breakpoints/semantic/containers.ts` | Tokens container-xs … xl |
+| `foundations/breakpoints/semantic/layout.ts` | Tokens layout page/content/reading/dashboard |
+| `foundations/breakpoints/contract.ts` | Registro de tokens permitidos + alias Tailwind |
+| `foundations/breakpoints/resolve.ts` | Resolvers para docs y tooling |
+| `foundations/breakpoints/breakpoints.css` | CSS custom properties + media queries |
+| `foundations/breakpoints/rules.md` | Reglas DO/DON'T |
+| `foundations/breakpoints/tokens.ts` | Barrel export TypeScript |
+
+---
+
+## Import
+
+```css
+/* Requiere spacing.css cargado primero (--spacing-16, --spacing-24) */
+@import "../../foundations/spacing/spacing.css";
+@import "../../foundations/breakpoints/breakpoints.css";
+```
+
+```typescript
+import {
+  resolveViewportBreakpoint,
+  resolveContainerToken,
+  breakpointTailwindAliases,
+} from "../../foundations/breakpoints/tokens"
+```
+
+---
+
+## Futuro
+
+| Extensión | Dependencia | Descripción |
+|-----------|-------------|-------------|
+| Component layout tokens | Primitives phase | `form-max-width`, `data-table-min-width` |
+| Density | Density foundation | Padding responsive via spacing overrides |
+| Container queries | Technical Setup | `@container` para cards, no solo viewport |
+| Sidebar width token | Sidebar primitive | Ancho fijo sidebar en Expanded+ |
+
+---
+
+## Relacionados
+
+- [Spacing](./spacing.mdx) — `space-page`, `space-table`, grid 4px/8px
+- [Foundation Documentation Standard](./README.mdx)
+- [Accessibility](../principles/accessibility.mdx) — touch targets, zoom 200%

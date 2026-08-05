@@ -1,0 +1,46 @@
+/**
+ * Medmo Shadow System — CSS Custom Properties
+ *
+ * Public API: --shadow-none through --shadow-xl only.
+ * Visual depth is primarily via Colors surface hierarchy + ring borders.
+ * Shadows supplement separation when tone and border are insufficient.
+ *
+ * No elevation-* tokens. Depth guidance lives in shadows.mdx.
+ */
+
+:root {
+  /* ─── Primitive Layers (internal — do not use in components) ───────────── */
+  --shadow-layer-none: none;
+  --shadow-layer-xs: 0 1px 2px 0 rgb(18 22 32 / 4%);
+  --shadow-layer-sm: 0 1px 3px 0 rgb(18 22 32 / 6%),
+    0 1px 2px -1px rgb(18 22 32 / 4%);
+  --shadow-layer-md: 0 4px 6px -1px rgb(18 22 32 / 6%),
+    0 2px 4px -2px rgb(18 22 32 / 4%);
+  --shadow-layer-lg: 0 8px 16px -4px rgb(18 22 32 / 8%),
+    0 4px 6px -4px rgb(18 22 32 / 4%);
+  --shadow-layer-xl: 0 16px 32px -8px rgb(18 22 32 / 10%),
+    0 8px 16px -8px rgb(18 22 32 / 6%);
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * SEMANTIC SHADOWS — components consume ONLY these
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  --shadow-none: var(--shadow-layer-none);
+  --shadow-xs: var(--shadow-layer-xs);
+  --shadow-sm: var(--shadow-layer-sm);
+  --shadow-md: var(--shadow-layer-md);
+  --shadow-lg: var(--shadow-layer-lg);
+  --shadow-xl: var(--shadow-layer-xl);
+}
+
+.dark {
+  --shadow-layer-xs: 0 1px 2px 0 rgb(0 0 0 / 20%);
+  --shadow-layer-sm: 0 1px 3px 0 rgb(0 0 0 / 24%),
+    0 1px 2px -1px rgb(0 0 0 / 16%);
+  --shadow-layer-md: 0 4px 6px -1px rgb(0 0 0 / 28%),
+    0 2px 4px -2px rgb(0 0 0 / 18%);
+  --shadow-layer-lg: 0 8px 16px -4px rgb(0 0 0 / 32%),
+    0 4px 6px -4px rgb(0 0 0 / 20%);
+  --shadow-layer-xl: 0 16px 32px -8px rgb(0 0 0 / 36%),
+    0 8px 16px -8px rgb(0 0 0 / 24%);
+}

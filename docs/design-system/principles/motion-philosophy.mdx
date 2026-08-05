@@ -1,0 +1,103 @@
+---
+title: Motion Philosophy
+description: Principios de animación y movimiento del Design System Medmo.
+status: approved
+version: 1.0.0
+lastUpdated: 2026-07-17
+phase: principles
+---
+
+# Motion Philosophy
+
+> Las animaciones en Medmo existen para explicar cambios de estado
+> y reducir la carga cognitiva. Nunca para decorar la interfaz.
+
+---
+
+## Design Intent
+
+### El movimiento explica, no decora
+
+Cuando un modal aparece, la animación responde: **"algo nuevo ocurrió aquí."** Cuando una fila desaparece, el movimiento comunica: **"este dato ya no está."** Si la animación no ayuda al usuario a entender qué cambió, no debe existir.
+
+**Implicación:** No hay animaciones de entrada "bounce", parallax, scroll effects, ni micro-interacciones decorativas. Cada transición tiene una causa funcional.
+
+### El movimiento reduce carga cognitiva
+
+En una plataforma médica, los usuarios procesan grandes volúmenes de datos. Una transición suave entre estados ayuda al cerebro a seguir el hilo: de dónde vino la información, hacia dónde fue. Un cambio abrupto obliga a re-orientarse.
+
+**Implicación:** Duraciones cortas (100–300ms). Curvas de easing naturales. El ojo debe poder seguir el cambio sin esfuerzo consciente.
+
+### El movimiento respeta al usuario
+
+Algunos usuarios experimentan mareo o distracción con animaciones. Medmo respeta `prefers-reduced-motion: reduce` en toda la interfaz — no como excepción, sino como comportamiento default degradable.
+
+**Implicación:** Toda animación debe tener un equivalente instantáneo cuando el usuario solicita reduced motion. No es opcional.
+
+### El movimiento es casi imperceptible
+
+Si un usuario nota conscientemente una animación, probablemente es demasiado lenta o demasiado elaborada. Las transiciones Medmo deben sentirse como **respuesta inmediata**, no como un show visual.
+
+**Implicación:** 100ms para hover/focus. 200ms para transiciones default. 300ms máximo para modales y paneles. Nunca más de 500ms.
+
+---
+
+## Cuándo usar movimiento
+
+| Escenario | Usar | Duración | Ejemplo |
+|-----------|------|----------|---------|
+| Hover / focus | Sí | 100ms | Button background transition |
+| Toggle de estado | Sí | 200ms | Switch on/off, checkbox check |
+| Aparición de contenio | Sí | 200ms | Dropdown open, tooltip show |
+| Modal / dialog | Sí | 200–300ms | Dialog enter/exit |
+| Cambio de tab | Sí | 150ms | Tab indicator slide |
+| Carga de datos | Sí | Indefinido | Skeleton pulse (hasta data arrive) |
+| Scroll decorativo | **No** | — | Parallax, reveal on scroll |
+| Entrada de página | **No** | — | Page transition animations |
+| Celebración / confetti | **No** | — | Success animations beyond toast |
+| Loading spinners largos | Mínimo | — | Prefer skeleton over spinner |
+
+---
+
+## Qué NO es movimiento en Medmo
+
+- **Decoración:** Animaciones que no explican un cambio de estado
+- **Personalidad:** Bounce, wiggle, shake para "dar vida" a la UI
+- **Marketing:** Hero animations, gradient shifts, floating elements
+- **Gamificación:** Points, streaks, celebratory effects
+- **Distraction:** Anything that pulls attention from clinical data
+
+---
+
+## Relación con Motion Foundation
+
+Este documento define la **filosofía**. La [Motion Foundation](../foundations/motion.mdx) define los **tokens concretos**:
+
+```
+motion-fast / moderate / default / slow    100–300ms durations
+motion-ease-in / out / in-out              Three curves only
+motion-hover / dropdown / modal / …        Six presets (primary API)
+```
+
+Los **Interaction Tokens** (planificados) consumirán estos motion tokens junto con color tokens para definir comportamiento completo de componentes.
+
+Ver [Motion Foundation](../foundations/motion.mdx) antes de implementar cualquier animación en un componente.
+
+---
+
+## Test
+
+Antes de agregar una animación a cualquier componente, preguntar:
+
+1. **¿Qué cambio de estado explica?** — Si no hay respuesta clara, eliminar.
+2. **¿Funciona con reduced motion?** — Si no, agregar fallback.
+3. **¿Es imperceptible en uso normal?** — Si llama la atención, reducir duración o eliminar.
+4. **¿Existe un motion token?** — Si no, crear en Foundation antes de hardcodear.
+
+---
+
+## Referencias
+
+- [Design Principles — Calm Interfaces](./design-principles.mdx#4-calm-interfaces)
+- [Accessibility — Motion](./accessibility.mdx#motion-y-animación)
+- [Blueprint — Motion Foundation](../blueprint.mdx)

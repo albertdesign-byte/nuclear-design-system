@@ -1,0 +1,465 @@
+---
+title: Colors
+description: Sistema de color Medmo — primitivos, tokens semánticos, superficies, focus y feedback.
+status: complete
+version: 1.1.0
+lastUpdated: 2026-07-17
+phase: foundations
+---
+
+# Colors
+
+> El color crea jerarquía. No decoración.
+> 90% de la interfaz Medmo es neutral. El color aparece solo donde comunica significado.
+
+---
+
+## Design Intent
+
+Esta sección explica **por qué** existe el Color System — no qué contiene. Toda decisión de color en Medmo debe poder trazarse a uno de estos principios.
+
+### El color comunica significado, no decoración
+
+Medmo es una plataforma de trabajo clínico, no un producto de marketing. El color aparece cuando tiene un **rol semántico**: indicar una acción, un estado, un error, una selección. Si un elemento puede funcionar igual en neutral, debe ser neutral.
+
+**Implicación:** El 90%+ de la interfaz es escala neutral. Primary, Success, Warning, Error e Info existen porque comunican algo al usuario — nunca porque "se ve bien."
+
+### La jerarquía se construye principalmente con espacio
+
+En interfaces de larga duración, la diferencia entre un heading y body text no debe depender del color. La jerarquía tipográfica (peso, tamaño) y el espaciado (Spacing Foundation) son los protagonistas. El color refuerza, no lidera.
+
+**Implicación:** `color-text-primary` y `color-text-secondary` usan la escala neutral, no primary. No pintamos headings de azul navy para "darles importancia."
+
+### Las superficies crean profundidad
+
+Medmo no usa sombras pesadas para comunicar capas. La profundidad viene de la **jerarquía de superficies**: Background → Surface → Surface Raised → Surface Floating → Overlay. Cada nivel es un tono diferente, no un efecto decorativo.
+
+**Implicación:** Un dropdown no flota porque tiene sombra dramática — flota porque usa `color-surface-floating` sobre `color-background`. La sombra, cuando existe, es casi imperceptible ([Shadows Foundation](./shadows.mdx)).
+
+### Nunca usamos color únicamente por razones estéticas
+
+Si la única razón para aplicar un color es "que se vea más moderno" o "que destaque más", esa razón no es válida en Medmo. Cada token de color debe responder: **¿qué le comunica esto al usuario?**
+
+**Implicación:** No hay "accent colors" decorativos. No hay gradientes. No hay colores de sección para variar visualmente entre pantallas. La consistencia reduce carga cognitiva.
+
+---
+
+## Filosofía
+
+El Color System de Medmo está diseñado para **jornadas de 8+ horas**. Cada decisión prioriza:
+
+- **Legibilidad** — contraste WCAG AA verificado en cada par
+- **Baja fatiga visual** — cromas contenidos, neutrals dominantes
+- **Estados claros** — feedback con tokens dedicados, nunca color solo
+- **Consistencia** — componentes consumen solo tokens semánticos
+
+**Color primario:** `#242F50` (primary-800) — nunca modificar sin autorización.
+
+---
+
+## Arquitectura
+
+```
+Primitives (interno)     Semantic Tokens (componentes)     CSS Variables (runtime)
+─────────────────────    ─────────────────────────────     ──────────────────────
+primary-800           →  color-action-primary           →  --color-action-primary
+neutral-800           →  color-text-primary             →  --color-text-primary
+success-700           →  color-success-text             →  --color-success-text
+```
+
+**Regla:** Los componentes **nunca** consumen primitivos. Solo `--color-*` y `--focus-*`.
+
+---
+
+## Jerarquía de Superficies
+
+Profundidad por tono, no por sombra. Inspirado en IBM Carbon y Material 3.
+
+| Nivel | Token | Hex (light) | Propósito |
+|-------|-------|-------------|-----------|
+| 0 | `color-background` | `#F9FAFB` | Canvas de página |
+| 1 | `color-surface` | `#FFFFFF` | Cards, panels |
+| 2 | `color-surface-raised` | `#FFFFFF` | Contenedores anidados |
+| 3 | `color-surface-floating` | `#FFFFFF` | Dropdowns, popovers |
+| 4 | `color-overlay` | `#121620` @ 40% | Backdrop de modales |
+
+### color-background
+
+**Propósito:** Canvas base de toda pantalla.
+
+**Usar en:** Fondo de la aplicación, área principal detrás de cards.
+
+**No usar en:** Cards, inputs, dropdowns, modales.
+
+<div style={{ background: '#F9FAFB', border: '1px solid #D5D7DD', borderRadius: '8px', padding: '24px', marginBottom: '8px' }}>
+  <span style={{ color: '#343842', fontSize: '14px' }}>Page background — neutral-50</span>
+</div>
+
+### color-surface
+
+**Propósito:** Contenedor de contenido sobre el background.
+
+**Usar en:** Cards, panels, secciones de formulario, contenido de modales.
+
+**No usar en:** Fondo de página, elementos flotantes.
+
+<div style={{ background: '#FFFFFF', border: '1px solid #B5B7BE', borderRadius: '8px', padding: '24px', marginBottom: '8px', boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}>
+  <span style={{ color: '#343842', fontSize: '14px' }}>Surface — white card on background</span>
+</div>
+
+### color-surface-floating
+
+**Propósito:** Elementos desprendidos que flotan sobre la página.
+
+**Usar en:** Dropdown menus, popovers, select content, tooltips.
+
+**No usar en:** Cards estáticas, secciones de página.
+
+<div style={{ background: '#FFFFFF', border: '1px solid #B5B7BE', borderRadius: '8px', padding: '16px', marginBottom: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.06)' }}>
+  <span style={{ color: '#343842', fontSize: '14px' }}>Surface floating — dropdown/popover</span>
+</div>
+
+### color-overlay
+
+**Propósito:** Capa semi-transparente que oscurece el contenido detrás de modales.
+
+**Usar en:** Dialog backdrop, drawer backdrop, loading overlay.
+
+**No usar en:** Fondos sólidos, cards.
+
+---
+
+## Primary Scale
+
+Anclada en **800 = `#242F50`**. Espacio OKLCH, steps ajustados manualmente.
+
+| Step | Hex | Uso |
+|------|-----|-----|
+| 50 | `#F4F7FC` | Selected nav, active tab bg |
+| 100 | `#E9EDF7` | Hover on selected items |
+| 200 | `#D6DCEC` | Brand-tinted borders |
+| 300 | `#BBC4DA` | Decorative borders (limitado) |
+| 400 | `#939EB9` | Disabled brand elements |
+| 500 | `#687494` | Secondary brand text |
+| 600 | `#455173` | Link hover |
+| 700 | `#303B5D` | Button hover, links |
+| **800** | **`#242F50`** | **Brand anchor — buttons, links, active nav** |
+| 900 | `#1A2340` | Button pressed |
+| 950 | `#0E152D` | Darkest brand tone |
+
+<div style={{ display: 'flex', gap: '4px', marginBottom: '16px', flexWrap: 'wrap' }}>
+  <div style={{ width: '48px', height: '48px', background: '#F4F7FC', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#343842', padding: '2px' }}>50</div>
+  <div style={{ width: '48px', height: '48px', background: '#E9EDF7', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#343842', padding: '2px' }}>100</div>
+  <div style={{ width: '48px', height: '48px', background: '#D6DCEC', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#343842', padding: '2px' }}>200</div>
+  <div style={{ width: '48px', height: '48px', background: '#BBC4DA', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#343842', padding: '2px' }}>300</div>
+  <div style={{ width: '48px', height: '48px', background: '#939EB9', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#343842', padding: '2px' }}>400</div>
+  <div style={{ width: '48px', height: '48px', background: '#687494', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#fff', padding: '2px' }}>500</div>
+  <div style={{ width: '48px', height: '48px', background: '#455173', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#fff', padding: '2px' }}>600</div>
+  <div style={{ width: '48px', height: '48px', background: '#303B5D', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#fff', padding: '2px' }}>700</div>
+  <div style={{ width: '48px', height: '48px', background: '#242F50', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#fff', padding: '2px' }}>800</div>
+  <div style={{ width: '48px', height: '48px', background: '#1A2340', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#fff', padding: '2px' }}>900</div>
+  <div style={{ width: '48px', height: '48px', background: '#0E152D', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#fff', padding: '2px' }}>950</div>
+</div>
+
+**Por qué ancla en 800:** `#242F50` tiene ~31% de luminosidad. No es un mid-tone. Colocarlo en 500 misrepresentaría la marca.
+
+---
+
+## Neutral Scale
+
+Gris frío armonizado (H ≈ 269°). Domina el 90% de la UI.
+
+| Step | Hex | Uso |
+|------|-----|-----|
+| 50 | `#F9FAFB` | Page background |
+| 100 | `#F4F5F8` | Sidebar, table stripes |
+| 200 | `#E8E9EE` | Hover surfaces |
+| 300 | `#D5D7DD` | Subtle borders |
+| 400 | `#B5B7BE` | Default borders |
+| 500 | `#898C94` | Placeholder text |
+| 600 | `#656971` | Secondary text |
+| 700 | `#494D56` | Supporting text |
+| 800 | `#343842` | Primary body text |
+| 900 | `#222630` | High-emphasis text |
+| 950 | `#121620` | Dark mode background |
+
+<div style={{ display: 'flex', gap: '4px', marginBottom: '16px', flexWrap: 'wrap' }}>
+  <div style={{ width: '48px', height: '48px', background: '#F9FAFB', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#343842', padding: '2px' }}>50</div>
+  <div style={{ width: '48px', height: '48px', background: '#F4F5F8', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#343842', padding: '2px' }}>100</div>
+  <div style={{ width: '48px', height: '48px', background: '#E8E9EE', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#343842', padding: '2px' }}>200</div>
+  <div style={{ width: '48px', height: '48px', background: '#D5D7DD', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#343842', padding: '2px' }}>300</div>
+  <div style={{ width: '48px', height: '48px', background: '#B5B7BE', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#343842', padding: '2px' }}>400</div>
+  <div style={{ width: '48px', height: '48px', background: '#898C94', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#fff', padding: '2px' }}>500</div>
+  <div style={{ width: '48px', height: '48px', background: '#656971', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#fff', padding: '2px' }}>600</div>
+  <div style={{ width: '48px', height: '48px', background: '#494D56', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#fff', padding: '2px' }}>700</div>
+  <div style={{ width: '48px', height: '48px', background: '#343842', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#fff', padding: '2px' }}>800</div>
+  <div style={{ width: '48px', height: '48px', background: '#222630', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#fff', padding: '2px' }}>900</div>
+  <div style={{ width: '48px', height: '48px', background: '#121620', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', fontSize: '9px', color: '#fff', padding: '2px' }}>950</div>
+</div>
+
+**Por qué gris frío:** El tinte azul sutil armoniza con el navy brand sin que los neutrals compitan visualmente.
+
+---
+
+## Text Tokens
+
+| Token | Hex (light) | Propósito | Usar en | No usar en |
+|-------|-------------|-----------|---------|------------|
+| `color-text-primary` | `#343842` | Texto principal | Body, headings, data | Placeholders, disabled |
+| `color-text-secondary` | `#656971` | Texto secundario | Labels, descriptions | Headings, critical data |
+| `color-text-muted` | `#898C94` | Texto terciario | Placeholders, hints | Body text |
+| `color-text-disabled` | `#B5B7BE` | Texto deshabilitado | Disabled inputs | Active text |
+| `color-text-inverse` | `#F9FAFB` | Texto sobre fondos oscuros | Text on primary buttons | Light backgrounds |
+| `color-text-link` | `#242F50` | Links | Inline links | Button labels |
+| `color-text-link-hover` | `#303B5D` | Link hover | Link hover state | Default link color |
+
+<div style={{ background: '#FFFFFF', border: '1px solid #D5D7DD', borderRadius: '8px', padding: '24px', marginBottom: '16px' }}>
+  <p style={{ color: '#343842', fontSize: '16px', margin: '0 0 8px' }}>Primary text — body content and headings</p>
+  <p style={{ color: '#656971', fontSize: '14px', margin: '0 0 8px' }}>Secondary text — labels and descriptions</p>
+  <p style={{ color: '#898C94', fontSize: '14px', margin: '0 0 8px' }}>Muted text — placeholders and hints</p>
+  <a style={{ color: '#242F50', fontSize: '14px', textDecoration: 'underline' }}>Link text — clickable inline</a>
+</div>
+
+---
+
+## Border Tokens
+
+| Token | Hex (light) | Propósito |
+|-------|-------------|-----------|
+| `color-border-subtle` | `#D5D7DD` | Separadores, dividers internos |
+| `color-border` | `#B5B7BE` | Bordes de inputs, cards |
+| `color-border-strong` | `#898C94` | Dividers enfatizados |
+
+---
+
+## Action Tokens
+
+| Token | Hex (light) | Propósito |
+|-------|-------------|-----------|
+| `color-action-primary` | `#242F50` | Primary button background |
+| `color-action-primary-hover` | `#303B5D` | Primary button hover |
+| `color-action-primary-active` | `#1A2340` | Primary button pressed |
+| `color-action-primary-text` | `#FFFFFF` | Text on primary buttons |
+
+<div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
+  <div style={{ background: '#242F50', color: '#FFFFFF', padding: '8px 16px', borderRadius: '8px', fontSize: '14px' }}>Primary</div>
+  <div style={{ background: '#303B5D', color: '#FFFFFF', padding: '8px 16px', borderRadius: '8px', fontSize: '14px' }}>Hover</div>
+  <div style={{ background: '#1A2340', color: '#FFFFFF', padding: '8px 16px', borderRadius: '8px', fontSize: '14px' }}>Active</div>
+</div>
+
+---
+
+## Focus Tokens
+
+Centralizados. Ningún componente define focus individualmente.
+
+| Token | Valor (light) | Propósito |
+|-------|---------------|-----------|
+| `color-focus-ring` | primary-800 @ 50% | Color del anillo de focus |
+| `focus-ring-width` | `3px` | Grosor del anillo |
+| `focus-ring-offset` | `2px` | Separación entre elemento y anillo |
+
+**Por qué centralizado:** El audit encontró inconsistencias (`ring-3` vs `ring-[3px]`). Un solo source of truth elimina esto.
+
+<div style={{ display: 'inline-block', padding: '8px 16px', borderRadius: '8px', border: '2px solid rgba(36,47,80,0.5)', outline: '2px solid #F9FAFB', outlineOffset: '2px', boxShadow: '0 0 0 4px rgba(36,47,80,0.25)', fontSize: '14px', color: '#343842', marginBottom: '16px' }}>
+  Focus ring example
+</div>
+
+---
+
+## Feedback Colors
+
+Cada feedback tiene **4 tokens dedicados**: background, border, text, foreground.
+
+### Success
+
+| Token | Hex (light) | Propósito |
+|-------|-------------|-----------|
+| `color-success-background` | `#EDF8F2` | Fondo sutil |
+| `color-success-border` | `#9CCAB2` | Borde |
+| `color-success-text` | `#28654A` | Texto e iconos |
+| `color-success-foreground` | `#39775B` | Fondo sólido (con texto blanco) |
+
+<div style={{ background: '#EDF8F2', border: '1px solid #9CCAB2', borderRadius: '8px', padding: '12px 16px', marginBottom: '8px', color: '#28654A', fontSize: '14px' }}>
+  Success banner — background + border + text tokens
+</div>
+<div style={{ display: 'inline-block', background: '#39775B', color: '#FFFFFF', borderRadius: '16px', padding: '4px 12px', fontSize: '12px', marginBottom: '16px' }}>
+  Completed
+</div>
+
+**Por qué verde clinical (H≈162°):** Más calmado que green puro. Apropiado para indicadores de signos vitales normales.
+
+### Warning
+
+| Token | Hex (light) | Propósito |
+|-------|-------------|-----------|
+| `color-warning-background` | `#FFF5E9` | Fondo sutil |
+| `color-warning-border` | `#EABF8A` | Borde |
+| `color-warning-text` | `#875806` | Texto e iconos |
+| `color-warning-foreground` | `#9F6B1E` | Fondo sólido |
+
+<div style={{ background: '#FFF5E9', border: '1px solid #EABF8A', borderRadius: '8px', padding: '12px 16px', marginBottom: '16px', color: '#875806', fontSize: '14px' }}>
+  Warning — review required, not critical
+</div>
+
+**Por qué ámbar:** Estándar ISO 3864 para precaución. Distinto de error y success.
+
+### Error
+
+| Token | Hex (light) | Propósito |
+|-------|-------------|-----------|
+| `color-error-background` | `#FDF4F3` | Fondo sutil |
+| `color-error-border` | `#F4B1A6` | Borde |
+| `color-error-text` | `#AA2018` | Texto e iconos |
+| `color-error-foreground` | `#BB3D31` | Fondo sólido |
+
+<div style={{ background: '#FDF4F3', border: '1px solid #F4B1A6', borderRadius: '8px', padding: '12px 16px', marginBottom: '16px', color: '#AA2018', fontSize: '14px' }}>
+  Error — validation failed. Always pair with icon + text.
+</div>
+
+**Por qué rojo desaturado:** Previene alarm fatigue cuando múltiples alertas coexisten.
+
+### Info
+
+| Token | Hex (light) | Propósito |
+|-------|-------------|-----------|
+| `color-info-background` | `#EFF5FF` | Fondo sutil |
+| `color-info-border` | `#99BFFF` | Borde |
+| `color-info-text` | `#1153C6` | Texto e iconos |
+| `color-info-foreground` | `#2564D4` | Fondo sólido |
+
+<div style={{ background: '#EFF5FF', border: '1px solid #99BFFF', borderRadius: '8px', padding: '12px 16px', marginBottom: '16px', color: '#1153C6', fontSize: '14px' }}>
+  Info — contextual information. Distinct from brand navy.
+</div>
+
+**Por qué azul separado de primary:** `#1153C6` (info) vs `#242F50` (brand). Evita confundir información con acciones de marca.
+
+---
+
+## Dark Mode
+
+Mismos nombres de token, valores re-mapeados. Superficies suben en luminosidad (950 → 900 → 800).
+
+| Token | Hex (dark) |
+|-------|------------|
+| `color-background` | `#121620` |
+| `color-surface` | `#222630` |
+| `color-surface-raised` | `#343842` |
+| `color-text-primary` | `#F4F5F8` |
+| `color-text-secondary` | `#B5B7BE` |
+| `color-action-primary` | `#303B5D` |
+| `color-focus-ring` | primary-400 @ 50% |
+
+<div style={{ background: '#121620', borderRadius: '8px', padding: '24px', marginBottom: '16px' }}>
+  <div style={{ background: '#222630', borderRadius: '8px', padding: '16px', marginBottom: '8px' }}>
+    <p style={{ color: '#F4F5F8', fontSize: '14px', margin: '0 0 4px' }}>Surface on dark background</p>
+    <p style={{ color: '#B5B7BE', fontSize: '13px', margin: 0 }}>Secondary text in dark mode</p>
+  </div>
+  <div style={{ background: '#343842', borderRadius: '8px', padding: '12px', fontSize: '13px', color: '#F4F5F8' }}>
+    Raised surface — nested container
+  </div>
+</div>
+
+---
+
+## Contraste WCAG
+
+Todos los pares documentados en `foundations/colors/contrast-matrix.ts`.
+
+| Par | Ratio | Nivel |
+|-----|-------|-------|
+| text-primary on background | 11.22:1 | AAA |
+| text-secondary on background | 5.63:1 | AA |
+| white on action-primary | 13.15:1 | AAA |
+| success-text on success-bg | 6.33:1 | AA |
+| warning-text on warning-bg | 5.68:1 | AA |
+| error-text on error-bg | 6.63:1 | AA |
+| info-text on info-bg | 6.23:1 | AA |
+
+---
+
+## Interaction Tokens (planificado)
+
+> **Estado:** Documentado — no implementado.
+> Ver [Blueprint — Interaction Tokens](../blueprint.mdx#interaction-tokens-planificado).
+
+Los Semantic Tokens actuales (`color-action-primary`, etc.) definen **qué color** usar. Los **Interaction Tokens** definirán **cómo se comporta** un elemento en cada estado interactivo — consumidos directamente por componentes.
+
+```
+Semantic Tokens          Interaction Tokens (futuro)         Componentes
+────────────────         ───────────────────────────         ───────────
+color-action-primary  →  interaction-action-default     →   Button
+                         interaction-action-hover
+                         interaction-action-pressed
+                         interaction-action-disabled
+```
+
+| Token (planificado) | Propósito | Deriva de |
+|---------------------|-----------|-----------|
+| `interaction-action-default` | Estado reposo de acciones primarias | `color-action-primary` |
+| `interaction-action-hover` | Hover sobre acciones | `color-action-primary-hover` |
+| `interaction-action-pressed` | Estado activo/pressed | `color-action-primary-active` |
+| `interaction-action-disabled` | Acciones deshabilitadas | `color-disabled-*` |
+
+**Por qué una capa separada:** Un Button no debe conocer qué primitivo es `primary-800`. Tampoco debería mapear manualmente hover → `color-action-primary-hover`. Los Interaction Tokens encapsulan la máquina de estados completa. Un Switch, un Checkbox y un Button comparten la misma lógica de interacción sin duplicar CSS.
+
+**Cuándo:** Fase de Primitives, cuando personalicemos Button, Input y controles interactivos.
+
+---
+
+## Data Visualization Tokens (planificado)
+
+> **Estado:** Reservado — no implementado.
+> Ver [Blueprint — Data Visualization Tokens](../blueprint.mdx#data-visualization-tokens-planificado).
+
+Los colores semánticos (Success, Warning, Error, Info) comunican **estados de UI** — validación, alertas, feedback. Los **Data Visualization Tokens** comunicarán **estados de negocio Medmo**:
+
+| Token (ejemplo) | Significado clínico |
+|-----------------|---------------------|
+| `data-status-pending` | Orden/cita pendiente |
+| `data-status-completed` | Proceso completado |
+| `data-status-escalated` | Requiere atención elevada |
+| `data-status-high-priority` | Prioridad alta |
+| `data-status-cancelled` | Cancelado/anulado |
+| `data-status-in-progress` | En curso |
+
+**Por qué separados de Success/Warning/Error:** "Pending" no es un warning. "Escalated" no es un error. Los estados de negocio tienen significado clínico propio que no debe colisionar con feedback de UI. Un badge "Pending" y un banner de error pueden coexistir en la misma vista sin ambigüedad.
+
+**Cuándo:** Fase de Domain Components o Patterns (DataTable), cuando definamos columnas de estado clínico.
+
+---
+
+## Reglas de uso
+
+Ver `foundations/colors/rules.md` para la guía completa.
+
+**DO:** Semantic tokens, focus tokens, pares documentados.
+
+**DON'T:** Primitivos en componentes, hex hardcodeado, opacity para disabled, focus per-component.
+
+---
+
+## Archivos
+
+| Archivo | Contenido |
+|---------|-----------|
+| `foundations/colors/primitives/` | Escalas 50–950 (interno) |
+| `foundations/colors/semantic/` | Mapeos light/dark |
+| `foundations/colors/focus/` | Focus tokens |
+| `foundations/colors/colors.css` | CSS custom properties |
+| `foundations/colors/contrast-matrix.ts` | Pares WCAG validados |
+| `foundations/colors/contract.ts` | Registro de nombres |
+
+---
+
+## Import
+
+```css
+/* Technical Setup phase — import in globals.css */
+@import "../../foundations/colors/colors.css";
+```
+
+```typescript
+/* Tooling and documentation only — NOT for components */
+import { lightSemantic, contrastMatrix } from "../../foundations/colors/tokens"
+```

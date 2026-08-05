@@ -1,0 +1,236 @@
+---
+title: Radius
+description: Sistema de border radius Medmo — escala sutil, tokens de contexto y base 8px.
+status: complete
+version: 1.0.0
+lastUpdated: 2026-07-17
+phase: foundations
+---
+
+# Radius
+
+> Bordes discretos. No redondeados excesivos.
+> La precisión clínica se refleja en esquinas contenidas.
+
+---
+
+## Radius Intent
+
+Esta sección explica **por qué** existe el Radius System — no qué contiene.
+
+### Los bordes redondeados comunican tono, no solo forma
+
+Radios grandes (> 12px en controles pequeños) leen como consumer, lúdico, "friendly app". Medmo debe sentirse **profesional y preciso** — referentes Linear, GitHub, Stripe Dashboard. Esquinas sutiles (4–8px) reducen dureza visual sin convertir la UI en un producto de wellness.
+
+**Implicación:** La escala Medmo cap en uso cotidiano es `radius-lg` (8px). `radius-2xl` (16px) es excepcional — no default.
+
+### Consistencia elimina micro-decisiones
+
+El audit encontró `rounded-[4px]` en Checkbox mientras Button usa `rounded-lg` (10px legacy). Cada valor mágico es una decisión de diseño repetida 19 veces en primitivos. Los tokens de contexto (`radius-checkbox`, `radius-button`) codifican la decisión una vez.
+
+**Implicación:** Preferir `--radius-{context}` sobre elegir un step de escala manualmente.
+
+### El default del sistema es 8px — no 10px
+
+Shadcn base-nova usa `--radius: 0.625rem` (10px). Medmo alinea a **0.5rem (8px)** — ligeramente más contenido, coherente con brand language ("precisa", "discreta").
+
+**Implicación:** `--radius` apunta a `--radius-lg`. Technical Setup migrará el valor legacy.
+
+### Pills y rectángulos son categorías distintas
+
+Avatars y status pills usan `radius-full`. Cards, inputs y buttons usan esquinas suaves pero claramente rectangulares. Mezclar `radius-full` en cards rompe la calma visual y la scannability de tablas adyacentes.
+
+**Implicación:** `radius-full` solo para elementos circular/pill por naturaleza.
+
+---
+
+## Filosofía
+
+| Principio | Aplicación |
+|-----------|------------|
+| **Subtle over soft** | 4–8px en controles; 12px max en overlays |
+| **Context tokens preferred** | `radius-button`, no `radius-lg` en Button.tsx |
+| **Base = lg (8px)** | `--radius` es alias de `--radius-lg` |
+| **No decorative rounding** | `radius-2xl` solo para casos especiales |
+| **Flat where data lives** | `radius-none` en wrappers de tabla |
+
+---
+
+## Arquitectura
+
+```
+Primitives (interno)          Semantic Scale              Semantic Context (preferido)
+─────────────────────         ──────────────              ────────────────────────────
+radius-4                   →  radius-sm                →  radius-checkbox, radius-badge
+radius-8                   →  radius-lg, --radius      →  radius-input, radius-button, radius-card
+radius-12                  →  radius-xl                →  radius-dialog
+radius-pill                →  radius-full              →  radius-avatar
+```
+
+**Regla:** Componentes consumen `--radius-*` semánticos. Nunca `--radius-4`, `--radius-8` primitivos.
+
+---
+
+## Escala primitiva (interna)
+
+| Primitivo | Valor | Uso interno |
+|-----------|-------|-------------|
+| `radius-0` | 0 | Sharp corners |
+| `radius-4` | 4px | sm |
+| `radius-6` | 6px | md |
+| `radius-8` | 8px | lg — **system base** |
+| `radius-12` | 12px | xl |
+| `radius-16` | 16px | 2xl |
+| `radius-pill` | 9999px | full |
+
+---
+
+## Semantic Scale
+
+### radius-none — 0px
+
+**Usar en:** Wrapper de tabla, paneles full-bleed, contenido anidado flush.
+
+**No usar en:** Botones, inputs, cualquier control interactivo.
+
+---
+
+### radius-sm — 4px
+
+**Usar en:** Checkbox, badges pequeños, chips compactos.
+
+**No usar en:** Cards, modales, botones default.
+
+---
+
+### radius-md — 6px
+
+**Usar en:** Botones xs/sm, inputs compactos, tags anidados.
+
+**No usar en:** Superficies grandes, dialogs.
+
+---
+
+### radius-lg — 8px (default)
+
+**Usar en:** Botones default, inputs, selects, cards, tabs.
+
+**No usar en:** Checkboxes (sm), avatars (full).
+
+<div style={{ border: '1px solid #D5D7DD', borderRadius: '8px', padding: '16px', marginBottom: '8px', maxWidth: '320px' }}>
+  <span style={{ fontSize: '14px', color: '#343842' }}>radius-lg — 8px default corner</span>
+</div>
+
+---
+
+### radius-xl — 12px
+
+**Usar en:** Dialogs, popovers, dropdown panels, cards grandes.
+
+**No usar en:** Checkbox, celdas de tabla.
+
+---
+
+### radius-2xl — 16px
+
+**Usar en:** Contenedores especiales, empty states destacados, paneles de énfasis sin ser decorativos.
+
+**No usar en:** Controles de formulario cotidianos.
+
+---
+
+### radius-full — pill
+
+**Usar en:** Avatars, pills de estado, icon buttons circulares.
+
+**No usar en:** Cards, dialogs, tablas.
+
+---
+
+## Context Tokens
+
+Preferidos en implementación de primitivos (Fase 4).
+
+| Token | Maps to | Componentes |
+|-------|---------|-------------|
+| `--radius-checkbox` | radius-sm (4px) | Checkbox |
+| `--radius-badge` | radius-sm (4px) | Badge, Tag |
+| `--radius-input` | radius-lg (8px) | Input, Textarea, Select |
+| `--radius-button` | radius-lg (8px) | Button |
+| `--radius-card` | radius-lg (8px) | Card, Panel |
+| `--radius-dialog` | radius-xl (12px) | Dialog, Sheet, Popover |
+| `--radius-avatar` | radius-full | Avatar |
+
+---
+
+## Reglas de uso
+
+### DO
+
+- `border-radius: var(--radius-button)` en Button
+- `border-radius: var(--radius-checkbox)` — corrige audit `rounded-[4px]`
+- `--radius-none` en contenedor de Table
+- Mantener consistencia dentro de un formulario (todos inputs `radius-input`)
+
+### DON'T
+
+- `rounded-[4px]`, `rounded-lg` hardcodeado en componentes fuente
+- Mezclar 10px legacy con escala Medmo 8px
+- `radius-full` en Card
+- `radius-2xl` como default de Button "para que se vea moderno"
+
+---
+
+## Relación con audit
+
+| Hallazgo | Resolución |
+|----------|------------|
+| Checkbox `rounded-[4px]` | `--radius-checkbox` → 4px |
+| globals `--radius: 0.625rem` | `--radius: var(--radius-lg)` → 8px |
+| Inconsistencia entre primitivos | Context tokens unifican |
+
+---
+
+## Archivos
+
+| Archivo | Descripción |
+|---------|-------------|
+| `foundations/radius/types.ts` | Tipos compartidos |
+| `foundations/radius/primitives/scale.ts` | Escala px primitiva |
+| `foundations/radius/semantic/scale.ts` | none → full |
+| `foundations/radius/semantic/context.ts` | checkbox → avatar |
+| `foundations/radius/contract.ts` | Registro de tokens |
+| `foundations/radius/resolve.ts` | Resolvers |
+| `foundations/radius/radius.css` | CSS custom properties |
+| `foundations/radius/rules.md` | DO/DON'T |
+| `foundations/radius/tokens.ts` | Barrel export |
+
+---
+
+## Import
+
+```css
+@import "../../foundations/radius/radius.css";
+```
+
+```typescript
+import { resolveRadiusContext, resolveRadiusBase } from "../../foundations/radius/tokens"
+```
+
+---
+
+## Futuro
+
+| Extensión | Fase | Descripción |
+|-----------|------|-------------|
+| Component tokens | Primitives | `button-border-radius` ← `radius-button` |
+| Nested radius rules | Patterns | Card containing nested card: md inside lg |
+| Density | — | Radius **no** escala con density |
+
+---
+
+## Relacionados
+
+- [Design Principles](../principles/design-principles.mdx) — Calm Interfaces
+- [Brand Language](../principles/brand-language.mdx) — Bordes discretos
+- [Shadows](./shadows.mdx) — sombras sutiles; profundidad como regla de diseño

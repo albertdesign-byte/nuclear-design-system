@@ -1,0 +1,264 @@
+---
+title: Shadows
+description: Sistema de sombras Medmo — shadow-none a shadow-xl. Profundidad visual como regla de diseño, no como token.
+status: complete
+version: 1.0.0
+lastUpdated: 2026-07-17
+phase: foundations
+---
+
+# Shadows
+
+> La profundidad vive en las superficies. La sombra solo refuerza.
+> No existe "Elevation" en la API pública del Design System.
+
+---
+
+## Shadow Intent
+
+Esta sección explica **por qué** existe el Shadow System — no qué contiene.
+
+### La profundidad es tonal, no decorativa
+
+Medmo comunica capas visuales principalmente con la **jerarquía de superficies** de Colors (`color-background` → `color-surface` → `color-surface-floating` → `color-overlay`). Un dropdown "flota" porque usa `color-surface-floating` sobre un fondo más oscuro — no porque proyecte una sombra dramática.
+
+**Implicación:** `shadow-none` es el default. La sombra entra solo cuando el tono y el borde no bastan.
+
+### Preferimos bordes sobre sombras
+
+El audit encontró Cards con `ring-1 ring-foreground/10` — patrón correcto para Medmo. Sombras casi imperceptibles (4–10% opacidad) refuerzan separación en overlays flotantes; no reemplazan bordes en cards estáticas.
+
+**Implicación:** Card at rest = `shadow-none` + ring. `shadow-sm` solo si no hay ring.
+
+### No hay tokens "Elevation"
+
+Otros design systems separan "elevation levels" como API (`elevation-1`, `elevation-2`). Medmo **no** expone ese concepto como token. La guía de qué superficie representa cada sombra vive en esta documentación — es regla de diseño, no nombre de variable.
+
+**Implicación:** La API pública son exactamente seis tokens: `shadow-none` … `shadow-xl`. Nada más.
+
+### Dark mode reduce sombra, no la elimina
+
+En dark mode, la profundidad tonal (surfaces más claras por nivel) hace más trabajo. Las sombras bajan opacidad pero siguen disponibles para popovers y dialogs.
+
+---
+
+## Filosofía
+
+| Principio | Aplicación |
+|-----------|------------|
+| **Surfaces first** | Colors hierarchy antes que box-shadow |
+| **Ring over shadow** | Cards estáticas: borde, no sombra |
+| **Six tokens only** | none, xs, sm, md, lg, xl — sin aliases elevation |
+| **Imperceptible** | Opacidades 4–10% en light mode |
+| **Hover ≠ rest** | xs solo en interacción, no permanente |
+| **Depth = design rule** | Documentado aquí, no codificado como `elevation-*` |
+
+---
+
+## Arquitectura
+
+```
+Primitives (interno)              Semantic (API pública única)
+─────────────────────             ────────────────────────────
+shadow-layer-xs                →  shadow-xs
+shadow-layer-md                →  shadow-md
+shadow-layer-lg                →  shadow-lg
+```
+
+**Regla:** Componentes consumen `--shadow-*`. Nunca `--shadow-layer-*`.
+
+**No existe:** `foundations/elevation/`, `--elevation-*`, `elevation.ts` en la API del DS.
+
+---
+
+## Profundidad visual (regla de diseño)
+
+Esta tabla explica **cómo pensar profundidad** — no introduce tokens.
+
+| Nivel conceptual | Colors (primario) | Borde (preferido) | Sombra (si necesaria) |
+|------------------|-------------------|-------------------|------------------------|
+| Canvas | `color-background` | — | none |
+| Contenedor | `color-surface` | ring-1 | none |
+| Anidado | `color-surface-raised` | ring-1 subtle | none / sm |
+| Flotante | `color-surface-floating` | border subtle | md |
+| Modal | surface + `color-overlay` | — | lg |
+| Máximo float | surface-floating | — | xl (raro) |
+
+---
+
+## Tokens oficiales
+
+### shadow-none
+
+**Superficie que representa:** Plano sobre canvas — sin lift.
+
+**Usar en:** Tablas, filas de lista, campos de formulario, cards con ring, secciones de página, sidebar estático.
+
+**No usar en:** Dropdowns abiertos, dialogs (siempre hay sombra en flotantes modales).
+
+```css
+box-shadow: var(--shadow-none);
+```
+
+---
+
+### shadow-xs
+
+**Superficie que representa:** Lift mínimo en interacción — hover sobre superficie existente.
+
+**Usar en:** Card clickable en hover, StatCard hover, contenedor interactivo que ya usa `color-surface`.
+
+**No usar en:** Estado resting permanente, modals, dropdowns at rest.
+
+**Valor (light):** `0 1px 2px rgb(18 22 32 / 4%)`
+
+---
+
+### shadow-sm
+
+**Superficie que representa:** Contenedor raised en reposo — equivalente visual a `color-surface-raised` cuando el ring no aplica.
+
+**Usar en:** Cards sin ring, borde flotante de sidebar, panel raised sobre background.
+
+**No usar en:** Popovers (md), dialogs (lg), contenido de tabla.
+
+**Valor (light):** `0 1px 3px / 6%` + capa secundaria sutil
+
+---
+
+### shadow-md
+
+**Superficie que representa:** Panel flotante detached — `color-surface-floating`.
+
+**Usar en:** Popover, Select content, DropdownMenu, Tooltip container (con bg floating).
+
+**No usar en:** Cards estáticas, dialogs full (lg), hover (xs).
+
+**Valor (light):** `0 4px 6px -1px / 6%`
+
+---
+
+### shadow-lg
+
+**Superficie que representa:** Capa modal — contenido sobre `color-overlay`.
+
+**Usar en:** Dialog content, Sheet, AlertDialog, drawer panel sobre backdrop.
+
+**No usar en:** Dropdowns (md), cards (none/sm), tooltips (md).
+
+**Valor (light):** `0 8px 16px -4px / 8%`
+
+---
+
+### shadow-xl
+
+**Superficie que representa:** Separación máxima — command surfaces sobre UI densa.
+
+**Usar en:** Command palette, dialog en viewport Wide, overlay panel sobre dashboard completo.
+
+**No usar en:** Uso cotidiano — si xl parece necesario, revisar z-index y surface hierarchy primero.
+
+**Valor (light):** `0 16px 32px -8px / 10%`
+
+---
+
+## Reglas por contexto
+
+### Tablas y datos clínicos
+
+- **Siempre** `shadow-none` en table container
+- Profundidad via `color-surface` vs `color-background`, no sombra
+- Row hover: background tone (`color-surface-hover`), no shadow-xs
+- Sticky header: `color-surface-raised`, not shadow
+
+### Dashboards
+
+- Stat cards: `shadow-none` + ring at rest; `shadow-xs` on hover if clickable
+- Widget panels: ring default; `shadow-sm` only without ring
+- Never `shadow-lg` on dashboard tiles — reserve for modals
+
+### Formularios
+
+- Inputs, field groups: `shadow-none`
+- Form section cards: `shadow-none` + ring
+- Modal form: dialog shell uses `shadow-lg`; fields inside remain flat
+
+### Cards y panels
+
+```
+Resting:  shadow-none + ring-1 ring-foreground/10 + color-surface
+Hover:    shadow-xs (if interactive)
+No ring:  shadow-sm at rest (exception — document why ring was removed)
+```
+
+---
+
+## Dark mode
+
+Sombras con opacidad mayor sobre fondos oscuros — valores redefinidos en `.dark` en `shadows.css`. Surface hierarchy (Colors) sigue siendo el mecanismo principal de profundidad.
+
+---
+
+## Reglas de uso
+
+### DO
+
+- `var(--shadow-none)` como default global
+- Combinar `shadow-md` + `color-surface-floating`
+- Combinar `shadow-lg` + `color-overlay` en modals
+- Documentar en component MDX qué shadow usa y por qué
+
+### DON'T
+
+- Crear tokens `elevation-*` o `depth-*`
+- `box-shadow` hardcodeado en primitivos
+- `shadow-md` en Card estático
+- Sombra + borde grueso + contraste fuerte simultáneos
+- Usar sombra como único indicador de profundidad (sin surface tone)
+
+---
+
+## Archivos
+
+| Archivo | Descripción |
+|---------|-------------|
+| `foundations/shadows/types.ts` | Tipos |
+| `foundations/shadows/primitives/definitions.ts` | Box-shadow raw (interno) |
+| `foundations/shadows/semantic/scale.ts` | shadow-none … xl |
+| `foundations/shadows/contract.ts` | Registro API pública |
+| `foundations/shadows/shadows.css` | CSS custom properties + dark |
+| `foundations/shadows/rules.md` | DO/DON'T |
+| `foundations/shadows/tokens.ts` | Barrel export |
+
+---
+
+## Import
+
+```css
+@import "../../foundations/shadows/shadows.css";
+```
+
+```typescript
+import { resolveShadowScale, shadowScaleRoles } from "../../foundations/shadows/tokens"
+```
+
+---
+
+## Futuro
+
+| Extensión | Notas |
+|-----------|-------|
+| Component tokens | `dialog-shadow` → alias de `shadow-lg` — **not** elevation |
+| Z-Index foundation | Layering stack separado de shadow depth |
+
+---
+
+## Relacionados
+
+- [Colors — Jerarquía de superficies](./colors.mdx) — profundidad primaria
+- [Radius](./radius.mdx) — esquinas en overlays
+- [Design Principles](../principles/design-principles.mdx) — Calm Interfaces
+
+## Decisión arquitectónica
+
+**Elevation foundation eliminada.** El concepto de profundidad se documenta aquí como regla de diseño. La API pública son únicamente los tokens `shadow-*`.

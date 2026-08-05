@@ -1,0 +1,234 @@
+---
+title: Accessibility
+description: Guidelines de accesibilidad del Design System Medmo. WCAG AA by default.
+status: approved
+version: 0.1.0
+lastUpdated: 2026-07-17
+phase: principles
+---
+
+# Accessibility
+
+> Todos los componentes nacen siendo accesibles.
+> No es una tarea posterior. Es el fundamento.
+
+Medmo es una plataforma médica enterprise. Sus usuarios incluyen profesionales con diferentes capacidades visuales, motoras y cognitivas, trabajando bajo presión en jornadas largas. La accesibilidad no es opcional.
+
+**Estándar mínimo:** WCAG 2.1 Level AA.
+
+---
+
+## Contraste de color
+
+### Ratios mínimos
+
+| Elemento | Ratio mínimo | Nivel |
+|----------|-------------|-------|
+| Texto normal (< 18px / < 14px bold) | 4.5:1 | AA |
+| Texto grande (≥ 18px / ≥ 14px bold) | 3:1 | AA |
+| Componentes UI y gráficos | 3:1 | AA |
+| Texto normal | 7:1 | AAA (objetivo en datos críticos) |
+
+### Reglas
+
+- Validar **todos** los pares texto/fondo de la paleta Medmo antes de publicar tokens
+- El color primario `#242F50` sobre blanco cumple AA para texto large; verificar para texto normal
+- Nunca usar color como **único** indicador de estado — siempre combinar con icono, texto o patrón
+- Estados disabled deben ser visualmente distinguibles, no solo atenuados por opacidad
+- Modo dark: re-validar todos los pares de contraste
+
+### Test
+
+Usar herramientas de contraste durante la fase Colors. Documentar ratios en `foundations/colors.mdx`.
+
+---
+
+## Tipografía accesible
+
+| Regla | Valor |
+|-------|-------|
+| Tamaño mínimo body | 14px (`text-sm`) — 16px preferido para contenido clínico |
+| Line height body | ≥ 1.5 |
+| Line length | 45–75 caracteres para texto largo |
+| Letter spacing | No comprimir por debajo de -0.025em |
+| Font weight mínimo body | 400 (Regular) — no usar Light para texto funcional |
+
+### Reglas
+
+- La jerarquía se construye con peso y tamaño, no solo con color
+- Datos numéricos clínicos: usar tabular figures cuando estén disponibles
+- No justificar texto (dificulta lectura para dislexia)
+
+---
+
+## Focus management
+
+Todo elemento interactivo debe tener un **focus visible** claro.
+
+### Estándar Medmo
+
+```
+focus-visible:border-ring
+focus-visible:ring-3
+focus-visible:ring-ring/50
+```
+
+### Reglas
+
+- Nunca usar `outline: none` sin reemplazo visible
+- Focus ring usa `--color-ring` (derivado de primary)
+- Focus trap en modals y dialogs
+- Al cerrar un modal, devolver focus al trigger
+- Skip links en layouts de página (templates)
+
+---
+
+## Keyboard navigation
+
+| Patrón | Comportamiento esperado |
+|--------|------------------------|
+| Tab / Shift+Tab | Navegar entre interactivos en orden lógico |
+| Enter / Space | Activar botones, toggles, checkboxes |
+| Escape | Cerrar modals, popovers, dropdowns |
+| Arrow keys | Navegar dentro de tabs, radio groups, selects, menus |
+| Home / End | Ir al inicio/fin de listas |
+
+### Reglas
+
+- Orden de tabulación sigue el flujo visual (left-to-right, top-to-bottom)
+- Elementos disabled no reciben focus
+- Dropdown menus: typeahead search cuando aplique
+- Data tables: navegación por celda con arrow keys (TanStack Table + a11y)
+
+---
+
+## Screen readers
+
+### Reglas generales
+
+| Elemento | Requisito |
+|----------|-----------|
+| Icon buttons | `aria-label` descriptivo obligatorio |
+| Form inputs | `<label>` asociado o `aria-labelledby` |
+| Error messages | `aria-describedby` apuntando al mensaje de error |
+| Invalid fields | `aria-invalid="true"` |
+| Loading states | `role="status"`, `aria-label="Loading"`, `aria-live="polite"` |
+| Toast notifications | `aria-live="polite"` (info) o `aria-live="assertive"` (error) |
+| Dialogs | `role="dialog"`, `aria-modal="true"`, focus trap |
+| Tabs | `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-selected` |
+
+### Reglas
+
+- Texto alternativo en imágenes de contenido (avatars con fallback a iniciales)
+- Iconos decorativos: `aria-hidden="true"`
+- Iconos funcionales: texto alternativo via label
+- Anunciar cambios dinámicos de contenido (filtros aplicados, resultados cargados)
+
+---
+
+## Motion y animación
+
+| Regla | Implementación |
+|-------|---------------|
+| Respetar preferencia del usuario | `@media (prefers-reduced-motion: reduce)` |
+| Sin animación autoplay | Nunca animar sin acción del usuario |
+| Duraciones cortas | 100–200ms para transiciones funcionales |
+| Sin parpadeo | Nada que parpadee más de 3 veces por segundo |
+
+### Implementación
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+Esto se implementará en la fase Technical Setup, pero la **decisión** se define aquí.
+
+---
+
+## Touch targets
+
+| Contexto | Tamaño mínimo |
+|----------|--------------|
+| Mobile / touch | 44 × 44px |
+| Desktop | 32 × 32px (h-8 default) |
+| Checkbox / Radio | Hit area expandida via pseudo-elemento |
+
+El primitivo Switch ya implementa hit area expandida — mantener este patrón en todos los controles pequeños.
+
+---
+
+## Formularios accesibles
+
+Formularios médicos requere atención especial por la criticidad de los datos.
+
+| Regla | Detalle |
+|-------|---------|
+| Labels siempre visibles | No depender solo de placeholder |
+| Errores inline | Junto al campo, no solo toast |
+| Errores descriptivos | "Ingresa una fecha válida (DD/MM/YYYY)" — no solo "Error" |
+| Campos requeridos | Indicador visual + `aria-required="true"` |
+| Agrupación lógica | `fieldset` + `legend` para grupos de campos |
+| Autocompletado | `autocomplete` attributes donde aplique |
+| Confirmación | Acciones destructivas requieren confirmación explícita |
+
+---
+
+## Datos médicos
+
+Consideraciones específicas para una plataforma healthcare:
+
+| Regla | Justificación |
+|-------|--------------|
+| Fechas en formato consistente | Evitar ambigüedad MM/DD vs DD/MM |
+| Unidades siempre visibles | "120 mg/dL" — no solo "120" |
+| Estados críticos con icono + color + texto | Nunca solo color rojo |
+| IDs de paciente copiables | Selección de texto habilitada |
+| Sin timeouts agresivos de sesión | Jornadas largas de uso |
+| Zoom hasta 200% sin pérdida de funcionalidad | Responsive + fluid typography |
+
+---
+
+## Testing de accesibilidad
+
+| Método | Cuándo |
+|--------|--------|
+| Contraste automatizado | Cada token de color (Fase Foundations) |
+| Keyboard-only navigation | Cada primitivo (Fase Primitives) |
+| Screen reader (VoiceOver/NVDA) | Patterns y templates |
+| axe-core / Lighthouse | CI pipeline (Fase Technical Setup) |
+| Testing con usuarios reales | Pre-release de features críticas |
+
+---
+
+## Checklist por componente
+
+Cada primitivo, composite y pattern debe verificar:
+
+- [ ] Contraste WCAG AA en todos los estados (default, hover, disabled, error)
+- [ ] Focus visible en todos los estados interactivos
+- [ ] Navegable completamente por teclado
+- [ ] Labels y roles ARIA correctos
+- [ ] Funciona con `prefers-reduced-motion: reduce`
+- [ ] Touch target ≥ 44px en mobile (donde aplique)
+- [ ] No depende solo de color para comunicar estado
+- [ ] Documentado en sección Accesibilidad del MDX del componente
+
+---
+
+## Relación con Foundations
+
+| Foundation | Consideración a11y |
+|------------|-------------------|
+| Colors | Validar contraste de todos los pares |
+| Typography | Tamaños mínimos, line heights |
+| Spacing | Touch targets, spacing entre controles |
+| Motion | Duraciones, reduced motion |
+| Opacity | Disabled states legibles |
+| Iconography | Tamaños mínimos, stroke visible |
+
+La accesibilidad se valida en Foundations y se verifica en cada componente.

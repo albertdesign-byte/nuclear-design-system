@@ -1,0 +1,101 @@
+/**
+ * Medmo Motion System — CSS Custom Properties
+ *
+ * Public API: --motion-{preset}-transition (primary), --motion-{fast|moderate|default|slow},
+ * --motion-ease-{in|out|in-out} for DS authors only.
+ *
+ * No bounce. No elastic. No infinite animations except skeleton.
+ * prefers-reduced-motion: see .motion-reduce utility block below.
+ */
+
+:root {
+  /* ─── Primitive Durations (internal) ───────────────────────────────────── */
+  --motion-duration-100: 100ms;
+  --motion-duration-150: 150ms;
+  --motion-duration-200: 200ms;
+  --motion-duration-300: 300ms;
+
+  /* ─── Primitive Easings (internal) ─────────────────────────────────────── */
+  --motion-ease-raw-in: cubic-bezier(0.4, 0, 1, 1);
+  --motion-ease-raw-out: cubic-bezier(0, 0, 0.2, 1);
+  --motion-ease-raw-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * SEMANTIC DURATIONS — use presets first; these for DS pattern authors
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  --motion-fast: var(--motion-duration-100);
+  --motion-moderate: var(--motion-duration-150);
+  --motion-default: var(--motion-duration-200);
+  --motion-slow: var(--motion-duration-300);
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * SEMANTIC EASINGS
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  --motion-ease-in: var(--motion-ease-raw-in);
+  --motion-ease-out: var(--motion-ease-raw-out);
+  --motion-ease-in-out: var(--motion-ease-raw-in-out);
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * PRESET PARAMETERS
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  --motion-dropdown-offset: 4px;
+  --motion-modal-scale-from: 0.98;
+  --motion-modal-scale-to: 1;
+  --motion-skeleton-cycle: 2s;
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * PRESET TRANSITIONS — components consume THESE (primary API)
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  --motion-hover-transition:
+    color var(--motion-fast) var(--motion-ease-in-out),
+    background-color var(--motion-fast) var(--motion-ease-in-out),
+    border-color var(--motion-fast) var(--motion-ease-in-out),
+    opacity var(--motion-fast) var(--motion-ease-in-out),
+    box-shadow var(--motion-fast) var(--motion-ease-in-out);
+
+  --motion-dropdown-transition:
+    opacity var(--motion-moderate) var(--motion-ease-out),
+    transform var(--motion-moderate) var(--motion-ease-out);
+
+  --motion-modal-transition:
+    opacity var(--motion-default) var(--motion-ease-out),
+    transform var(--motion-default) var(--motion-ease-out);
+
+  --motion-toast-transition:
+    opacity var(--motion-moderate) var(--motion-ease-out),
+    transform var(--motion-moderate) var(--motion-ease-out);
+
+  --motion-accordion-transition:
+    height var(--motion-slow) var(--motion-ease-in-out),
+    grid-template-rows var(--motion-slow) var(--motion-ease-in-out);
+
+  /* Skeleton uses animation, not transition — cycle duration only */
+  --motion-skeleton-transition: opacity var(--motion-skeleton-cycle) var(--motion-ease-in-out);
+
+  /* Preset aliases — point to transition shorthand */
+  --motion-hover: var(--motion-hover-transition);
+  --motion-dropdown: var(--motion-dropdown-transition);
+  --motion-modal: var(--motion-modal-transition);
+  --motion-toast: var(--motion-toast-transition);
+  --motion-accordion: var(--motion-accordion-transition);
+  --motion-skeleton: var(--motion-skeleton-transition);
+}
+
+/**
+ * Reduced motion — instant transitions.
+ * Technical Setup mounts this via prefers-reduced-motion media query in globals.css.
+ * Included here as reference for token aggregation.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration-100: 0ms;
+    --motion-duration-150: 0ms;
+    --motion-duration-200: 0ms;
+    --motion-duration-300: 0ms;
+    --motion-skeleton-cycle: 0ms;
+  }
+}
