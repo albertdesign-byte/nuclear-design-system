@@ -8,6 +8,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/alert";
 import { AppFooter } from "@/components/app-footer";
 import { MedmoLogoLockup } from "@/components/brand/medmo-logo";
 import { Button } from "@/components/button";
+import { PatientsFlowContinueButton } from "@/components/docs/userflow/patients/patients-flow-buttons";
 import { DepositSummary } from "@/components/deposit-summary";
 import type { DepositSummaryItem } from "@/components/deposit-summary";
 import { usePatientsDeviceOptional } from "@/components/docs/layout/patients-device-context";
@@ -161,14 +162,12 @@ function PatientsDepositMobileScreen({
           onExpiryChange={onExpiryChange}
           onCvvChange={onCvvChange}
         />
-        <Button
-          className="w-full"
-          variant="primary"
-          disabled={!canContinue}
+        <PatientsFlowContinueButton
+                    disabled={!canContinue}
           onClick={onContinue}
         >
           Continue
-        </Button>
+        </PatientsFlowContinueButton>
       </PatientsShellMain>
     </PatientsShell>
   );
@@ -210,14 +209,12 @@ function PatientsDepositDesktopScreen({
             onExpiryChange={onExpiryChange}
             onCvvChange={onCvvChange}
           />
-          <Button
-            className="w-full"
-            variant="primary"
-            disabled={!canContinue}
+          <PatientsFlowContinueButton
+                        disabled={!canContinue}
             onClick={onContinue}
           >
             Continue
-          </Button>
+          </PatientsFlowContinueButton>
         </div>
       </PatientsShellMainDesktop>
     </PatientsShell>

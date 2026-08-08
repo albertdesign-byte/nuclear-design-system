@@ -13,9 +13,13 @@ const sizes: ButtonSize[] = [
   "sm",
   "md",
   "lg",
+  "xl",
+  "xxl",
   "icon-sm",
   "icon-md",
   "icon-lg",
+  "icon-xl",
+  "icon-xxl",
 ];
 
 export function ButtonPlayground() {

@@ -8,6 +8,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/alert";
 import { AppFooter } from "@/components/app-footer";
 import { MedmoLogoLockup } from "@/components/brand/medmo-logo";
 import { Button } from "@/components/button";
+import { PatientsFlowContinueButton } from "@/components/docs/userflow/patients/patients-flow-buttons";
 import { Checkbox } from "@/components/checkbox";
 import { DayToggleGroup, type DayToggleValue } from "@/components/day-toggle-group";
 import { usePatientsDeviceOptional } from "@/components/docs/layout/patients-device-context";
@@ -173,14 +174,12 @@ function PatientsAvailabilityMobileScreen({
           <AvailabilityFormFields {...formProps} />
         </PatientsShellInputPanel>
 
-        <Button
-          className="w-full"
-          variant="primary"
-          disabled={!canContinue}
+        <PatientsFlowContinueButton
+                    disabled={!canContinue}
           onClick={onContinue}
         >
           Continue
-        </Button>
+        </PatientsFlowContinueButton>
       </PatientsShellMain>
     </PatientsShell>
   );
@@ -214,14 +213,12 @@ function PatientsAvailabilityDesktopScreen({
             <AvailabilityFormFields {...formProps} />
           </PatientsShellInputPanel>
 
-          <Button
-            className="w-full"
-            variant="primary"
-            disabled={!canContinue}
+          <PatientsFlowContinueButton
+                        disabled={!canContinue}
             onClick={onContinue}
           >
             Continue
-          </Button>
+          </PatientsFlowContinueButton>
         </div>
       </PatientsShellMainDesktop>
     </PatientsShell>

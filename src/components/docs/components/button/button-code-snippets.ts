@@ -13,6 +13,7 @@ const buttonBaseCss = `.medmo-button {
   justify-content: center;
   gap: var(--space-inline-sm);
   border: 1px solid transparent;
+  border-radius: var(--radius-full);
   font-size: var(--text-label-size);
   line-height: var(--text-label-line-height);
   letter-spacing: var(--text-label-letter-spacing);
@@ -39,7 +40,7 @@ const buttonSizeMdCss = `.medmo-button--md {
   height: var(--spacing-32);
   min-height: var(--spacing-32);
   padding-inline: var(--space-inline-sm);
-  border-radius: var(--radius-button);
+  border-radius: var(--radius-full);
 }`;
 
 const buttonPrimaryCss = `${buttonBaseCss}
@@ -198,11 +199,15 @@ export const buttonSizeSnippet = buttonExample({
   <Button size="sm">Small</Button>
   <Button size="md">Medium</Button>
   <Button size="lg">Large</Button>
+  <Button size="xl">Extra large</Button>
+  <Button size="xxl">2× large</Button>
 </div>`,
   html: `<div class="medmo-button-group">
   <button type="button" class="medmo-button medmo-button--sm medmo-button--primary">Small</button>
   <button type="button" class="medmo-button medmo-button--md medmo-button--primary">Medium</button>
   <button type="button" class="medmo-button medmo-button--lg medmo-button--primary">Large</button>
+  <button type="button" class="medmo-button medmo-button--xl medmo-button--primary">Extra large</button>
+  <button type="button" class="medmo-button medmo-button--xxl medmo-button--primary">2× large</button>
 </div>`,
   css: `${buttonPrimaryCss}
 
@@ -216,14 +221,28 @@ export const buttonSizeSnippet = buttonExample({
   height: var(--spacing-28);
   min-height: var(--spacing-28);
   padding-inline: var(--space-inline-sm);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
 }
 
 .medmo-button--lg {
   height: var(--spacing-36);
   min-height: var(--spacing-36);
   padding-inline: var(--space-inline-md);
-  border-radius: var(--radius-button);
+  border-radius: var(--radius-full);
+}
+
+.medmo-button--xl {
+  height: var(--spacing-48);
+  min-height: var(--spacing-48);
+  padding-inline: var(--space-inline-md);
+  border-radius: var(--radius-full);
+}
+
+.medmo-button--xxl {
+  height: var(--spacing-56);
+  min-height: var(--spacing-56);
+  padding-inline: var(--space-inline-lg);
+  border-radius: var(--radius-full);
 }`,
 });
 

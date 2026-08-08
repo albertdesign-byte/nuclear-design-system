@@ -42,6 +42,18 @@ export const inputVariants = cva(
           "text-[length:var(--text-body-size)] leading-[var(--text-body-line-height)]",
           "file:h-7 file:px-0 file:text-[length:var(--text-body-small-size)]",
         ].join(" "),
+        xl: [
+          "h-[var(--spacing-48)] px-[var(--space-inline-md)]",
+          "rounded-[var(--radius-input)]",
+          "text-[length:var(--text-body-size)] leading-[var(--text-body-line-height)]",
+          "file:h-8 file:px-0 file:text-[length:var(--text-body-small-size)]",
+        ].join(" "),
+        xxl: [
+          "h-[var(--spacing-56)] px-[var(--space-inline-lg)]",
+          "rounded-[var(--radius-input)]",
+          "text-[length:var(--text-body-size)] leading-[var(--text-body-line-height)]",
+          "file:h-9 file:px-0 file:text-[length:var(--text-body-size)]",
+        ].join(" "),
       },
     },
     defaultVariants: {

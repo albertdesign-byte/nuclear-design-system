@@ -9,9 +9,13 @@ export type ButtonSize =
   | "sm"
   | "md"
   | "lg"
+  | "xl"
+  | "xxl"
   | "icon-sm"
   | "icon-md"
-  | "icon-lg";
+  | "icon-lg"
+  | "icon-xl"
+  | "icon-xxl";
 
 export interface ButtonProps
   extends Omit<ButtonPrimitive.Props, "disabled">,

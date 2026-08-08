@@ -24,6 +24,8 @@ export const selectTriggerVariants = cva(
         sm: "h-[var(--spacing-28)] rounded-[var(--radius-md)] px-[var(--space-inline-sm)]",
         md: "h-[var(--spacing-32)] rounded-[var(--radius-input)] px-[var(--space-inline-sm)]",
         lg: "h-[var(--spacing-36)] rounded-[var(--radius-input)] px-[var(--space-inline-md)]",
+        xl: "h-[var(--spacing-48)] rounded-[var(--radius-input)] px-[var(--space-inline-md)]",
+        xxl: "h-[var(--spacing-56)] rounded-[var(--radius-input)] px-[var(--space-inline-lg)]",
       },
     },
     defaultVariants: {

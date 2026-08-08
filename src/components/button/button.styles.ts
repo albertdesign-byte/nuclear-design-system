@@ -11,7 +11,7 @@ const labelTypography =
 
 export const buttonVariants = cva(
   [
-    "group/button inline-flex shrink-0 items-center justify-center border border-transparent",
+    "group/button inline-flex shrink-0 items-center justify-center rounded-[var(--radius-full)] border border-transparent",
     labelTypography,
     "whitespace-nowrap select-none outline-none",
     "transition-[var(--motion-hover)]",
@@ -37,23 +37,36 @@ export const buttonVariants = cva(
       size: {
         sm: [
           "h-[var(--spacing-28)] min-h-[var(--spacing-28)] px-[var(--space-inline-sm)] gap-[var(--space-inline-sm)]",
-          "rounded-[var(--radius-md)]",
           "[&_svg:not([class*='size-'])]:size-3.5",
         ].join(" "),
         md: [
           "h-[var(--spacing-32)] min-h-[var(--spacing-32)] px-[var(--space-inline-sm)] gap-[var(--space-inline-sm)]",
-          "rounded-[var(--radius-button)]",
         ].join(" "),
         lg: [
           "h-[var(--spacing-36)] min-h-[var(--spacing-36)] px-[var(--space-inline-md)] gap-[var(--space-inline-sm)]",
-          "rounded-[var(--radius-button)]",
+        ].join(" "),
+        xl: [
+          "h-[var(--spacing-48)] min-h-[var(--spacing-48)] px-[var(--space-inline-md)] gap-[var(--space-inline-sm)]",
+          "[&_svg:not([class*='size-'])]:size-5",
+        ].join(" "),
+        xxl: [
+          "h-[var(--spacing-56)] min-h-[var(--spacing-56)] px-[var(--space-inline-lg)] gap-[var(--space-inline-md)]",
+          "[&_svg:not([class*='size-'])]:size-6",
         ].join(" "),
         "icon-sm": [
-          "size-[var(--spacing-28)] rounded-[var(--radius-md)] p-0",
+          "size-[var(--spacing-28)] p-0",
           "[&_svg:not([class*='size-'])]:size-3.5",
         ].join(" "),
-        "icon-md": "size-[var(--spacing-32)] rounded-[var(--radius-button)] p-0",
-        "icon-lg": "size-[var(--spacing-36)] rounded-[var(--radius-button)] p-0",
+        "icon-md": "size-[var(--spacing-32)] p-0",
+        "icon-lg": "size-[var(--spacing-36)] p-0",
+        "icon-xl": [
+          "size-[var(--spacing-48)] p-0",
+          "[&_svg:not([class*='size-'])]:size-5",
+        ].join(" "),
+        "icon-xxl": [
+          "size-[var(--spacing-56)] p-0",
+          "[&_svg:not([class*='size-'])]:size-6",
+        ].join(" "),
       },
     },
     compoundVariants: [

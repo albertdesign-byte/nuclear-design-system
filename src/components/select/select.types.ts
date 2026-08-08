@@ -3,7 +3,7 @@ import type { VariantProps } from "class-variance-authority";
 
 import type { selectTriggerVariants } from "./select.styles";
 
-export type SelectTriggerSize = "sm" | "md" | "lg";
+export type SelectTriggerSize = "sm" | "md" | "lg" | "xl" | "xxl";
 
 export interface SelectTriggerProps
   extends SelectPrimitive.Trigger.Props,

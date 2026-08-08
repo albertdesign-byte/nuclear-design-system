@@ -7,6 +7,7 @@ import { useState } from "react";
 import { AppFooter } from "@/components/app-footer";
 import { MedmoLogoLockup } from "@/components/brand/medmo-logo";
 import { Button } from "@/components/button";
+import { PatientsFlowContinueButton } from "@/components/docs/userflow/patients/patients-flow-buttons";
 import { usePatientsDeviceOptional } from "@/components/docs/layout/patients-device-context";
 import { DocsUserflowPage } from "@/components/docs/userflow/docs-userflow-page";
 import { DocsUserflowPreviewFrame } from "@/components/docs/userflow/docs-userflow-preview-frame";
@@ -121,14 +122,12 @@ function PatientsShareResultsMobileScreen({
           <ShareResultsConsentOptions consent={consent} onConsentChange={onConsentChange} />
         </PatientsShellInputPanel>
 
-        <Button
-          className="w-full"
-          variant="primary"
-          disabled={!canContinue}
+        <PatientsFlowContinueButton
+                    disabled={!canContinue}
           onClick={onContinue}
         >
           Continue
-        </Button>
+        </PatientsFlowContinueButton>
       </PatientsShellMain>
     </PatientsShell>
   );
@@ -162,14 +161,12 @@ function PatientsShareResultsDesktopScreen({
             <ShareResultsConsentOptions consent={consent} onConsentChange={onConsentChange} />
           </PatientsShellInputPanel>
 
-          <Button
-            className="w-full"
-            variant="primary"
-            disabled={!canContinue}
+          <PatientsFlowContinueButton
+                        disabled={!canContinue}
             onClick={onContinue}
           >
             Continue
-          </Button>
+          </PatientsFlowContinueButton>
         </div>
       </PatientsShellMainDesktop>
     </PatientsShell>

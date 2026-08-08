@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { AppFooter } from "@/components/app-footer";
 import { MedmoLogoLockup } from "@/components/brand/medmo-logo";
 import { Button } from "@/components/button";
+import { PatientsFlowContinueButton } from "@/components/docs/userflow/patients/patients-flow-buttons";
 import { usePatientsDeviceOptional } from "@/components/docs/layout/patients-device-context";
 import { DocsUserflowPage } from "@/components/docs/userflow/docs-userflow-page";
 import { DocsUserflowPreviewFrame } from "@/components/docs/userflow/docs-userflow-preview-frame";
@@ -102,9 +103,9 @@ function PatientsWelcomeMobileScreen({
         <PatientsShellCard>
           <WelcomeBackButton onClick={onBack} />
           <WelcomeContent />
-          <Button className="w-full" variant="primary" onClick={onContinue}>
+          <PatientsFlowContinueButton onClick={onContinue}>
             Start
-          </Button>
+          </PatientsFlowContinueButton>
         </PatientsShellCard>
       </PatientsShellMain>
     </PatientsShell>
@@ -135,9 +136,9 @@ function PatientsWelcomeDesktopScreen({
             <WelcomeContent />
           </PatientsShellCard>
 
-          <Button className="w-full" variant="primary" onClick={onContinue}>
+          <PatientsFlowContinueButton onClick={onContinue}>
             Continue
-          </Button>
+          </PatientsFlowContinueButton>
         </div>
       </PatientsShellMainDesktop>
     </PatientsShell>

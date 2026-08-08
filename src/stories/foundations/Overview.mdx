@@ -1,0 +1,20 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Foundations/Overview" />
+
+# Nuclear Design System — Foundations
+
+Medmo foundations define the visual language consumed by every component in `src/components`.
+
+## Token layers
+
+1. **Foundations** — color, typography, spacing, radius, motion, and shadows in `foundations/`.
+2. **Components** — React primitives documented under **Components/** in Storybook.
+3. **Patterns** — composed UI blocks from the docs site and user flows.
+4. **Templates** — full screens from the Patients and Nuclear products.
+
+## Usage in Storybook
+
+Stories import production components directly from `@/components/*`. No duplicate implementations or sandbox-only wrappers are used.
+
+When extending the catalog, co-locate new stories beside the component (`component-name.stories.tsx`) and use the title prefix `Components/`.

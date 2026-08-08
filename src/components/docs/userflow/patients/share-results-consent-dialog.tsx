@@ -2,7 +2,7 @@
 
 import { CircleHelpIcon, ExternalLinkIcon } from "lucide-react";
 
-import { Button } from "@/components/button";
+import { PatientsFlowContinueButton } from "@/components/docs/userflow/patients/patients-flow-buttons";
 import {
   Dialog,
   DialogClose,
@@ -68,7 +68,7 @@ export function ShareResultsConsentDialog() {
             </p>
           </div>
 
-          <DialogClose render={<Button variant="outline" fullWidth />}>
+          <DialogClose render={<PatientsFlowContinueButton variant="outline" />}>
             Close
           </DialogClose>
         </div>

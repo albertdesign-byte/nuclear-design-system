@@ -25,7 +25,7 @@ export const dropzoneEmptyLabelClassName =
   "text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-muted)]";
 
 export const dropzoneFileNameClassName =
-  "min-w-0 flex-1 truncate text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-primary)]";
+  "min-w-0 flex-1 truncate text-[length:var(--text-body-small-size)] leading-[var(--text-body-line-height)] text-[var(--color-text-primary)]";
 
 export const dropzoneRemoveButtonClassName = [
   "inline-flex size-8 shrink-0 items-center justify-center rounded-[var(--radius-sm)]",

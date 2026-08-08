@@ -3,7 +3,7 @@ import type { VariantProps } from "class-variance-authority";
 
 import type { inputVariants } from "./input.styles";
 
-export type InputSize = "sm" | "md" | "lg";
+export type InputSize = "sm" | "md" | "lg" | "xl" | "xxl";
 
 export interface InputProps
   extends Omit<InputPrimitive.Props, "disabled" | "size">,

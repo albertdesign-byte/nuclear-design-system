@@ -48,7 +48,7 @@ const buttonApiRows = [
   },
   {
     prop: "size",
-    type: '"sm" | "md" | "lg" | "icon-sm" | "icon-md" | "icon-lg"',
+    type: '"sm" | "md" | "lg" | "xl" | "xxl" | "icon-sm" | "icon-md" | "icon-lg" | "icon-xl" | "icon-xxl"',
     defaultValue: '"md"',
   },
   {
@@ -143,6 +143,8 @@ export function ButtonDocsPage() {
                 <Button size="sm">Small</Button>
                 <Button size="md">Medium</Button>
                 <Button size="lg">Large</Button>
+                <Button size="xl">Extra large</Button>
+                <Button size="xxl">2× large</Button>
               </div>
             </DocsPreview>
           </DocsSection>
