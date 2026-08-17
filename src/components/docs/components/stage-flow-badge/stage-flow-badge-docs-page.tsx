@@ -1,9 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-
-import { Button } from "@/components/button";
 import {
   stageFlowBadgeInstallationUiSnippet,
   stageFlowBadgeRealScreenSnippet,
@@ -37,28 +33,6 @@ export function StageFlowBadgeDocsPage() {
         preview: <StageFlowBadgeRealScreenPreview />,
         code: stageFlowBadgeRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/spinner" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Spinner
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/switch" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Switch
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">

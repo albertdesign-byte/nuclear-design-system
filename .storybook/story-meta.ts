@@ -14,3 +14,10 @@ export const fullWidthParameters = {
   },
 } satisfies Parameters;
 
+export const screenParameters = {
+  layout: "fullscreen",
+  docs: {
+    toc: true,
+  },
+} satisfies Parameters;
+

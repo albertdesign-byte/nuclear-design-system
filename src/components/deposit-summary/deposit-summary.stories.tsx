@@ -19,7 +19,7 @@ const sampleItems = [
 ];
 
 const meta = {
-  title: "Patterns/Deposit Summary",
+  title: "Components/Deposit Summary",
   component: DepositSummary,
   tags: ["autodocs"],
   parameters: {

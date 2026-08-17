@@ -8,6 +8,7 @@ import {
   cardDescriptionClassName,
   cardFooterClassName,
   cardHeaderClassName,
+  cardMediaClassName,
   cardTitleClassName,
   cardVariants,
 } from "./card.styles";
@@ -17,6 +18,7 @@ import type {
   CardDescriptionProps,
   CardFooterProps,
   CardHeaderProps,
+  CardMediaProps,
   CardProps,
   CardTitleProps,
 } from "./card.types";
@@ -82,6 +84,16 @@ function CardContent({ className, ...props }: CardContentProps) {
   );
 }
 
+function CardMedia({ className, ...props }: CardMediaProps) {
+  return (
+    <div
+      data-slot="card-media"
+      className={cn(cardMediaClassName, className)}
+      {...props}
+    />
+  );
+}
+
 function CardFooter({ className, ...props }: CardFooterProps) {
   return (
     <div
@@ -100,4 +112,5 @@ export {
   CardAction,
   CardDescription,
   CardContent,
+  CardMedia,
 };

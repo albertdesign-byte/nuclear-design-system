@@ -1,10 +1,10 @@
 import { cva } from "class-variance-authority";
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
+import { controlDisabledClassName } from "@/lib/disabled-styles";
 
 const focusRing =
   "focus-visible:border-[var(--color-focus-ring)] focus-visible:ring-[length:var(--focus-ring-width)] focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-[length:var(--focus-ring-offset)]";
 
-const disabledStyles =
-  "disabled:pointer-events-none disabled:cursor-not-allowed disabled:border-[var(--color-disabled-border)] disabled:bg-[var(--color-disabled-background)] disabled:text-[var(--color-disabled-text)] disabled:shadow-none";
 
 const fileStyles = [
   "file:inline-flex file:border-0 file:bg-transparent file:font-medium file:text-[var(--color-text-primary)]",
@@ -13,11 +13,12 @@ const fileStyles = [
 
 export const inputVariants = cva(
   [
-    "min-w-0 border border-[var(--color-border)] bg-[var(--color-background)] text-[var(--color-text-primary)] outline-none",
+    componentFontFamilyClassName, "min-w-0 border border-[var(--color-border)] bg-[var(--color-background)] text-[var(--color-text-primary)] outline-none",
     "placeholder:text-[var(--color-text-muted)]",
     "transition-[var(--motion-hover)]",
     focusRing,
-    disabledStyles,
+    controlDisabledClassName,
+    "read-only:cursor-default read-only:border-[var(--color-border)] read-only:bg-[var(--color-surface-muted)] read-only:text-[var(--color-text-primary)] read-only:focus-visible:border-[var(--color-border)] read-only:focus-visible:ring-0",
     "aria-invalid:border-[var(--color-error-border)] aria-invalid:ring-[length:var(--focus-ring-width)] aria-invalid:ring-[var(--color-error-border)]/30",
     fileStyles,
   ].join(" "),

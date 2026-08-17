@@ -1,12 +1,12 @@
 /**
  * Medmo Color System — CSS Custom Properties
  *
- * Why CSS is the runtime source of truth:
- * Tailwind v4, browsers, and Figma plugins all consume CSS variables natively.
- * TypeScript files document decisions; this file is what components actually use.
+ * Runtime mirror of canonical TypeScript sources:
+ * primitives/, semantic/light.ts, semantic/dark.ts, focus/tokens.ts,
+ * and css-variables.ts. Components consume ONLY --color-* and --focus-*.
+ * Never --primitive-*.
  *
- * Usage: @import in globals.css during Technical Setup phase.
- * Components consume ONLY --color-* and --focus-* tokens. Never --primitive-*.
+ * Usage: imported via foundations/tokens/index.css.
  */
 
 :root {

@@ -21,7 +21,7 @@ function DayToggleGroupDemo({
 }
 
 const meta = {
-  title: "Components/DayToggleGroup",
+  title: "Components/Day Toggle Group",
   component: DayToggleGroupDemo,
   tags: ["autodocs"],
   parameters: {

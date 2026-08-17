@@ -3,8 +3,17 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { useState } from "react";
 
+import { cn } from "@/lib/utils";
+import { buttonPrimaryStateClassName } from "@/stories/shared/interaction-state-classes";
 import { Button } from "@/components/button";
+import {
+  CreatePatientDialogPreview,
+  EditPatientDialogPreview,
+  EditProfileDialogPreview,
+  UploadStudyDialogPreview,
+} from "@/components/docs/components/dialog/dialog-alert-preview-blocks";
 
+import { InteractionStateGrid } from "../../../.storybook/interaction-state-grid";
 import { componentParameters } from "../../../.storybook/story-meta";
 
 import {
@@ -35,7 +44,7 @@ const meta = {
       ...componentParameters.docs,
       description: {
         component:
-          "Modal overlay for confirmations and focused tasks. Used in consent flows and destructive actions.",
+          "Modal workspace for focused tasks, complex forms, and editable content. Use Alert Dialog for destructive confirmation.",
       },
     },
   },
@@ -45,69 +54,38 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function ConfirmDialogExample({ defaultOpen = false }: { defaultOpen?: boolean }) {
-  const [open, setOpen] = useState(defaultOpen);
-
-  return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger render={<Button variant="outline" />}>
-        Share results
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Share results with your provider?</DialogTitle>
-          <DialogDescription>
-            Your imaging results will be sent securely to the provider listed on
-            your referral.
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>
-            Not now
-          </Button>
-          <Button onClick={() => setOpen(false)}>Confirm</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
-}
-
 export const Playground: Story = {
-  render: () => <ConfirmDialogExample />,
+  render: () => <EditPatientDialogPreview />,
 };
 
 export const Default: Story = {
-  render: () => <ConfirmDialogExample />,
+  render: () => <CreatePatientDialogPreview />,
 };
 
-export const Destructive: Story = {
-  render: () => {
-    const [open, setOpen] = useState(false);
+export const EditPatient: Story = {
+  render: () => <EditPatientDialogPreview />,
+};
 
-    return (
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger render={<Button variant="outline" intent="danger" />}>
-          Cancel appointment
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Cancel this appointment?</DialogTitle>
-            <DialogDescription>
-              This action cannot be undone. You will need to book a new time slot.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setOpen(false)}>
-              Keep appointment
-            </Button>
-            <Button intent="danger" onClick={() => setOpen(false)}>
-              Confirm cancellation
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    );
-  },
+export const CreatePatient: Story = {
+  render: () => <CreatePatientDialogPreview />,
+};
+
+export const EditProfile: Story = {
+  render: () => <EditProfileDialogPreview />,
+};
+
+export const UploadStudy: Story = {
+  render: () => <UploadStudyDialogPreview />,
+};
+
+export const HealthcareExamples: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-[var(--space-inline-sm)]">
+      <EditPatientDialogPreview />
+      <CreatePatientDialogPreview />
+      <UploadStudyDialogPreview />
+    </div>
+  ),
 };
 
 export const WithoutCloseButton: Story = {
@@ -132,5 +110,41 @@ export const WithoutCloseButton: Story = {
         </DialogContent>
       </Dialog>
     );
+  },
+};
+
+export const DisabledActions: Story = {
+  render: () => (
+    <Dialog defaultOpen>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Complete required fields</DialogTitle>
+          <DialogDescription>
+            Confirm is disabled until insurance information is provided.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <Button variant="outline">Cancel</Button>
+          <Button disabled>Confirm</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  ),
+};
+
+export const InteractionStates: Story = {
+  render: () => (
+    <InteractionStateGrid disabled={<Button disabled>Confirm</Button>}>
+      {(state) => (
+        <Button className={cn(buttonPrimaryStateClassName[state])}>Confirm</Button>
+      )}
+    </InteractionStateGrid>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Dialog footer actions use the same Button disabled pattern.",
+      },
+    },
   },
 };

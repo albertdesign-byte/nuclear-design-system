@@ -13,7 +13,7 @@ import {
   CommandList,
   CommandShortcut,
 } from "@/components/command";
-import { Input } from "@/components/input";
+import { inputVariants } from "@/components/input";
 import { cn } from "@/lib/utils";
 
 import {
@@ -27,6 +27,7 @@ export type GlobalSearchItem = {
   label: string;
   value: string;
   group?: string;
+  searchText?: string;
 };
 
 export type GlobalSearchBarProps = {
@@ -95,19 +96,21 @@ export function GlobalSearchBar({
     <>
       <div className={cn(globalSearchBarContainerClassName, className)}>
         <SearchIcon className={globalSearchBarIconClassName} aria-hidden />
-        <Input
-          type="search"
-          size="sm"
-          readOnly
-          placeholder={placeholder}
+        <button
+          type="button"
           aria-label={placeholder}
           aria-haspopup="dialog"
           aria-expanded={open}
-          className={globalSearchBarInputClassName}
-          onMouseDown={(event) => event.preventDefault()}
+          className={cn(inputVariants({ size: "sm" }), globalSearchBarInputClassName)}
           onClick={() => setOpen(true)}
-        />
-        <CommandShortcut className={globalSearchBarShortcutClassName}>⌘K</CommandShortcut>
+        >
+          {placeholder}
+        </button>
+        {shortcutEnabled ? (
+          <CommandShortcut className={globalSearchBarShortcutClassName}>
+            ⌘K
+          </CommandShortcut>
+        ) : null}
       </div>
 
       <CommandDialog
@@ -124,6 +127,13 @@ export function GlobalSearchBar({
             onValueChange={setSearchValue}
             onKeyDown={(event) => {
               if (event.key === "Enter" && onSearch) {
+                const commandRoot = event.currentTarget.closest("[cmdk-root]");
+                const selectedItem = commandRoot?.querySelector(
+                  "[cmdk-item][data-selected='true']"
+                );
+                if (selectedItem) {
+                  return;
+                }
                 event.preventDefault();
                 submitSearch();
               }
@@ -136,7 +146,7 @@ export function GlobalSearchBar({
                 {groupItems.map((item) => (
                   <CommandItem
                     key={item.value}
-                    value={item.label}
+                    value={`${item.label} ${item.searchText ?? ""}`}
                     onSelect={() => {
                       handleOpenChange(false);
                       onSelect?.(item.value);

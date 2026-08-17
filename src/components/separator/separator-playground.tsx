@@ -19,14 +19,14 @@ export function SeparatorPlayground() {
       </header>
 
       <section className="rounded-lg border border-border bg-card p-6">
-        <h2 className="text-sm font-semibold">Datos del paciente</h2>
+        <h2 className="text-sm font-semibold">Patient data</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Información demográfica y contacto.
+          Demographic and contact information.
         </p>
         <Separator className="my-4" />
-        <h2 className="text-sm font-semibold">Antecedentes clínicos</h2>
+        <h2 className="text-sm font-semibold">Clinical history</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Alergias, comorbilidades y medicación habitual.
+          Allergies, comorbidities, and usual medication.
         </p>
       </section>
 

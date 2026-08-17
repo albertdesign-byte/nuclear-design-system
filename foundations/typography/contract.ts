@@ -1,30 +1,16 @@
 /**
- * Typography token contract — allowed semantic role names.
- *
- * Components consume ONLY these roles via CSS variables (--text-{role}-*).
+ * Typography token contract — derived from semantic roles.
  */
 
+import { semanticTypography } from "./semantic/roles"
 import type { SemanticTypographyRole } from "./types"
 
-export const semanticTypographyRoles: SemanticTypographyRole[] = [
-  "display",
-  "h1",
-  "h2",
-  "h3",
-  "title",
-  "body-large",
-  "body",
-  "body-small",
-  "label",
-  "caption",
-  "overline",
-  "code",
-]
+export const semanticTypographyRoles = Object.keys(
+  semanticTypography
+) as SemanticTypographyRole[]
 
-/** CSS variable prefix for semantic typography */
 export const TEXT_TOKEN_PREFIX = "text" as const
 
-/** Generates property names for a role: text-h1-size, text-h1-weight, etc. */
 export function textTokenProperties(role: SemanticTypographyRole) {
   return {
     fontFamily: `--${TEXT_TOKEN_PREFIX}-${role}-font-family`,
@@ -36,13 +22,10 @@ export function textTokenProperties(role: SemanticTypographyRole) {
   }
 }
 
-/** Flat list of all semantic typography CSS variables */
-export const allSemanticTypographyTokens = semanticTypographyRoles.flatMap((role) => {
-  const props = textTokenProperties(role)
-  return Object.values(props)
-})
+export const allSemanticTypographyTokens = semanticTypographyRoles.flatMap(
+  (role) => Object.values(textTokenProperties(role))
+)
 
-/** Primitive names — FORBIDDEN in component code */
 export const primitiveTypographyNames = [
   "font-size-*",
   "font-weight-*",

@@ -1,11 +1,18 @@
 export {
   iconSizeScale,
   iconSizePrimitivePx,
-  iconDefaultSizePx,
   iconBaseGridPx,
 } from "./scale"
-export { iconStroke } from "./stroke"
-export { iconSizeSemantics, iconContextMappings } from "./semantics"
+export {
+  iconCatalog,
+  iconContextMappings,
+  iconDefaultSizePx,
+  iconDefaultSizeRole,
+  iconDocumentation,
+  iconLibrary,
+  iconSizeSemantics,
+  iconStroke,
+} from "./semantics"
 export {
   resolvePrimitiveIconSize,
   resolveIconSize,
@@ -23,5 +30,4 @@ export {
   rejectedIconDecisions,
   iconColorRule,
 } from "./contract"
-export { iconLibrary } from "./types"
 export type { IconSizeRole, IconSizePrimitivePx, IconContextRole, IconSizeSemantic, IconContextMapping } from "./types"

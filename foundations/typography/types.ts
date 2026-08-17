@@ -47,9 +47,9 @@ export type SemanticTypographyRole =
   | "overline"
   | "code"
 
-export interface SemanticTypographyToken {
+export type SemanticTypographyToken = {
   role: SemanticTypographyRole
-  fontFamily: "sans" | "mono"
+  fontFamily: "sans" | "component" | "mono"
   fontSize: FontSizeStep
   fontWeight: FontWeightStep
   lineHeight: LineHeightStep
@@ -66,4 +66,5 @@ export type PrimitiveReference =
   | `line-height-${LineHeightStep}`
   | `letter-spacing-${LetterSpacingStep}`
   | "font-family-sans"
+  | "font-family-component"
   | "font-family-mono"

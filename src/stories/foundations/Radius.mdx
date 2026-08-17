@@ -1,0 +1,19 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+import { RadiusGallery } from "./radius-gallery";
+
+{/* token-contract: family=radius */}
+
+<Meta title="Foundations/Radius" />
+
+# Radius
+
+Corners stay contained. Clinical UI should read as precise, not playful.
+
+## Overview
+
+The everyday cap is `radius-lg` (8px), which is also the system default (`--radius`). Context tokens (`radius-checkbox`, `radius-button`, `radius-input`, `radius-card`, `radius-dialog`, `radius-avatar`) encode where a step belongs so components do not pick a radius by eye.
+
+`radius-2xl` is exceptional. `radius-full` is for pills, avatars, and circular icon buttons — not cards or tables.
+
+<RadiusGallery />

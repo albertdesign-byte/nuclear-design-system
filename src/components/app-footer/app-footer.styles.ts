@@ -1,4 +1,5 @@
 import { cva } from "class-variance-authority";
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
 
 export const appFooterVariants = cva("", {
   variants: {
@@ -28,7 +29,7 @@ export const appFooterVariants = cva("", {
       device: "mobile",
       className: [
         "gap-[var(--space-stack-md)] pt-[var(--space-stack-lg)]",
-        "pb-[calc(var(--space-page)+env(safe-area-inset-bottom,0px))] min-h-[12rem]",
+        "pb-[calc(var(--space-page)+env(safe-area-inset-bottom,0px))]",
       ].join(" "),
     },
     {
@@ -50,13 +51,13 @@ export const appFooterVariants = cva("", {
       variant: "patients",
       device: "tablet",
       className:
-        "grid grid-cols-3 items-start gap-x-[var(--space-inline-xl)] gap-y-0",
+        "grid grid-cols-[minmax(10rem,0.8fr)_minmax(0,2fr)] items-start gap-[var(--space-inline-xl)]",
     },
     {
       variant: "patients",
       device: "desktop",
       className:
-        "grid grid-cols-3 items-start gap-x-[var(--space-inline-xl)] gap-y-0",
+        "grid grid-cols-[minmax(12rem,0.8fr)_minmax(0,2.2fr)] items-start gap-[var(--space-inline-xl)]",
     },
   ],
   defaultVariants: {
@@ -82,39 +83,72 @@ export const appFooterLinksClassName = cva("", {
 export const appFooterCopyrightClassName =
   "text-center text-[var(--color-text-muted)]";
 
-export const patientsFooterWordmarkClassName = [
-  "text-[length:var(--text-heading-3-size)] font-semibold leading-none tracking-[0.02em]",
+export const appFooterLinkClassName = [
+  componentFontFamilyClassName,
+  "rounded-[var(--radius-sm)] px-[var(--space-inline-xs)] py-[var(--space-stack-xs)]",
+  "text-[length:var(--text-caption-size)] font-normal leading-[var(--text-caption-line-height)]",
+  "text-[var(--color-text-muted)] underline-offset-[3px] transition-[var(--motion-hover)]",
+  "hover:text-[var(--color-text-link-hover)] hover:underline",
+  "focus-visible:outline-none focus-visible:ring-[length:var(--focus-ring-width)] focus-visible:ring-[var(--color-focus-ring)]",
+  "active:text-[var(--color-text-link)] active:underline",
+].join(" ");
+
+export const patientsFooterBrandClassName =
+  "flex min-w-0 flex-col gap-[var(--space-stack-md)]";
+
+export const patientsFooterBrandLinkClassName = [
+  "inline-flex w-fit rounded-[var(--radius-md)] p-[var(--space-inline-xs)]",
+  "transition-[var(--motion-hover)] hover:bg-[var(--color-action-primary-hover)]",
+  "focus-visible:outline-none focus-visible:ring-[length:var(--focus-ring-width)]",
+  "focus-visible:ring-[var(--color-action-primary-text)] focus-visible:ring-offset-[length:var(--focus-ring-offset)]",
+  "focus-visible:ring-offset-[var(--color-action-primary)] active:bg-[var(--color-action-primary-active)]",
 ].join(" ");
 
 export const patientsFooterMetaClassName = [
-  "flex flex-col gap-[var(--space-stack-xs)]",
+  componentFontFamilyClassName, "flex flex-col gap-[var(--space-stack-xs)]",
   "text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)]",
   "text-[var(--color-action-primary-text)] opacity-90",
 ].join(" ");
 
+export const patientsFooterNavigationClassName = cva(
+  "grid min-w-0 items-start gap-x-[var(--space-inline-xl)] gap-y-[var(--space-stack-lg)]",
+  {
+    variants: {
+      device: {
+        mobile: "grid-cols-1",
+        tablet: "grid-cols-2",
+        desktop: "grid-cols-4",
+      },
+    },
+    defaultVariants: {
+      device: "desktop",
+    },
+  }
+);
+
 export const patientsFooterSectionClassName =
-  "flex flex-col gap-[var(--space-stack-sm)]";
+  "flex min-w-0 flex-col gap-[var(--space-stack-sm)]";
 
 export const patientsFooterSectionTitleClassName = [
-  "text-[length:var(--text-label-size)] font-semibold leading-[var(--text-label-line-height)]",
+  componentFontFamilyClassName, "text-[length:var(--text-label-size)] font-semibold leading-[var(--text-label-line-height)]",
 ].join(" ");
 
 export const patientsFooterDividerClassName = [
-  "h-px w-full border-0 border-b border-dotted",
-  "border-[var(--color-info-foreground)] opacity-80",
+  componentFontFamilyClassName, "h-px w-full border-0 border-b border-dotted",
+  "border-[var(--color-action-primary-text)] opacity-40",
 ].join(" ");
 
 export const patientsFooterContactListClassName =
   "flex flex-col gap-[var(--space-stack-sm)]";
 
-export const patientsFooterContactItemClassName = [
-  "inline-flex items-center gap-[var(--space-inline-sm)]",
-  "text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)]",
-  "text-[var(--color-action-primary-text)] transition-[var(--motion-hover)] hover:opacity-80",
-].join(" ");
-
 export const patientsFooterLinkClassName = [
-  "text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)]",
+  componentFontFamilyClassName,
+  "inline-flex w-fit min-w-0 items-center gap-[var(--space-inline-sm)] rounded-[var(--radius-sm)]",
+  "-mx-[var(--space-inline-xs)] px-[var(--space-inline-xs)] py-[var(--space-stack-xs)]",
+  "[overflow-wrap:anywhere] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)]",
   "text-[var(--color-action-primary-text)] underline-offset-[3px] transition-[var(--motion-hover)]",
-  "hover:underline focus-visible:outline-none focus-visible:ring-[length:var(--focus-ring-width)] focus-visible:ring-[var(--color-action-primary-text)]",
+  "hover:bg-[var(--color-action-primary-hover)] hover:underline",
+  "focus-visible:outline-none focus-visible:ring-[length:var(--focus-ring-width)]",
+  "focus-visible:ring-[var(--color-action-primary-text)] focus-visible:ring-offset-[length:var(--focus-ring-offset)]",
+  "focus-visible:ring-offset-[var(--color-action-primary)] active:bg-[var(--color-action-primary-active)] active:underline",
 ].join(" ");

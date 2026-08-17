@@ -8,7 +8,7 @@ export function LabelRealScreenPreview() {
       <Input
         id="patient-name-preview"
         placeholder="Enter full legal name"
-        defaultValue="María González"
+        defaultValue="Maria Gonzalez"
       />
     </div>
   );

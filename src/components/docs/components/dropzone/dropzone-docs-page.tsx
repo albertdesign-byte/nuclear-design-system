@@ -1,10 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { useState } from "react";
 
-import { Button } from "@/components/button";
 import { Dropzone } from "@/components/dropzone";
 import {
   dropzoneErrorSnippet,
@@ -43,28 +40,6 @@ export function DropzoneDocsPage() {
         preview: <DropzoneRealScreenPreview />,
         code: dropzoneRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/payment-form" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Payment Form
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/field-error" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Field Error
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">

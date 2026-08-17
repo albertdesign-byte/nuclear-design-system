@@ -1,7 +1,9 @@
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
+
 export const popoverPositionerClassName = "isolate z-[var(--z-popover)]";
 
 export const popoverContentClassName = [
-  "z-[var(--z-popover)] flex w-72 origin-(--transform-origin) flex-col gap-[var(--space-stack-sm)]",
+  componentFontFamilyClassName, "z-[var(--z-popover)] flex w-72 origin-(--transform-origin) flex-col gap-[var(--space-stack-sm)]",
   "rounded-[var(--radius-lg)] border border-[var(--color-border-subtle)] bg-[var(--color-surface-floating)] p-[var(--space-inline-sm)]",
   "text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-primary)]",
   "shadow-[var(--shadow-md)] ring-1 ring-[var(--color-border-subtle)] outline-hidden duration-100",

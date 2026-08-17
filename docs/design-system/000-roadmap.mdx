@@ -50,7 +50,7 @@ Principles ──→ Foundations ──→ Technical Setup ──→ Primitives 
 | 4 — Component Library | Pendiente | 0% |
 | 5 — Composites | Pendiente | 0% |
 | 6 — Patterns | Pendiente | 0% |
-| 7 — Templates | Pendiente | 0% |
+| 7 — Templates | En curso | AppShell + MultiStepFlowLayout + SearchResults publicados |
 | 8 — Domain (apps) | Pendiente | 0% |
 
 ---
@@ -188,11 +188,11 @@ Componentes atómicos. Personalización Medmo + documentación MDX.
 | Switch | Pendiente | Pendiente | Existe |
 | Badge | Pendiente | Pendiente | Existe |
 | Avatar | Pendiente | Pendiente | Existe |
-| Card | Pendiente | Pendiente | Existe |
+| Card | Completo | Completo | Existe |
 | Table | Pendiente | Pendiente | Existe |
 | Tabs | Pendiente | Pendiente | Existe |
 | Dialog | Pendiente | Pendiente | Existe |
-| Tooltip | Pendiente | Pendiente | Existe |
+| Tooltip | Completo | Completo | Existe |
 | Scroll Area | Pendiente | Pendiente | Existe |
 | Separator | Pendiente | Pendiente | Existe |
 | Skeleton | Pendiente | Pendiente | Existe |
@@ -200,7 +200,7 @@ Componentes atómicos. Personalización Medmo + documentación MDX.
 | Sonner | Pendiente | Pendiente | Existe |
 | Label | — | Pendiente | Instalar |
 | Popover | — | Pendiente | Instalar |
-| Dropdown Menu | — | Pendiente | Instalar |
+| Dropdown Menu | Completo | Completo | Existe |
 | Command | — | Pendiente | Instalar |
 | Alert | — | Pendiente | Instalar |
 | Alert Dialog | — | Pendiente | Instalar |
@@ -222,9 +222,10 @@ Componentes atómicos. Personalización Medmo + documentación MDX.
 | IconButton | Pendiente |
 | SearchInput | Pendiente |
 | Form | Pendiente |
-| ButtonGroup | Pendiente |
+| Button Group | Documentado como patrón de Button; no requiere componente |
 | StatCard | Pendiente |
 | ConfirmDialog | Pendiente |
+| AppFooter | Completo — branding, navegación, responsive y accesibilidad documentados |
 
 **Depende de:** Fase 4 (primitivos base: Button, Input, Label, Dialog).
 
@@ -252,15 +253,17 @@ Componentes atómicos. Personalización Medmo + documentación MDX.
 
 ## Fase 7 — Templates
 
-**Estado:** Pendiente
+**Estado:** En curso — AppShell, MultiStepFlowLayout y SearchResults publicados
 
 | Template | Docs | Estado |
 |----------|------|--------|
-| DashboardLayout | `templates/dashboard.mdx` | Pendiente |
-| ListPageLayout | `templates/list-page.mdx` | Pendiente |
-| DetailPageLayout | `templates/detail-page.mdx` | Pendiente |
-| SettingsPageLayout | `templates/settings-page.mdx` | Pendiente |
-| ModalFormLayout | `templates/modal-form.mdx` | Pendiente |
+| AppShell (Dashboard Layout) | `/docs/templates/app-shell` | Publicado |
+| MultiStepFlowLayout (Multi-Step Flow) | `/docs/templates/multi-step-flow-layout` | Publicado |
+| SearchResults | `/docs/templates/search-results` | Publicado |
+| DetailView | — | Pendiente — no hay pantalla de detalle de entidad en producto |
+| FormPage | — | No extraer — los formularios vivos son pasos de MultiStepFlowLayout |
+
+MultiStepFlowLayout no es un Product. Los layouts pertenecen a Nuclear; los products los consumen.
 
 **Depende de:** Fase 6 (patterns).
 

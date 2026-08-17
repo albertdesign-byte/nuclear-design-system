@@ -42,7 +42,7 @@ export function TooltipPlayground() {
                 <CircleHelpIcon />
               </TooltipTrigger>
               <TooltipContent side="top">
-                HbA1c mide el promedio de glucosa en sangre durante 2–3 meses.
+                HbA1c measures average blood glucose over 2–3 months.
               </TooltipContent>
             </Tooltip>
           </section>

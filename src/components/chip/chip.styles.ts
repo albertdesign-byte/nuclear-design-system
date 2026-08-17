@@ -1,8 +1,9 @@
 import { cva } from "class-variance-authority";
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
 
 export const chipVariants = cva(
   [
-    "inline-flex max-w-full items-center gap-[var(--space-inline-xs)] rounded-[var(--radius-full)] border px-[var(--space-inline-sm)] py-[var(--space-stack-xs)]",
+    componentFontFamilyClassName, "inline-flex max-w-full items-center gap-[var(--space-inline-xs)] rounded-[var(--radius-full)] border px-[var(--space-inline-sm)] py-[var(--space-stack-xs)]",
     "text-[length:var(--text-caption-size)] leading-[var(--text-caption-line-height)] font-medium text-[var(--color-text-primary)]",
     "transition-[var(--motion-hover)]",
   ].join(" "),
@@ -27,7 +28,7 @@ export const chipVariants = cva(
 );
 
 export const chipRemoveButtonClassName = [
-  "inline-flex size-4 shrink-0 items-center justify-center rounded-[var(--radius-sm)] text-[var(--color-text-muted)]",
+  componentFontFamilyClassName, "inline-flex size-4 shrink-0 items-center justify-center rounded-[var(--radius-sm)] text-[var(--color-text-muted)]",
   "hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)]",
   "focus-visible:outline-none focus-visible:ring-[length:var(--focus-ring-width)] focus-visible:ring-[var(--color-focus-ring)]",
 ].join(" ");

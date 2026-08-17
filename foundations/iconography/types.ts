@@ -2,12 +2,12 @@
  * Shared types for the Medmo iconography system.
  *
  * Lucide-only. Icons support comprehension — never replace text or decorate.
- * Base grid: 24px (icon-xl). Default usage: 16px (icon-md).
+ * Default usage: 16px (icon-sm).
  */
 
-export type IconSizePrimitivePx = 14 | 16 | 20 | 24
+export type IconSizePrimitivePx = 12 | 16 | 20 | 24 | 32
 
-export type IconSizeRole = "sm" | "md" | "lg" | "xl"
+export type IconSizeRole = "xs" | "sm" | "md" | "lg" | "xl"
 
 export type IconContextRole = "button" | "input" | "table" | "empty-state" | "header"
 
@@ -29,17 +29,19 @@ export interface IconSizeSemantic {
 
 export interface IconContextMapping {
   size: IconSizeRole
-  gapSpacing: "space-inline-xs" | "space-inline-sm" | "none"
+  gapSpacing:
+    | "space-inline-xs"
+    | "space-inline-sm"
+    | "space-button-icon-gap"
+    | "none"
   purpose: string
   usage: string
   doNot: string
 }
 
-/** Official library — not swappable per component */
-export const iconLibrary = {
-  name: "Lucide",
-  package: "lucide-react",
-  url: "https://lucide.dev",
-} as const
-
-export const iconBaseGridPx = 24 as const
+export interface IconCatalogEntry {
+  name: string
+  label: string
+  category: "navigation" | "action" | "status"
+  aliases: readonly string[]
+}

@@ -1,20 +1,19 @@
 /**
  * Iconography token contract — registry of allowed public token names.
  *
- * Four sizes. One stroke. Lucide only. Gap spacing defers to Spacing foundation.
+ * Five sizes. One stroke. Lucide only. Gap spacing defers to Spacing foundation.
  */
 
 import type { IconContextRole, IconSizeRole } from "./types"
+import {
+  iconColorRule,
+  iconContextMappings,
+  iconSizeSemantics,
+  rejectedIconDecisions,
+} from "./semantics"
 
-export const iconSizeRoles: IconSizeRole[] = ["sm", "md", "lg", "xl"]
-
-export const iconContextRoles: IconContextRole[] = [
-  "button",
-  "input",
-  "table",
-  "empty-state",
-  "header",
-]
+export const iconSizeRoles = Object.keys(iconSizeSemantics) as IconSizeRole[]
+export const iconContextRoles = Object.keys(iconContextMappings) as IconContextRole[]
 
 export const semanticIconSizeTokens = iconSizeRoles.map(
   (r) => `--icon-${r}`
@@ -22,7 +21,7 @@ export const semanticIconSizeTokens = iconSizeRoles.map(
 
 export const semanticIconTokens = [
   ...semanticIconSizeTokens,
-  "--icon-size", // default → md
+  "--icon-size", // default → sm
   "--icon-stroke",
 ] as const
 
@@ -31,15 +30,4 @@ export const allSemanticIconTokens = [...semanticIconTokens]
 /** Primitive pattern — FORBIDDEN in component code */
 export const primitiveIconSizePattern = "--icon-size-{px}" as const
 
-/** Rejected in critical review */
-export const rejectedIconDecisions = [
-  "icon-xs (12px) — too small for clinical scan; use icon-sm in compact UI",
-  "stroke-thin (1.5) — decorative; single stroke-2 for all icons",
-  "stroke-heavy (2.5+) — visual noise",
-  "Heroicons, Font Awesome, custom SVG sets — Lucide only",
-  "Hardcoded size-4, w-4 h-4 in components — use --icon-md",
-  "Icon without text replacing critical labels",
-] as const
-
-/** Color rule — not a CSS variable; enforced in component SVG attrs */
-export const iconColorRule = "currentColor" as const
+export { iconColorRule, rejectedIconDecisions }

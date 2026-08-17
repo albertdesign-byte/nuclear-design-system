@@ -44,7 +44,7 @@ export function TimelineRealScreenPreview() {
               priority="High"
               icon={<ClipboardListIcon />}
               title="PA Updated"
-              author="Maximilian Alejandro de la Cruz González"
+              author="Maximilian Alexander Gonzalez"
               description="PA status changed from Submitted to Pending"
               tags={[{ label: "#534268", href: "#" }]}
             />

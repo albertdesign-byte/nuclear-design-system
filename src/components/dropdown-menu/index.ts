@@ -2,10 +2,13 @@ export {
   DropdownMenu,
   DropdownMenuPortal,
   DropdownMenuTrigger,
+  DropdownMenuButton,
+  DropdownMenuIconButton,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuItem,
+  DropdownMenuItemDescription,
   DropdownMenuCheckboxItem,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
@@ -18,6 +21,7 @@ export {
 export {
   dropdownMenuCheckboxItemClassName,
   dropdownMenuContentClassName,
+  dropdownMenuItemDescriptionClassName,
   dropdownMenuItemClassName,
   dropdownMenuLabelClassName,
   dropdownMenuPositionerClassName,
@@ -26,4 +30,8 @@ export {
   dropdownMenuSubContentClassName,
   dropdownMenuSubTriggerClassName,
 } from "./dropdown-menu.styles";
-export type { DropdownMenuItemProps } from "./dropdown-menu.types";
+export type {
+  DropdownMenuButtonProps,
+  DropdownMenuIconButtonProps,
+  DropdownMenuItemProps,
+} from "./dropdown-menu.types";

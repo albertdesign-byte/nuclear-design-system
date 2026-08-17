@@ -8,7 +8,7 @@ import { componentParameters } from "../../../.storybook/story-meta";
 import { FieldError } from "./field-error";
 
 const meta = {
-  title: "Components/FieldError",
+  title: "Components/Field Error",
   component: FieldError,
   tags: ["autodocs"],
   parameters: {

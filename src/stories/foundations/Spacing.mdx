@@ -1,0 +1,19 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+import { SpacingGallery } from "./spacing-gallery";
+
+{/* token-contract: family=spacing */}
+
+<Meta title="Foundations/Spacing" />
+
+# Spacing
+
+Space is the primary hierarchy tool in Medmo. Type and color reinforce it; spacing leads.
+
+## Overview
+
+Layout aligns to a 4px grid. Most component gaps and padding use an 8px rhythm. Semantic tokens encode intent: `space-inline-*` for rows, `space-stack-*` for columns, and `space-*` context names for page, section, card, form, table, dialog, and button padding.
+
+Components consume `--space-*` exclusively. Primitive `--spacing-*` values are an implementation detail and must not appear in product styles. Context tokens can share a primitive today and diverge later (for example under density) without renaming call sites.
+
+<SpacingGallery />

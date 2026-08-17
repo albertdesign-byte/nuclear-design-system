@@ -1,4 +1,5 @@
 import { cva } from "class-variance-authority";
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
 
 const focusRing =
   "focus-visible:border-[var(--color-focus-ring)] focus-visible:ring-[length:var(--focus-ring-width)] focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-[length:var(--focus-ring-offset)]";
@@ -8,7 +9,7 @@ const labelTypography =
 
 export const badgeVariants = cva(
   [
-    "group/badge inline-flex w-fit shrink-0 items-center justify-center gap-[var(--space-inline-xs)] overflow-hidden border border-transparent whitespace-nowrap outline-none",
+    componentFontFamilyClassName, "group/badge inline-flex w-fit shrink-0 items-center justify-center gap-[var(--space-inline-xs)] overflow-hidden border border-transparent whitespace-nowrap outline-none",
     "transition-[var(--motion-hover)]",
     focusRing,
     "aria-invalid:border-[var(--color-error-border)] aria-invalid:ring-[length:var(--focus-ring-width)] aria-invalid:ring-[var(--color-error-border)]/30",

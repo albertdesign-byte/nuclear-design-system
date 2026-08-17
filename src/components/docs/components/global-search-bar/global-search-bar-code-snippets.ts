@@ -41,3 +41,48 @@ export const globalSearchBarWithItemsSnippet = exampleSnippet(
 />`,
   { imports: [globalSearchBarImport] }
 );
+
+export const searchPatientsSnippet = exampleSnippet(
+  `<GlobalSearchBar
+  placeholder="Search patients"
+  dialogTitle="Search patients"
+  dialogDescription="Find a patient by name or MRN"
+  items={[
+    { label: "Elena Morales · MRN 104829", value: "patient-elena", group: "Patients" },
+    { label: "Marcus Lee · MRN 104912", value: "patient-marcus", group: "Patients" },
+  ]}
+  emptyMessage="No patients found."
+  shortcutEnabled={false}
+/>`,
+  { imports: [globalSearchBarImport] }
+);
+
+export const searchStudiesSnippet = exampleSnippet(
+  `<GlobalSearchBar
+  placeholder="Search studies"
+  dialogTitle="Search studies"
+  dialogDescription="Find a study by description or SRID"
+  items={[
+    { label: "MRI brain without contrast · SRID-2841", value: "study-2841", group: "Studies" },
+    { label: "CT chest with contrast · SRID-2904", value: "study-2904", group: "Studies" },
+  ]}
+  emptyMessage="No studies found."
+  shortcutEnabled={false}
+/>`,
+  { imports: [globalSearchBarImport] }
+);
+
+export const searchFacilitiesSnippet = exampleSnippet(
+  `<GlobalSearchBar
+  placeholder="Search facilities"
+  dialogTitle="Search facilities"
+  dialogDescription="Find an imaging facility"
+  items={[
+    { label: "Medmo General Hospital", value: "facility-general", group: "Facilities" },
+    { label: "Downtown Imaging Clinic", value: "facility-downtown", group: "Facilities" },
+  ]}
+  emptyMessage="No facilities found."
+  shortcutEnabled={false}
+/>`,
+  { imports: [globalSearchBarImport] }
+);

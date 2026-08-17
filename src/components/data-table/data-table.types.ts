@@ -30,6 +30,12 @@ export type DataTableCellProps = TableCellProps & {
   columnId?: string;
 };
 
+export type DataTableFilterCellProps = {
+  columnId: string;
+  children?: React.ReactNode;
+  className?: string;
+};
+
 export type DataTableProps = {
   children: React.ReactNode;
   className?: string;

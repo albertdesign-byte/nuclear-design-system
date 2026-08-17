@@ -3,12 +3,20 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
+  AlertCircleIcon,
   ArrowLeftIcon,
   DownloadIcon,
   PencilIcon,
   Trash2Icon,
 } from "lucide-react";
 
+import {
+  Alert,
+  AlertAction,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+} from "@/components/alert";
 import { Button } from "@/components/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -30,17 +38,17 @@ export function PatientRecordScreen() {
             className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
           >
             <ArrowLeftIcon className="size-4" />
-            Registros
+            Records
           </Link>
           <div>
             <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
-              Paciente
+              Patient
             </p>
             <h1 className="text-2xl font-semibold tracking-tight">
               Elena Morales · MRN-28491
             </h1>
             <p className="text-sm text-muted-foreground">
-              Última actualización hace 12 minutos
+              Last updated 12 minutes ago
             </p>
           </div>
         </div>
@@ -49,68 +57,64 @@ export function PatientRecordScreen() {
           <ThemeToggle />
           <Button variant="outline" size="sm">
             <DownloadIcon />
-            Exportar
+            Export
           </Button>
           <Button variant="secondary" size="sm">
             <PencilIcon />
-            Editar
+            Edit
           </Button>
           <Button size="sm" loading={saving} onClick={handleSave}>
-            Guardar cambios
+            Save changes
           </Button>
         </div>
       </header>
 
       <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
         <div className="rounded-lg border border-border bg-card p-6 shadow-sm">
-          <h2 className="text-lg font-semibold">Información de contacto</h2>
+          <h2 className="text-lg font-semibold">Contact information</h2>
           <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
-            <Item label="Teléfono" value="+1 (555) 014-2098" />
+            <Item label="Phone" value="+1 (555) 014-2098" />
             <Item label="Email" value="elena.morales@email.com" />
-            <Item label="Dirección" value="742 Evergreen Terrace" />
-            <Item label="Seguro" value="BlueCross PPO" />
+            <Item label="Address" value="742 Evergreen Terrace" />
+            <Item label="Insurance" value="BlueCross PPO" />
           </dl>
 
           <div className="mt-8 flex flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:justify-end">
             <Button variant="outline" className="sm:min-w-28">
-              Cancelar
+              Cancel
             </Button>
             <Button loading={saving} onClick={handleSave} className="sm:min-w-36">
-              Guardar cambios
+              Save changes
             </Button>
           </div>
         </div>
 
         <aside className="flex flex-col gap-4">
           <div className="rounded-lg border border-border bg-card p-4 shadow-sm">
-            <h3 className="text-sm font-semibold">Acciones rápidas</h3>
+            <h3 className="text-sm font-semibold">Quick actions</h3>
             <div className="mt-3 flex flex-col gap-2">
               <Button variant="ghost" fullWidth className="justify-start">
-                Ver historial clínico
+                View clinical history
               </Button>
               <Button variant="ghost" fullWidth className="justify-start">
-                Programar cita
+                Schedule appointment
               </Button>
             </div>
           </div>
 
-          <div className="rounded-lg border border-[var(--color-error-border)] bg-[var(--color-error-background)] p-4">
-            <h3 className="text-sm font-semibold text-[var(--color-error-text)]">
-              Zona de riesgo
-            </h3>
-            <p className="mt-1 text-sm text-[var(--color-error-text)]">
-              Eliminar este registro es permanente y no se puede deshacer.
-            </p>
-            <Button
-              variant="outline"
-              intent="danger"
-              fullWidth
-              className="mt-4"
-            >
-              <Trash2Icon />
-              Eliminar registro
-            </Button>
-          </div>
+          <Alert variant="error">
+            <AlertIcon><AlertCircleIcon /></AlertIcon>
+            <AlertTitle>Danger zone</AlertTitle>
+            <AlertDescription>
+              Deleting this record is permanent and cannot be undone.
+            </AlertDescription>
+            <AlertAction>
+              <Button variant="outline" intent="danger" fullWidth>
+                <Trash2Icon />
+                Delete record
+              </Button>
+            </AlertAction>
+          </Alert>
         </aside>
       </section>
     </div>

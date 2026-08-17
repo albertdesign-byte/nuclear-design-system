@@ -104,7 +104,13 @@ const REQUIRED_PUBLIC = [
   "--motion-hover",
   "--opacity-subtle",
   "--z-modal",
+  "--icon-xs",
+  "--icon-sm",
   "--icon-md",
+  "--icon-lg",
+  "--icon-xl",
+  "--icon-size",
+  "--icon-stroke",
   "--focus-ring-width",
   "--color-focus-ring",
 ]

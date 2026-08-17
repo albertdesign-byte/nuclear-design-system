@@ -1,10 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { useState } from "react";
 
-import { Button } from "@/components/button";
 import { DateRangePicker } from "@/components/date-range-picker";
 import {
   dateRangePickerControlledSnippet,
@@ -25,7 +22,7 @@ const dateRangePickerApiRows = [
   { prop: "onRangeChange", type: "(range) => void", defaultValue: "—" },
   { prop: "fromLabel", type: "string", defaultValue: '"From:"' },
   { prop: "toLabel", type: "string", defaultValue: '"To:"' },
-  { prop: "locale", type: "string", defaultValue: '"es-ES"' },
+  { prop: "locale", type: "string", defaultValue: '"en-US"' },
   { prop: "size", type: '"sm" | "md" | "lg"', defaultValue: '"md"' },
   { prop: "disabled", type: "boolean", defaultValue: "false" },
 ];
@@ -45,28 +42,6 @@ export function DateRangePickerDocsPage() {
         preview: <DateRangePickerRealScreenPreview />,
         code: dateRangePickerRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/checkbox" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Checkbox
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/input" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Input
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">

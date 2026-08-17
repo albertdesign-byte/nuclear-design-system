@@ -2,10 +2,13 @@ export {
   DropdownMenu,
   DropdownMenuPortal,
   DropdownMenuTrigger,
+  DropdownMenuButton,
+  DropdownMenuIconButton,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuItem,
+  DropdownMenuItemDescription,
   DropdownMenuCheckboxItem,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
@@ -15,4 +18,8 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
 } from "@/components/dropdown-menu";
-export type { DropdownMenuItemProps } from "@/components/dropdown-menu";
+export type {
+  DropdownMenuButtonProps,
+  DropdownMenuIconButtonProps,
+  DropdownMenuItemProps,
+} from "@/components/dropdown-menu";

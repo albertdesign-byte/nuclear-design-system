@@ -31,26 +31,49 @@ function TooltipTrigger({ ...props }: TooltipPrimitive.Trigger.Props) {
   return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
 }
 
+type TooltipContentProps = TooltipPrimitive.Popup.Props &
+  Pick<
+    TooltipPrimitive.Positioner.Props,
+    | "align"
+    | "alignOffset"
+    | "arrowPadding"
+    | "collisionAvoidance"
+    | "collisionBoundary"
+    | "collisionPadding"
+    | "positionMethod"
+    | "side"
+    | "sideOffset"
+    | "sticky"
+  >;
+
 function TooltipContent({
   className,
   side = "top",
-  sideOffset = 4,
+  sideOffset = 11,
   align = "center",
   alignOffset = 0,
+  arrowPadding = 8,
+  collisionAvoidance,
+  collisionBoundary,
+  collisionPadding = 8,
+  positionMethod,
+  sticky,
   children,
   ...props
-}: TooltipPrimitive.Popup.Props &
-  Pick<
-    TooltipPrimitive.Positioner.Props,
-    "align" | "alignOffset" | "side" | "sideOffset"
-  >) {
+}: TooltipContentProps) {
   return (
     <TooltipPrimitive.Portal>
       <TooltipPrimitive.Positioner
         align={align}
         alignOffset={alignOffset}
+        arrowPadding={arrowPadding}
+        collisionAvoidance={collisionAvoidance}
+        collisionBoundary={collisionBoundary}
+        collisionPadding={collisionPadding}
+        positionMethod={positionMethod}
         side={side}
         sideOffset={sideOffset}
+        sticky={sticky}
         className={tooltipPositionerClassName}
       >
         <TooltipPrimitive.Popup
@@ -58,12 +81,13 @@ function TooltipContent({
           className={cn(tooltipContentClassName, className)}
           {...props}
         >
-          {children}
           <TooltipPrimitive.Arrow className={tooltipArrowClassName} />
+          {children}
         </TooltipPrimitive.Popup>
       </TooltipPrimitive.Positioner>
     </TooltipPrimitive.Portal>
   );
 }
 
+export type { TooltipContentProps };
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };

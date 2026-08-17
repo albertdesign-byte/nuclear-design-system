@@ -14,7 +14,7 @@ export function Example() {
   return (
     <div className="inline-flex items-center gap-2 text-sm text-muted-foreground" aria-live="polite">
       <Spinner size="sm" aria-hidden />
-      Guardando registro…
+      Saving record…
     </div>
   );
 }`);

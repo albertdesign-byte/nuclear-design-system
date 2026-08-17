@@ -18,13 +18,13 @@ export const switchRealScreenSnippet = tsxSnippet(`${switchImport}
 export function Example() {
   return (
     <div className="w-full max-w-sm rounded-lg border border-border bg-card p-4 shadow-sm">
-      <h3 className="text-lg font-semibold">Preferencias del paciente</h3>
+      <h3 className="text-lg font-semibold">Patient preferences</h3>
       <p className="mt-2 text-sm text-muted-foreground">
-        Configura recordatorios automáticos para el plan de tratamiento.
+        Configure automatic reminders for the treatment plan.
       </p>
       <div className="mt-4 flex items-center justify-between gap-3">
         <label htmlFor="medication-reminders" className="text-sm">
-          Recordatorios de medicación
+          Medication reminders
         </label>
         <Switch id="medication-reminders" defaultChecked />
       </div>
@@ -73,7 +73,7 @@ export function Example() {
   return (
     <div className="flex items-center justify-between gap-3">
       <label htmlFor="lab-alerts" className="text-sm">
-        Alertas de resultados críticos
+        Critical results alerts
       </label>
       <Switch id="lab-alerts" defaultChecked />
     </div>

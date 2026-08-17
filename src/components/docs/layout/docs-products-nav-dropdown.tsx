@@ -31,7 +31,9 @@ export function DocsProductsNavDropdown({
 }: DocsProductsNavDropdownProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const isProducts = pathname.startsWith("/docs/products");
+  const isProducts =
+    pathname.startsWith("/docs/products") ||
+    pathname.startsWith("/docs/userflow");
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -65,7 +67,9 @@ export function DocsProductsNavDropdown({
         <div className="flex flex-col gap-[var(--space-stack-xs)]">
           {docsProductNavEntries.map((product) => {
             const Icon = productIcons[product.id];
-            const isActive = pathname.startsWith(product.href);
+            const isActive =
+              pathname.startsWith(product.href) ||
+              pathname.startsWith(`/docs/userflow/${product.id}`);
 
             return (
               <Link

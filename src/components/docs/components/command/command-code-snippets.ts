@@ -9,68 +9,86 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
+  CommandShortcut,
 } from "@/components/command";`;
 
-export const commandInstallationUiSnippet = tsxSnippet(`${commandImport}
+const iconImport =
+  'import { FileTextIcon, SettingsIcon, UploadIcon, UserPlusIcon } from "lucide-react";';
 
-export function Example() {
-  return (
-    <Command className="max-w-md rounded-lg border">
-      <CommandInput placeholder="Search…" />
-      <CommandList>
-        <CommandEmpty>No results.</CommandEmpty>
-        <CommandGroup heading="Patients">
-          <CommandItem>María González</CommandItem>
-        </CommandGroup>
-      </CommandList>
-    </Command>
-  );
-}`);
-
-export const commandRealScreenSnippet = tsxSnippet(`${commandImport}
-import { UserIcon } from "lucide-react";
-
-export function Example() {
-  return (
-    <CommandDialog open title="Search patients" description="Find by name or MRN">
-      <Command>
-        <CommandInput placeholder="Search patients…" />
-        <CommandList>
-          <CommandEmpty>No patients found.</CommandEmpty>
-          <CommandGroup heading="Patients">
-            <CommandItem value="maria">
-              <UserIcon />
-              María González
-              <span className="text-muted-foreground">MRN-48291</span>
-            </CommandItem>
-          </CommandGroup>
-        </CommandList>
-      </Command>
-    </CommandDialog>
-  );
-}`);
-
-export const commandUsageSnippet = exampleSnippet(
-  `<Command className="max-w-md rounded-lg border">
-  <CommandInput placeholder="Search patients…" />
+const commandMarkup = `<Command className="max-w-md rounded-lg border">
+  <CommandInput placeholder="Type a command or action…" />
   <CommandList>
-    <CommandEmpty>No results.</CommandEmpty>
-    <CommandGroup heading="Patients">
-      <CommandItem>María González</CommandItem>
+    <CommandEmpty>No commands found.</CommandEmpty>
+    <CommandGroup heading="Quick Actions">
+      <CommandItem value="create patient">
+        <UserPlusIcon aria-hidden />
+        Create Patient
+        <CommandShortcut>⌘N</CommandShortcut>
+      </CommandItem>
+      <CommandItem value="upload study">
+        <UploadIcon aria-hidden />
+        Upload Study
+        <CommandShortcut>⌘U</CommandShortcut>
+      </CommandItem>
+    </CommandGroup>
+    <CommandGroup heading="Navigation">
+      <CommandItem value="open settings">
+        <SettingsIcon aria-hidden />
+        Open Settings
+      </CommandItem>
+      <CommandItem value="navigate reports">
+        <FileTextIcon aria-hidden />
+        Navigate to Reports
+      </CommandItem>
     </CommandGroup>
   </CommandList>
-</Command>`,
-  { imports: [commandImport] }
-);
+</Command>`;
+
+export const commandInstallationUiSnippet = tsxSnippet(`${commandImport}
+${iconImport}
+
+export function Example() {
+  return (
+    ${commandMarkup}
+  );
+}`);
+
+export const commandRealScreenSnippet = tsxSnippet(`"use client";
+
+import { useState } from "react";
+${commandImport}
+${iconImport}
+
+export function Example() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open command palette</Button>
+      <CommandDialog
+        open={open}
+        onOpenChange={setOpen}
+        title="Command Palette"
+        description="Run an action or navigate across Medmo"
+      >
+        ${commandMarkup}
+      </CommandDialog>
+    </>
+  );
+}`);
+
+export const commandUsageSnippet = exampleSnippet(commandMarkup, {
+  imports: [`${commandImport}\n${iconImport}`],
+});
 
 export const commandDialogSnippet = exampleSnippet(
-  `<CommandDialog open onOpenChange={setOpen} title="Search patients">
-  <Command>
-    <CommandInput placeholder="Search patients…" />
-    <CommandList>
-      <CommandItem>María González</CommandItem>
-    </CommandList>
-  </Command>
+  `<CommandDialog
+  open={open}
+  onOpenChange={setOpen}
+  title="Command Palette"
+  description="Run an action or navigate across Medmo"
+>
+  ${commandMarkup}
 </CommandDialog>`,
-  { imports: [`import { useState } from "react";\n${commandImport}`] }
+  { imports: [`import { useState } from "react";\n${commandImport}\n${iconImport}`] }
 );

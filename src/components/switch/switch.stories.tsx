@@ -3,8 +3,11 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { useState } from "react";
 
+import { cn } from "@/lib/utils";
+import { switchStateClassName } from "@/stories/shared/interaction-state-classes";
 import { Label } from "@/components/label";
 
+import { InteractionStateGrid } from "../../../.storybook/interaction-state-grid";
 import { componentParameters } from "../../../.storybook/story-meta";
 
 import { Switch } from "./switch";
@@ -87,6 +90,19 @@ export const Disabled: Story = {
         Disabled checked
       </label>
     </div>
+  ),
+};
+
+export const InteractionStates: Story = {
+  render: () => (
+    <InteractionStateGrid disabled={<Switch disabled aria-label="Disabled" />}>
+      {(state) => (
+        <Switch
+          aria-label={`Switch ${state}`}
+          className={cn(switchStateClassName[state])}
+        />
+      )}
+    </InteractionStateGrid>
   ),
 };
 

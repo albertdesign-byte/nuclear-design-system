@@ -1,9 +1,18 @@
 /**
  * Color token contract — registry of all allowed semantic token names.
  *
- * Why: If a token name is not in this contract, it does not exist.
- * Prevents typo-driven inconsistencies and enables future lint rules.
+ * Names come from css-variables.ts so the contract cannot drift from the
+ * CSS export map.
  */
+
+import {
+  allSemanticColorCssVariables,
+  focusCssNames,
+} from "./css-variables"
+
+function toTokenName(cssVariable: string) {
+  return cssVariable.replace(/^--/, "")
+}
 
 export const semanticTokenContract = {
   surface: [
@@ -74,23 +83,18 @@ export const semanticTokenContract = {
   },
 } as const
 
-/** Flat list of all semantic color token names for validation */
 export const allSemanticTokens = [
-  ...semanticTokenContract.surface,
-  ...semanticTokenContract.text,
-  ...semanticTokenContract.border,
-  ...semanticTokenContract.action,
-  ...semanticTokenContract.focus,
-  ...semanticTokenContract.disabled,
-  ...semanticTokenContract.feedback.success,
-  ...semanticTokenContract.feedback.warning,
-  ...semanticTokenContract.feedback.error,
-  ...semanticTokenContract.feedback.info,
+  ...allSemanticColorCssVariables.map(toTokenName),
+  ...Object.keys(focusCssNames).map(toTokenName),
 ] as const
 
 export type SemanticTokenName = (typeof allSemanticTokens)[number]
 
-/** Primitive palette names — FORBIDDEN in component code */
 export const primitiveNames = [
-  "primary", "neutral", "success", "warning", "error", "info",
+  "primary",
+  "neutral",
+  "success",
+  "warning",
+  "error",
+  "info",
 ] as const

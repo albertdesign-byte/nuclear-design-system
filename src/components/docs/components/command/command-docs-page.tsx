@@ -1,17 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon, UserIcon } from "lucide-react";
 
-import { Button } from "@/components/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/command";
 import {
   commandDialogSnippet,
   commandInstallationUiSnippet,
@@ -19,73 +9,40 @@ import {
   commandUsageSnippet,
 } from "@/components/docs/components/command/command-code-snippets";
 import { CommandRealScreenPreview } from "@/components/docs/components/command/command-real-screen-preview";
+import {
+  CommandActionsPreview,
+  SearchCommandAuditPreview,
+} from "@/components/docs/components/global-search-bar/search-command-preview-blocks";
+import { commandTocItems } from "@/components/docs/config/navigation";
 import { DocsApiTable } from "@/components/docs/primitives/docs-api-table";
 import { DocsPreview } from "@/components/docs/primitives/docs-preview";
 import { DocsComponentPage } from "@/components/docs/primitives/docs-component-page";
 import { DocsInlineCode } from "@/components/docs/primitives/docs-inline-code";
 import { DocsSection } from "@/components/docs/primitives/docs-section";
 
-export const commandTocItems = [
-  { id: "installation", label: "Installation" },
-  { id: "usage", label: "Usage" },
-  { id: "dialog", label: "Dialog" },
-  { id: "api-reference", label: "API Reference" },
-];
-
 const commandApiRows = [
   { prop: "title", type: "string", defaultValue: '"Command Palette"' },
+  { prop: "description", type: "string", defaultValue: '"Search for a command to run…"' },
   { prop: "showCloseButton", type: "boolean", defaultValue: "false" },
   { prop: "open", type: "boolean", defaultValue: "—" },
+  { prop: "onOpenChange", type: "(open: boolean) => void", defaultValue: "—" },
 ];
 
 export function CommandDocsPage() {
   return (
     <DocsComponentPage
       title="Command"
-      description="Fast, composable command menu for search and actions."
+      description="Composable action and navigation palette for quick actions, shortcuts, and global navigation."
       tocItems={commandTocItems}
       realScreen={{
         preview: <CommandRealScreenPreview />,
         code: commandRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/alert" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Alert
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/alert-dialog" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Alert Dialog
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">
             <DocsPreview code={commandInstallationUiSnippet}>
-              <Command className="max-w-md rounded-[var(--radius-lg)] border border-[var(--color-border)]">
-                <CommandInput placeholder="Search…" />
-                <CommandList>
-                  <CommandEmpty>No results.</CommandEmpty>
-                  <CommandGroup heading="Patients">
-                    <CommandItem>
-                      <UserIcon />
-                      María González
-                    </CommandItem>
-                  </CommandGroup>
-                </CommandList>
-              </Command>
+              <CommandActionsPreview />
             </DocsPreview>
           </section>
 
@@ -100,16 +57,63 @@ export function CommandDocsPage() {
             }
           >
             <DocsPreview code={commandUsageSnippet}>
-              <Command className="max-w-md rounded-[var(--radius-lg)] border border-[var(--color-border)]">
-                <CommandInput placeholder="Search patients…" />
-                <CommandList>
-                  <CommandEmpty>No results.</CommandEmpty>
-                  <CommandGroup heading="Patients">
-                    <CommandItem>María González</CommandItem>
-                  </CommandGroup>
-                </CommandList>
-              </Command>
+              <CommandActionsPreview />
             </DocsPreview>
+          </DocsSection>
+
+          <DocsSection
+            id="component-audit"
+            title="Component Audit"
+            description="Command shares searchable-list mechanics with Search, but executes a different user intent."
+          >
+            <SearchCommandAuditPreview />
+          </DocsSection>
+
+          <DocsSection
+            id="decision"
+            title="Decision"
+            description="Scenario B applies: Search and Command remain separate."
+          >
+            <p className="text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
+              Command is the reusable primitive for actions and navigation. The
+              official application Search component,{" "}
+              <Link
+                className="font-medium text-[var(--color-link)] underline underline-offset-3"
+                href="/docs/components/global-search-bar"
+              >
+                Global Search Bar
+              </Link>
+              , composes these primitives for entity discovery. This shares behavior
+              without making Search and Command interchangeable.
+            </p>
+          </DocsSection>
+
+          <DocsSection
+            id="command-use-cases"
+            title="Command Use Cases"
+            description="Commands should be verbs, destinations, or shortcut-enabled operations."
+          >
+            <DocsPreview code={commandUsageSnippet}>
+              <CommandActionsPreview />
+            </DocsPreview>
+            <ul className="mt-[var(--space-stack-md)] list-disc space-y-[var(--space-stack-xs)] pl-[var(--space-inline-md)] text-[length:var(--text-body-small-size)] text-[var(--color-text-secondary)]">
+              <li><strong className="font-medium text-[var(--color-text-primary)]">Quick Actions:</strong> Create Patient and Upload Study.</li>
+              <li><strong className="font-medium text-[var(--color-text-primary)]">Global Navigation:</strong> Open Settings and Navigate to Reports.</li>
+              <li><strong className="font-medium text-[var(--color-text-primary)]">Keyboard Shortcuts:</strong> display shortcuts only when they are active and stable.</li>
+              <li><strong className="font-medium text-[var(--color-text-primary)]">Command Palette:</strong> group actions by purpose and keep labels verb-led.</li>
+            </ul>
+          </DocsSection>
+
+          <DocsSection
+            id="search-vs-command"
+            title="Search vs Command"
+            description="Use Search to find a thing; use Command to do a thing."
+          >
+            <div className="space-y-[var(--space-stack-sm)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
+              <p><strong className="font-medium text-[var(--color-text-primary)]">Search:</strong> patients, studies, users, facilities, and records whose result will be opened or selected.</p>
+              <p><strong className="font-medium text-[var(--color-text-primary)]">Command:</strong> quick actions, global navigation, shortcuts, and expert workflows.</p>
+              <p><strong className="font-medium text-[var(--color-text-primary)]">Neither:</strong> use a visible Button for one primary action, a Link for one destination, or Searchable Select for a form value.</p>
+            </div>
           </DocsSection>
 
           <DocsSection
@@ -125,6 +129,18 @@ export function CommandDocsPage() {
             <DocsPreview code={commandDialogSnippet}>
               <CommandRealScreenPreview />
             </DocsPreview>
+          </DocsSection>
+
+          <DocsSection
+            id="accessibility"
+            title="Accessibility"
+            description="Command palettes must be fully operable without a pointer."
+          >
+            <ul className="list-disc space-y-[var(--space-stack-xs)] pl-[var(--space-inline-md)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
+              <li><strong className="font-medium text-[var(--color-text-primary)]">Keyboard:</strong> Arrow keys move between commands, Enter runs the active command, and Escape closes a dialog palette.</li>
+              <li><strong className="font-medium text-[var(--color-text-primary)]">Focus:</strong> CommandDialog focuses the input, traps focus while open, and restores it to the trigger.</li>
+              <li><strong className="font-medium text-[var(--color-text-primary)]">Screen readers:</strong> provide a descriptive dialog title, grouped command labels, meaningful empty states, and text labels in addition to icons.</li>
+            </ul>
           </DocsSection>
 
           <DocsSection id="api-reference" title="API Reference">

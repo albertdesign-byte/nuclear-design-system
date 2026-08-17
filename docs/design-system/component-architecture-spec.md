@@ -66,7 +66,7 @@ Este documento existe para:
 | **Primitives** | Input, Select, Dialog, Checkbox | Sí |
 | **Composites** | FormField, InputGroup, IconButton | Sí |
 | **Patterns** | DataTable, PageHeader, EmptyState | Sí |
-| **Templates** | DashboardLayout, ListPageLayout | Sí |
+| **Templates** | AppShell, MultiStepFlowLayout, SearchResults | Sí |
 | **Domain** (apps) | PatientCard, OrderStatusChip | Recomendado — extiende Patterns |
 
 **Excluidos:** Foundations (`foundations/`), Principles (`docs/design-system/principles/`), Technical Setup (`src/app/`, providers, theme bridge). Esos tienen sus propios contratos.

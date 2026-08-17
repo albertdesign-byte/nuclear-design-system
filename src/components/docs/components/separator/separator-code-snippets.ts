@@ -20,13 +20,13 @@ export function Example() {
   return (
     <form className="space-y-4">
       <fieldset>
-        <legend className="text-base font-semibold">Datos del paciente</legend>
-        <p className="text-sm text-muted-foreground">Nombre e identificación.</p>
+        <legend className="text-base font-semibold">Patient data</legend>
+        <p className="text-sm text-muted-foreground">Name and identification.</p>
       </fieldset>
       <Separator />
       <fieldset>
-        <legend className="text-base font-semibold">Antecedentes clínicos</legend>
-        <p className="text-sm text-muted-foreground">Alergias y comorbilidades.</p>
+        <legend className="text-base font-semibold">Clinical history</legend>
+        <p className="text-sm text-muted-foreground">Allergies and comorbidities.</p>
       </fieldset>
     </form>
   );

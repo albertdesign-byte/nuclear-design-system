@@ -15,7 +15,7 @@
 - Import from `foundations/typography/primitives/` in components
 - Use raw font sizes: `text-sm`, `text-lg`, `text-2xl`, `16px`, `1rem`
 - Use raw font weights: `font-bold`, `font-medium`, `font-weight: 600`
-- Use Geist, Inter, system-ui, or any font other than IBM Plex
+- Use Geist, Inter, system-ui, or any font other than Poppins (components) or IBM Plex Sans Condensed (docs)
 - Use color alone to create heading hierarchy (blue h1, gray h2)
 - Use `text-caption` for clinical values, dosages, or patient data
 - Use `text-overline` for readable sentences

@@ -5,7 +5,7 @@ import { componentParameters, fullWidthParameters } from "../../../.storybook/st
 import { InputButtonGroup } from "./input-button-group";
 
 const meta = {
-  title: "Components/InputButtonGroup",
+  title: "Components/Input Button Group",
   component: InputButtonGroup,
   tags: ["autodocs"],
   parameters: {

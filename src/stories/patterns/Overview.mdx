@@ -4,11 +4,41 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 # Patterns
 
-Patterns document composed UI blocks built from Nuclear components — field groups, shell layouts, deposit summaries, and user-flow screens.
+Patterns document recurring layouts and interaction compositions extracted from Patients and MPF Portal screens. They are documentation of existing product UI — not new components. Chrome patterns compose Templates plus Components: **Patients intake chrome** uses MultiStepFlowLayout (a Nuclear template, not a Patients layout); **Operational app chrome** uses AppShell.
+
+Canonical documentation lives at `/docs/patterns`.
 
 ## Documented patterns
 
-- **Deposit Summary** — pricing breakdown for checkout and deposit screens
-- **Payment Form** — card entry with Stripe badge
+Storybook CSF exists for every documented recipe: Form field, Worklist table, Scan search, Workspace tabs, Operational app chrome, Patients step, Exclusive choice, Multi-select choice, In-step notice, Conditional reveal, Optional skip, Follow-up details, Document upload, and Patients intake chrome.
 
-Additional pattern stories will be added as product screens stabilize. Reference implementations also live under `src/components/docs/` and `src/components/patients-shell/`.
+### Navigation
+
+- **Patients intake chrome** — `Patterns/Patients intake chrome`
+- **Operational app chrome** — `Patterns/Operational app chrome`
+- **Workspace tabs** — `Patterns/Workspace tabs`
+
+### Forms
+
+- **Patients step** — `Patterns/Patients step`
+- **Form field** — `Patterns/Form field`
+- **Exclusive choice** — `Patterns/Exclusive choice`
+- **Multi-select choice** — `Patterns/Multi-select choice`
+- **Optional skip** — `Patterns/Optional skip`
+- **Follow-up details** — `Patterns/Follow-up details`
+- **Document upload** — `Patterns/Document upload`
+- **Conditional reveal** — `Patterns/Conditional reveal`
+
+### Feedback
+
+- **In-step notice** — `Patterns/In-step notice`
+
+### Data Display
+
+- **Worklist table** — `Patterns/Worklist table`
+
+### Search
+
+- **Scan search** — `Patterns/Scan search`
+
+Deposit, Welcome orientation, and the Share Results consent dialog remain product screens. They are not cataloged as patterns until they repeat.

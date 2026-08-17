@@ -1,10 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-
 import { FieldError } from "@/components/field-error";
-import { Button } from "@/components/button";
 import { Input } from "@/components/input";
 import { Label } from "@/components/label";
 import {
@@ -38,28 +34,6 @@ export function FieldErrorDocsPage() {
         preview: <FieldErrorRealScreenPreview />,
         code: fieldErrorRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/dialog" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Dialog
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/input" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Input
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">

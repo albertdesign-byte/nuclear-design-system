@@ -1,5 +1,7 @@
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
+
 export const depositSummaryClassName = [
-  "flex flex-col gap-[var(--space-stack-md)]",
+  componentFontFamilyClassName, "flex flex-col gap-[var(--space-stack-md)]",
   "rounded-[var(--radius-card)] bg-[var(--color-surface)] p-[var(--space-page)]",
   "ring-1 ring-[var(--color-border-subtle)]",
 ].join(" ");
@@ -23,7 +25,7 @@ export const depositSummaryRowAmountClassName =
 export const depositSummaryRowAmountEmphasisClassName = "font-semibold";
 
 export const depositSummaryTotalClassName = [
-  "flex items-baseline justify-between gap-[var(--space-inline-md)]",
+  componentFontFamilyClassName, "flex items-baseline justify-between gap-[var(--space-inline-md)]",
   "border-t border-[var(--color-border-subtle)] pt-[var(--space-stack-sm)]",
 ].join(" ");
 

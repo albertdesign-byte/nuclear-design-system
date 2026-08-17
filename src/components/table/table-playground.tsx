@@ -12,9 +12,9 @@ import {
 } from "@/components/table";
 
 const patients = [
-  { mrn: "MRN-28491", name: "Elena Morales", status: "Activo" },
-  { mrn: "MRN-19302", name: "Carlos Ruiz", status: "Pendiente" },
-  { mrn: "MRN-44108", name: "Ana Vega", status: "Alta" },
+  { mrn: "MRN-28491", name: "Elena Morales", status: "Active" },
+  { mrn: "MRN-19302", name: "Carlos Ruiz", status: "Pending" },
+  { mrn: "MRN-44108", name: "Ana Vega", status: "Discharged" },
 ];
 
 export function TablePlayground() {
@@ -35,12 +35,12 @@ export function TablePlayground() {
       <section className="rounded-lg border border-border bg-card p-6">
         <h2 className="mb-4 text-sm font-semibold">Patient list</h2>
         <Table>
-          <TableCaption>Pacientes registrados hoy</TableCaption>
+          <TableCaption>Patients registered today</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead>MRN</TableHead>
-              <TableHead>Paciente</TableHead>
-              <TableHead>Estado</TableHead>
+              <TableHead>Patient</TableHead>
+              <TableHead>Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

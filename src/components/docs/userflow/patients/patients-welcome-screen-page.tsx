@@ -11,15 +11,15 @@ import { usePatientsDeviceOptional } from "@/components/docs/layout/patients-dev
 import { DocsUserflowPage } from "@/components/docs/userflow/docs-userflow-page";
 import { DocsUserflowPreviewFrame } from "@/components/docs/userflow/docs-userflow-preview-frame";
 import {
-  PatientsShell,
-  PatientsShellCard,
-  PatientsShellHeader,
-  PatientsShellLocale,
-  PatientsShellMain,
-  PatientsShellMainDesktop,
-  PatientsShellProgress,
-  patientsShellDesktopContentClassName,
-} from "@/components/patients-shell";
+  MultiStepFlowLayout,
+  MultiStepFlowLayoutCard,
+  MultiStepFlowLayoutHeader,
+  MultiStepFlowLayoutLocale,
+  MultiStepFlowLayoutMain,
+  MultiStepFlowLayoutMainDesktop,
+  MultiStepFlowLayoutProgress,
+  multiStepFlowLayoutDesktopContentClassName,
+} from "@/components/multi-step-flow-layout";
 import { cn } from "@/lib/utils";
 
 const checklistItems = [
@@ -93,22 +93,22 @@ function PatientsWelcomeMobileScreen({
   onContinue: () => void;
 }) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
-      <PatientsShellHeader>
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+      <MultiStepFlowLayoutHeader>
         <MedmoLogoLockup />
-        <PatientsShellLocale />
-      </PatientsShellHeader>
+        <MultiStepFlowLayoutLocale />
+      </MultiStepFlowLayoutHeader>
 
-      <PatientsShellMain className="flex-1">
-        <PatientsShellCard>
+      <MultiStepFlowLayoutMain className="flex-1">
+        <MultiStepFlowLayoutCard>
           <WelcomeBackButton onClick={onBack} />
           <WelcomeContent />
           <PatientsFlowContinueButton onClick={onContinue}>
             Start
           </PatientsFlowContinueButton>
-        </PatientsShellCard>
-      </PatientsShellMain>
-    </PatientsShell>
+        </MultiStepFlowLayoutCard>
+      </MultiStepFlowLayoutMain>
+    </MultiStepFlowLayout>
   );
 }
 
@@ -120,28 +120,28 @@ function PatientsWelcomeDesktopScreen({
   onContinue: () => void;
 }) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
       <div className="bg-[var(--color-surface)]">
-        <PatientsShellHeader className="pb-[var(--space-stack-sm)]">
+        <MultiStepFlowLayoutHeader className="pb-[var(--space-stack-sm)]">
           <MedmoLogoLockup />
-          <PatientsShellLocale showGlobe />
-        </PatientsShellHeader>
-        <PatientsShellProgress value={0.5} />
+          <MultiStepFlowLayoutLocale showGlobe />
+        </MultiStepFlowLayoutHeader>
+        <MultiStepFlowLayoutProgress value={0.5} />
       </div>
 
-      <PatientsShellMainDesktop className="flex-1">
-        <div className={patientsShellDesktopContentClassName}>
-          <PatientsShellCard>
+      <MultiStepFlowLayoutMainDesktop className="flex-1">
+        <div className={multiStepFlowLayoutDesktopContentClassName}>
+          <MultiStepFlowLayoutCard>
             <WelcomeBackButton onClick={onBack} />
             <WelcomeContent />
-          </PatientsShellCard>
+          </MultiStepFlowLayoutCard>
 
           <PatientsFlowContinueButton onClick={onContinue}>
             Continue
           </PatientsFlowContinueButton>
         </div>
-      </PatientsShellMainDesktop>
-    </PatientsShell>
+      </MultiStepFlowLayoutMainDesktop>
+    </MultiStepFlowLayout>
   );
 }
 

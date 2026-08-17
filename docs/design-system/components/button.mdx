@@ -1,117 +1,128 @@
 ---
 title: Button
-description: Acción primaria del Medmo Design System — variant × intent, Foundation tokens, accesible by default.
+description: Referencia oficial de acciones para flujos healthcare y enterprise.
 status: published
-version: 1.0.0
-lastUpdated: 2026-07-17
+version: 1.1.0
+lastUpdated: 2026-08-13
 ---
 
 # Button
 
-> Commit de acción directa: guardar, confirmar, cancelar, eliminar.
-> Navegación → `Link`. Toggle persistente → componentes dedicados.
-
-## Intent
-
-El Button habilita **acciones inmediatas** en flujos clínicos y administrativos. Una sola acción primary por contexto visual. Danger desaturado para evitar alarm fatigue.
-
-**Fuera de scope:** navegación, selección persistente, FAB mobile.
+Button ejecuta acciones inmediatas: guardar, confirmar, cancelar, eliminar o
+archivar. La navegación utiliza `Link`; la selección persistente utiliza
+controles de toggle.
 
 ## Public API
 
 ```tsx
-<Button>Guardar cambios</Button>
-<Button variant="outline">Cancelar</Button>
-<Button intent="danger" variant="primary">Eliminar registro</Button>
-<Button loading loadingLabel="Guardando…">Guardar</Button>
-<Button variant="ghost" size="icon-md" aria-label="Eliminar">
-  <TrashIcon />
+<Button>Save patient</Button>
+<Button variant="outline">Cancel</Button>
+<Button intent="danger">Delete study</Button>
+<Button loading loadingLabel="Saving patient">Save patient</Button>
+<Button variant="ghost" size="icon-xl" aria-label="View report">
+  <EyeIcon />
 </Button>
 ```
 
 | Prop | Tipo | Default | Descripción |
 |------|------|---------|-------------|
 | `variant` | `primary` \| `secondary` \| `outline` \| `ghost` | `primary` | Énfasis visual |
-| `intent` | `default` \| `danger` | `default` | Semántica de la acción |
-| `size` | `sm` \| `md` \| `lg` \| `icon-sm` \| `icon-md` \| `icon-lg` | `md` | Escala |
-| `loading` | `boolean` | `false` | Spinner + `aria-busy`, deshabilita interacción |
-| `loadingLabel` | `string` | `"Loading"` | Texto para screen readers |
-| `fullWidth` | `boolean` | `false` | Ancho completo del contenedor |
+| `intent` | `default` \| `danger` | `default` | Semántica destructiva |
+| `size` | `sm` \| `md` \| `lg` \| `xl` \| `xxl` \| `icon-*` | `md` | Escala |
+| `loading` | `boolean` | `false` | Spinner, `aria-busy` y bloqueo de interacción |
+| `loadingLabel` | `string` | `"Loading"` | Anuncio para lectores de pantalla |
+| `fullWidth` | `boolean` | `false` | Ocupa el ancho del contenedor |
 | `disabled` | `boolean` | `false` | Estado deshabilitado |
 | `type` | `button` \| `submit` \| `reset` | `button` | Tipo nativo |
-| `render` | Base UI render | — | Polimorfismo restringido (ej. `Link`) |
 
-## Variants × Intent
+## Horizontal padding
 
-| variant | default | danger |
-|---------|---------|--------|
-| **primary** | Acción principal | Confirmación destructiva |
-| **secondary** | Acción alternativa | Raro — preferir outline/ghost |
-| **outline** | Cancelar, secundaria en forms | Eliminar (baja prioridad) |
-| **ghost** | Toolbar, row actions | Quitar item |
+La silueta redondeada requiere más aire horizontal que la escala anterior.
+Estos valores son oficiales:
+
+| Size | Altura | Current | Adopted |
+|------|--------|---------|---------|
+| `sm` | 28px | 8px | 12px |
+| `md` | 32px | 8px | 12px |
+| `lg` | 36px | 12px | 16px |
+| `xl` | 48px | 12px | 20px |
+| `xxl` | 56px | 16px | 24px |
+
+Los tamaños `icon-*` permanecen cuadrados y no usan padding horizontal.
+
+## Icon spacing
+
+- Icono + label: `--space-button-icon-gap` = 6px.
+- Icono leading: antes del verbo u objeto.
+- Icono trailing: dirección, continuación o disclosure.
+- Icon-only: `aria-label` obligatorio.
+- Tamaño base: `icon-sm` (16px); el Button escala el icono según su size.
+
+## Variants
+
+| Estilo | Uso |
+|--------|-----|
+| `primary` | Única acción principal del contexto |
+| `secondary` | Alternativa visible con menor prioridad |
+| `outline` | Cancelar o acción secundaria en formularios |
+| `ghost` | Toolbars, rows y utilidades de bajo énfasis |
+| `intent="danger"` | Eliminar, quitar acceso o archivar con consecuencia |
+
+Danger utiliza fondo rojo suave, borde rojo y texto rojo en reposo. No utiliza
+fondo rojo sólido por defecto. El color comunica consecuencia sin aumentar
+innecesariamente la carga visual en interfaces clínicas.
+
+## Button groups
+
+Button Group es un patrón documentado dentro de Button, no un componente
+independiente.
+
+```tsx
+// Standard: Secondary → Primary
+<div role="group" aria-label="Save patient actions">
+  <Button variant="outline">Cancel</Button>
+  <Button>Save patient</Button>
+</div>
+
+// Destructive: Cancel → Danger
+<div role="group" aria-label="Delete study actions">
+  <Button variant="outline">Cancel</Button>
+  <Button intent="danger">Delete study</Button>
+</div>
+```
+
+Una agrupación contiene una sola acción primaria. La acción que confirma o
+produce la consecuencia aparece al final.
 
 ## States
 
 | State | Comportamiento |
 |-------|----------------|
-| Rest | Tokens base por variant × intent |
-| Hover / Active | `--color-action-*-hover/active`, `--color-surface-*` |
-| Focus-visible | `--color-focus-ring`, `--focus-ring-width/offset` |
-| Disabled | `--color-disabled-*` — sin opacity global |
-| Loading | Spinner + `aria-busy` |
-| Expanded | `aria-expanded` → `--color-surface-active` |
-| Invalid | `aria-invalid` → `--color-error-border` |
-
-## Sizes
-
-| Size | Altura | Uso |
-|------|--------|-----|
-| `sm` | 28px | Toolbars densas, headers |
-| `md` | 32px | Default |
-| `lg` | 36px | CTAs prominentes |
-| `icon-*` | Igual altura | Solo icono — `aria-label` obligatorio |
-
-## Tokens consumed
-
-- **Actions:** `--color-action-primary`, `-hover`, `-active`, `-text`
-- **Surfaces:** `--color-surface-muted`, `-hover`, `-active`, `--color-background`
-- **Text:** `--color-text-primary`, `-secondary`
-- **Borders:** `--color-border`, `-subtle`, `-strong`
-- **Error:** `--color-error-background`, `-border`, `-text`, `-foreground`
-- **Disabled:** `--color-disabled-background`, `-border`, `-text`
-- **Focus:** `--color-focus-ring`, `--focus-ring-width`, `--focus-ring-offset`
-- **Radius:** `--radius-button`, `--radius-md` (sm)
-- **Spacing:** `--spacing-28/32/36`, `--space-inline-sm/md`
-- **Typography:** `--text-label-*`
-- **Motion:** `--motion-hover`
+| Default | Tokens base por `variant × intent` |
+| Hover | Refuerza superficie, borde o texto |
+| Focus-visible | `--color-focus-ring` y offset tokenizado |
+| Active | Feedback de presión con superficie activa |
+| Disabled | `--color-disabled-*`, sin opacidad global |
+| Loading | Spinner, `aria-busy`, bloqueo de doble submit |
 
 ## Accessibility
 
-- Elemento nativo `<button>` por defecto
-- Focus visible en todos los variants
-- Icon-only requiere `aria-label`
-- Loading: `aria-busy` + `loadingLabel`
-- Touch: usar `icon-lg` o `size="lg"` en contextos mobile críticos
+- Elemento `<button>` nativo por defecto.
+- Tab enfoca; Enter y Space activan.
+- Focus visible en todos los variants e intents.
+- Icon-only requiere un nombre accesible específico.
+- `xl` (48px) y `xxl` (56px) cumplen el objetivo táctil de 44px.
+- `sm`, `md` y `lg` se reservan para contextos desktop densos o deben estar
+  contenidos en un target interactivo mayor.
+- Loading mantiene el label visible y anuncia `loadingLabel`.
 
-## Do / Don't
+## Healthcare examples
 
-| Do | Don't |
-|----|-------|
-| Una primary por barra de acciones | Dos primary filled juntas |
-| Verbos claros: "Guardar cambios" | "OK", "Sí" |
-| `outline` para Cancel | `ghost` en footer de modal |
-| `intent="danger"` + copy explícito | Icon-only delete sin confirmación |
-| `loading` en saves async | Double-submit |
-
-## Playground
-
-- Ruta: `/playground/button`
-- Controles: variant, intent, size, disabled, loading, fullWidth, theme
-
-## Pantalla real
-
-- Ruta: `/examples/patient-record`
-- Header actions, form footer, danger zone
+- Primary: Save patient.
+- Secondary: Upload study.
+- Ghost: View report.
+- Danger: Delete study.
+- Danger outline: Archive record.
 
 ## Import
 

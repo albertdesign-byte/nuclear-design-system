@@ -4,47 +4,47 @@ import { GlobeIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-export const patientsShellClassName =
+export const multiStepFlowLayoutClassName =
   "flex min-h-full w-full flex-col bg-[var(--color-surface-muted)]";
 
-export const patientsShellHeaderClassName = [
+export const multiStepFlowLayoutHeaderClassName = [
   "flex items-center justify-between",
   "bg-[var(--color-surface)] px-[var(--space-page)] py-[var(--space-stack-md)]",
 ].join(" ");
 
-export const patientsShellMainClassName = [
+export const multiStepFlowLayoutMainClassName = [
   "flex flex-1 flex-col px-[var(--space-page)] py-[var(--space-stack-lg)]",
 ].join(" ");
 
-export const patientsShellMainDesktopClassName = [
+export const multiStepFlowLayoutMainDesktopClassName = [
   "flex flex-1 flex-col px-[var(--space-page)] py-[var(--space-stack-xl)]",
 ].join(" ");
 
-export const patientsShellCardClassName = [
+export const multiStepFlowLayoutCardClassName = [
   "flex flex-col gap-[var(--space-stack-md)]",
   "rounded-[var(--radius-card)] bg-[var(--color-surface)] p-[var(--space-page)]",
   "ring-1 ring-[var(--color-border-subtle)]",
 ].join(" ");
 
-export const patientsShellInputPanelClassName = [
+export const multiStepFlowLayoutInputPanelClassName = [
   "flex flex-col gap-[var(--space-stack-sm)]",
   "rounded-[var(--radius-card)] bg-[var(--color-surface)] p-[var(--space-page)]",
   "ring-1 ring-[var(--color-border-subtle)]",
 ].join(" ");
 
-export const patientsShellLocaleClassName = [
+export const multiStepFlowLayoutLocaleClassName = [
   "inline-flex items-center gap-[var(--space-inline-xs)]",
   "text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)]",
   "text-[var(--color-text-muted)]",
 ].join(" ");
 
-export const patientsFieldGroupClassName =
+export const multiStepFlowFieldGroupClassName =
   "flex flex-col gap-[var(--space-stack-xs)]";
 
-export const patientsShellDesktopContentClassName =
+export const multiStepFlowLayoutDesktopContentClassName =
   "mx-auto flex w-full max-w-[42rem] flex-col gap-[var(--space-stack-md)]";
 
-export function PatientsShell({
+export function MultiStepFlowLayout({
   children,
   className,
 }: {
@@ -52,13 +52,16 @@ export function PatientsShell({
   className?: string;
 }) {
   return (
-    <div data-slot="patients-shell" className={cn(patientsShellClassName, className)}>
+    <div
+      data-slot="multi-step-flow-layout"
+      className={cn(multiStepFlowLayoutClassName, className)}
+    >
       {children}
     </div>
   );
 }
 
-export function PatientsShellHeader({
+export function MultiStepFlowLayoutHeader({
   children,
   className,
 }: {
@@ -67,17 +70,17 @@ export function PatientsShellHeader({
 }) {
   return (
     <header
-      data-slot="patients-shell-header"
-      className={cn(patientsShellHeaderClassName, className)}
+      data-slot="multi-step-flow-layout-header"
+      className={cn(multiStepFlowLayoutHeaderClassName, className)}
     >
       {children}
     </header>
   );
 }
 
-export function PatientsShellLocale({
+export function MultiStepFlowLayoutLocale({
   showGlobe = false,
-  children = "Español",
+  children = "English",
   className,
 }: {
   showGlobe?: boolean;
@@ -85,27 +88,29 @@ export function PatientsShellLocale({
   className?: string;
 }) {
   return (
-    <span className={cn(patientsShellLocaleClassName, className)}>
+    <span className={cn(multiStepFlowLayoutLocaleClassName, className)}>
       {showGlobe ? <GlobeIcon aria-hidden className="size-4 shrink-0" /> : null}
       {children}
     </span>
   );
 }
 
-/** @deprecated Use PatientsShellLocale */
-export function PatientsShellLocalePlaceholder({
-  children = "Español",
+/** @deprecated Use MultiStepFlowLayoutLocale */
+export function MultiStepFlowLayoutLocalePlaceholder({
+  children = "English",
   className,
 }: {
   children?: ReactNode;
   className?: string;
 }) {
   return (
-    <PatientsShellLocale className={className}>{children}</PatientsShellLocale>
+    <MultiStepFlowLayoutLocale className={className}>
+      {children}
+    </MultiStepFlowLayoutLocale>
   );
 }
 
-export function PatientsShellProgress({
+export function MultiStepFlowLayoutProgress({
   value = 0.33,
   className,
 }: {
@@ -116,7 +121,7 @@ export function PatientsShellProgress({
 
   return (
     <div
-      data-slot="patients-shell-progress"
+      data-slot="multi-step-flow-layout-progress"
       className={cn("h-[0.1875rem] w-full bg-[var(--color-border-subtle)]", className)}
       role="progressbar"
       aria-valuenow={Math.round(clampedValue * 100)}
@@ -131,7 +136,7 @@ export function PatientsShellProgress({
   );
 }
 
-export function PatientsShellMainDesktop({
+export function MultiStepFlowLayoutMainDesktop({
   children,
   className,
 }: {
@@ -140,15 +145,15 @@ export function PatientsShellMainDesktop({
 }) {
   return (
     <main
-      data-slot="patients-shell-main-desktop"
-      className={cn(patientsShellMainDesktopClassName, className)}
+      data-slot="multi-step-flow-layout-main-desktop"
+      className={cn(multiStepFlowLayoutMainDesktopClassName, className)}
     >
       {children}
     </main>
   );
 }
 
-export function PatientsShellInputPanel({
+export function MultiStepFlowLayoutInputPanel({
   children,
   className,
 }: {
@@ -157,15 +162,15 @@ export function PatientsShellInputPanel({
 }) {
   return (
     <section
-      data-slot="patients-shell-input-panel"
-      className={cn(patientsShellInputPanelClassName, className)}
+      data-slot="multi-step-flow-layout-input-panel"
+      className={cn(multiStepFlowLayoutInputPanelClassName, className)}
     >
       {children}
     </section>
   );
 }
 
-export function PatientsShellMain({
+export function MultiStepFlowLayoutMain({
   children,
   className,
 }: {
@@ -174,15 +179,15 @@ export function PatientsShellMain({
 }) {
   return (
     <main
-      data-slot="patients-shell-main"
-      className={cn(patientsShellMainClassName, className)}
+      data-slot="multi-step-flow-layout-main"
+      className={cn(multiStepFlowLayoutMainClassName, className)}
     >
       {children}
     </main>
   );
 }
 
-export function PatientsShellCard({
+export function MultiStepFlowLayoutCard({
   children,
   className,
 }: {
@@ -191,8 +196,8 @@ export function PatientsShellCard({
 }) {
   return (
     <section
-      data-slot="patients-shell-card"
-      className={cn(patientsShellCardClassName, className)}
+      data-slot="multi-step-flow-layout-card"
+      className={cn(multiStepFlowLayoutCardClassName, className)}
     >
       {children}
     </section>

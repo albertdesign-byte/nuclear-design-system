@@ -1,14 +1,13 @@
-import { Alert, AlertDescription, AlertTitle } from "@/components/alert";
-import { AlertTriangleIcon } from "lucide-react";
+import { Alert, AlertDescription, AlertIcon, AlertTitle } from "@/components/alert";
+import { AlertCircleIcon } from "lucide-react";
 
 export function AlertRealScreenPreview() {
   return (
-    <Alert variant="destructive" className="max-w-md">
-      <AlertTriangleIcon />
-      <AlertTitle>Potassium critically high — 6.8 mEq/L</AlertTitle>
+    <Alert variant="error" className="max-w-md">
+      <AlertIcon><AlertCircleIcon /></AlertIcon>
+      <AlertTitle>Failed to upload study</AlertTitle>
       <AlertDescription>
-        Result exceeds critical threshold. Notify attending physician
-        immediately and repeat stat draw to confirm.
+        The DICOM files could not be uploaded. Check the connection and try again.
       </AlertDescription>
     </Alert>
   );

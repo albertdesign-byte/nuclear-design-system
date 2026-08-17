@@ -43,8 +43,8 @@ export function AlertDialogPlayground() {
             <AlertDialogHeader>
               <AlertDialogTitle>Delete clinical record?</AlertDialogTitle>
               <AlertDialogDescription>
-                This permanently removes the progress note from María
-                González&apos;s chart. This action cannot be undone.
+                This permanently removes the progress note from Maria
+                Gonzalez&apos;s chart. This action cannot be undone.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>

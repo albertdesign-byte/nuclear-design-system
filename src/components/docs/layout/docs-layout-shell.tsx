@@ -28,6 +28,7 @@ function DocsLayoutShellInner({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isUserflow = pathname.startsWith("/docs/userflow");
   const isPatientsProduct = pathname.startsWith("/docs/products/patients");
+  const isAppFooterProductPage = pathname.endsWith("/app-footer");
   const isPatientsUserflow = pathname.startsWith("/docs/userflow/patients");
   const isPatientsContext = isPatientsProduct || isPatientsUserflow;
   const { sidebarVisible } = useUserflowLayout();
@@ -38,7 +39,9 @@ function DocsLayoutShellInner({ children }: { children: React.ReactNode }) {
       {!isUserflowExpanded ? <DocsSidebar /> : null}
       <div className="flex min-w-0 flex-1 flex-col">
         <div className="flex min-w-0 flex-1">{children}</div>
-        {isPatientsProduct ? <PatientsLayoutFooter /> : null}
+        {isPatientsProduct && !isAppFooterProductPage ? (
+          <PatientsLayoutFooter />
+        ) : null}
       </div>
     </>
   );

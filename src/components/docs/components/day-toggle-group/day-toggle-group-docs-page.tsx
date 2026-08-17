@@ -1,10 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { useState } from "react";
 
-import { Button } from "@/components/button";
 import { DayToggleGroup } from "@/components/day-toggle-group";
 import {
   dayToggleGroupCustomDaysSnippet,
@@ -50,28 +47,6 @@ export function DayToggleGroupDocsPage() {
         preview: <DayToggleGroupRealScreenPreview />,
         code: dayToggleGroupRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/date-range-picker" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Date Range Picker
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/deposit-summary" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Deposit Summary
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">

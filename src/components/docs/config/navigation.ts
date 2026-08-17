@@ -2,6 +2,10 @@ import {
   nuclearUserflowNavCategories,
   nuclearUserflowNavDefaultOpenCategories,
 } from "./userflow-navigation";
+import { getComponentNavCategories } from "./components-registry";
+import { foundationsRegistry } from "./foundations-registry";
+import { getPatternNavCategories } from "./patterns-registry";
+import { getTemplateNavCategory } from "./templates-registry";
 
 export type DocsNavItem = {
   title: string;
@@ -18,9 +22,11 @@ export type DocsNavCategory = {
 
 export const docsSections: DocsNavItem[] = [
   { title: "Introduction", href: "/" },
-  { title: "Components", href: "/docs/components/button" },
-  { title: "Products", href: "/docs/products/nuclear" },
-  { title: "Userflow", href: "/docs/userflow/nuclear" },
+  { title: "Foundations", href: "/docs/foundations" },
+  { title: "Components", href: "/docs/components" },
+  { title: "Patterns", href: "/docs/patterns" },
+  { title: "Templates", href: "/docs/templates" },
+  { title: "Products", href: "/docs/products" },
   { title: "Installation", href: "/docs/components/button#installation" },
   { title: "Theming", href: "/docs/components/button#usage" },
 ];
@@ -28,125 +34,40 @@ export const docsSections: DocsNavItem[] = [
 export const foundationsNavCategory: DocsNavCategory = {
   id: "foundations",
   title: "Foundations",
-  items: [
-    { title: "Colors", href: "#", comingSoon: true },
-    { title: "Typography", href: "#", comingSoon: true },
-    { title: "Spacing", href: "#", comingSoon: true },
-    { title: "Radius", href: "#", comingSoon: true },
-    { title: "Shadows", href: "#", comingSoon: true },
-    { title: "Breakpoints", href: "#", comingSoon: true },
-  ],
+  items: foundationsRegistry.map(({ title, href }) => ({ title, href })),
 };
 
-export const patternsNavCategory: DocsNavCategory = {
-  id: "patterns",
-  title: "Patterns",
-  items: [
-    { title: "Forms", href: "#", comingSoon: true },
-    { title: "Navigation", href: "#", comingSoon: true },
-    { title: "Data Display", href: "#", comingSoon: true },
-    { title: "Feedback", href: "#", comingSoon: true },
-  ],
-};
+export const patternsNavCategories: DocsNavCategory[] =
+  getPatternNavCategories();
 
-export const docsComponentCategories: DocsNavCategory[] = [
-  {
-    id: "form-controls",
-    title: "Form Controls",
-    items: [
-      { title: "Button", href: "/docs/components/button" },
-      { title: "Button Group", href: "/docs/components/button#button-group" },
-      { title: "Checkbox", href: "/docs/components/checkbox" },
-      { title: "Date Range Picker", href: "/docs/components/date-range-picker" },
-      { title: "Day Toggle Group", href: "/docs/components/day-toggle-group" },
-      { title: "Deposit Summary", href: "/docs/components/deposit-summary" },
-      { title: "Dropzone", href: "/docs/components/dropzone" },
-      { title: "Input", href: "/docs/components/input" },
-      { title: "Label", href: "/docs/components/label" },
-      { title: "Field Error", href: "/docs/components/field-error" },
-      { title: "Payment Form", href: "/docs/components/payment-form" },
-      { title: "Radio Group", href: "/docs/components/radio-group" },
-      { title: "Select", href: "/docs/components/select" },
-      { title: "Switch", href: "/docs/components/switch" },
-      { title: "Textarea", href: "/docs/components/textarea" },
-    ],
-  },
-  {
-    id: "display",
-    title: "Display",
-    items: [
-      { title: "Alert", href: "/docs/components/alert" },
-      { title: "Avatar", href: "/docs/components/avatar" },
-      { title: "Badge", href: "/docs/components/badge" },
-      { title: "Card", href: "/docs/components/card" },
-      { title: "Chip", href: "/docs/components/chip" },
-      { title: "Skeleton", href: "/docs/components/skeleton" },
-      { title: "Spinner", href: "/docs/components/spinner" },
-      { title: "Stage Flow Badge", href: "/docs/components/stage-flow-badge" },
-      { title: "Table", href: "/docs/components/table" },
-      { title: "Tabs", href: "/docs/components/tabs" },
-      { title: "Timeline", href: "/docs/components/timeline" },
-      { title: "Timeline Card", href: "/docs/components/timeline-card" },
-    ],
-  },
-  {
-    id: "overlay",
-    title: "Overlay & Menus",
-    items: [
-      { title: "Alert Dialog", href: "/docs/components/alert-dialog" },
-      { title: "Command", href: "/docs/components/command" },
-      { title: "Dialog", href: "/docs/components/dialog" },
-      { title: "Dropdown Menu", href: "/docs/components/dropdown-menu" },
-      { title: "Popover", href: "/docs/components/popover" },
-      { title: "Tooltip", href: "/docs/components/tooltip" },
-    ],
-  },
-  {
-    id: "layout-feedback",
-    title: "Layout & Feedback",
-    items: [
-      { title: "Accordion", href: "/docs/components/accordion" },
-      { title: "Scroll Area", href: "/docs/components/scroll-area" },
-      { title: "Separator", href: "/docs/components/separator" },
-      { title: "Sonner", href: "/docs/components/sonner" },
-    ],
-  },
-  {
-    id: "application-layout",
-    title: "Application Layout",
-    items: [
-      { title: "App Shell", href: "/docs/components/app-shell" },
-      { title: "Logo", href: "/docs/components/logo" },
-      { title: "App Footer", href: "/docs/components/app-footer" },
-      { title: "Data Table", href: "/docs/components/data-table" },
-      { title: "Dashboard Panel", href: "/docs/components/dashboard-panel" },
-      { title: "Global Search Bar", href: "/docs/components/global-search-bar" },
-      { title: "User Profile Block", href: "/docs/components/user-profile-block" },
-      { title: "Text Link", href: "/docs/components/text-link" },
-    ],
-  },
-  {
-    id: "planned",
-    title: "Planned",
-    items: [
-      { title: "Aspect Ratio", href: "#" },
-      { title: "Attachment", href: "#", badge: true },
-      { title: "Breadcrumb", href: "#" },
-      { title: "Bubble", href: "#", badge: true },
-      { title: "Calendar", href: "#" },
-    ],
-  },
+export const templatesNavCategory: DocsNavCategory = getTemplateNavCategory();
+
+export const componentsNavCategories: DocsNavCategory[] =
+  getComponentNavCategories();
+
+export const docsComponentCategories: DocsNavCategory[] =
+  componentsNavCategories.filter(
+    (category) => category.id !== "components-overview"
+  );
+
+export const foundationsNavCategories: DocsNavCategory[] = [
+  foundationsNavCategory,
 ];
 
+
+export const templatesNavCategories: DocsNavCategory[] = [
+  templatesNavCategory,
+];
+
+/**
+ * Aggregate documentation index retained for global search and legacy imports.
+ * Layer-specific sidebars consume the dedicated arrays above.
+ */
 export const docsNavCategories: DocsNavCategory[] = [
-  {
-    id: "getting-started",
-    title: "Getting Started",
-    items: docsSections,
-  },
-  foundationsNavCategory,
-  ...docsComponentCategories,
-  patternsNavCategory,
+  ...foundationsNavCategories,
+  ...componentsNavCategories,
+  ...patternsNavCategories,
+  ...templatesNavCategories,
 ];
 
 export const docsNavDefaultOpenCategories = docsNavCategories.map(
@@ -170,17 +91,16 @@ export const docsComponents = docsComponentCategories.flatMap(
 export const buttonTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
-  { id: "size", label: "Size" },
-  { id: "primary", label: "Primary" },
-  { id: "outline", label: "Outline" },
-  { id: "secondary", label: "Secondary" },
-  { id: "ghost", label: "Ghost" },
-  { id: "danger", label: "Danger" },
-  { id: "icon", label: "Icon" },
-  { id: "with-icon", label: "With Icon" },
-  { id: "loading", label: "Loading" },
+  { id: "padding-review", label: "Padding Review" },
+  { id: "variants", label: "Variants" },
+  { id: "danger", label: "Danger Button" },
+  { id: "icons", label: "Button with Icon" },
+  { id: "button-groups", label: "Button Groups" },
+  { id: "states", label: "States" },
+  { id: "healthcare-examples", label: "Healthcare Examples" },
+  { id: "guidelines", label: "Button Guidelines" },
+  { id: "accessibility", label: "Accessibility" },
   { id: "full-width", label: "Full Width" },
-  { id: "button-group", label: "Button Group" },
   { id: "as-link", label: "As Link" },
   { id: "api-reference", label: "API Reference" },
 ];
@@ -188,13 +108,21 @@ export const buttonTocItems = [
 export const inputTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
-  { id: "size", label: "Size" },
+  { id: "default", label: "Default" },
+  { id: "required", label: "Required" },
   { id: "disabled", label: "Disabled" },
-  { id: "invalid", label: "Invalid" },
-  { id: "field-group", label: "Field Group" },
-  { id: "placeholder", label: "Placeholder" },
+  { id: "error", label: "Error" },
+  { id: "read-only", label: "Read Only" },
+  { id: "loading", label: "Loading" },
+  { id: "with-icon", label: "Input with Icon" },
+  { id: "prefix-suffix", label: "Prefix & Suffix" },
+  { id: "units-input", label: "Units Input" },
+  { id: "helper-text", label: "Helper Text" },
+  { id: "size", label: "Size" },
   { id: "full-width", label: "Full Width" },
   { id: "file", label: "File" },
+  { id: "guidelines", label: "Input Guidelines" },
+  { id: "accessibility", label: "Accessibility" },
   { id: "api-reference", label: "API Reference" },
 ];
 
@@ -212,34 +140,59 @@ export const textareaTocItems = [
 export const selectTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
-  { id: "size", label: "Size" },
+  { id: "default", label: "Default" },
+  { id: "required", label: "Required" },
   { id: "disabled", label: "Disabled" },
-  { id: "invalid", label: "Invalid" },
-  { id: "placeholder", label: "Placeholder" },
+  { id: "error", label: "Error" },
+  { id: "read-only", label: "Read Only" },
+  { id: "loading", label: "Loading" },
+  { id: "helper-text", label: "Helper Text" },
+  { id: "searchable-select", label: "Searchable Select" },
+  { id: "multi-select", label: "Multi Select" },
+  { id: "grouped-options", label: "Grouped Options" },
+  { id: "large-datasets", label: "Large Datasets" },
+  { id: "size", label: "Size" },
   { id: "full-width", label: "Full Width" },
+  { id: "guidelines", label: "Select Guidelines" },
+  { id: "accessibility", label: "Accessibility" },
   { id: "api-reference", label: "API Reference" },
 ];
 
 export const checkboxTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
-  { id: "size", label: "Size" },
+  { id: "default", label: "Default" },
   { id: "checked", label: "Checked" },
-  { id: "indeterminate", label: "Indeterminate" },
   { id: "disabled", label: "Disabled" },
-  { id: "invalid", label: "Invalid" },
+  { id: "error", label: "Error" },
+  { id: "indeterminate", label: "Indeterminate" },
   { id: "with-label", label: "With Label" },
+  { id: "with-description", label: "With Description" },
+  { id: "with-long-label", label: "Long Label" },
+  { id: "with-helper-text", label: "Helper Text" },
+  { id: "checkbox-group", label: "Checkbox Group" },
+  { id: "size", label: "Size" },
+  { id: "guidelines", label: "Checkbox Guidelines" },
+  { id: "accessibility", label: "Accessibility" },
   { id: "api-reference", label: "API Reference" },
 ];
 
 export const radioGroupTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
-  { id: "size", label: "Size" },
+  { id: "default", label: "Default" },
+  { id: "selected", label: "Selected" },
   { id: "disabled", label: "Disabled" },
-  { id: "invalid", label: "Invalid" },
+  { id: "selected-disabled", label: "Selected Disabled" },
+  { id: "error", label: "Error" },
   { id: "with-label", label: "With Label" },
+  { id: "with-description", label: "With Description" },
+  { id: "with-long-label", label: "Long Label" },
+  { id: "radio-group", label: "Radio Group" },
+  { id: "size", label: "Size" },
   { id: "horizontal", label: "Horizontal" },
+  { id: "guidelines", label: "Radio Button Guidelines" },
+  { id: "accessibility", label: "Accessibility" },
   { id: "api-reference", label: "API Reference" },
 ];
 
@@ -281,11 +234,13 @@ export const avatarTocItems = [
 export const cardTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
-  { id: "size", label: "Size" },
-  { id: "header", label: "Header" },
-  { id: "content", label: "Content" },
-  { id: "footer", label: "Footer" },
-  { id: "action", label: "Action" },
+  { id: "audit", label: "Card Audit" },
+  { id: "variants", label: "Card Variants" },
+  { id: "content-flexibility", label: "Content Flexibility" },
+  { id: "responsive-behavior", label: "Responsive Behavior" },
+  { id: "healthcare-examples", label: "Healthcare Examples" },
+  { id: "accessibility", label: "Accessibility" },
+  { id: "card-guidelines", label: "Card Guidelines" },
   { id: "api-reference", label: "API Reference" },
 ];
 
@@ -309,16 +264,24 @@ export const tabsTocItems = [
 
 export const dialogTocItems = [
   { id: "installation", label: "Installation" },
+  { id: "overview", label: "Component Overview" },
   { id: "usage", label: "Usage" },
-  { id: "with-footer", label: "With Footer" },
-  { id: "without-close", label: "Without Close" },
+  { id: "dialog-examples", label: "Dialog Examples" },
+  { id: "dialog-vs-alert-dialog", label: "Dialog vs Alert Dialog" },
+  { id: "accessibility", label: "Accessibility" },
+  { id: "best-practices", label: "Best Practices" },
   { id: "api-reference", label: "API Reference" },
 ];
 
 export const tooltipTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
-  { id: "side", label: "Side" },
+  { id: "placement", label: "Positions" },
+  { id: "trigger-types", label: "Trigger Types" },
+  { id: "content", label: "Tooltip Content" },
+  { id: "healthcare-examples", label: "Healthcare Examples" },
+  { id: "accessibility", label: "Accessibility" },
+  { id: "tooltip-guidelines", label: "Tooltip Guidelines" },
   { id: "provider", label: "Provider" },
   { id: "api-reference", label: "API Reference" },
 ];
@@ -387,15 +350,27 @@ export const popoverTocItems = [
 export const dropdownMenuTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
-  { id: "destructive", label: "Destructive" },
+  { id: "variants", label: "Variants" },
+  { id: "states", label: "Menu States" },
+  { id: "menu-content", label: "Menu Content" },
+  { id: "dangerous-actions", label: "Dangerous Actions" },
+  { id: "healthcare-examples", label: "Healthcare Examples" },
+  { id: "accessibility", label: "Accessibility" },
+  { id: "dropdown-guidelines", label: "Dropdown Menu Guidelines" },
   { id: "api-reference", label: "API Reference" },
 ];
 
 export const alertTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
-  { id: "destructive", label: "Destructive" },
-  { id: "success", label: "Success" },
+  { id: "audit", label: "Alert Audit" },
+  { id: "unified-alert", label: "Unified Alert" },
+  { id: "variants", label: "Alert Variants" },
+  { id: "patterns", label: "Alert Patterns" },
+  { id: "states", label: "Alert States" },
+  { id: "healthcare-examples", label: "Healthcare Examples" },
+  { id: "guidelines", label: "Alert Guidelines" },
+  { id: "accessibility", label: "Accessibility" },
   { id: "api-reference", label: "API Reference" },
 ];
 
@@ -429,13 +404,23 @@ export const dayToggleGroupTocItems = [
 export const commandTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
+  { id: "component-audit", label: "Component Audit" },
+  { id: "decision", label: "Decision" },
+  { id: "command-use-cases", label: "Command Use Cases" },
+  { id: "search-vs-command", label: "Search vs Command" },
   { id: "dialog", label: "Dialog" },
+  { id: "accessibility", label: "Accessibility" },
   { id: "api-reference", label: "API Reference" },
 ];
 
 export const alertDialogTocItems = [
   { id: "installation", label: "Installation" },
+  { id: "overview", label: "Component Overview" },
   { id: "usage", label: "Usage" },
+  { id: "alert-dialog-examples", label: "Alert Dialog Examples" },
+  { id: "dialog-vs-alert-dialog", label: "Dialog vs Alert Dialog" },
+  { id: "accessibility", label: "Accessibility" },
+  { id: "best-practices", label: "Best Practices" },
   { id: "api-reference", label: "API Reference" },
 ];
 
@@ -490,9 +475,13 @@ export const logoTocItems = [
 export const appFooterTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
-  { id: "mobile", label: "Mobile" },
-  { id: "tablet", label: "Tablet" },
-  { id: "custom-links", label: "Custom Links" },
+  { id: "branding", label: "Branding and Logo" },
+  { id: "navigation", label: "Footer Navigation" },
+  { id: "interaction-states", label: "Interaction States" },
+  { id: "responsive-behavior", label: "Responsive Behavior" },
+  { id: "accessibility", label: "Accessibility" },
+  { id: "footer-guidelines", label: "Footer Guidelines" },
+  { id: "default-variant", label: "Default Variant" },
   { id: "api-reference", label: "API Reference" },
 ];
 
@@ -503,6 +492,7 @@ export const dataTableTocItems = [
   { id: "menu-header", label: "Menu Header" },
   { id: "resizable-columns", label: "Resizable Columns" },
   { id: "link-cell", label: "Link Cell" },
+  { id: "filter-row", label: "Filter Row" },
   { id: "row-count-footer", label: "Row Count Footer" },
   { id: "full-example", label: "Full Example" },
   { id: "api-reference", label: "API Reference" },
@@ -520,6 +510,11 @@ export const globalSearchBarTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
   { id: "with-items", label: "With Items" },
+  { id: "component-audit", label: "Component Audit" },
+  { id: "decision", label: "Decision" },
+  { id: "search-examples", label: "Search Examples" },
+  { id: "search-vs-command", label: "Search vs Command" },
+  { id: "accessibility", label: "Accessibility" },
   { id: "full-example", label: "Full Example" },
   { id: "api-reference", label: "API Reference" },
 ];

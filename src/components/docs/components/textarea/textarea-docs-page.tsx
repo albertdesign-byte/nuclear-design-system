@@ -1,9 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-
-import { Button } from "@/components/button";
 import { Textarea } from "@/components/textarea";
 import {
   textareaDisabledSnippet,
@@ -62,28 +58,6 @@ export function TextareaDocsPage() {
         preview: <TextareaRealScreenPreview />,
         code: textareaRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/input" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Input
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/select" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Select
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">

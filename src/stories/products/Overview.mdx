@@ -1,0 +1,21 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Products/Overview" />
+
+# Products
+
+Products consume Nuclear layouts. They do not own them.
+
+AppShell and MultiStepFlowLayout live under **Templates/**. Domain copy, validation, routing, business rules, and sample data live here.
+
+## Patients
+
+Patient intake, registration, payment, insurance, consent, scheduling, and screening. Intake screens compose **MultiStepFlowLayout**.
+
+## Providers, Clinics, and other domains
+
+Future domain implementations (Provider Onboarding, Clinic Registration, Radiology Workflow, Insurance Enrollment) compose the same Nuclear templates. Do not create a product-named layout.
+
+## MPF Portal
+
+Operational study coordination, dashboard, search, and detail implementations. Existing `nuclear` route slugs remain in use for compatibility. Operational screens compose **AppShell**.

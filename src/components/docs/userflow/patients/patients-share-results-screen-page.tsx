@@ -14,16 +14,16 @@ import { DocsUserflowPreviewFrame } from "@/components/docs/userflow/docs-userfl
 import { ShareResultsConsentDialog } from "@/components/docs/userflow/patients/share-results-consent-dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/radio-group";
 import {
-  PatientsShell,
-  PatientsShellCard,
-  PatientsShellHeader,
-  PatientsShellInputPanel,
-  PatientsShellLocale,
-  PatientsShellMain,
-  PatientsShellMainDesktop,
-  PatientsShellProgress,
-  patientsShellDesktopContentClassName,
-} from "@/components/patients-shell";
+  MultiStepFlowLayout,
+  MultiStepFlowLayoutCard,
+  MultiStepFlowLayoutHeader,
+  MultiStepFlowLayoutInputPanel,
+  MultiStepFlowLayoutLocale,
+  MultiStepFlowLayoutMain,
+  MultiStepFlowLayoutMainDesktop,
+  MultiStepFlowLayoutProgress,
+  multiStepFlowLayoutDesktopContentClassName,
+} from "@/components/multi-step-flow-layout";
 
 type ShareResultsConsent = "agree" | "disagree";
 
@@ -106,21 +106,21 @@ function PatientsShareResultsMobileScreen({
   onContinue,
 }: ShareResultsScreenProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
-      <PatientsShellHeader>
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+      <MultiStepFlowLayoutHeader>
         <MedmoLogoLockup />
-        <PatientsShellLocale />
-      </PatientsShellHeader>
+        <MultiStepFlowLayoutLocale />
+      </MultiStepFlowLayoutHeader>
 
-      <PatientsShellMain className="flex-1 gap-[var(--space-stack-md)]">
-        <PatientsShellCard>
+      <MultiStepFlowLayoutMain className="flex-1 gap-[var(--space-stack-md)]">
+        <MultiStepFlowLayoutCard>
           <ShareResultsBackButton onClick={onBack} />
           <ShareResultsIntro />
-        </PatientsShellCard>
+        </MultiStepFlowLayoutCard>
 
-        <PatientsShellInputPanel>
+        <MultiStepFlowLayoutInputPanel>
           <ShareResultsConsentOptions consent={consent} onConsentChange={onConsentChange} />
-        </PatientsShellInputPanel>
+        </MultiStepFlowLayoutInputPanel>
 
         <PatientsFlowContinueButton
                     disabled={!canContinue}
@@ -128,8 +128,8 @@ function PatientsShareResultsMobileScreen({
         >
           Continue
         </PatientsFlowContinueButton>
-      </PatientsShellMain>
-    </PatientsShell>
+      </MultiStepFlowLayoutMain>
+    </MultiStepFlowLayout>
   );
 }
 
@@ -141,25 +141,25 @@ function PatientsShareResultsDesktopScreen({
   onContinue,
 }: ShareResultsScreenProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
       <div className="bg-[var(--color-surface)]">
-        <PatientsShellHeader className="pb-[var(--space-stack-sm)]">
+        <MultiStepFlowLayoutHeader className="pb-[var(--space-stack-sm)]">
           <MedmoLogoLockup />
-          <PatientsShellLocale showGlobe />
-        </PatientsShellHeader>
-        <PatientsShellProgress value={0.9} />
+          <MultiStepFlowLayoutLocale showGlobe />
+        </MultiStepFlowLayoutHeader>
+        <MultiStepFlowLayoutProgress value={0.9} />
       </div>
 
-      <PatientsShellMainDesktop className="flex-1">
-        <div className={patientsShellDesktopContentClassName}>
-          <PatientsShellCard>
+      <MultiStepFlowLayoutMainDesktop className="flex-1">
+        <div className={multiStepFlowLayoutDesktopContentClassName}>
+          <MultiStepFlowLayoutCard>
             <ShareResultsBackButton onClick={onBack} />
             <ShareResultsIntro />
-          </PatientsShellCard>
+          </MultiStepFlowLayoutCard>
 
-          <PatientsShellInputPanel>
+          <MultiStepFlowLayoutInputPanel>
             <ShareResultsConsentOptions consent={consent} onConsentChange={onConsentChange} />
-          </PatientsShellInputPanel>
+          </MultiStepFlowLayoutInputPanel>
 
           <PatientsFlowContinueButton
                         disabled={!canContinue}
@@ -168,8 +168,8 @@ function PatientsShareResultsDesktopScreen({
             Continue
           </PatientsFlowContinueButton>
         </div>
-      </PatientsShellMainDesktop>
-    </PatientsShell>
+      </MultiStepFlowLayoutMainDesktop>
+    </MultiStepFlowLayout>
   );
 }
 

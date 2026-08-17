@@ -12,4 +12,6 @@ export interface SelectTriggerProps
   size?: SelectTriggerSize;
   /** Stretch trigger to container width. @default true */
   fullWidth?: boolean;
+  /** Replaces the chevron with a loading indicator. */
+  loading?: boolean;
 }

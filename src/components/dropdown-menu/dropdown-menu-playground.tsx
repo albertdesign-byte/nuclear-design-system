@@ -1,17 +1,16 @@
 "use client";
 
-import { Button } from "@/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuIconButton,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuTrigger,
 } from "@/components/dropdown-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { MoreHorizontalIcon } from "lucide-react";
 
 export function DropdownMenuPlayground() {
   return (
@@ -31,23 +30,23 @@ export function DropdownMenuPlayground() {
       <section className="rounded-lg border border-border bg-card p-6">
         <h2 className="mb-4 text-sm font-semibold">Patient actions</h2>
         <DropdownMenu>
-          <DropdownMenuTrigger render={<Button variant="outline" size="icon-sm" />}>
-            <MoreHorizontalIcon />
-            <span className="sr-only">Patient actions</span>
-          </DropdownMenuTrigger>
+          <DropdownMenuIconButton aria-label="Open patient actions" />
           <DropdownMenuContent align="end" className="w-48">
-            <DropdownMenuLabel>María González</DropdownMenuLabel>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel>Maria Gonzalez</DropdownMenuLabel>
+              <DropdownMenuItem>View chart</DropdownMenuItem>
+              <DropdownMenuItem>Schedule follow-up</DropdownMenuItem>
+              <DropdownMenuItem>
+                Export record
+                <DropdownMenuShortcut>⌘E</DropdownMenuShortcut>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View chart</DropdownMenuItem>
-            <DropdownMenuItem>Schedule follow-up</DropdownMenuItem>
-            <DropdownMenuItem>
-              Export record
-              <DropdownMenuShortcut>⌘E</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem variant="destructive">
-              Archive patient
-            </DropdownMenuItem>
+            <DropdownMenuGroup>
+              <DropdownMenuItem variant="danger">
+                Archive patient
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </section>

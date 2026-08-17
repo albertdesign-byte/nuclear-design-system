@@ -4,14 +4,13 @@ import Link from "next/link";
 import { MoonIcon, PanelLeftCloseIcon, PanelLeftOpenIcon, SunIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 import { Button } from "@/components/button";
 import { MedmoLogo } from "@/components/brand";
 import { Separator } from "@/components/separator";
 import { cn } from "@/lib/utils";
 
-import { DocsUserflowsNavDropdown } from "./docs-userflows-nav-dropdown";
 import { DocsProductsNavDropdown } from "./docs-products-nav-dropdown";
 import { DocsPatientsDeviceTabs } from "./docs-patients-device-tabs";
 import { DocsSearch } from "./docs-search";
@@ -21,6 +20,8 @@ import {
 } from "../config/userflow-screen-routes";
 import { useUserflowLayoutOptional } from "./userflow-layout-context";
 
+const subscribeToHydration = () => () => {};
+
 export function DocsHeader({
   showSearch = false,
 }: {
@@ -28,14 +29,17 @@ export function DocsHeader({
 }) {
   const pathname = usePathname();
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    subscribeToHydration,
+    () => true,
+    () => false
+  );
 
-  useEffect(() => setMounted(true), []);
-
-  const isProducts = pathname.startsWith("/docs/products");
+  const isFoundations = pathname.startsWith("/docs/foundations");
   const isComponents =
-    (pathname.startsWith("/docs/components") || pathname === "/docs") &&
-    !isProducts;
+    pathname.startsWith("/docs/components") || pathname === "/docs";
+  const isPatterns = pathname.startsWith("/docs/patterns");
+  const isTemplates = pathname.startsWith("/docs/templates");
   const isUserflow = pathname.startsWith("/docs/userflow");
   const userflowLayout = useUserflowLayoutOptional();
   const sidebarVisible = userflowLayout?.sidebarVisible ?? true;
@@ -75,13 +79,24 @@ export function DocsHeader({
 
         <nav className="flex items-center gap-[var(--space-inline-xs)]">
           <Link
-            href="/docs/components/button"
+            href="/docs/foundations"
+            className={navLinkClassName(isFoundations)}
+          >
+            Foundations
+          </Link>
+          <Link
+            href="/docs/components"
             className={navLinkClassName(isComponents)}
           >
             Components
           </Link>
+          <Link href="/docs/patterns" className={navLinkClassName(isPatterns)}>
+            Patterns
+          </Link>
+          <Link href="/docs/templates" className={navLinkClassName(isTemplates)}>
+            Templates
+          </Link>
           <DocsProductsNavDropdown triggerClassName={navLinkClassName} />
-          <DocsUserflowsNavDropdown triggerClassName={navLinkClassName} />
         </nav>
 
         {showUserflowDeviceTabs ? (

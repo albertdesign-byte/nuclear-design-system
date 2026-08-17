@@ -10,6 +10,7 @@ import {
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/dropdown-menu";
@@ -52,13 +53,14 @@ import {
   dataTableOperationalHeadMenuTriggerClassName,
   dataTableOperationalResizeHandleClassName,
   dataTableResizeHandleClassName,
+  dataTableFilterCellClassName,
 } from "./data-table.styles";
 import type {
   DataTableCellProps,
   DataTableColumnHeadProps,
+  DataTableFilterCellProps,
   DataTableMenuHeadProps,
   DataTableProps,
-  SortDirection,
 } from "./data-table.types";
 
 export type { DataTableVariant, SortDirection } from "./data-table.types";
@@ -180,6 +182,18 @@ export function DataTableHeader({
   return <TableHeader className={className}>{children}</TableHeader>;
 }
 
+export function DataTableFilterRow({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <TableRow className={cn("hover:bg-transparent", className)}>{children}</TableRow>
+  );
+}
+
 export function DataTableBody({
   children,
   className,
@@ -258,33 +272,37 @@ export function DataTableMenuHead({
           />
         }
       >
-        <ChevronDownIcon className="size-3.5" aria-hidden />
+        <ChevronDownIcon
+          className="size-3.5"
+          aria-hidden
+        />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className={dataTableMenuContentClassName}>
-        <DropdownMenuItem
-          onClick={onSortAsc}
-          className={sortDirection === "asc" ? "bg-[var(--color-surface-hover)]" : undefined}
-        >
-          <ArrowUpWideNarrowIcon className="size-4" aria-hidden />
-          Sort Ascending
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={onSortDesc}
-          className={sortDirection === "desc" ? "bg-[var(--color-surface-hover)]" : undefined}
-        >
-          <ArrowDownWideNarrowIcon className="size-4" aria-hidden />
-          Sort Descending
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          variant="destructive"
-          onClick={() => {
-            hideColumn?.(columnId);
-            onHide?.();
-          }}
-        >
-          <XIcon className="size-4" aria-hidden />
-          Hide Column
-        </DropdownMenuItem>
+        <DropdownMenuGroup>
+          <DropdownMenuItem
+            onClick={onSortAsc}
+            className={sortDirection === "asc" ? "bg-[var(--color-surface-hover)]" : undefined}
+          >
+            <ArrowUpWideNarrowIcon className="size-4" aria-hidden />
+            Sort Ascending
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={onSortDesc}
+            className={sortDirection === "desc" ? "bg-[var(--color-surface-hover)]" : undefined}
+          >
+            <ArrowDownWideNarrowIcon className="size-4" aria-hidden />
+            Sort Descending
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => {
+              hideColumn?.(columnId);
+              onHide?.();
+            }}
+          >
+            <XIcon className="size-4" aria-hidden />
+            Hide Column
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -380,6 +398,23 @@ export function DataTableLinkCell({
         <TextLink href={href}>{children}</TextLink>
       </span>
     </TableCell>
+  );
+}
+
+export function DataTableFilterCell({
+  columnId,
+  children,
+  className,
+}: DataTableFilterCellProps) {
+  const hiddenClassName = useHiddenColumnClassName(columnId);
+
+  return (
+    <TableHead
+      className={cn(dataTableFilterCellClassName, hiddenClassName, className)}
+      aria-hidden={hiddenClassName ? true : undefined}
+    >
+      {children}
+    </TableHead>
   );
 }
 

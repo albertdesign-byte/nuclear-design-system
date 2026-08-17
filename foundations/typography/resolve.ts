@@ -15,7 +15,7 @@ export function resolveSemanticTypography(role: SemanticTypographyRole) {
   const token = semanticTypography[role]
   return {
     role,
-    fontFamily: token.fontFamily === "mono" ? fontFamily.mono.value : fontFamily.sans.value,
+    fontFamily: fontFamily[token.fontFamily].value,
     fontSize: fontSize[token.fontSize].value,
     fontSizePx: fontSize[token.fontSize].px,
     fontWeight: fontWeight[token.fontWeight].value,

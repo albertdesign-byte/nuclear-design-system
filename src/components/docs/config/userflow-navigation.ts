@@ -3,7 +3,7 @@ import type { DocsNavCategory } from "./navigation";
 export const nuclearUserflowNavCategories: DocsNavCategory[] = [
   {
     id: "nuclear-user-flows",
-    title: "User Flows",
+    title: "Operational Flows",
     items: [{ title: "Dashboard", href: "/docs/userflow/nuclear/dashboard" }],
   },
 ];
@@ -110,7 +110,7 @@ export type DocsUserflowNavEntry = {
 export const docsUserflowNavEntries: DocsUserflowNavEntry[] = [
   {
     id: "nuclear",
-    title: "Nuclear",
+    title: "MPF Portal",
     description: "Operational workflows for scan coordination and dashboard tooling.",
     href: "/docs/userflow/nuclear",
   },

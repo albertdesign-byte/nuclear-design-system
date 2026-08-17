@@ -14,16 +14,16 @@ import { DocsUserflowPreviewFrame } from "@/components/docs/userflow/docs-userfl
 import { setMammogramLocationBackTarget } from "@/components/docs/userflow/patients/patients-mammogram-location-screen-page";
 import { RadioGroup, RadioGroupItem } from "@/components/radio-group";
 import {
-  PatientsShell,
-  PatientsShellCard,
-  PatientsShellHeader,
-  PatientsShellInputPanel,
-  PatientsShellLocale,
-  PatientsShellMain,
-  PatientsShellMainDesktop,
-  PatientsShellProgress,
-  patientsShellDesktopContentClassName,
-} from "@/components/patients-shell";
+  MultiStepFlowLayout,
+  MultiStepFlowLayoutCard,
+  MultiStepFlowLayoutHeader,
+  MultiStepFlowLayoutInputPanel,
+  MultiStepFlowLayoutLocale,
+  MultiStepFlowLayoutMain,
+  MultiStepFlowLayoutMainDesktop,
+  MultiStepFlowLayoutProgress,
+  multiStepFlowLayoutDesktopContentClassName,
+} from "@/components/multi-step-flow-layout";
 
 type MammogramAnswer = "know-date" | "first" | "dont-remember";
 
@@ -98,21 +98,21 @@ function PatientsMammogramMobileScreen({
   onContinue,
 }: MammogramScreenProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
-      <PatientsShellHeader>
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+      <MultiStepFlowLayoutHeader>
         <MedmoLogoLockup />
-        <PatientsShellLocale />
-      </PatientsShellHeader>
+        <MultiStepFlowLayoutLocale />
+      </MultiStepFlowLayoutHeader>
 
-      <PatientsShellMain className="flex-1 gap-[var(--space-stack-md)]">
-        <PatientsShellCard>
+      <MultiStepFlowLayoutMain className="flex-1 gap-[var(--space-stack-md)]">
+        <MultiStepFlowLayoutCard>
           <MammogramBackButton onClick={onBack} />
           <MammogramIntro />
-        </PatientsShellCard>
+        </MultiStepFlowLayoutCard>
 
-        <PatientsShellInputPanel>
+        <MultiStepFlowLayoutInputPanel>
           <MammogramOptions answer={answer} onAnswerChange={onAnswerChange} />
-        </PatientsShellInputPanel>
+        </MultiStepFlowLayoutInputPanel>
 
         <PatientsFlowContinueButton
                     disabled={!canContinue}
@@ -120,8 +120,8 @@ function PatientsMammogramMobileScreen({
         >
           Continue
         </PatientsFlowContinueButton>
-      </PatientsShellMain>
-    </PatientsShell>
+      </MultiStepFlowLayoutMain>
+    </MultiStepFlowLayout>
   );
 }
 
@@ -133,25 +133,25 @@ function PatientsMammogramDesktopScreen({
   onContinue,
 }: MammogramScreenProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
       <div className="bg-[var(--color-surface)]">
-        <PatientsShellHeader className="pb-[var(--space-stack-sm)]">
+        <MultiStepFlowLayoutHeader className="pb-[var(--space-stack-sm)]">
           <MedmoLogoLockup />
-          <PatientsShellLocale showGlobe />
-        </PatientsShellHeader>
-        <PatientsShellProgress value={0.9} />
+          <MultiStepFlowLayoutLocale showGlobe />
+        </MultiStepFlowLayoutHeader>
+        <MultiStepFlowLayoutProgress value={0.9} />
       </div>
 
-      <PatientsShellMainDesktop className="flex-1">
-        <div className={patientsShellDesktopContentClassName}>
-          <PatientsShellCard>
+      <MultiStepFlowLayoutMainDesktop className="flex-1">
+        <div className={multiStepFlowLayoutDesktopContentClassName}>
+          <MultiStepFlowLayoutCard>
             <MammogramBackButton onClick={onBack} />
             <MammogramIntro />
-          </PatientsShellCard>
+          </MultiStepFlowLayoutCard>
 
-          <PatientsShellInputPanel>
+          <MultiStepFlowLayoutInputPanel>
             <MammogramOptions answer={answer} onAnswerChange={onAnswerChange} />
-          </PatientsShellInputPanel>
+          </MultiStepFlowLayoutInputPanel>
 
           <PatientsFlowContinueButton
                         disabled={!canContinue}
@@ -160,8 +160,8 @@ function PatientsMammogramDesktopScreen({
             Continue
           </PatientsFlowContinueButton>
         </div>
-      </PatientsShellMainDesktop>
-    </PatientsShell>
+      </MultiStepFlowLayoutMainDesktop>
+    </MultiStepFlowLayout>
   );
 }
 

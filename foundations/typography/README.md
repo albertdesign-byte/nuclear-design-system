@@ -27,14 +27,15 @@ font-family-sans       →  text-body                        →  --text-body-fo
 | `label` | Form labels |
 | `caption` | Timestamps, metadata |
 | `overline` | Uppercase category labels |
-| `code` | Monospace data/IDs |
+| `code` | Patient IDs, order numbers (same Poppins stack as UI) |
 
 ## Rules
 
 1. **Components consume ONLY `--text-{role}-*` variables**
 2. **Never use `--font-size-*` or `--font-weight-*` in components**
 3. **Hierarchy via size + weight + space — not color**
-4. **IBM Plex Sans Condensed everywhere except `code` role**
+4. **Poppins on components only** — applied via `componentFontFamilyClassName` on DS component roots
+5. **IBM Plex Sans Condensed everywhere else** — docs, navbar, sidebar, menus, prose
 
 ## Files
 

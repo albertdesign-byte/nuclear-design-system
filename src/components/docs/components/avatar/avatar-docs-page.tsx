@@ -1,8 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-
 import {
   Avatar,
   AvatarBadge,
@@ -23,7 +20,6 @@ import {
 } from "@/components/docs/components/avatar/avatar-code-snippets";
 import { AvatarRealScreenPreview } from "@/components/docs/components/avatar/avatar-real-screen-preview";
 import { avatarTocItems } from "@/components/docs/config/navigation";
-import { Button } from "@/components/button";
 import { DocsApiTable } from "@/components/docs/primitives/docs-api-table";
 import type { CodeLine } from "@/components/docs/primitives/docs-preview";
 import { DocsPreview } from "@/components/docs/primitives/docs-preview";
@@ -54,28 +50,6 @@ export function AvatarDocsPage() {
         preview: <AvatarRealScreenPreview />,
         code: avatarRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/badge" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Badge
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/card" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Card
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">

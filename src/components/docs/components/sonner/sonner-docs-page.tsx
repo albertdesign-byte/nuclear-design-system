@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/button";
+
 import {
   sonnerInstallationUiSnippet,
   sonnerLoadingSnippet,
@@ -46,28 +45,6 @@ export function SonnerDocsPage() {
         preview: <SonnerRealScreenPreview />,
         code: sonnerRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/spinner" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Spinner
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/label" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Label
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">
@@ -100,9 +77,9 @@ export function SonnerDocsPage() {
             <DocsPreview code={sonnerSuccessSnippet}>
               <Button
                 onClick={() =>
-                  toast.success("Registro guardado", {
+                  toast.success("Record saved", {
                     description:
-                      "Los cambios del paciente se sincronizaron correctamente.",
+                      "Patient changes synced successfully.",
                   })
                 }
               >
@@ -115,9 +92,9 @@ export function SonnerDocsPage() {
             <DocsPreview code={sonnerLoadingSnippet}>
               <Button
                 onClick={() => {
-                  const toastId = toast.loading("Guardando registro…");
+                  const toastId = toast.loading("Saving record…");
                   window.setTimeout(() => {
-                    toast.success("Registro guardado", { id: toastId });
+                    toast.success("Record saved", { id: toastId });
                   }, 1200);
                 }}
               >

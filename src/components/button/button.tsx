@@ -55,7 +55,11 @@ function Button({
     >
       {loading ? (
         <>
-          <Spinner className={cn(buttonSpinnerClassName(size))} aria-hidden />
+          <Spinner
+            data-icon="inline-start"
+            className={cn(buttonSpinnerClassName(size))}
+            aria-hidden
+          />
           <span className="sr-only">{loadingLabel}</span>
         </>
       ) : null}

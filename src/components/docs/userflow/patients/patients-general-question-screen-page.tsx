@@ -13,17 +13,17 @@ import { DocsUserflowPage } from "@/components/docs/userflow/docs-userflow-page"
 import { DocsUserflowPreviewFrame } from "@/components/docs/userflow/docs-userflow-preview-frame";
 import { Label } from "@/components/label";
 import {
-  PatientsShell,
-  PatientsShellCard,
-  PatientsShellHeader,
-  PatientsShellInputPanel,
-  PatientsShellLocale,
-  PatientsShellMain,
-  PatientsShellMainDesktop,
-  PatientsShellProgress,
-  patientsFieldGroupClassName,
-  patientsShellDesktopContentClassName,
-} from "@/components/patients-shell";
+  MultiStepFlowLayout,
+  MultiStepFlowLayoutCard,
+  MultiStepFlowLayoutHeader,
+  MultiStepFlowLayoutInputPanel,
+  MultiStepFlowLayoutLocale,
+  MultiStepFlowLayoutMain,
+  MultiStepFlowLayoutMainDesktop,
+  MultiStepFlowLayoutProgress,
+  multiStepFlowFieldGroupClassName,
+  multiStepFlowLayoutDesktopContentClassName,
+} from "@/components/multi-step-flow-layout";
 import { Textarea } from "@/components/textarea";
 import { cn } from "@/lib/utils";
 
@@ -59,7 +59,7 @@ type GeneralQuestionAnswerFieldProps = {
 
 function GeneralQuestionAnswerField({ answer, onAnswerChange }: GeneralQuestionAnswerFieldProps) {
   return (
-    <div className={cn(patientsFieldGroupClassName)}>
+    <div className={cn(multiStepFlowFieldGroupClassName)}>
       <Label htmlFor="patients-general-question-answer">Your answer</Label>
       <Textarea
         id="patients-general-question-answer"
@@ -89,21 +89,21 @@ function PatientsGeneralQuestionMobileScreen({
   onContinue,
 }: GeneralQuestionScreenProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
-      <PatientsShellHeader>
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+      <MultiStepFlowLayoutHeader>
         <MedmoLogoLockup />
-        <PatientsShellLocale />
-      </PatientsShellHeader>
+        <MultiStepFlowLayoutLocale />
+      </MultiStepFlowLayoutHeader>
 
-      <PatientsShellMain className="flex-1 gap-[var(--space-stack-md)]">
-        <PatientsShellCard>
+      <MultiStepFlowLayoutMain className="flex-1 gap-[var(--space-stack-md)]">
+        <MultiStepFlowLayoutCard>
           <GeneralQuestionBackButton onClick={onBack} />
           <GeneralQuestionPrompt question={question} />
-        </PatientsShellCard>
+        </MultiStepFlowLayoutCard>
 
-        <PatientsShellInputPanel>
+        <MultiStepFlowLayoutInputPanel>
           <GeneralQuestionAnswerField answer={answer} onAnswerChange={onAnswerChange} />
-        </PatientsShellInputPanel>
+        </MultiStepFlowLayoutInputPanel>
 
         <PatientsFlowContinueButton
                     disabled={!canContinue}
@@ -111,8 +111,8 @@ function PatientsGeneralQuestionMobileScreen({
         >
           Continue
         </PatientsFlowContinueButton>
-      </PatientsShellMain>
-    </PatientsShell>
+      </MultiStepFlowLayoutMain>
+    </MultiStepFlowLayout>
   );
 }
 
@@ -125,25 +125,25 @@ function PatientsGeneralQuestionDesktopScreen({
   onContinue,
 }: GeneralQuestionScreenProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
       <div className="bg-[var(--color-surface)]">
-        <PatientsShellHeader className="pb-[var(--space-stack-sm)]">
+        <MultiStepFlowLayoutHeader className="pb-[var(--space-stack-sm)]">
           <MedmoLogoLockup />
-          <PatientsShellLocale showGlobe />
-        </PatientsShellHeader>
-        <PatientsShellProgress value={0.99} />
+          <MultiStepFlowLayoutLocale showGlobe />
+        </MultiStepFlowLayoutHeader>
+        <MultiStepFlowLayoutProgress value={0.99} />
       </div>
 
-      <PatientsShellMainDesktop className="flex-1">
-        <div className={patientsShellDesktopContentClassName}>
-          <PatientsShellCard>
+      <MultiStepFlowLayoutMainDesktop className="flex-1">
+        <div className={multiStepFlowLayoutDesktopContentClassName}>
+          <MultiStepFlowLayoutCard>
             <GeneralQuestionBackButton onClick={onBack} />
             <GeneralQuestionPrompt question={question} />
-          </PatientsShellCard>
+          </MultiStepFlowLayoutCard>
 
-          <PatientsShellInputPanel>
+          <MultiStepFlowLayoutInputPanel>
             <GeneralQuestionAnswerField answer={answer} onAnswerChange={onAnswerChange} />
-          </PatientsShellInputPanel>
+          </MultiStepFlowLayoutInputPanel>
 
           <PatientsFlowContinueButton
                         disabled={!canContinue}
@@ -152,8 +152,8 @@ function PatientsGeneralQuestionDesktopScreen({
             Continue
           </PatientsFlowContinueButton>
         </div>
-      </PatientsShellMainDesktop>
-    </PatientsShell>
+      </MultiStepFlowLayoutMainDesktop>
+    </MultiStepFlowLayout>
   );
 }
 

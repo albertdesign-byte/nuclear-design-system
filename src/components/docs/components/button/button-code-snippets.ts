@@ -11,7 +11,7 @@ const buttonBaseCss = `.medmo-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-inline-sm);
+  gap: var(--space-button-icon-gap);
   border: 1px solid transparent;
   border-radius: var(--radius-full);
   font-size: var(--text-label-size);
@@ -39,7 +39,7 @@ const buttonBaseCss = `.medmo-button {
 const buttonSizeMdCss = `.medmo-button--md {
   height: var(--spacing-32);
   min-height: var(--spacing-32);
-  padding-inline: var(--space-inline-sm);
+  padding-inline: var(--space-button-padding-md);
   border-radius: var(--radius-full);
 }`;
 
@@ -116,19 +116,19 @@ ${buttonSizeMdCss}
   background: var(--color-surface-active);
 }`;
 
-const buttonDangerOutlineCss = `${buttonBaseCss}
+const buttonDangerCss = `${buttonBaseCss}
 
 ${buttonSizeMdCss}
 
-.medmo-button--danger-outline {
+.medmo-button--danger {
   border-color: var(--color-error-border);
-  background: var(--color-background);
+  background: var(--color-error-background);
   color: var(--color-error-text);
 }
 
-.medmo-button--danger-outline:hover {
-  background: var(--color-error-background);
+.medmo-button--danger:hover {
   border-color: var(--color-error-foreground);
+  color: var(--color-error-foreground);
 }`;
 
 function buttonExample(config: {
@@ -167,16 +167,16 @@ export function Example() {
   return (
     <div role="dialog" aria-modal="true" className="rounded-lg border border-border bg-card shadow-lg">
       <div className="p-4">
-        <h3 className="text-lg font-semibold">Guardar cambios</h3>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Los datos de contacto se actualizarán en el registro clínico de Elena Morales.
+        <h3 className="text-lg font-semibold">Save changes</h3>
+        <p className="mt-[var(--space-stack-sm)] text-sm text-muted-foreground">
+          Contact details will be updated in Elena Morales's clinical record.
         </p>
       </div>
-      <div className="flex justify-end gap-2 border-t border-border bg-muted/30 p-4">
+      <div className="flex justify-end gap-[var(--space-inline-sm)] border-t border-border bg-muted/30 p-[var(--space-card)]">
         <Button variant="outline" size="sm">
-          Cancelar
+          Cancel
         </Button>
-        <Button size="sm">Guardar cambios</Button>
+        <Button size="sm">Save changes</Button>
       </div>
     </div>
   );
@@ -195,7 +195,7 @@ export const buttonUsageSnippet = buttonExample({
 export const buttonSizeSnippet = buttonExample({
   reactHighlight: "example",
   exampleOptions: { imports: [buttonImport] },
-  react: `<div className="flex items-end gap-2">
+  react: `<div className="flex items-end gap-[var(--space-inline-sm)]">
   <Button size="sm">Small</Button>
   <Button size="md">Medium</Button>
   <Button size="lg">Large</Button>
@@ -220,28 +220,28 @@ export const buttonSizeSnippet = buttonExample({
 .medmo-button--sm {
   height: var(--spacing-28);
   min-height: var(--spacing-28);
-  padding-inline: var(--space-inline-sm);
+  padding-inline: var(--space-button-padding-sm);
   border-radius: var(--radius-full);
 }
 
 .medmo-button--lg {
   height: var(--spacing-36);
   min-height: var(--spacing-36);
-  padding-inline: var(--space-inline-md);
+  padding-inline: var(--space-button-padding-lg);
   border-radius: var(--radius-full);
 }
 
 .medmo-button--xl {
   height: var(--spacing-48);
   min-height: var(--spacing-48);
-  padding-inline: var(--space-inline-md);
+  padding-inline: var(--space-button-padding-xl);
   border-radius: var(--radius-full);
 }
 
 .medmo-button--xxl {
   height: var(--spacing-56);
   min-height: var(--spacing-56);
-  padding-inline: var(--space-inline-lg);
+  padding-inline: var(--space-button-padding-xxl);
   border-radius: var(--radius-full);
 }`,
 });
@@ -289,11 +289,11 @@ export const buttonGhostSnippet = buttonExample({
 export const buttonDangerSnippet = buttonExample({
   reactHighlight: "example",
   exampleOptions: { imports: [buttonImport] },
-  react: '<Button intent="danger" variant="outline">Delete</Button>',
-  html: `<button type="button" class="medmo-button medmo-button--md medmo-button--danger-outline">
-  Delete
+  react: '<Button intent="danger">Delete study</Button>',
+  html: `<button type="button" class="medmo-button medmo-button--md medmo-button--danger">
+  Delete study
 </button>`,
-  css: buttonDangerOutlineCss,
+  css: buttonDangerCss,
 });
 
 export const buttonIconSnippet = tsxSnippet(`${buttonImport}
@@ -313,7 +313,7 @@ import { PlusIcon } from "lucide-react";
 export function Example() {
   return (
     <Button>
-      <PlusIcon />
+      <PlusIcon data-icon="inline-start" />
       New patient
     </Button>
   );
@@ -330,15 +330,82 @@ export const buttonFullWidthSnippet = exampleSnippet(
 );
 
 export const buttonGroupSnippet = exampleSnippet(
-  `<div className="flex flex-wrap gap-2">
+  `<div
+  role="group"
+  aria-label="Save patient actions"
+  className="flex flex-wrap justify-end gap-[var(--space-inline-sm)]"
+>
   <Button variant="outline">Cancel</Button>
-  <Button>Save changes</Button>
+  <Button>Save patient</Button>
 </div>`
 );
 
+export const buttonPaddingReviewSnippet = exampleSnippet(
+  `// Adopted horizontal padding by size:
+// sm 12px · md 12px · lg 16px · xl 20px · xxl 24px
+<Button size="sm">Save patient</Button>
+<Button size="md">Save patient</Button>
+<Button size="lg">Save patient</Button>
+<Button size="xl">Save patient</Button>
+<Button size="xxl">Save patient</Button>`
+);
+
+export const buttonDangerStatesSnippet = exampleSnippet(
+  `<Button intent="danger">Delete patient</Button>
+<Button intent="danger">Delete study</Button>
+<Button intent="danger">Remove user</Button>
+<Button intent="danger">Archive record</Button>
+<Button intent="danger" disabled>Delete study</Button>
+<Button intent="danger" loading loadingLabel="Deleting study">
+  Delete study
+</Button>`
+);
+
+export const buttonIconPatternsSnippet = tsxSnippet(`${buttonImport}
+import { ArrowRightIcon, SaveIcon, UploadIcon } from "lucide-react";
+
+export function Example() {
+  return (
+    <>
+      <Button>
+        <SaveIcon data-icon="inline-start" />
+        Save patient
+      </Button>
+      <Button variant="outline">
+        View report
+        <ArrowRightIcon data-icon="inline-end" />
+      </Button>
+      <Button size="icon-xl" variant="outline" aria-label="Upload study">
+        <UploadIcon />
+      </Button>
+    </>
+  );
+}`);
+
+export const buttonStatesSnippet = exampleSnippet(
+  `<Button>Save patient</Button>
+<Button disabled>Save patient</Button>
+<Button loading loadingLabel="Saving patient">
+  Save patient
+</Button>`
+);
+
+export const buttonHealthcareSnippet = exampleSnippet(
+  `<Button>Save patient</Button>
+<Button variant="secondary">Upload study</Button>
+<Button variant="ghost">View report</Button>
+<Button intent="danger">Delete study</Button>
+<Button variant="outline" intent="danger">Archive record</Button>`
+);
+
 export const buttonAsLinkSnippet = tsxSnippet(`${buttonImport}
+import { buttonVariants } from "@/components/button";
 import Link from "next/link";
 
 export function Example() {
-  return <Button render={<Link href="/" />}>Home</Button>;
+  return (
+    <Link href="/" className={buttonVariants({ variant: "primary", size: "md" })}>
+      Home
+    </Link>
+  );
 }`);

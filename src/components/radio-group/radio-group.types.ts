@@ -11,7 +11,7 @@ export interface RadioGroupProps extends RadioGroupPrimitive.Props {}
 export interface RadioGroupItemProps
   extends Omit<RadioPrimitive.Root.Props, "disabled">,
     VariantProps<typeof radioGroupItemVariants> {
-  /** Control scale aligned with iconography tokens. @default "md" */
+  /** Control scale aligned with iconography tokens. @default "lg" */
   size?: RadioGroupItemSize;
   disabled?: boolean;
 }

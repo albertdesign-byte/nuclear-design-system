@@ -1,0 +1,21 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+import { ColorsGallery } from "./colors-gallery";
+
+{/* token-contract: family=colors */}
+
+<Meta title="Foundations/Colors" />
+
+# Colors
+
+Color creates hierarchy. It is not decoration. Most of the Medmo interface stays on the neutral scale; chromatic color appears when it encodes an action, a selection, or a status.
+
+## Overview
+
+Semantic tokens (`--color-*`) are the public API. Primitive palettes (primary, neutral, success, warning, error, info, plus base white and black) exist so documentation can show the source of each role. Light and dark themes keep the same token names and remap the primitive behind them.
+
+Depth comes from the surface stack — background, surface, raised, floating, overlay — not from heavy shadows. Focus uses `--color-focus-ring` with `--focus-ring-width` and `--focus-ring-offset` for every interactive control.
+
+Components consume CSS variables only. Do not paste primitive hex values into product styles.
+
+<ColorsGallery />

@@ -19,9 +19,9 @@ export function Example() {
 export const scrollAreaRealScreenSnippet = tsxSnippet(`${scrollAreaImport}
 
 const medications = [
-  "Metformina 850 mg — cada 12 h",
-  "Losartán 50 mg — cada 24 h",
-  "Atorvastatina 20 mg — cada 24 h",
+  "Metformin 850 mg — every 12 h",
+  "Losartan 50 mg — every 24 h",
+  "Atorvastatin 20 mg — every 24 h",
 ];
 
 export function Example() {

@@ -1,14 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/button";
+
 import {
   DataTable,
   DataTableBody,
   DataTableCell,
+  DataTableFilterCell,
+  DataTableFilterRow,
   DataTableHead,
   DataTableHeader,
   DataTableLinkCell,
@@ -16,7 +19,9 @@ import {
   DataTableRow,
   DataTableRowCountFooter,
 } from "@/components/data-table";
+import { Input } from "@/components/input";
 import {
+  dataTableFilterRowSnippet,
   dataTableInstallationUiSnippet,
   dataTableLinkCellSnippet,
   dataTableMenuHeadSnippet,
@@ -59,34 +64,12 @@ export function DataTableDocsPage() {
   return (
     <DocsComponentPage
       title="Data Table"
-      description="Composed table for operational dashboards — resizable columns, plain or menu headers, link cells, and row count footer."
+      description="Composed table for operational dashboards — resizable columns, plain or menu headers, a column filter row, link cells, and row count footer."
       tocItems={dataTableTocItems}
       realScreen={{
         preview: <DataTableRealScreenPreview />,
         code: dataTableRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/app-shell" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            App Shell
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/dashboard-panel" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Dashboard Panel
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">
@@ -257,6 +240,48 @@ export function DataTableDocsPage() {
             </DocsPreview>
           </DocsSection>
 
+          <DocsSection
+            id="filter-row"
+            title="Filter Row"
+            description={
+              <>
+                Use <DocsInlineCode>DataTableFilterRow</DocsInlineCode> under the
+                header labels.{" "}
+                <DocsInlineCode>DataTableFilterCell</DocsInlineCode> binds to the
+                same <DocsInlineCode>columnId</DocsInlineCode> so hide stays
+                aligned, and it does not register a second column. Put Input or
+                Select in the cell — this is not a FilterBar primitive.
+              </>
+            }
+          >
+            <DocsPreview code={dataTableFilterRowSnippet}>
+              <DataTable>
+                <DataTableHeader>
+                  <DataTableRow>
+                    <DataTableHead columnId="srid">SRID</DataTableHead>
+                    <DataTableHead columnId="patient">Patient</DataTableHead>
+                  </DataTableRow>
+                  <DataTableFilterRow>
+                    <DataTableFilterCell columnId="srid">
+                      <Input size="sm" aria-label="Filter SRID" />
+                    </DataTableFilterCell>
+                    <DataTableFilterCell columnId="patient">
+                      <Input size="sm" aria-label="Filter Patient" />
+                    </DataTableFilterCell>
+                  </DataTableFilterRow>
+                </DataTableHeader>
+                <DataTableBody>
+                  <DataTableRow>
+                    <DataTableLinkCell columnId="srid" href="#">
+                      SRID-1001
+                    </DataTableLinkCell>
+                    <DataTableCell columnId="patient">Elena Morales</DataTableCell>
+                  </DataTableRow>
+                </DataTableBody>
+              </DataTable>
+            </DocsPreview>
+          </DocsSection>
+
           <DocsSection id="row-count-footer" title="Row Count Footer">
             <DocsPreview code={dataTableRowCountFooterSnippet}>
               <DataTable>
@@ -295,6 +320,16 @@ export function DataTableDocsPage() {
               DataTableMenuHead
             </h3>
             <DocsApiTable rows={dataTableMenuHeadApiRows} />
+            <h3 className="mb-[var(--space-stack-sm)] mt-[var(--space-stack-md)] text-[length:var(--text-title-size)] font-medium leading-[var(--text-title-line-height)]">
+              DataTableFilterCell
+            </h3>
+            <DocsApiTable
+              rows={[
+                { prop: "columnId", type: "string", defaultValue: "—" },
+                { prop: "children", type: "ReactNode", defaultValue: "—" },
+                { prop: "className", type: "string", defaultValue: "—" },
+              ]}
+            />
           </DocsSection>
         </>
       }

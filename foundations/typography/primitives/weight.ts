@@ -1,5 +1,5 @@
 /**
- * Font weight primitives — IBM Plex Sans Condensed available weights.
+ * Font weight primitives — Poppins available weights.
  *
  * Why weight-based hierarchy: Medmo builds typographic hierarchy through
  * weight + size + spacing, NOT color. Weight is the primary differentiator

@@ -4,6 +4,9 @@ export {
   SelectGroup,
   SelectItem,
   SelectLabel,
+  SelectField,
+  SearchableSelectField,
+  MultiSelectField,
   SelectScrollDownButton,
   SelectScrollUpButton,
   SelectSeparator,
@@ -11,4 +14,12 @@ export {
   SelectValue,
   selectTriggerVariants,
 } from "@/components/select";
-export type { SelectTriggerProps, SelectTriggerSize } from "@/components/select";
+export type {
+  MultiSelectFieldProps,
+  SearchableSelectFieldProps,
+  SearchableSelectOption,
+  SelectFieldOption,
+  SelectFieldProps,
+  SelectTriggerProps,
+  SelectTriggerSize,
+} from "@/components/select";

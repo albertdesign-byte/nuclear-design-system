@@ -1,6 +1,11 @@
-import { iconSizeScale, iconDefaultSizePx, iconBaseGridPx } from "./scale"
-import { iconStroke } from "./stroke"
-import { iconContextMappings, iconSizeSemantics } from "./semantics"
+import { iconBaseGridPx, iconSizeScale } from "./scale"
+import {
+  iconContextMappings,
+  iconDefaultSizePx,
+  iconDefaultSizeRole,
+  iconSizeSemantics,
+  iconStroke,
+} from "./semantics"
 import type { IconContextRole, IconSizePrimitivePx, IconSizeRole } from "./types"
 
 export function resolvePrimitiveIconSize(px: IconSizePrimitivePx) {
@@ -35,11 +40,11 @@ export function resolveIconDefault() {
   return {
     px: iconDefaultSizePx,
     cssVar: "--icon-size",
-    role: "md" as IconSizeRole,
+    role: iconDefaultSizeRole,
     baseGridPx: iconBaseGridPx,
   }
 }
 
 export function resolveAllIconSizes() {
-  return (["sm", "md", "lg", "xl"] as const).map(resolveIconSize)
+  return (Object.keys(iconSizeSemantics) as IconSizeRole[]).map(resolveIconSize)
 }

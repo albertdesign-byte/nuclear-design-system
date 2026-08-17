@@ -4,7 +4,7 @@ import { ChevronLeftIcon, InfoIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/alert";
+import { Alert, AlertDescription, AlertIcon, AlertTitle } from "@/components/alert";
 import { AppFooter } from "@/components/app-footer";
 import { MedmoLogoLockup } from "@/components/brand/medmo-logo";
 import { Button } from "@/components/button";
@@ -16,14 +16,14 @@ import { DocsUserflowPage } from "@/components/docs/userflow/docs-userflow-page"
 import { DocsUserflowPreviewFrame } from "@/components/docs/userflow/docs-userflow-preview-frame";
 import { PaymentForm } from "@/components/payment-form";
 import {
-  PatientsShell,
-  PatientsShellHeader,
-  PatientsShellLocale,
-  PatientsShellMain,
-  PatientsShellMainDesktop,
-  PatientsShellProgress,
-  patientsShellDesktopContentClassName,
-} from "@/components/patients-shell";
+  MultiStepFlowLayout,
+  MultiStepFlowLayoutHeader,
+  MultiStepFlowLayoutLocale,
+  MultiStepFlowLayoutMain,
+  MultiStepFlowLayoutMainDesktop,
+  MultiStepFlowLayoutProgress,
+  multiStepFlowLayoutDesktopContentClassName,
+} from "@/components/multi-step-flow-layout";
 
 const depositSummaryItems: DepositSummaryItem[] = [
   {
@@ -76,8 +76,8 @@ function DepositIntro({ onBack }: DepositIntroProps) {
           is paid at the imaging center when you arrive.
         </p>
       </div>
-      <Alert variant="success">
-        <InfoIcon />
+      <Alert variant="info">
+        <AlertIcon><InfoIcon /></AlertIcon>
         <AlertTitle>Cancelation policy.</AlertTitle>
         <AlertDescription>
           Cancel at least 24 hours before your appointment for a full refund.
@@ -144,13 +144,13 @@ function PatientsDepositMobileScreen({
   onContinue,
 }: DepositFormProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
-      <PatientsShellHeader>
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+      <MultiStepFlowLayoutHeader>
         <MedmoLogoLockup />
-        <PatientsShellLocale />
-      </PatientsShellHeader>
+        <MultiStepFlowLayoutLocale />
+      </MultiStepFlowLayoutHeader>
 
-      <PatientsShellMain className="flex-1 gap-[var(--space-stack-md)]">
+      <MultiStepFlowLayoutMain className="flex-1 gap-[var(--space-stack-md)]">
         <DepositFormSections
           onBack={onBack}
           nameOnCard={nameOnCard}
@@ -168,8 +168,8 @@ function PatientsDepositMobileScreen({
         >
           Continue
         </PatientsFlowContinueButton>
-      </PatientsShellMain>
-    </PatientsShell>
+      </MultiStepFlowLayoutMain>
+    </MultiStepFlowLayout>
   );
 }
 
@@ -187,17 +187,17 @@ function PatientsDepositDesktopScreen({
   onContinue,
 }: DepositFormProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
       <div className="bg-[var(--color-surface)]">
-        <PatientsShellHeader className="pb-[var(--space-stack-sm)]">
+        <MultiStepFlowLayoutHeader className="pb-[var(--space-stack-sm)]">
           <MedmoLogoLockup />
-          <PatientsShellLocale showGlobe />
-        </PatientsShellHeader>
-        <PatientsShellProgress value={0.66} />
+          <MultiStepFlowLayoutLocale showGlobe />
+        </MultiStepFlowLayoutHeader>
+        <MultiStepFlowLayoutProgress value={0.66} />
       </div>
 
-      <PatientsShellMainDesktop className="flex-1">
-        <div className={patientsShellDesktopContentClassName}>
+      <MultiStepFlowLayoutMainDesktop className="flex-1">
+        <div className={multiStepFlowLayoutDesktopContentClassName}>
           <DepositFormSections
             onBack={onBack}
             nameOnCard={nameOnCard}
@@ -216,8 +216,8 @@ function PatientsDepositDesktopScreen({
             Continue
           </PatientsFlowContinueButton>
         </div>
-      </PatientsShellMainDesktop>
-    </PatientsShell>
+      </MultiStepFlowLayoutMainDesktop>
+    </MultiStepFlowLayout>
   );
 }
 

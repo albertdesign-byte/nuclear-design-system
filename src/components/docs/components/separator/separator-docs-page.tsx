@@ -1,9 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-
-import { Button } from "@/components/button";
 import { Separator } from "@/components/separator";
 import {
   separatorInstallationUiSnippet,
@@ -43,28 +39,6 @@ export function SeparatorDocsPage() {
         preview: <SeparatorRealScreenPreview />,
         code: separatorRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/scroll-area" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Scroll Area
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/skeleton" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Skeleton
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">

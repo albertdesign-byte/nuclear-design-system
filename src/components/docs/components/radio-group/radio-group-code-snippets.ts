@@ -1,146 +1,221 @@
 import { exampleSnippet, tsxSnippet } from "@/components/docs/primitives/docs-code-snippet";
 
-const radioGroupImports = `import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/components/radio-group";`;
+const radioImport =
+  'import { RadioField, RadioGroup, RadioGroupField } from "@/components/radio-group";';
 
-const baseRadioGroupJsx = `<RadioGroup defaultValue="in-person">
-  <label className="flex items-center gap-2 text-sm">
-    <RadioGroupItem value="in-person" />
-    Presencial
-  </label>
-  <label className="flex items-center gap-2 text-sm">
-    <RadioGroupItem value="telemedicine" />
-    Telemedicina
-  </label>
-</RadioGroup>`;
+const visitOptionsSnippet = `options={[
+    { value: "in-person", label: "In-person" },
+    { value: "telemedicine", label: "Telemedicine" },
+    { value: "home", label: "Home visit" },
+  ]}`;
 
-export const radioGroupInstallationUiSnippet = tsxSnippet(`${radioGroupImports}
+export const radioGroupInstallationUiSnippet = tsxSnippet(`${radioImport}
 
 export function Example() {
   return (
-    <>
-      ${baseRadioGroupJsx}
-      <RadioGroup defaultValue="morning">
-        <label className="flex items-center gap-2 text-sm">
-          <RadioGroupItem value="morning" />
-          Mañana
-        </label>
-        <label className="flex items-center gap-2 text-sm">
-          <RadioGroupItem value="afternoon" />
-          Tarde
-        </label>
-      </RadioGroup>
-    </>
+    <RadioGroupField
+      id="visit-type"
+      legend="Visit type"
+      defaultValue="in-person"
+      ${visitOptionsSnippet}
+    />
   );
 }`);
 
-export const radioGroupRealScreenSnippet = tsxSnippet(`${radioGroupImports}
+export const radioGroupRealScreenSnippet = tsxSnippet(`${radioImport}
 
 export function Example() {
   return (
     <div className="w-full max-w-sm rounded-lg border border-border bg-card p-4 shadow-sm">
-      <h3 className="text-lg font-semibold">Tipo de consulta</h3>
-      <p className="mt-2 text-sm text-muted-foreground">
-        Selecciona cómo se realizará la cita de seguimiento.
-      </p>
-      <RadioGroup defaultValue="telemedicine" className="mt-4">
-        <label className="flex items-center gap-2 text-sm">
-          <RadioGroupItem value="in-person" id="visit-in-person" />
-          <span>Presencial en clínica</span>
-        </label>
-        <label className="flex items-center gap-2 text-sm">
-          <RadioGroupItem value="telemedicine" id="visit-telemedicine" />
-          <span>Telemedicina</span>
-        </label>
-        <label className="flex items-center gap-2 text-sm">
-          <RadioGroupItem value="home" id="visit-home" />
-          <span>Visita domiciliaria</span>
-        </label>
-      </RadioGroup>
+      <RadioGroupField
+        id="visit-type"
+        legend="Visit type"
+        description="Select how the follow-up appointment will take place."
+        defaultValue="telemedicine"
+        options={[
+          { value: "in-person", label: "In-person at clinic" },
+          { value: "telemedicine", label: "Telemedicine" },
+          { value: "home", label: "Home visit" },
+        ]}
+      />
     </div>
   );
 }`);
 
-export const radioGroupUsageSnippet = exampleSnippet(baseRadioGroupJsx, {
-  imports: [radioGroupImports],
-});
+export const radioGroupUsageSnippet = exampleSnippet(
+  `<RadioGroupField
+  id="visit-type"
+  legend="Visit type"
+  defaultValue="in-person"
+  ${visitOptionsSnippet}
+/>`,
+  { imports: [radioImport] }
+);
 
-export const radioGroupSizeSnippet = exampleSnippet(
-  `<RadioGroup defaultValue="md" className="flex items-center gap-3">
-  <RadioGroupItem value="sm" size="sm" aria-label="Small" />
-  <RadioGroupItem value="md" size="md" aria-label="Medium" />
-  <RadioGroupItem value="lg" size="lg" aria-label="Large" />
-</RadioGroup>`,
-  { imports: [radioGroupImports] }
+export const radioGroupDefaultSnippet = radioGroupUsageSnippet;
+
+export const radioGroupSelectedSnippet = exampleSnippet(
+  `<RadioGroupField
+  id="visit-type"
+  legend="Visit type"
+  defaultValue="telemedicine"
+  ${visitOptionsSnippet}
+/>`,
+  { imports: [radioImport] }
 );
 
 export const radioGroupDisabledSnippet = exampleSnippet(
-  `<RadioGroup defaultValue="active" disabled>
-  <label className="flex items-center gap-2 text-sm">
-    <RadioGroupItem value="active" />
-    Activo
-  </label>
-  <label className="flex items-center gap-2 text-sm">
-    <RadioGroupItem value="inactive" />
-    Inactivo
-  </label>
-</RadioGroup>`,
-  { imports: [radioGroupImports] }
+  `<RadioGroupField
+  id="visit-type"
+  legend="Visit type"
+  defaultValue="in-person"
+  disabled
+  ${visitOptionsSnippet}
+/>`,
+  { imports: [radioImport] }
 );
 
-export const radioGroupInvalidSnippet = exampleSnippet(
-  `<RadioGroup defaultValue="option-a" aria-invalid>
-  <label className="flex items-center gap-2 text-sm">
-    <RadioGroupItem value="option-a" />
-    Opción A
-  </label>
-  <label className="flex items-center gap-2 text-sm">
-    <RadioGroupItem value="option-b" />
-    Opción B
-  </label>
-</RadioGroup>`,
-  { imports: [radioGroupImports] }
+export const radioGroupSelectedDisabledSnippet = exampleSnippet(
+  `<RadioGroupField
+  id="visit-type"
+  legend="Visit type"
+  defaultValue="telemedicine"
+  disabled
+  ${visitOptionsSnippet}
+/>`,
+  { imports: [radioImport] }
 );
 
-export const radioGroupWithLabelSnippet = tsxSnippet(`${radioGroupImports}
+export const radioGroupErrorSnippet = exampleSnippet(
+  `<RadioGroupField
+  id="visit-type"
+  legend="Visit type"
+  ${visitOptionsSnippet}
+  error="Select a visit type to continue."
+/>`,
+  { imports: [radioImport] }
+);
 
-export function Example() {
-  return (
-    <fieldset className="grid gap-2">
-      <legend className="text-sm font-medium">Canal de contacto preferido</legend>
-      <RadioGroup defaultValue="phone">
-        <label className="flex items-center gap-2 text-sm">
-          <RadioGroupItem value="phone" id="contact-phone" />
-          <span>Teléfono</span>
-        </label>
-        <label className="flex items-center gap-2 text-sm">
-          <RadioGroupItem value="email" id="contact-email" />
-          <span>Email</span>
-        </label>
-      </RadioGroup>
-    </fieldset>
-  );
-}`);
+export const radioGroupWithLabelSnippet = exampleSnippet(
+  `<RadioGroupField
+  id="visit-type"
+  legend="Visit type"
+  defaultValue="in-person"
+  options={[
+    { value: "in-person", label: "In-person" },
+    { value: "telemedicine", label: "Telemedicine" },
+  ]}
+/>`,
+  { imports: [radioImport] }
+);
+
+export const radioGroupWithDescriptionSnippet = exampleSnippet(
+  `<RadioGroupField
+  id="visit-type"
+  legend="Visit type"
+  description="Choose how the patient prefers to be seen for this appointment."
+  defaultValue="in-person"
+  options={[
+    { value: "in-person", label: "In-person" },
+    { value: "telemedicine", label: "Telemedicine" },
+  ]}
+/>`,
+  { imports: [radioImport] }
+);
+
+export const radioGroupWithLongLabelSnippet = exampleSnippet(
+  `<RadioGroup defaultValue="authorize">
+  <RadioField
+    value="authorize"
+    label="I authorize Medmo to share my diagnostic imaging results, clinical notes, and referral details with my designated care team members for continuity of care."
+  />
+</RadioGroup>`,
+  { imports: [radioImport] }
+);
+
+export const radioGroupSimpleSelectionSnippet = exampleSnippet(
+  `<RadioGroupField
+  id="contact-channel"
+  legend="Preferred contact channel"
+  defaultValue="email"
+  options={[
+    { value: "email", label: "Email" },
+    { value: "phone", label: "Phone call" },
+    { value: "sms", label: "SMS text message" },
+  ]}
+/>`,
+  { imports: [radioImport] }
+);
+
+export const radioGroupSettingsSelectionSnippet = exampleSnippet(
+  `<RadioGroupField
+  id="appointment-window"
+  legend="Appointment window"
+  defaultValue="morning"
+  options={[
+    {
+      value: "morning",
+      label: "Morning (8 AM – 12 PM)",
+      description: "Best for patients who prefer early visits before work.",
+    },
+    {
+      value: "afternoon",
+      label: "Afternoon (12 PM – 5 PM)",
+      description: "Standard clinic hours with the widest availability.",
+    },
+  ]}
+/>`,
+  { imports: [radioImport] }
+);
+
+export const radioGroupPreferencesSelectionSnippet = exampleSnippet(
+  `<RadioGroupField
+  id="reminder-frequency"
+  legend="Reminder frequency"
+  description="How often should we send appointment reminders?"
+  defaultValue="weekly"
+  options={[
+    { value: "daily", label: "Daily" },
+    { value: "weekly", label: "Weekly" },
+    { value: "none", label: "No reminders" },
+  ]}
+/>`,
+  { imports: [radioImport] }
+);
+
+export const radioGroupSizeSnippet = exampleSnippet(
+  `<RadioGroup defaultValue="md" className="flex items-center gap-3">
+  <RadioField value="sm" size="sm" label="Small" />
+  <RadioField value="md" size="md" label="Medium" />
+  <RadioField value="lg" size="lg" label="Large" />
+</RadioGroup>`,
+  { imports: [radioImport] }
+);
 
 export const radioGroupHorizontalSnippet = exampleSnippet(
-  `<RadioGroup
+  `<RadioGroupField
+  id="reminder-frequency"
+  legend="Reminder frequency"
   defaultValue="daily"
-  className="flex flex-row flex-wrap gap-[var(--space-inline-md)]"
->
-  <label className="flex items-center gap-2 text-sm">
-    <RadioGroupItem value="daily" />
-    Diario
-  </label>
-  <label className="flex items-center gap-2 text-sm">
-    <RadioGroupItem value="weekly" />
-    Semanal
-  </label>
-  <label className="flex items-center gap-2 text-sm">
-    <RadioGroupItem value="monthly" />
-    Mensual
-  </label>
-</RadioGroup>`,
-  { imports: [radioGroupImports] }
+  listClassName="flex flex-row flex-wrap gap-[var(--space-inline-md)]"
+  options={[
+    { value: "daily", label: "Daily" },
+    { value: "weekly", label: "Weekly" },
+  ]}
+/>`,
+  { imports: [radioImport] }
+);
+
+export const radioGroupAccessibilitySnippet = exampleSnippet(
+  `<RadioGroupField
+  id="visit-type"
+  legend="Visit type"
+  description="Results are sent securely to the provider listed on your referral."
+  defaultValue="in-person"
+  options={[
+    { value: "in-person", label: "In-person" },
+    { value: "telemedicine", label: "Telemedicine" },
+  ]}
+/>`,
+  { imports: [radioImport] }
 );

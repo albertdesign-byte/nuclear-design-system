@@ -1,6 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { SearchIcon } from "lucide-react";
 
+import {
+  ButtonGroupsPreview,
+  ButtonIconPatternsPreview,
+  ButtonPaddingComparisonPreview,
+  ButtonStatesPreview,
+  DangerButtonStatesPreview,
+  HealthcareButtonExamplesPreview,
+} from "@/components/docs/components/button/button-preview-blocks";
+
 import { componentParameters } from "../../../.storybook/story-meta";
 
 import { Button } from "./button";
@@ -15,7 +24,7 @@ const meta = {
       ...componentParameters.docs,
       description: {
         component:
-          "Primary action control for the Nuclear Design System. Pairs with `InputButtonGroup` for search rows.",
+          "Official Nuclear DS action control for healthcare and enterprise workflows. Includes semantic danger intent, 6px icon spacing, action groups, and async states.",
       },
     },
   },
@@ -50,7 +59,7 @@ const meta = {
     loadingLabel: { control: "text" },
   },
   args: {
-    children: "Continue",
+    children: "Save patient",
     variant: "primary",
     intent: "default",
     size: "md",
@@ -66,25 +75,25 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {};
 
-export const Default: Story = {
-  args: {
-    children: "Continue",
-  },
-};
-
 export const Variants: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-[var(--space-inline-sm)]">
-      <Button variant="primary">Primary</Button>
+    <div className="flex flex-wrap items-center gap-[var(--space-inline-md)]">
+      <Button>Primary</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="outline">Outline</Button>
       <Button variant="ghost">Ghost</Button>
+      <Button intent="danger">Danger</Button>
     </div>
   ),
+};
+
+export const HorizontalPaddingReview: Story = {
+  render: () => <ButtonPaddingComparisonPreview />,
   parameters: {
     docs: {
       description: {
-        story: "Visual variants mapped to Medmo action tokens.",
+        story:
+          "Current versus adopted horizontal padding: 8/8/12/12/16px becomes 12/12/16/20/24px.",
       },
     },
   },
@@ -98,60 +107,92 @@ export const Sizes: Story = {
       <Button size="lg">Large</Button>
       <Button size="xl">Extra large</Button>
       <Button size="xxl">2× large</Button>
-      <Button size="icon-sm" aria-label="Search">
-        <SearchIcon />
-      </Button>
-      <Button size="icon-md" aria-label="Search">
-        <SearchIcon />
-      </Button>
-      <Button size="icon-lg" aria-label="Search">
-        <SearchIcon />
-      </Button>
-      <Button size="icon-xl" aria-label="Search">
-        <SearchIcon />
-      </Button>
-      <Button size="icon-xxl" aria-label="Search">
-        <SearchIcon />
-      </Button>
+      {(["icon-sm", "icon-md", "icon-lg", "icon-xl", "icon-xxl"] as const).map(
+        (size) => (
+          <Button key={size} size={size} aria-label={`Search · ${size}`}>
+            <SearchIcon />
+          </Button>
+        )
+      )}
     </div>
   ),
+};
+
+export const WithIcons: Story = {
+  render: () => <ButtonIconPatternsPreview />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Leading and trailing icons use the official 6px gap. Icon-only buttons require an accessible name.",
+      },
+    },
+  },
 };
 
 export const DangerIntent: Story = {
   render: () => (
     <div className="flex flex-wrap gap-[var(--space-inline-sm)]">
-      <Button variant="primary" intent="danger">
-        Delete scan
-      </Button>
-      <Button variant="outline" intent="danger">
-        Cancel appointment
-      </Button>
-      <Button variant="ghost" intent="danger">
-        Remove
-      </Button>
+      <Button intent="danger">Delete patient</Button>
+      <Button intent="danger">Delete study</Button>
+      <Button intent="danger">Remove user</Button>
+      <Button intent="danger">Archive record</Button>
     </div>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Danger is soft by default: error background, border, and text—never a solid-red resting state.",
+      },
+    },
+  },
 };
 
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-    children: "Continue",
+export const DangerStates: Story = {
+  render: () => <DangerButtonStatesPreview />,
+};
+
+export const ButtonGroups: Story = {
+  render: () => <ButtonGroupsPreview />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Standard order is Secondary then Primary. Destructive order is Cancel then Danger.",
+      },
+    },
   },
+};
+
+export const InteractionStates: Story = {
+  render: () => <ButtonStatesPreview />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Default, hover, focus, active, disabled, and loading states using shared semantic tokens.",
+      },
+    },
+  },
+};
+
+export const HealthcareExamples: Story = {
+  render: () => <HealthcareButtonExamplesPreview />,
 };
 
 export const Loading: Story = {
   args: {
     loading: true,
-    loadingLabel: "Saving appointment",
-    children: "Continue",
+    loadingLabel: "Saving patient",
+    children: "Save patient",
   },
 };
 
 export const FullWidth: Story = {
   args: {
     fullWidth: true,
-    children: "Continue",
+    children: "Save patient",
   },
   parameters: {
     layout: "padded",

@@ -1,15 +1,16 @@
 import { exampleSnippet, tsxSnippet } from "@/components/docs/primitives/docs-code-snippet";
 
-const checkboxImport = 'import { Checkbox } from "@/components/checkbox";';
+const checkboxImport = 'import { Checkbox, CheckboxField, CheckboxGroupField } from "@/components/checkbox";';
 
 export const checkboxInstallationUiSnippet = tsxSnippet(`${checkboxImport}
 
 export function Example() {
   return (
-    <>
-      <Checkbox defaultChecked aria-label="Accept terms" />
-      <Checkbox aria-label="Enable notifications" />
-    </>
+    <CheckboxField
+      id="share-results"
+      defaultChecked
+      label="Share results with my provider"
+    />
   );
 }`);
 
@@ -18,64 +19,158 @@ export const checkboxRealScreenSnippet = tsxSnippet(`${checkboxImport}
 export function Example() {
   return (
     <div className="w-full max-w-sm rounded-lg border border-border bg-card p-4 shadow-sm">
-      <h3 className="text-lg font-semibold">Consentimiento informado</h3>
-      <p className="mt-2 text-sm text-muted-foreground">
-        Confirma las autorizaciones requeridas antes de continuar el registro.
-      </p>
-      <label className="mt-4 flex items-start gap-2 text-sm">
-        <Checkbox id="consent" defaultChecked />
-        <span>
-          Acepto el tratamiento de datos clínicos según la política del centro.
-        </span>
-      </label>
+      <h3 className="text-lg font-semibold">Informed consent</h3>
+      <CheckboxField
+        id="consent"
+        defaultChecked
+        className="mt-4"
+        label="Clinical data processing"
+        description="I accept clinical data processing per center policy."
+      />
     </div>
   );
 }`);
 
 export const checkboxUsageSnippet = exampleSnippet(
-  '<Checkbox defaultChecked aria-label="Accept terms" />',
+  `<CheckboxField
+  id="share-results"
+  label="Share results with my provider"
+/>`,
   { imports: [checkboxImport] }
 );
 
-export const checkboxSizeSnippet = exampleSnippet(
-  `<div className="flex items-center gap-3">
-  <Checkbox size="sm" defaultChecked aria-label="Small" />
-  <Checkbox size="md" defaultChecked aria-label="Medium" />
-  <Checkbox size="lg" defaultChecked aria-label="Large" />
-</div>`,
+export const checkboxDefaultSnippet = checkboxUsageSnippet;
+
+export const checkboxCheckedSnippet = exampleSnippet(
+  `<CheckboxField
+  id="insurance-card"
+  defaultChecked
+  label="Insurance card on file"
+/>`,
   { imports: [checkboxImport] }
 );
 
 export const checkboxDisabledSnippet = exampleSnippet(
-  '<Checkbox disabled defaultChecked aria-label="Disabled" />',
+  `<CheckboxField
+  id="sms-reminders"
+  disabled
+  defaultChecked
+  label="SMS appointment reminders"
+/>`,
   { imports: [checkboxImport] }
 );
 
-export const checkboxInvalidSnippet = exampleSnippet(
-  '<Checkbox aria-invalid aria-label="Invalid" />',
-  { imports: [checkboxImport] }
-);
-
-export const checkboxCheckedSnippet = exampleSnippet(
-  `<div className="flex items-center gap-3">
-  <Checkbox aria-label="Unchecked" />
-  <Checkbox defaultChecked aria-label="Checked" />
-</div>`,
+export const checkboxErrorSnippet = exampleSnippet(
+  `<CheckboxField
+  id="consent"
+  label="I accept clinical data processing"
+  error="Confirm consent before continuing."
+/>`,
   { imports: [checkboxImport] }
 );
 
 export const checkboxIndeterminateSnippet = exampleSnippet(
-  '<Checkbox indeterminate aria-label="Indeterminate" />',
+  `<CheckboxField
+  id="select-all"
+  indeterminate
+  label="Select all imaging studies"
+/>`,
   { imports: [checkboxImport] }
 );
 
-export const checkboxWithLabelSnippet = tsxSnippet(`${checkboxImport}
+export const checkboxWithLabelSnippet = checkboxUsageSnippet;
 
-export function Example() {
-  return (
-    <label className="flex items-start gap-2 text-sm">
-      <Checkbox id="lab-results" defaultChecked />
-      <span>Compartir resultados de laboratorio con el equipo tratante</span>
-    </label>
-  );
-}`);
+export const checkboxWithDescriptionSnippet = exampleSnippet(
+  `<CheckboxField
+  id="share-imaging"
+  defaultChecked
+  label="Share imaging results"
+  description="Results are sent securely to the provider on your referral."
+/>`,
+  { imports: [checkboxImport] }
+);
+
+export const checkboxWithLongLabelSnippet = exampleSnippet(
+  `<CheckboxField
+  id="consent-long"
+  label="I authorize Medmo to share my diagnostic imaging results, clinical notes, and referral details with my designated care team members for continuity of care."
+/>`,
+  { imports: [checkboxImport] }
+);
+
+export const checkboxWithHelperTextSnippet = exampleSnippet(
+  `<CheckboxField
+  id="email-reminders"
+  label="Email me appointment reminders"
+  helperText="You can change notification preferences anytime in account settings."
+/>`,
+  { imports: [checkboxImport] }
+);
+
+export const checkboxGroupMultipleSnippet = exampleSnippet(
+  `<CheckboxGroupField
+  id="imaging-modalities"
+  legend="Imaging modalities to include"
+  description="Select all studies for the exported patient packet."
+  options={[
+    { value: "mri", label: "MRI", defaultChecked: true },
+    { value: "ct", label: "CT scan" },
+    { value: "pet", label: "PET scan", defaultChecked: true },
+  ]}
+/>`,
+  { imports: [checkboxImport] }
+);
+
+export const checkboxGroupSettingsSnippet = exampleSnippet(
+  `<CheckboxGroupField
+  id="patient-settings"
+  legend="Patient portal settings"
+  options={[
+    {
+      value: "results",
+      label: "Show imaging results",
+      description: "Patients can view finalized reports in the portal.",
+      defaultChecked: true,
+    },
+    {
+      value: "messages",
+      label: "Allow secure messages",
+      description: "Enable two-way messaging with the care team.",
+    },
+  ]}
+/>`,
+  { imports: [checkboxImport] }
+);
+
+export const checkboxGroupPreferencesSnippet = exampleSnippet(
+  `<CheckboxGroupField
+  id="appointment-preferences"
+  legend="Appointment preferences"
+  helperText="Preferences apply to future scheduling requests only."
+  options={[
+    { value: "morning", label: "Morning appointments", defaultChecked: true },
+    { value: "telehealth", label: "Telehealth when available" },
+  ]}
+/>`,
+  { imports: [checkboxImport] }
+);
+
+export const checkboxGroupSnippet = checkboxGroupMultipleSnippet;
+
+export const checkboxAccessibilitySnippet = exampleSnippet(
+  `<CheckboxField
+  id="consent"
+  label="Share results with my provider"
+  description="Results are sent securely to your referring provider."
+/>`,
+  { imports: [checkboxImport] }
+);
+
+export const checkboxSizeSnippet = exampleSnippet(
+  `<div className="flex flex-col gap-2">
+  <CheckboxField id="size-sm" size="sm" label="Small checkbox" />
+  <CheckboxField id="size-md" size="md" label="Medium checkbox" />
+  <CheckboxField id="size-lg" size="lg" label="Large checkbox" />
+</div>`,
+  { imports: [checkboxImport] }
+);

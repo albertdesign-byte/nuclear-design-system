@@ -22,13 +22,13 @@ export const inlineSpacing: Record<InlineSpacingRole, SemanticSpacingToken> = {
   xs: inline(
     "spacing-4",
     "Tight horizontal gap",
-    "Icon to text in compact controls, badge internal padding, checkbox to label",
+    "Badge internal padding, checkbox to label, compact non-Button controls",
     "Section margins, page padding, vertical stacks"
   ),
   sm: inline(
     "spacing-8",
     "Default horizontal gap — 8px rhythm",
-    "Button icon+label gap, inline form fields, filter chip gaps, action groups",
+    "Inline form fields, filter chip gaps, action groups",
     "Page layout, card padding, section breaks"
   ),
   md: inline(

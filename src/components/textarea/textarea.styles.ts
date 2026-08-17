@@ -1,18 +1,18 @@
 import { cva } from "class-variance-authority";
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
+import { controlDisabledClassName } from "@/lib/disabled-styles";
 
 const focusRing =
   "focus-visible:border-[var(--color-focus-ring)] focus-visible:ring-[length:var(--focus-ring-width)] focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-[length:var(--focus-ring-offset)]";
 
-const disabledStyles =
-  "disabled:pointer-events-none disabled:cursor-not-allowed disabled:border-[var(--color-disabled-border)] disabled:bg-[var(--color-disabled-background)] disabled:text-[var(--color-disabled-text)] disabled:shadow-none";
 
 export const textareaVariants = cva(
   [
-    "field-sizing-content min-w-0 resize-y border border-[var(--color-border)] bg-[var(--color-background)] text-[var(--color-text-primary)] outline-none",
+    componentFontFamilyClassName, "field-sizing-content min-w-0 resize-y border border-[var(--color-border)] bg-[var(--color-background)] text-[var(--color-text-primary)] outline-none",
     "placeholder:text-[var(--color-text-muted)]",
     "transition-[var(--motion-hover)]",
     focusRing,
-    disabledStyles,
+    controlDisabledClassName,
     "aria-invalid:border-[var(--color-error-border)] aria-invalid:ring-[length:var(--focus-ring-width)] aria-invalid:ring-[var(--color-error-border)]/30",
   ].join(" "),
   {

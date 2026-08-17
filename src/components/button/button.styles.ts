@@ -1,22 +1,22 @@
 import { cva } from "class-variance-authority";
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
+import { controlDisabledClassName } from "@/lib/disabled-styles";
 
 const focusRing =
   "focus-visible:border-[var(--color-focus-ring)] focus-visible:ring-[length:var(--focus-ring-width)] focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-[length:var(--focus-ring-offset)]";
 
-const disabledStyles =
-  "disabled:pointer-events-none disabled:border-[var(--color-disabled-border)] disabled:bg-[var(--color-disabled-background)] disabled:text-[var(--color-disabled-text)] disabled:shadow-none";
 
 const labelTypography =
   "text-[length:var(--text-label-size)] leading-[var(--text-label-line-height)] tracking-[var(--text-label-letter-spacing)] font-medium";
 
 export const buttonVariants = cva(
   [
-    "group/button inline-flex shrink-0 items-center justify-center rounded-[var(--radius-full)] border border-transparent",
+    componentFontFamilyClassName, "group/button inline-flex shrink-0 items-center justify-center rounded-[var(--radius-full)] border border-transparent",
     labelTypography,
     "whitespace-nowrap select-none outline-none",
     "transition-[var(--motion-hover)]",
     focusRing,
-    disabledStyles,
+    controlDisabledClassName,
     "aria-expanded:bg-[var(--color-surface-active)]",
     "aria-invalid:border-[var(--color-error-border)] aria-invalid:ring-[length:var(--focus-ring-width)] aria-invalid:ring-[var(--color-error-border)]/30",
     "[&_svg]:pointer-events-none [&_svg]:shrink-0",
@@ -36,21 +36,23 @@ export const buttonVariants = cva(
       },
       size: {
         sm: [
-          "h-[var(--spacing-28)] min-h-[var(--spacing-28)] px-[var(--space-inline-sm)] gap-[var(--space-inline-sm)]",
+          "h-[var(--spacing-28)] min-h-[var(--spacing-28)] px-[var(--space-button-padding-sm)] gap-[var(--space-button-icon-gap)]",
           "[&_svg:not([class*='size-'])]:size-3.5",
         ].join(" "),
         md: [
-          "h-[var(--spacing-32)] min-h-[var(--spacing-32)] px-[var(--space-inline-sm)] gap-[var(--space-inline-sm)]",
+          "h-[var(--spacing-32)] min-h-[var(--spacing-32)] px-[var(--space-button-padding-md)] gap-[var(--space-button-icon-gap)]",
         ].join(" "),
         lg: [
-          "h-[var(--spacing-36)] min-h-[var(--spacing-36)] px-[var(--space-inline-md)] gap-[var(--space-inline-sm)]",
+          "h-[var(--spacing-36)] min-h-[var(--spacing-36)] px-[var(--space-button-padding-lg)] gap-[var(--space-button-icon-gap)]",
         ].join(" "),
         xl: [
-          "h-[var(--spacing-48)] min-h-[var(--spacing-48)] px-[var(--space-inline-md)] gap-[var(--space-inline-sm)]",
+          "h-[var(--spacing-48)] min-h-[var(--spacing-48)] px-[var(--space-button-padding-xl)] gap-[var(--space-button-icon-gap)]",
+          "text-[length:var(--text-body-size)] leading-[var(--text-body-line-height)]",
           "[&_svg:not([class*='size-'])]:size-5",
         ].join(" "),
         xxl: [
-          "h-[var(--spacing-56)] min-h-[var(--spacing-56)] px-[var(--space-inline-lg)] gap-[var(--space-inline-md)]",
+          "h-[var(--spacing-56)] min-h-[var(--spacing-56)] px-[var(--space-button-padding-xxl)] gap-[var(--space-button-icon-gap)]",
+          "text-[length:var(--text-body-size)] leading-[var(--text-body-line-height)]",
           "[&_svg:not([class*='size-'])]:size-6",
         ].join(" "),
         "icon-sm": [
@@ -82,8 +84,9 @@ export const buttonVariants = cva(
         variant: "primary",
         intent: "danger",
         className: [
-          "bg-[var(--color-error-foreground)] text-[var(--color-action-primary-text)]",
-          "hover:bg-[var(--color-error-text)] active:bg-[var(--color-error-foreground)]",
+          "border-[var(--color-error-border)] bg-[var(--color-error-background)] text-[var(--color-error-text)]",
+          "hover:border-[var(--color-error-foreground)] hover:text-[var(--color-error-foreground)]",
+          "active:border-[var(--color-error-foreground)] active:bg-[var(--color-error-background)] active:text-[var(--color-error-foreground)]",
         ].join(" "),
       },
       {

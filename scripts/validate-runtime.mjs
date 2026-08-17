@@ -50,7 +50,7 @@ for (const file of requiredFiles) {
 }
 
 if (layout.includes("Geist")) fail("layout.tsx still references Geist fonts");
-else if (layout) pass("layout.tsx uses IBM Plex (no Geist)");
+else if (layout) pass("layout.tsx loads Poppins + IBM Plex Sans Condensed (no Geist)");
 
 if (layout.includes("suppressHydrationWarning")) pass("layout.tsx has suppressHydrationWarning");
 else fail("layout.tsx missing suppressHydrationWarning on <html>");
@@ -64,17 +64,17 @@ else fail("ThemeProvider must use attribute=\"class\" for Foundation .dark");
 if (layout.includes("AppProviders")) pass("layout.tsx mounts AppProviders");
 else fail("layout.tsx missing AppProviders");
 
+if (fonts.includes("Poppins")) pass("fonts.ts loads Poppins");
+else fail("fonts.ts must load Poppins");
+
+if (fonts.includes('variable: "--font-family-component"')) pass("Poppins wired to --font-family-component");
+else fail("Poppins must use variable --font-family-component");
+
 if (fonts.includes("IBM_Plex_Sans_Condensed")) pass("fonts.ts loads IBM Plex Sans Condensed");
 else fail("fonts.ts must load IBM_Plex_Sans_Condensed");
 
-if (fonts.includes("IBM_Plex_Mono")) pass("fonts.ts loads IBM Plex Mono");
-else fail("fonts.ts must load IBM_Plex_Mono");
-
-if (fonts.includes('variable: "--font-family-sans"')) pass("Sans font wired to --font-family-sans");
-else fail("Sans font must use variable --font-family-sans");
-
-if (fonts.includes('variable: "--font-family-mono"')) pass("Mono font wired to --font-family-mono");
-else fail("Mono font must use variable --font-family-mono");
+if (fonts.includes('variable: "--font-family-sans"')) pass("IBM Plex wired to --font-family-sans");
+else fail("IBM Plex must use variable --font-family-sans");
 
 const foundationImport = '@import "../../foundations/tokens/index.css"';
 const themeImport = '@import "./theme.css"';

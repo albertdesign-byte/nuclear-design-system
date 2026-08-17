@@ -2,6 +2,8 @@ export {
   DataTable,
   DataTableBody,
   DataTableCell,
+  DataTableFilterCell,
+  DataTableFilterRow,
   DataTableHead,
   DataTableHeader,
   DataTableLinkCell,
@@ -13,6 +15,7 @@ export {
 export type {
   DataTableCellProps,
   DataTableColumnHeadProps,
+  DataTableFilterCellProps,
   DataTableMenuHeadProps,
   DataTableProps,
   DataTableVariant,

@@ -13,11 +13,11 @@ export function Example() {
   return (
     <Tabs defaultValue="resumen">
       <TabsList>
-        <TabsTrigger value="resumen">Resumen</TabsTrigger>
+        <TabsTrigger value="resumen">Summary</TabsTrigger>
         <TabsTrigger value="labs">Labs</TabsTrigger>
       </TabsList>
-      <TabsContent value="resumen">Resumen clínico.</TabsContent>
-      <TabsContent value="labs">Resultados de laboratorio.</TabsContent>
+      <TabsContent value="resumen">Clinical summary.</TabsContent>
+      <TabsContent value="labs">Lab results.</TabsContent>
     </Tabs>
   );
 }`);
@@ -28,18 +28,18 @@ export function Example() {
   return (
     <Tabs defaultValue="resumen">
       <TabsList>
-        <TabsTrigger value="resumen">Resumen</TabsTrigger>
+        <TabsTrigger value="resumen">Summary</TabsTrigger>
         <TabsTrigger value="labs">Labs</TabsTrigger>
-        <TabsTrigger value="notas">Notas</TabsTrigger>
+        <TabsTrigger value="notas">Notes</TabsTrigger>
       </TabsList>
       <TabsContent value="resumen">
-        Diagnóstico principal: hipertensión controlada.
+        Primary diagnosis: controlled hypertension.
       </TabsContent>
       <TabsContent value="labs">
-        Hemoglobina 13.8 g/dL · Glucosa 98 mg/dL.
+        Hemoglobin 13.8 g/dL · Glucose 98 mg/dL.
       </TabsContent>
       <TabsContent value="notas">
-        Paciente refiere adherencia al tratamiento.
+        Patient reports treatment adherence.
       </TabsContent>
     </Tabs>
   );
@@ -48,11 +48,11 @@ export function Example() {
 export const tabsUsageSnippet = exampleSnippet(
   `<Tabs defaultValue="resumen">
   <TabsList>
-    <TabsTrigger value="resumen">Resumen</TabsTrigger>
+    <TabsTrigger value="resumen">Summary</TabsTrigger>
     <TabsTrigger value="labs">Labs</TabsTrigger>
   </TabsList>
-  <TabsContent value="resumen">Resumen clínico.</TabsContent>
-  <TabsContent value="labs">Resultados de laboratorio.</TabsContent>
+  <TabsContent value="resumen">Clinical summary.</TabsContent>
+  <TabsContent value="labs">Lab results.</TabsContent>
 </Tabs>`,
   { imports: [tabsImport] }
 );
@@ -62,14 +62,14 @@ export const tabsDefaultSnippet = exampleSnippet(
 
 <Tabs defaultValue="resumen">
   <TabsList>
-    <TabsTrigger value="resumen">Resumen</TabsTrigger>
+    <TabsTrigger value="resumen">Summary</TabsTrigger>
     <TabsTrigger value="labs">Labs</TabsTrigger>
   </TabsList>
   <TabsContent value="resumen" className={tabsSegmentedContentClassName}>
-    Resumen clínico.
+    Clinical summary.
   </TabsContent>
   <TabsContent value="labs" className={tabsSegmentedContentClassName}>
-    Resultados de laboratorio.
+    Lab results.
   </TabsContent>
 </Tabs>`,
   { imports: [tabsImport] }
@@ -78,11 +78,11 @@ export const tabsDefaultSnippet = exampleSnippet(
 export const tabsLineSnippet = exampleSnippet(
   `<Tabs defaultValue="resumen">
   <TabsList variant="line">
-    <TabsTrigger value="resumen">Resumen</TabsTrigger>
+    <TabsTrigger value="resumen">Summary</TabsTrigger>
     <TabsTrigger value="labs">Labs</TabsTrigger>
   </TabsList>
-  <TabsContent value="resumen">Resumen clínico.</TabsContent>
-  <TabsContent value="labs">Resultados de laboratorio.</TabsContent>
+  <TabsContent value="resumen">Clinical summary.</TabsContent>
+  <TabsContent value="labs">Lab results.</TabsContent>
 </Tabs>`,
   { imports: [tabsImport] }
 );
@@ -106,11 +106,11 @@ export const tabsFolderSnippet = exampleSnippet(
 export const tabsVerticalSnippet = exampleSnippet(
   `<Tabs defaultValue="resumen" orientation="vertical">
   <TabsList>
-    <TabsTrigger value="resumen">Resumen</TabsTrigger>
+    <TabsTrigger value="resumen">Summary</TabsTrigger>
     <TabsTrigger value="labs">Labs</TabsTrigger>
   </TabsList>
-  <TabsContent value="resumen">Resumen clínico.</TabsContent>
-  <TabsContent value="labs">Resultados de laboratorio.</TabsContent>
+  <TabsContent value="resumen">Clinical summary.</TabsContent>
+  <TabsContent value="labs">Lab results.</TabsContent>
 </Tabs>`,
   { imports: [tabsImport] }
 );

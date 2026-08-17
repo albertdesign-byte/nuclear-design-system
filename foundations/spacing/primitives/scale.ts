@@ -10,8 +10,8 @@
  * Why intermediate steps (12, 20, 28…): Precision without breaking the grid.
  * Used when 8px is too tight and 16px too loose.
  *
- * Why 2px hairline: Sole exception to the 4px rule — focus offset, divider inset,
- * optical alignment. Never for layout gaps between components.
+ * Why optical steps: 2px is reserved for hairlines and focus offsets. 6px is
+ * reserved for the approved Button icon-to-label relationship.
  *
  * Components NEVER reference these directly.
  */
@@ -29,6 +29,7 @@ function step(px: SpacingPrimitiveStep, usage: string): SpacingPrimitive {
 export const spacingScale: Record<SpacingPrimitiveStep, SpacingPrimitive> = {
   2: step(2, "Hairline only — focus offset, optical tweaks. NOT for component gaps."),
   4: step(4, "Minimum layout unit — label gaps, tight inline spacing"),
+  6: step(6, "Optical exception — Button icon-to-label gap"),
   8: step(8, "Primary component rhythm — button padding, input padding, inline sm"),
   12: step(12, "Intermediate — toolbar gaps, comfortable inline md"),
   16: step(16, "Default stack md, card padding, form field gaps"),
@@ -38,6 +39,7 @@ export const spacingScale: Record<SpacingPrimitiveStep, SpacingPrimitive> = {
   32: step(32, "Section internal gaps, form group separation"),
   36: step(36, "Intermediate — between 32 and 40"),
   40: step(40, "Large internal blocks, spacious card sections"),
+  44: step(44, "Minimum touch target — WCAG 2.5.5 interactive area"),
   48: step(48, "Section spacing — between major page regions"),
   56: step(56, "Intermediate — large layout blocks"),
   64: step(64, "Major section breaks, page vertical sections"),

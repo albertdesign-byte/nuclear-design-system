@@ -2,13 +2,15 @@
 
 import type { ComponentProps } from "react";
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
-import { CheckIcon, ChevronRightIcon } from "lucide-react";
+import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from "lucide-react";
 
+import { Button } from "@/components/button";
 import { cn } from "@/lib/utils";
 
 import {
   dropdownMenuCheckboxItemClassName,
   dropdownMenuContentClassName,
+  dropdownMenuItemDescriptionClassName,
   dropdownMenuItemClassName,
   dropdownMenuLabelClassName,
   dropdownMenuPositionerClassName,
@@ -17,7 +19,11 @@ import {
   dropdownMenuSubContentClassName,
   dropdownMenuSubTriggerClassName,
 } from "./dropdown-menu.styles";
-import type { DropdownMenuItemProps } from "./dropdown-menu.types";
+import type {
+  DropdownMenuButtonProps,
+  DropdownMenuIconButtonProps,
+  DropdownMenuItemProps,
+} from "./dropdown-menu.types";
 
 function DropdownMenu({ modal = false, ...props }: MenuPrimitive.Root.Props) {
   return (
@@ -36,6 +42,65 @@ function DropdownMenuPortal({ ...props }: MenuPrimitive.Portal.Props) {
 function DropdownMenuTrigger({ ...props }: MenuPrimitive.Trigger.Props) {
   return (
     <MenuPrimitive.Trigger data-slot="dropdown-menu-trigger" {...props} />
+  );
+}
+
+function DropdownMenuButton({
+  children,
+  className,
+  variant = "outline",
+  ...props
+}: DropdownMenuButtonProps) {
+  return (
+    <DropdownMenuTrigger
+      render={
+        <Button
+          variant={variant}
+          className={cn(
+            "[&[data-popup-open]_[data-dropdown-menu-indicator]]:rotate-180",
+            className
+          )}
+          {...props}
+        />
+      }
+    >
+      {children}
+      <ChevronDownIcon
+        aria-hidden
+        data-dropdown-menu-indicator
+        data-icon="inline-end"
+        className="transition-transform duration-[var(--motion-fast)]"
+      />
+    </DropdownMenuTrigger>
+  );
+}
+
+function DropdownMenuIconButton({
+  className,
+  size = "icon-sm",
+  variant = "outline",
+  ...props
+}: DropdownMenuIconButtonProps) {
+  return (
+    <DropdownMenuTrigger
+      render={
+        <Button
+          variant={variant}
+          size={size}
+          className={cn(
+            "[&[data-popup-open]_[data-dropdown-menu-indicator]]:rotate-180",
+            className
+          )}
+          {...props}
+        />
+      }
+    >
+      <ChevronDownIcon
+        aria-hidden
+        data-dropdown-menu-indicator
+        className="transition-transform duration-[var(--motion-fast)]"
+      />
+    </DropdownMenuTrigger>
   );
 }
 
@@ -98,12 +163,27 @@ function DropdownMenuItem({
   variant = "default",
   ...props
 }: DropdownMenuItemProps) {
+  const resolvedVariant = variant === "destructive" ? "danger" : variant;
+
   return (
     <MenuPrimitive.Item
       data-slot="dropdown-menu-item"
       data-inset={inset}
-      data-variant={variant}
+      data-variant={resolvedVariant}
       className={cn(dropdownMenuItemClassName, className)}
+      {...props}
+    />
+  );
+}
+
+function DropdownMenuItemDescription({
+  className,
+  ...props
+}: ComponentProps<"span">) {
+  return (
+    <span
+      data-slot="dropdown-menu-item-description"
+      className={cn(dropdownMenuItemDescriptionClassName, className)}
       {...props}
     />
   );
@@ -252,10 +332,13 @@ export {
   DropdownMenu,
   DropdownMenuPortal,
   DropdownMenuTrigger,
+  DropdownMenuButton,
+  DropdownMenuIconButton,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuItem,
+  DropdownMenuItemDescription,
   DropdownMenuCheckboxItem,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,

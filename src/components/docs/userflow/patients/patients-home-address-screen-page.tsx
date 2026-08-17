@@ -15,17 +15,17 @@ import { DocsUserflowPreviewFrame } from "@/components/docs/userflow/docs-userfl
 import { Input } from "@/components/input";
 import { Label } from "@/components/label";
 import {
-  PatientsShell,
-  PatientsShellCard,
-  PatientsShellHeader,
-  PatientsShellInputPanel,
-  PatientsShellLocale,
-  PatientsShellMain,
-  PatientsShellMainDesktop,
-  PatientsShellProgress,
-  patientsFieldGroupClassName,
-  patientsShellDesktopContentClassName,
-} from "@/components/patients-shell";
+  MultiStepFlowLayout,
+  MultiStepFlowLayoutCard,
+  MultiStepFlowLayoutHeader,
+  MultiStepFlowLayoutInputPanel,
+  MultiStepFlowLayoutLocale,
+  MultiStepFlowLayoutMain,
+  MultiStepFlowLayoutMainDesktop,
+  MultiStepFlowLayoutProgress,
+  multiStepFlowFieldGroupClassName,
+  multiStepFlowLayoutDesktopContentClassName,
+} from "@/components/multi-step-flow-layout";
 import { cn } from "@/lib/utils";
 
 const cityStateRowClassName =
@@ -96,7 +96,7 @@ type AddressFormFieldsProps = {
 function AddressFormFields({ idPrefix, fields, onFieldChange }: AddressFormFieldsProps) {
   return (
     <>
-      <div className={cn(patientsFieldGroupClassName)}>
+      <div className={cn(multiStepFlowFieldGroupClassName)}>
         <Label htmlFor={`${idPrefix}-address`}>Address</Label>
         <Input
           id={`${idPrefix}-address`}
@@ -106,7 +106,7 @@ function AddressFormFields({ idPrefix, fields, onFieldChange }: AddressFormField
         />
       </div>
 
-      <div className={cn(patientsFieldGroupClassName)}>
+      <div className={cn(multiStepFlowFieldGroupClassName)}>
         <Label htmlFor={`${idPrefix}-apartment`}>Apartment or unit (optional)</Label>
         <Input
           id={`${idPrefix}-apartment`}
@@ -117,7 +117,7 @@ function AddressFormFields({ idPrefix, fields, onFieldChange }: AddressFormField
       </div>
 
       <div className={cityStateRowClassName}>
-        <div className={cn(patientsFieldGroupClassName)}>
+        <div className={cn(multiStepFlowFieldGroupClassName)}>
           <Label htmlFor={`${idPrefix}-city`}>City</Label>
           <Input
             id={`${idPrefix}-city`}
@@ -125,7 +125,7 @@ function AddressFormFields({ idPrefix, fields, onFieldChange }: AddressFormField
             onChange={(event) => onFieldChange("city", event.target.value)}
           />
         </div>
-        <div className={cn(patientsFieldGroupClassName)}>
+        <div className={cn(multiStepFlowFieldGroupClassName)}>
           <Label htmlFor={`${idPrefix}-state`}>State</Label>
           <Input
             id={`${idPrefix}-state`}
@@ -135,7 +135,7 @@ function AddressFormFields({ idPrefix, fields, onFieldChange }: AddressFormField
         </div>
       </div>
 
-      <div className={cn(patientsFieldGroupClassName, "max-w-[50%]")}>
+      <div className={cn(multiStepFlowFieldGroupClassName, "max-w-[50%]")}>
         <Label htmlFor={`${idPrefix}-zip`}>Zip Code</Label>
         <Input
           id={`${idPrefix}-zip`}
@@ -170,7 +170,7 @@ function HomeAddressForm({
 }: HomeAddressFormProps) {
   return (
     <>
-      <PatientsShellInputPanel>
+      <MultiStepFlowLayoutInputPanel>
         <AddressFormFields
           idPrefix="patients-home-address"
           fields={homeAddress}
@@ -185,10 +185,10 @@ function HomeAddressForm({
           />
           <span>Find radiology centers near a different address</span>
         </label>
-      </PatientsShellInputPanel>
+      </MultiStepFlowLayoutInputPanel>
 
       {useDifferentAddress ? (
-        <PatientsShellInputPanel>
+        <MultiStepFlowLayoutInputPanel>
           <h2 className="text-[length:var(--text-body-size)] font-semibold leading-[var(--text-body-line-height)] text-[var(--color-text-primary)]">
             Find near a different address
           </h2>
@@ -197,7 +197,7 @@ function HomeAddressForm({
             fields={alternateAddress}
             onFieldChange={onAlternateFieldChange}
           />
-        </PatientsShellInputPanel>
+        </MultiStepFlowLayoutInputPanel>
       ) : null}
     </>
   );
@@ -216,17 +216,17 @@ function PatientsHomeAddressMobileScreen({
   ...formProps
 }: HomeAddressScreenProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
-      <PatientsShellHeader>
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+      <MultiStepFlowLayoutHeader>
         <MedmoLogoLockup />
-        <PatientsShellLocale />
-      </PatientsShellHeader>
+        <MultiStepFlowLayoutLocale />
+      </MultiStepFlowLayoutHeader>
 
-      <PatientsShellMain className="flex-1 gap-[var(--space-stack-md)]">
-        <PatientsShellCard>
+      <MultiStepFlowLayoutMain className="flex-1 gap-[var(--space-stack-md)]">
+        <MultiStepFlowLayoutCard>
           <HomeAddressBackButton onClick={onBack} />
           <HomeAddressIntro />
-        </PatientsShellCard>
+        </MultiStepFlowLayoutCard>
 
         <HomeAddressForm {...formProps} />
 
@@ -236,8 +236,8 @@ function PatientsHomeAddressMobileScreen({
         >
           Continue
         </PatientsFlowContinueButton>
-      </PatientsShellMain>
-    </PatientsShell>
+      </MultiStepFlowLayoutMain>
+    </MultiStepFlowLayout>
   );
 }
 
@@ -248,21 +248,21 @@ function PatientsHomeAddressDesktopScreen({
   ...formProps
 }: HomeAddressScreenProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
       <div className="bg-[var(--color-surface)]">
-        <PatientsShellHeader className="pb-[var(--space-stack-sm)]">
+        <MultiStepFlowLayoutHeader className="pb-[var(--space-stack-sm)]">
           <MedmoLogoLockup />
-          <PatientsShellLocale showGlobe />
-        </PatientsShellHeader>
-        <PatientsShellProgress value={0.85} />
+          <MultiStepFlowLayoutLocale showGlobe />
+        </MultiStepFlowLayoutHeader>
+        <MultiStepFlowLayoutProgress value={0.85} />
       </div>
 
-      <PatientsShellMainDesktop className="flex-1">
-        <div className={patientsShellDesktopContentClassName}>
-          <PatientsShellCard>
+      <MultiStepFlowLayoutMainDesktop className="flex-1">
+        <div className={multiStepFlowLayoutDesktopContentClassName}>
+          <MultiStepFlowLayoutCard>
             <HomeAddressBackButton onClick={onBack} />
             <HomeAddressIntro />
-          </PatientsShellCard>
+          </MultiStepFlowLayoutCard>
 
           <HomeAddressForm {...formProps} />
 
@@ -273,8 +273,8 @@ function PatientsHomeAddressDesktopScreen({
             Continue
           </PatientsFlowContinueButton>
         </div>
-      </PatientsShellMainDesktop>
-    </PatientsShell>
+      </MultiStepFlowLayoutMainDesktop>
+    </MultiStepFlowLayout>
   );
 }
 

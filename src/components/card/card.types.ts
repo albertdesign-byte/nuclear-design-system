@@ -12,9 +12,10 @@ export interface CardProps
   size?: CardSize;
 }
 
-export interface CardHeaderProps extends React.ComponentProps<"div"> {}
-export interface CardTitleProps extends React.ComponentProps<"div"> {}
-export interface CardDescriptionProps extends React.ComponentProps<"div"> {}
-export interface CardActionProps extends React.ComponentProps<"div"> {}
-export interface CardContentProps extends React.ComponentProps<"div"> {}
-export interface CardFooterProps extends React.ComponentProps<"div"> {}
+export type CardHeaderProps = React.ComponentProps<"div">;
+export type CardTitleProps = React.ComponentProps<"div">;
+export type CardDescriptionProps = React.ComponentProps<"div">;
+export type CardActionProps = React.ComponentProps<"div">;
+export type CardContentProps = React.ComponentProps<"div">;
+export type CardMediaProps = React.ComponentProps<"div">;
+export type CardFooterProps = React.ComponentProps<"div">;

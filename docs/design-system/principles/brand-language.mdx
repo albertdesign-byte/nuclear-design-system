@@ -2,8 +2,8 @@
 title: Brand Language
 description: Identidad visual y lenguaje de marca del Design System Medmo.
 status: approved
-version: 0.1.0
-lastUpdated: 2026-07-17
+version: 0.1.1
+lastUpdated: 2026-08-14
 phase: principles
 ---
 
@@ -94,15 +94,25 @@ Representa la identidad de la marca. Es un navy profundo, desaturado, que transm
 
 ## Tipografía
 
-La tipografía oficial del sistema es:
+Nuclear usa **dos typefaces de forma intencional**. Ambas están aprobadas. No son intercambiables y la coexistencia no es un error a unificar.
 
-```
-IBM Plex Sans Condensed
-```
+| Typeface | Rol | Usar en | No usar en |
+|----------|-----|---------|------------|
+| **Poppins** | Tipografía canónica de producto | Componentes, interfaces de producto, pantallas reales, UI de aplicación | Chrome de documentación, sidebar y prosa educativa del Design System |
+| **IBM Plex Sans Condensed** | Tipografía de documentación del Design System | Navegación, sidebar, contenido de documentación, guidelines, material educativo, chrome del Design System | Componentes, interfaces de producto, pantallas reales, UI de aplicación |
 
-Debe utilizarse en toda la aplicación. Nunca reemplazarla por otra fuente sans-serif.
+La documentación necesita una cara condensada para leer guidelines largas y navegar el catálogo. El producto necesita una cara de aplicación compartida por cada componente y cada pantalla real. Esos trabajos son distintos; las familias se mantienen separadas.
 
-### Pesos disponibles
+**Reglas**
+
+- No especificar IBM Plex Sans Condensed en componentes, pantallas de producto o UI de aplicación.
+- No reemplazar el chrome de documentación, el sidebar o el copy educativo con Poppins.
+- No mezclar ambas familias dentro de un mismo componente o de una misma pantalla de producto.
+- Un preview de componente (Poppins) dentro del chrome de docs (IBM Plex) es documentación — no un patrón de producto a copiar.
+
+La escala, los roles semánticos y los valores concretos viven en Foundations / Typography. Este documento solo fija **qué familia pertenece a qué superficie**.
+
+### Pesos en producto (Poppins)
 
 | Peso | Valor | Uso |
 |------|-------|-----|
@@ -111,6 +121,8 @@ Debe utilizarse en toda la aplicación. Nunca reemplazarla por otra fuente sans-
 | Medium | 500 | Labels, subtítulos, énfasis moderado |
 | SemiBold | 600 | Headings, títulos de sección |
 | Bold | 700 | Títulos principales, datos críticos |
+
+IBM Plex Sans Condensed usa el mismo vocabulario de pesos en el chrome de documentación. No introduce una jerarquía distinta.
 
 ### Jerarquía
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { AppProviders } from "@/components/providers/app-providers";
 import { ThemeProvider } from "@/components/providers/theme-provider";
-import { ibmPlexMono, ibmPlexSansCondensed } from "@/lib/fonts";
+import { ibmPlexSansCondensed, poppins } from "@/lib/fonts";
 
 import "./globals.css";
 
@@ -23,7 +23,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${ibmPlexSansCondensed.variable} ${ibmPlexMono.variable} h-full antialiased`}
+      className={`${poppins.variable} ${ibmPlexSansCondensed.variable} h-full font-sans antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <ThemeProvider

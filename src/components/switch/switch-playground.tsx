@@ -80,7 +80,7 @@ export function SwitchPlayground() {
             <h2 className="mb-4 text-sm font-semibold">With label</h2>
             <div className="flex max-w-sm items-center justify-between gap-3">
               <label htmlFor="playground-switch-label" className="text-sm">
-                Recordatorios de medicación
+                Medication reminders
               </label>
               <Switch id="playground-switch-label" defaultChecked size={size} />
             </div>

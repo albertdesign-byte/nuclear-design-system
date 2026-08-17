@@ -8,7 +8,7 @@ import { fullWidthParameters } from "../../../.storybook/story-meta";
 import { PaymentForm } from "./payment-form";
 
 const meta = {
-  title: "Patterns/Payment Form",
+  title: "Components/Payment Form",
   component: PaymentForm,
   tags: ["autodocs"],
   parameters: {

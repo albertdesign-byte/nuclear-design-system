@@ -1,8 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-
 import { Badge } from "@/components/badge";
 import {
   badgeDefaultSnippet,
@@ -18,7 +15,6 @@ import {
 } from "@/components/docs/components/badge/badge-code-snippets";
 import { BadgeRealScreenPreview } from "@/components/docs/components/badge/badge-real-screen-preview";
 import { badgeTocItems } from "@/components/docs/config/navigation";
-import { Button } from "@/components/button";
 import { DocsApiTable } from "@/components/docs/primitives/docs-api-table";
 import type { CodeLine } from "@/components/docs/primitives/docs-preview";
 import { DocsPreview } from "@/components/docs/primitives/docs-preview";
@@ -50,24 +46,24 @@ const badgeApiRows = [
 ];
 
 const badgeVariants = [
-  { id: "default", label: "Default", snippet: badgeDefaultSnippet, preview: <Badge>Activo</Badge> },
+  { id: "default", label: "Default", snippet: badgeDefaultSnippet, preview: <Badge>Active</Badge> },
   {
     id: "secondary",
     label: "Secondary",
     snippet: badgeSecondarySnippet,
-    preview: <Badge variant="secondary">En revisión</Badge>,
+    preview: <Badge variant="secondary">Under review</Badge>,
   },
   {
     id: "destructive",
     label: "Destructive",
     snippet: badgeDestructiveSnippet,
-    preview: <Badge variant="destructive">Crítico</Badge>,
+    preview: <Badge variant="destructive">Critical</Badge>,
   },
   {
     id: "outline",
     label: "Outline",
     snippet: badgeOutlineSnippet,
-    preview: <Badge variant="outline">Observación</Badge>,
+    preview: <Badge variant="outline">Observation</Badge>,
   },
   {
     id: "ghost",
@@ -79,7 +75,7 @@ const badgeVariants = [
     id: "link",
     label: "Link",
     snippet: badgeLinkSnippet,
-    preview: <Badge variant="link">Ver historial</Badge>,
+    preview: <Badge variant="link">View history</Badge>,
   },
 ] as const;
 
@@ -93,35 +89,13 @@ export function BadgeDocsPage() {
         preview: <BadgeRealScreenPreview />,
         code: badgeRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/switch" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Switch
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/avatar" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Avatar
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">
             <DocsPreview code={badgeInstallationUiSnippet}>
               <div className="flex flex-wrap items-center gap-[var(--space-inline-sm)]">
-                <Badge>Activo</Badge>
-                <Badge variant="secondary">En revisión</Badge>
+                <Badge>Active</Badge>
+                <Badge variant="secondary">Under review</Badge>
               </div>
             </DocsPreview>
           </section>
@@ -138,7 +112,7 @@ export function BadgeDocsPage() {
             }
           >
             <DocsPreview code={badgeUsageSnippet}>
-              <Badge>Pendiente</Badge>
+              <Badge>Pending</Badge>
             </DocsPreview>
           </DocsSection>
 

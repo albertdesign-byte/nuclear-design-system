@@ -41,9 +41,15 @@ export function MedmoLogo({ className }: { className?: string }) {
 export function MedmoLogoLockup({
   className,
   iconClassName,
+  wordmarkClassName,
+  size = "md",
+  variant = "default",
 }: {
   className?: string;
   iconClassName?: string;
+  wordmarkClassName?: string;
+  size?: "md" | "lg";
+  variant?: "default" | "inverse";
 }) {
   return (
     <span
@@ -52,8 +58,21 @@ export function MedmoLogoLockup({
         className
       )}
     >
-      <MedmoLogo className={iconClassName} />
-      <span className="text-[length:var(--text-label-size)] font-semibold leading-[var(--text-label-line-height)] tracking-[0.02em] text-[var(--color-text-primary)]">
+      <MedmoLogo
+        className={cn(size === "lg" ? "size-12" : "size-8", iconClassName)}
+      />
+      <span
+        className={cn(
+          "font-semibold tracking-[0.02em]",
+          size === "lg"
+            ? "text-[length:var(--text-h3-size)] leading-[var(--text-h3-line-height)]"
+            : "text-[length:var(--text-label-size)] leading-[var(--text-label-line-height)]",
+          variant === "inverse"
+            ? "text-[var(--color-action-primary-text)]"
+            : "text-[var(--color-text-primary)]",
+          wordmarkClassName
+        )}
+      >
         medmo
       </span>
     </span>

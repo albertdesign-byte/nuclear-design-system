@@ -1,10 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { useState } from "react";
 
-import { Button } from "@/components/button";
 import { PaymentForm } from "@/components/payment-form";
 import {
   paymentFormInstallationUiSnippet,
@@ -48,28 +45,6 @@ export function PaymentFormDocsPage() {
         preview: <PaymentFormRealScreenPreview />,
         code: paymentFormRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/deposit-summary" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Deposit Summary
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/alert" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Alert
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">

@@ -22,7 +22,7 @@ lastUpdated: 2026-07-17
 | Componentes primitivos instalados | 19 |
 | Componentes compuestos | 0 |
 | Patrones implementados | 0 |
-| Templates implementados | 0 |
+| Templates implementados | 3 (AppShell, MultiStepFlowLayout, SearchResults) |
 | Componentes de dominio | 0 |
 | Tokens TypeScript (legacy) | **Eliminados** (Hardening) — API en `foundations/tokens/` |
 | Tokens CSS activos | **11 Foundations** agregadas en `foundations/tokens/index.css` |
@@ -114,7 +114,7 @@ Foundations son las bases visuales y técnicas sobre las que se construye todo e
 | CSS variables en `:root` / `.dark` | Activo | **Mantener** — migrar a tokens Medmo |
 | ThemeProvider | No montado en layout | **Implementar** |
 | Toaster (Sonner) | No montado en layout | **Implementar** |
-| TooltipProvider | No montado en layout | **Implementar** |
+| TooltipProvider | Montado mediante AppProviders | **Mantener** |
 | Metadata de app | "Create Next App" | **Reemplazar** con identidad Medmo |
 
 ### 1.7 Assets
@@ -200,7 +200,7 @@ Los archivos `src/lib/design-system/tokens/{spacing,elevation,motion}.ts` fueron
 | `switch.tsx` | `h-[18.4px]`, `w-[32px]`, `h-[14px]`, `w-[24px]` | Dimensiones mágicas | **Tokenizar** |
 | `checkbox.tsx` | `rounded-[4px]` | Radius fuera de escala | **Unificar** con `--radius-sm` |
 | `dialog.tsx` | `bg-black/10` overlay | Color hardcodeado | **Tokenizar** como `--overlay` |
-| `tooltip.tsx` | `max-w-xs`, offsets px | Layout hardcodeado | **Tokenizar** |
+| `tooltip.tsx` | Ancho máximo y geometría del arrow | Base UI + tokens actuales | **Mantener y validar por posición** |
 | `page.tsx` | `#383838`, `#ccc`, `#1a1a1a`, `zinc-*` | Bypass total del DS | **Eliminar** — reemplazar homepage |
 | Varios | `ring-3` vs `ring-[3px]` | Inconsistencia de sintaxis | **Estandarizar** a `ring-3` |
 | Varios | `sideOffset=4`, `h-8`, `h-7`, `p-2` | Spacing implícito | **Mapear** a spacing tokens |
@@ -373,15 +373,15 @@ Primitivos son piezas atómicas, sin lógica de negocio, construidas sobre Base 
 
 | Atributo | Detalle |
 |----------|---------|
-| **Archivo** | `src/components/ui/card.tsx` |
+| **Archivo** | `src/components/card/card.tsx` |
 | **Propósito** | Contenedor de contenido agrupado |
 | **Dependencia** | Ninguna (divs nativos) |
-| **Sub-componentes** | Card, Header, Title, Description, Action, Content, Footer |
+| **Sub-componentes** | Card, Header, Title, Description, Action, Media, Content, Footer |
 | **Tamaños** | `default`, `sm` (via `--card-spacing` CSS var) |
-| **Estados** | Ninguno interactivo |
+| **Responsive** | Header action por container query; footer con flex wrap; altura content-driven |
 | **Duplicados** | Ninguno |
-| **Inconsistencias** | Usa `--spacing(4)` de Tailwind v4 — buen uso de tokens nativos |
-| **Veredicto** | **Mantener** — excelente composición; base para StatCard, PatientCard |
+| **Inconsistencias** | Resuelto: overflow, wrapping, media y acciones responsivas documentadas |
+| **Veredicto** | **Mantener** — referencia oficial para StatCard y PatientCard |
 
 ---
 
@@ -442,11 +442,26 @@ Primitivos son piezas atómicas, sin lógica de negocio, construidas sobre Base 
 | **Propósito** | Información contextual al hover/focus |
 | **Dependencia** | `@base-ui/react/tooltip` |
 | **Sub-componentes** | Provider, Root, Trigger, Content |
-| **Defaults** | `delay=0`, `side=top`, `sideOffset=4` |
+| **Defaults** | `delay=0`, `side=top`, `sideOffset=11`, `arrowPadding=8`, `collisionPadding=8` |
 | **Estados** | open/close |
 | **Duplicados** | Ninguno |
-| **Inconsistencias** | Provider no montado en layout |
-| **Veredicto** | **Mantener** — montar Provider globalmente |
+| **Inconsistencias** | Resuelto: arrow alineado con Base UI y Provider global |
+| **Veredicto** | **Mantener** — referencia oficial documentada |
+
+---
+
+### 3.14.1 Dropdown Menu
+
+| Atributo | Detalle |
+|----------|---------|
+| **Archivo** | `src/components/dropdown-menu/dropdown-menu.tsx` |
+| **Propósito** | Acciones contextuales breves |
+| **Dependencia** | `@base-ui/react/menu` |
+| **Indicador** | `ChevronDownIcon`; gap oficial de Button de 6px |
+| **Estados** | closed, hover, focus, open, disabled |
+| **Danger** | `variant="danger"` con tokens suaves y confirmación mediante Alert Dialog |
+| **Inconsistencias** | Resuelto: trigger, hover de items y documentación unificados |
+| **Veredicto** | **Mantener** — referencia oficial documentada |
 
 ---
 
@@ -525,7 +540,6 @@ Estos primitivos son necesarios para completar el sistema y están referenciados
 |------------|-----------|---------------|
 | Label | Crítica | Requerido para Form system |
 | Popover | Alta | Base para Combobox, DatePicker |
-| Dropdown Menu | Alta | Acciones contextuales, SplitButton |
 | Command | Alta | Base para Combobox, search |
 | Alert | Alta | Feedback inline |
 | Alert Dialog | Alta | Confirmaciones destructivas |
@@ -543,7 +557,7 @@ Estos primitivos son necesarios para completar el sistema y están referenciados
 
 ## 4. Composite Components
 
-Componentes compuestos combinan primitivos para resolver interacciones comunes. **Ninguno existe actualmente.**
+Componentes compuestos combinan primitivos para resolver interacciones comunes. `AppFooter` es la primera composición de shell consolidada.
 
 | Componente compuesto | Primitivos base | Estado | Veredicto |
 |---------------------|-----------------|--------|-----------|
@@ -552,9 +566,10 @@ Componentes compuestos combinan primitivos para resolver interacciones comunes. 
 | IconButton | Button size=icon | No existe como wrapper | **Crear** — composición de Button |
 | SearchInput | Input + Search icon | No existe | **Crear** |
 | Form | react-hook-form + FormField[] | Deps instaladas, no implementado | **Crear** |
-| ButtonGroup | Button[] | No existe | **Crear** |
+| Button Group | Button[] | Documentado en Button | **Mantener como patrón; no crear componente** |
 | StatCard | Card + typography + badge | No existe | **Crear** |
 | ConfirmDialog | AlertDialog + Button | No existe | **Crear** |
+| AppFooter | MedmoLogoLockup + links + navegación semántica | Existe y documentado | **Mantener** — logo externo clickeable, cuatro grupos consistentes, estados unificados y layouts mobile/tablet/desktop |
 
 ---
 
@@ -578,15 +593,17 @@ Patrones son composiciones de componentes que resuelven escenarios UX recurrente
 
 ## 6. Templates
 
-Templates son layouts de página completos que combinan patterns. **Ninguno existe actualmente.**
+Templates son layouts de página completos que combinan patterns y components. **AppShell**, **MultiStepFlowLayout** y **SearchResults** están publicados. Detail View sigue planificado hasta que exista una pantalla de detalle de entidad. Form Page no se extrae: los formularios vivos son pasos de MultiStepFlowLayout.
 
-| Template | Patterns involucrados | Estado | Prioridad |
-|----------|----------------------|--------|-----------|
-| Dashboard | Sidebar + PageHeader + StatCards + Charts | No existe | Alta |
-| List Page | PageHeader + SearchToolbar + DataTable + Pagination | No existe | Crítica |
-| Detail Page | PageHeader + Tabs + Card sections | No existe | Alta |
-| Settings Page | Sidebar nav + Form Layout sections | No existe | Media |
-| Modal Form | Dialog + Form Layout + Actions | No existe | Alta |
+| Template | Equivale a | Patterns involucrados | Estado | Prioridad |
+|----------|------------|----------------------|--------|-----------|
+| MultiStepFlowLayout | Multi-Step Flow | Progress + header + content regions | Publicado | — |
+| AppShell | Dashboard Layout | Sidebar + header + main slots | Publicado | — |
+| SearchResults | Search / List Page | Toolbar + search + results slot | Publicado | — |
+| Detail View | Detail Page | PageHeader + Tabs + Card sections | Planificado — sin fuente de producto | Alta |
+| Form Page | Form layout page | PageHeader + Form Layout + Submit | No extraer | — |
+
+MultiStepFlowLayout no es un Product ni un layout de Patients. Es un layout Nuclear para cualquier flujo multi-paso. Patients, Providers, Clinics y otros dominios lo consumen. Products solo contienen copy, validación, routing y reglas de negocio.
 
 **Estado actual de la app:**
 
@@ -643,7 +660,7 @@ Estos componentes viven fuera del Design System core y consumen primitivos/patte
 | 5 | Select `w-fit` vs Input `w-full` | Select, Input | Media | Agregar prop fullWidth |
 | 6 | Switch dimensiones hardcodeadas | Switch | Media | Tokenizar |
 | 7 | Textarea nativo vs Input Base UI | Input, Textarea | Baja | Documentar decisión |
-| 8 | ThemeProvider/Toaster/TooltipProvider no montados | Global | Alta | Conectar en layout |
+| 8 | ThemeProvider/Toaster/TooltipProvider | **Resuelto** — montados mediante providers globales | — | Mantener |
 | 9 | 19 componentes sin uso en app | Todos | Info | Crear docs con previews |
 | 10 | Sidebar tokens sin componente | globals.css | Info | Instalar Sidebar cuando se necesite |
 | 11 | `package.json` ausente | Proyecto | Alta | Restaurar desde lockfile |

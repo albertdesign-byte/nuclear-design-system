@@ -1,21 +1,21 @@
 import { cva } from "class-variance-authority";
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
+import { controlDisabledClassName } from "@/lib/disabled-styles";
 
 const focusRing =
   "focus-visible:border-[var(--color-focus-ring)] focus-visible:ring-[length:var(--focus-ring-width)] focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-[length:var(--focus-ring-offset)]";
 
-const disabledStyles =
-  "disabled:pointer-events-none disabled:cursor-not-allowed disabled:border-[var(--color-disabled-border)] disabled:bg-[var(--color-disabled-background)] disabled:text-[var(--color-disabled-text)] disabled:shadow-none";
 
 export const dayToggleGroupClassName =
   "flex flex-wrap gap-[var(--space-inline-sm)]";
 
 export const dayToggleButtonVariants = cva(
   [
-    "inline-flex size-10 shrink-0 items-center justify-center rounded-[var(--radius-md)] border",
+    componentFontFamilyClassName, "inline-flex size-10 shrink-0 items-center justify-center rounded-[var(--radius-md)] border",
     "text-[length:var(--text-body-small-size)] font-medium leading-none",
     "transition-[var(--motion-hover)] outline-none",
     focusRing,
-    disabledStyles,
+    controlDisabledClassName,
   ].join(" "),
   {
     variants: {

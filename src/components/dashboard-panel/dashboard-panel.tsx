@@ -1,6 +1,8 @@
 import { cn } from "@/lib/utils";
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
 
 export const dashboardPanelClassName = [
+  componentFontFamilyClassName,
   "overflow-hidden rounded-[var(--radius-card)] bg-[var(--color-surface-muted)]",
   "ring-1 ring-[var(--color-border-subtle)]",
 ].join(" ");

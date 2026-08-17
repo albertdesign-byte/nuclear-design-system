@@ -6,6 +6,23 @@ import "../src/app/globals.css";
 
 const preview: Preview = {
   decorators: [withMedmoTheme],
+  globalTypes: {
+    theme: {
+      description: "Color theme",
+      toolbar: {
+        title: "Theme",
+        icon: "circlehollow",
+        items: [
+          { value: "light", icon: "sun", title: "Light" },
+          { value: "dark", icon: "moon", title: "Dark" },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+  initialGlobals: {
+    theme: "light",
+  },
   parameters: {
     controls: {
       matchers: {
@@ -26,7 +43,11 @@ const preview: Preview = {
           "Patterns",
           ["Overview", "*"],
           "Templates",
-          ["Overview", "*"],
+          ["Overview", "AppShell", "MultiStepFlowLayout", "*"],
+          "Screens",
+          ["Overview", "Operational", ["Dashboard", "Tasks", "*"], "*"],
+          "Products",
+          ["Overview", "Patients", "MPF Portal", "*"],
         ],
       },
     },

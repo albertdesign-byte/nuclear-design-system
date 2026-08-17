@@ -1,8 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowRightIcon } from "lucide-react";
-
 import {
   Accordion,
   AccordionContent,
@@ -10,7 +7,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/accordion";
-import { Button } from "@/components/button";
 import {
   accordionInstallationUiSnippet,
   accordionRealScreenSnippet,
@@ -40,19 +36,6 @@ export function AccordionDocsPage() {
         preview: <AccordionRealScreenPreview />,
         code: accordionRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-end border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/alert" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Alert
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">

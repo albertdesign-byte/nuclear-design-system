@@ -1,0 +1,113 @@
+---
+title: Card
+description: Superficie responsiva para agrupar contenido relacionado sin truncarlo.
+status: published
+version: 1.0.0
+lastUpdated: 2026-08-14
+---
+
+# Card
+
+Card agrupa información y acciones relacionadas en una superficie
+content-driven. No aplica alturas fijas, truncamiento ni límites verticales por
+defecto.
+
+## Composition
+
+```tsx
+<Card>
+  <CardHeader>
+    <CardTitle>
+      <h3>Patient summary</h3>
+    </CardTitle>
+    <CardDescription>Last updated 2 hours ago</CardDescription>
+    <CardAction>Optional status or compact action</CardAction>
+  </CardHeader>
+  <CardContent>Main content</CardContent>
+  <CardFooter>Actions or secondary information</CardFooter>
+</Card>
+```
+
+## Layout contract
+
+- Card utiliza altura determinada por su contenido.
+- Title, Description y Content permiten wrapping completo.
+- Identificadores largos aplican `overflow-wrap:anywhere`.
+- CardAction se mueve debajo del texto cuando el contenedor es estrecho.
+- CardFooter utiliza flex wrap y gap semántico.
+- El root no oculta contenido dinámico ni overlays.
+- CardMedia controla el clipping de imágenes dentro del radio de Card.
+- No se aplican `truncate`, `line-clamp`, `max-height` o alturas fijas por
+  defecto.
+
+## Variants
+
+- Basic Card: contenido simple sin regiones innecesarias.
+- Card with Header: título y descripción opcional.
+- Card with Footer: información secundaria o acciones.
+- Card with Actions: Badge o acción compacta en Header; acciones principales en
+  Footer.
+- Card with Image: media responsivo dentro de CardMedia.
+- Empty State Card: explicación breve y acción primaria opcional.
+
+## Responsive behavior
+
+- Mobile: una columna, ancho completo, acciones envueltas.
+- Tablet: una o dos columnas según densidad.
+- Desktop: hasta tres columnas con `--space-card-gap`.
+- Los grids utilizan `minmax(0, 1fr)` o `min-w-0` para permitir wrapping.
+- No igualar alturas con valores fijos. Si un producto necesita Cards de igual
+  altura, el grid puede estirarlas sin ocultar contenido.
+
+## Content flexibility
+
+Contenido clínico, identificadores, localización y listas dinámicas permanecen
+completos. Truncar findings, warnings, IDs o acciones requeridas no está
+permitido. Un área scrollable solo se introduce explícitamente dentro de
+CardContent y debe conservar navegación de teclado.
+
+## Accessibility
+
+- Card es visual por defecto y no introduce semántica innecesaria.
+- Usar `article` para contenido independiente.
+- Usar `role="region"` y `aria-labelledby` para una sección importante con
+  nombre.
+- CardTitle es un slot visual; debe contener el `h2`–`h6` correcto según el
+  outline de la página.
+- Buttons y Links permanecen controles independientes y con focus visible.
+- No hacer toda la Card clickable cuando contiene acciones interactivas
+  anidadas.
+- Media informativo requiere texto alternativo; media decorativo utiliza
+  `aria-hidden`.
+
+## Guidelines
+
+- Usar Card para Patient Summary, Study, Report, Provider y resúmenes de
+  dashboard.
+- No usar Card como wrapper automático para cada párrafo, campo o sección.
+- Usar Table para comparar múltiples registros con los mismos atributos.
+- Mantener un tema claro y dos o tres grupos de metadata por Card.
+- Usar `size="sm"` solamente en paneles compactos; la densidad estándar utiliza
+  `size="default"`.
+
+## Healthcare examples
+
+- Patient Summary Card: identidad, estado y próxima cita.
+- Study Card: modalidad, imágenes y adquisición.
+- Report Card: estado, autor y última actualización.
+- Provider Card: especialidad, disponibilidad y carga asignada.
+
+## Import
+
+```tsx
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardMedia,
+  CardTitle,
+} from "@/components/card";
+```

@@ -108,8 +108,8 @@ export function ButtonPlayground() {
               <Trash2Icon />
             ) : (
               <>
-                <PlusIcon />
-                Guardar cambios
+                <PlusIcon data-icon="inline-start" />
+                Save changes
               </>
             )}
           </Button>
@@ -144,14 +144,14 @@ export function ButtonPlayground() {
         <h2 className="text-sm font-semibold">With icons</h2>
         <div className="flex flex-wrap gap-3">
           <Button variant="primary">
-            <PlusIcon />
-            Nuevo paciente
+            <PlusIcon data-icon="inline-start" />
+            New patient
           </Button>
           <Button variant="outline">
-            <DownloadIcon />
-            Exportar
+            <DownloadIcon data-icon="inline-start" />
+            Export
           </Button>
-          <Button variant="ghost" intent="danger" size="icon-md" aria-label="Eliminar">
+          <Button variant="ghost" intent="danger" size="icon-md" aria-label="Delete">
             <Trash2Icon />
           </Button>
         </div>

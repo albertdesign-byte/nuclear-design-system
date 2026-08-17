@@ -24,19 +24,18 @@ export function ButtonRealScreenPreview() {
               id="button-real-screen-title"
               className="text-[length:var(--text-title-size)] font-semibold leading-[var(--text-title-line-height)] text-foreground"
             >
-              Guardar cambios
+              Save changes
             </h3>
             <p className="mt-[var(--space-stack-sm)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-muted-foreground">
-              Los datos de contacto se actualizarán en el registro clínico de
-              Elena Morales.
+              Contact details will be updated in Elena Morales&apos;s clinical record.
             </p>
           </div>
 
           <div className="flex flex-wrap justify-end gap-[var(--space-inline-sm)] border-t border-border bg-muted/30 px-[var(--space-card)] py-[var(--space-stack-sm)]">
             <Button variant="outline" size="sm">
-              Cancelar
+              Cancel
             </Button>
-            <Button size="sm">Guardar cambios</Button>
+            <Button size="sm">Save changes</Button>
           </div>
         </div>
       </div>

@@ -30,7 +30,7 @@ export function DateRangePicker({
   onRangeChange,
   fromLabel = "From:",
   toLabel = "To:",
-  locale = "es-ES",
+  locale = "en-US",
   size = "md",
   disabled = false,
   className,

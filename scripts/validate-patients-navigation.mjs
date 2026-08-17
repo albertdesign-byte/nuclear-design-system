@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Ensures Patients product sidebar links resolve to /docs/products/patients/*
- * and that every linked component has a route registry entry.
+ * Ensures Patients product navigation reuses the existing implementation
+ * registry while legacy product-scoped component routes remain functional.
  */
 
 import { readFileSync, existsSync } from "node:fs";
@@ -46,39 +46,30 @@ function toPatientsProductHref(componentHref) {
 console.log("=== Patients Navigation Validation ===\n");
 
 const productsNav = read("src/components/docs/config/products-navigation.ts");
+const userflowNav = read("src/components/docs/config/userflow-navigation.ts");
 const routes = read("src/components/docs/config/patients-component-routes.ts");
+const userflowRoutes = read("src/components/docs/config/userflow-screen-routes.ts");
 const dynamicRoute = read("src/app/docs/products/patients/[slug]/page.tsx");
+const dynamicUserflowRoute = read("src/app/docs/userflow/patients/[slug]/page.tsx");
 
 const registeredSlugs = [
-  ...routes.matchAll(/^\s+(?:"([a-z0-9-]+)"|([a-z][a-z0-9-]*)):\s*\{/gm),
+  ...routes.matchAll(/^  (?:"([a-z0-9-]+)"|([a-z][a-z0-9-]*)):\s*\{/gm),
 ].map((match) => match[1] ?? match[2]);
 
-const patientsBaseSection = productsNav.match(
-  /const patientsProductNavCategoriesBase[\s\S]*?^];/m
-)?.[0] ?? "";
-
-const baseHrefs = [
-  ...patientsBaseSection.matchAll(/href:\s*"(\/docs\/components[^"]*)"/g),
-].map((match) => match[1]);
-
-if (baseHrefs.length === 0) {
-  fail("No Patients component hrefs found in products-navigation.ts");
+if (productsNav.includes("...patientsUserflowNavCategories")) {
+  pass("Patients product navigation reuses the implementation categories");
 } else {
-  pass(`Found ${baseHrefs.length} Patients component source hrefs`);
+  fail("Patients product navigation does not reuse patientsUserflowNavCategories");
 }
 
-const patientsHrefs = baseHrefs.map(toPatientsProductHref);
+const implementationHrefs = [
+  ...userflowNav.matchAll(/href:\s*"(\/docs\/userflow\/patients\/[^"]+)"/g),
+].map((match) => match[1]);
 
-for (const href of patientsHrefs) {
-  if (!href.startsWith("/docs/products/patients/")) {
-    fail(`Patients href must stay in product scope: ${href}`);
-    continue;
-  }
-
-  const slug = href.split("#")[0].replace("/docs/products/patients/", "");
-  if (!registeredSlugs.includes(slug)) {
-    fail(`Missing patientsComponentRoutes entry for slug "${slug}" (${href})`);
-  }
+if (implementationHrefs.length > 0) {
+  pass(`Found ${implementationHrefs.length} Patients implementation hrefs`);
+} else {
+  fail("No Patients implementation hrefs found");
 }
 
 if (existsSync(join(root, "src/app/docs/products/patients/[slug]/page.tsx"))) {
@@ -91,6 +82,21 @@ if (dynamicRoute.includes("patientsComponentRoutes")) {
   pass("Dynamic Patients component route is wired to the registry");
 } else {
   fail("Dynamic Patients component route is not wired to the registry");
+}
+
+if (
+  dynamicUserflowRoute.includes("patientsUserflowScreenRoutes") &&
+  userflowRoutes.includes("patientsUserflowScreenRoutes")
+) {
+  pass("Dynamic Patients implementation route is wired to the registry");
+} else {
+  fail("Dynamic Patients implementation route is not wired to the registry");
+}
+
+if (registeredSlugs.length > 0) {
+  pass(`Preserved ${registeredSlugs.length} legacy Patients component routes`);
+} else {
+  fail("No legacy Patients component routes remain registered");
 }
 
 const footerHref = toPatientsProductHref("/docs/components/app-footer");

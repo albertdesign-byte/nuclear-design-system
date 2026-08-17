@@ -1,4 +1,4 @@
-import type { ComponentProps, ReactNode } from "react";
+import type { ReactNode } from "react";
 import type { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 
 export interface CommandDialogProps

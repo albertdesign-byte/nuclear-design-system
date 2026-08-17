@@ -15,17 +15,17 @@ import { FieldError } from "@/components/field-error";
 import { Input } from "@/components/input";
 import { Label } from "@/components/label";
 import {
-  PatientsShell,
-  PatientsShellCard,
-  PatientsShellHeader,
-  PatientsShellInputPanel,
-  PatientsShellLocale,
-  PatientsShellMain,
-  PatientsShellMainDesktop,
-  PatientsShellProgress,
-  patientsFieldGroupClassName,
-  patientsShellDesktopContentClassName,
-} from "@/components/patients-shell";
+  MultiStepFlowLayout,
+  MultiStepFlowLayoutCard,
+  MultiStepFlowLayoutHeader,
+  MultiStepFlowLayoutInputPanel,
+  MultiStepFlowLayoutLocale,
+  MultiStepFlowLayoutMain,
+  MultiStepFlowLayoutMainDesktop,
+  MultiStepFlowLayoutProgress,
+  multiStepFlowFieldGroupClassName,
+  multiStepFlowLayoutDesktopContentClassName,
+} from "@/components/multi-step-flow-layout";
 import { cn } from "@/lib/utils";
 
 const EMAIL_ERROR_MESSAGE = "Enter a valid email";
@@ -85,7 +85,7 @@ function EmailField({ email, emailError, onEmailChange }: EmailFieldProps) {
   const isInvalid = Boolean(emailError);
 
   return (
-    <div className={cn(patientsFieldGroupClassName)}>
+    <div className={cn(multiStepFlowFieldGroupClassName)}>
       <Label htmlFor="patients-email" invalid={isInvalid}>
         Email
       </Label>
@@ -125,21 +125,21 @@ function PatientsEmailMobileScreen({
   onContinue,
 }: EmailScreenProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
-      <PatientsShellHeader>
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+      <MultiStepFlowLayoutHeader>
         <MedmoLogoLockup />
-        <PatientsShellLocale />
-      </PatientsShellHeader>
+        <MultiStepFlowLayoutLocale />
+      </MultiStepFlowLayoutHeader>
 
-      <PatientsShellMain className="flex-1 gap-[var(--space-stack-md)]">
-        <PatientsShellCard>
+      <MultiStepFlowLayoutMain className="flex-1 gap-[var(--space-stack-md)]">
+        <MultiStepFlowLayoutCard>
           <EmailBackButton onClick={onBack} />
           <EmailIntro />
-        </PatientsShellCard>
+        </MultiStepFlowLayoutCard>
 
-        <PatientsShellInputPanel>
+        <MultiStepFlowLayoutInputPanel>
           <EmailField email={email} emailError={emailError} onEmailChange={onEmailChange} />
-        </PatientsShellInputPanel>
+        </MultiStepFlowLayoutInputPanel>
 
         <PatientsFlowContinueButton
                     disabled={!canContinue}
@@ -147,8 +147,8 @@ function PatientsEmailMobileScreen({
         >
           Continue
         </PatientsFlowContinueButton>
-      </PatientsShellMain>
-    </PatientsShell>
+      </MultiStepFlowLayoutMain>
+    </MultiStepFlowLayout>
   );
 }
 
@@ -161,25 +161,25 @@ function PatientsEmailDesktopScreen({
   onContinue,
 }: EmailScreenProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
       <div className="bg-[var(--color-surface)]">
-        <PatientsShellHeader className="pb-[var(--space-stack-sm)]">
+        <MultiStepFlowLayoutHeader className="pb-[var(--space-stack-sm)]">
           <MedmoLogoLockup />
-          <PatientsShellLocale showGlobe />
-        </PatientsShellHeader>
-        <PatientsShellProgress value={0.6} />
+          <MultiStepFlowLayoutLocale showGlobe />
+        </MultiStepFlowLayoutHeader>
+        <MultiStepFlowLayoutProgress value={0.6} />
       </div>
 
-      <PatientsShellMainDesktop className="flex-1">
-        <div className={patientsShellDesktopContentClassName}>
-          <PatientsShellCard>
+      <MultiStepFlowLayoutMainDesktop className="flex-1">
+        <div className={multiStepFlowLayoutDesktopContentClassName}>
+          <MultiStepFlowLayoutCard>
             <EmailBackButton onClick={onBack} />
             <EmailIntro />
-          </PatientsShellCard>
+          </MultiStepFlowLayoutCard>
 
-          <PatientsShellInputPanel>
+          <MultiStepFlowLayoutInputPanel>
             <EmailField email={email} emailError={emailError} onEmailChange={onEmailChange} />
-          </PatientsShellInputPanel>
+          </MultiStepFlowLayoutInputPanel>
 
           <PatientsFlowContinueButton
                         disabled={!canContinue}
@@ -188,8 +188,8 @@ function PatientsEmailDesktopScreen({
             Continue
           </PatientsFlowContinueButton>
         </div>
-      </PatientsShellMainDesktop>
-    </PatientsShell>
+      </MultiStepFlowLayoutMainDesktop>
+    </MultiStepFlowLayout>
   );
 }
 

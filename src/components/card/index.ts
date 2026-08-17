@@ -6,6 +6,7 @@ export {
   CardAction,
   CardDescription,
   CardContent,
+  CardMedia,
 } from "./card";
 export {
   cardActionClassName,
@@ -13,6 +14,7 @@ export {
   cardDescriptionClassName,
   cardFooterClassName,
   cardHeaderClassName,
+  cardMediaClassName,
   cardTitleClassName,
   cardVariants,
 } from "./card.styles";
@@ -22,6 +24,7 @@ export type {
   CardDescriptionProps,
   CardFooterProps,
   CardHeaderProps,
+  CardMediaProps,
   CardProps,
   CardSize,
   CardTitleProps,

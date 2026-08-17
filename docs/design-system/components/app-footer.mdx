@@ -1,0 +1,104 @@
+---
+title: App Footer
+description: Branding, navigation, accessibility, and responsive rules for the Medmo application footer.
+status: complete
+lastUpdated: 2026-08-14
+---
+
+# App Footer
+
+`AppFooter` closes an application page or complete workflow with stable Medmo branding, support access, essential resources, and policy destinations. It is not a replacement for primary application navigation.
+
+## Variants
+
+### Patients
+
+The primary Medmo application Footer. It uses the inverse primary surface and contains:
+
+- a proportional 48px Medmo logo lockup linked to `https://medmo.com/`;
+- current copyright and location metadata;
+- About Medmo;
+- Contact Us;
+- Resources;
+- Support.
+
+### Default
+
+A compact neutral Footer for shells that need only copyright and a short legal link list.
+
+## Branding contract
+
+- Use `MedmoLogoLockup` with `size="lg"` and `variant="inverse"`.
+- Scale the complete lockup; never stretch the icon or wordmark independently.
+- Keep the lockup aligned to the first content column.
+- The logo must be a named link to the official Medmo website.
+- The link opens in a new tab with `rel="noopener noreferrer"` and announces that behavior.
+
+## Navigation contract
+
+All groups use the same title, divider, list spacing, text style, and interactive link class. Do not create group-specific hover behavior.
+
+Every Footer link supports:
+
+- default: high-contrast text;
+- hover: underline plus inverse surface change;
+- focus-visible: high-contrast ring with offset;
+- active: stronger inverse surface plus underline.
+
+Phone and email use native `tel:` and `mailto:` links. External website links use meaningful visible labels, safe new-tab attributes, and an assistive “opens in new tab” suffix.
+
+## Responsive behavior
+
+| Device | Layout |
+| --- | --- |
+| Mobile | Brand and all navigation groups stack in one column. |
+| Tablet | Brand remains separate; navigation uses two columns. |
+| Desktop | Brand and four navigation groups share one horizontal region. |
+
+Long labels and email addresses wrap. Footer height remains content-driven, and bottom padding includes the device safe area.
+
+## Accessibility
+
+### Keyboard navigation
+
+Tab order follows the visual order: logo, About Medmo, Contact Us, Resources, Support. `Enter` activates the focused link.
+
+### Focus states
+
+Every link has a visible focus ring that contrasts with the primary background. Focus must not rely on color or opacity alone.
+
+### Link accessibility
+
+Use concise labels that describe their destination. The linked logo has the accessible name “Visit Medmo website (opens in new tab).” Decorative logo and contact icons remain hidden from assistive technology.
+
+### External links
+
+When a link opens a new tab, add `target="_blank"`, `rel="noopener noreferrer"`, and accessible text that communicates the behavior. Do not use `#` placeholders.
+
+## Footer Guidelines
+
+### When to use
+
+- At the end of a complete application page or patient workflow.
+- When users need persistent access to Medmo identity, contact, support, resources, and privacy information.
+- Once per page, after the main content.
+
+### What to include
+
+- Approved Medmo lockup.
+- Current copyright.
+- Maintained contact and support details.
+- A small set of essential company, resource, and policy links.
+
+### What to avoid
+
+- Primary workflow actions.
+- Patient or protected health information.
+- Urgent clinical alerts.
+- Large sitemap-style navigation trees.
+- Promotional campaigns or banners.
+- Duplicate, disabled, ambiguous, or placeholder links.
+
+## API
+
+`variant` selects the Patients or default composition. `device` selects the tested layout contract. `logoHref` overrides the official website destination when required by an application environment. `links` and `copyright` customize the default variant.

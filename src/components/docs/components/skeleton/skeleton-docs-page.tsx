@@ -1,9 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-
-import { Button } from "@/components/button";
 import { Skeleton } from "@/components/skeleton";
 import {
   skeletonCardSnippet,
@@ -39,28 +35,6 @@ export function SkeletonDocsPage() {
         preview: <SkeletonRealScreenPreview />,
         code: skeletonRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/separator" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Separator
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/spinner" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Spinner
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">

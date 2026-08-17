@@ -1,0 +1,19 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+import { ShadowsGallery } from "./shadows-gallery";
+
+{/* token-contract: family=shadows */}
+
+<Meta title="Foundations/Shadows" />
+
+# Shadows
+
+Depth lives in surfaces. Shadow only reinforces it. There is no public elevation token layer.
+
+## Overview
+
+The public API is `shadow-none` through `shadow-xl`. Most static UI stays at `shadow-none` with a ring or border. Shadows enter when tone and border are not enough: hover lift, floating menus, dialogs, and rare command surfaces.
+
+Prefer `--color-surface-floating` over a dramatic shadow to make a dropdown read as detached. Dark mode reduces shadow opacity further; surface lightness carries the stack.
+
+<ShadowsGallery />

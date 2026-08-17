@@ -1,0 +1,104 @@
+---
+title: Dropdown Menu
+description: Menú compacto para acciones contextuales con indicador de expansión consistente.
+status: published
+version: 1.0.0
+lastUpdated: 2026-08-14
+---
+
+# Dropdown Menu
+
+Dropdown Menu presenta una lista breve de acciones relacionadas con un objeto o
+contexto. No representa una selección de formulario.
+
+## Trigger
+
+- El indicador oficial es `ChevronDownIcon` de Lucide.
+- `DropdownMenuButton` añade el indicador automáticamente a triggers con label.
+- `DropdownMenuIconButton` presenta el mismo indicador en triggers compactos y
+  requiere `aria-label`.
+- El espacio entre label e indicador usa `--space-button-icon-gap` (6px).
+- El indicador rota al abrir el menú y nunca queda cubierto por el trigger.
+- `DropdownMenuTrigger` permanece disponible para composiciones avanzadas, pero
+  el trigger resultante también debe mostrar `ChevronDownIcon`.
+
+```tsx
+<DropdownMenu>
+  <DropdownMenuButton size="sm">Patient actions</DropdownMenuButton>
+  <DropdownMenuContent>
+    <DropdownMenuGroup>
+      <DropdownMenuItem>View chart</DropdownMenuItem>
+      <DropdownMenuItem>Schedule follow-up</DropdownMenuItem>
+    </DropdownMenuGroup>
+  </DropdownMenuContent>
+</DropdownMenu>
+```
+
+## Variants
+
+- Default: trigger con label y Chevron Down.
+- Disabled: conserva label e indicador con los tokens disabled compartidos.
+- With Icon: icono inicial, label y Chevron Down final.
+- With Sections: utiliza `DropdownMenuGroup`, `DropdownMenuLabel` y separadores.
+- With Descriptions: el label precede una descripción breve mediante
+  `DropdownMenuItemDescription`.
+
+## States
+
+Los estados oficiales son Closed, Hover, Focus, Open y Disabled. Open actualiza
+`aria-expanded`, aplica el estado activo del Button y rota el Chevron Down.
+
+## Content patterns
+
+- Simple Actions: lista breve de comandos del mismo nivel.
+- Navigation Actions: enlaces que conservan semántica y destino.
+- Grouped Actions: secciones con labels y separadores.
+- Dangerous Actions: bloque final separado para Delete, Archive o Remove.
+
+## Danger
+
+`variant="danger"` utiliza los tokens suaves de Danger definidos por Nuclear DS.
+Los aliases anteriores con `variant="destructive"` continúan funcionando, pero
+la API y documentación nuevas utilizan `danger`.
+
+Una opción Danger indica riesgo; no confirma la operación. Acciones irreversibles
+o de alto impacto deben abrir Alert Dialog antes de ejecutarse.
+
+## Accessibility
+
+- Enter, Space o Arrow Down abre el menú.
+- Arrow Up y Arrow Down recorren los items; Home y End saltan a los extremos.
+- Typeahead localiza items por su label.
+- Escape cierra sin ejecutar una acción y devuelve focus al trigger.
+- El trigger anuncia `aria-expanded` y la superficie usa semántica `menu`.
+- Triggers sin label visible requieren un `aria-label` específico.
+- Items disabled se anuncian dentro del widget compuesto, pero no se activan.
+
+## Guidelines
+
+- Dropdown Menu: acciones contextuales breves.
+- Select: elegir un valor que forma parte del estado de un formulario o filtro.
+- Command Palette: buscar navegación y acciones globales a gran escala.
+- Context Menu: acciones secundarias por right click o long press; nunca es la
+  única vía para una acción esencial.
+
+## Healthcare examples
+
+- Patient Actions: View chart, Edit demographics, Schedule follow-up.
+- Study Actions: Open study, Assign reader, Download DICOM.
+- Report Actions: Open report, Edit findings, Send to provider.
+- User Management Actions: Edit role, Reset access, Review audit log.
+
+## Import
+
+```tsx
+import {
+  DropdownMenu,
+  DropdownMenuButton,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuIconButton,
+  DropdownMenuItem,
+  DropdownMenuItemDescription,
+} from "@/components/dropdown-menu";
+```

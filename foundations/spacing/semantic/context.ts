@@ -80,4 +80,53 @@ export const contextSpacing: Record<ContextSpacingRole, SemanticSpacingToken> = 
     "Grid/flex gap when laying out multiple cards on a page",
     "Padding inside a single card (use space-card)"
   ),
+
+  "button-icon-gap": context(
+    "spacing-6",
+    "Button icon-to-label gap",
+    "Leading and trailing icons, including loading spinners, inside Button",
+    "Spacing between separate buttons or icon-only controls"
+  ),
+
+  "button-padding-sm": context(
+    "spacing-12",
+    "Small Button horizontal padding",
+    "Text buttons with size sm",
+    "Icon-only buttons or spacing between controls"
+  ),
+
+  "button-padding-md": context(
+    "spacing-12",
+    "Medium Button horizontal padding",
+    "Text buttons with the default md size",
+    "Icon-only buttons or spacing between controls"
+  ),
+
+  "button-padding-lg": context(
+    "spacing-16",
+    "Large Button horizontal padding",
+    "Text buttons with size lg",
+    "Icon-only buttons or spacing between controls"
+  ),
+
+  "button-padding-xl": context(
+    "spacing-20",
+    "Extra-large Button horizontal padding",
+    "Touch-oriented text buttons with size xl",
+    "Icon-only buttons or page layout"
+  ),
+
+  "button-padding-xxl": context(
+    "spacing-24",
+    "Two-extra-large Button horizontal padding",
+    "Prominent touch-oriented text buttons with size xxl",
+    "Icon-only buttons or dialog padding"
+  ),
+
+  "touch-target-min": context(
+    "spacing-44",
+    "Minimum touch target",
+    "44×44px interactive area for mobile and accessibility (WCAG 2.5.5)",
+    "Visual padding inside dense tables or icon-only optical exceptions"
+  ),
 }

@@ -33,8 +33,9 @@
   /* ─── Typography ─────────────────────────────────────────────────────────── */
 
   --font-sans: var(--font-family-sans);
-  --font-mono: var(--font-family-mono);
-  --font-heading: var(--text-title-font-family);
+  --font-component: var(--font-family-component);
+  --font-mono: var(--font-family-sans);
+  --font-heading: var(--font-family-sans);
 
   /* ─── Radius (Foundation owns --radius-* semantics) ──────────────────────── */
 

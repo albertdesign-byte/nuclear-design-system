@@ -16,7 +16,7 @@ export function AvatarRealScreenPreview() {
           Dra. Ana Rivera
         </p>
         <p className="text-[length:var(--text-caption-size)] leading-[var(--text-caption-line-height)] text-[var(--color-text-muted)]">
-          Médico tratante · Cardiología
+          Attending physician · Cardiology
         </p>
       </div>
     </div>

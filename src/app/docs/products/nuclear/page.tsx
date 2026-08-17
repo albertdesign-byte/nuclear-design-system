@@ -3,14 +3,14 @@ import type { Metadata } from "next";
 import { DocsProductOverview } from "@/components/docs/products/docs-product-overview";
 
 export const metadata: Metadata = {
-  title: "Nuclear",
+  title: "MPF Portal",
 };
 
 export default function NuclearProductRoute() {
   return (
     <DocsProductOverview
-      title="Nuclear"
-      description="Component map for the Nuclear product. All entries link to the shared component library."
+      title="MPF Portal"
+      description="Operational study coordination and dashboard implementations built from the shared Nuclear Design System."
     />
   );
 }

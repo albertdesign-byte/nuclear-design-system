@@ -52,18 +52,18 @@ export function TabsPlayground() {
           <h2 className="mb-4 text-sm font-semibold">Clinical record</h2>
           <Tabs defaultValue="resumen">
             <TabsList variant={variant}>
-              <TabsTrigger value="resumen">Resumen</TabsTrigger>
+              <TabsTrigger value="resumen">Summary</TabsTrigger>
               <TabsTrigger value="labs">Labs</TabsTrigger>
-              <TabsTrigger value="notas">Notas</TabsTrigger>
+              <TabsTrigger value="notas">Notes</TabsTrigger>
             </TabsList>
             <TabsContent value="resumen" className="mt-4">
-              Diagnóstico principal: hipertensión controlada.
+              Primary diagnosis: controlled hypertension.
             </TabsContent>
             <TabsContent value="labs" className="mt-4">
-              Hemoglobina 13.8 g/dL · Glucosa 98 mg/dL.
+              Hemoglobin 13.8 g/dL · Glucose 98 mg/dL.
             </TabsContent>
             <TabsContent value="notas" className="mt-4">
-              Paciente refiere adherencia al tratamiento.
+              Patient reports treatment adherence.
             </TabsContent>
           </Tabs>
         </section>

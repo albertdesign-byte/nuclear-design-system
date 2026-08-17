@@ -497,13 +497,16 @@ Presets (primary API)
 
 ### 1.7 Icons
 
-**Lucide** — biblioteca única. Cuatro tamaños. Un stroke.
+<!-- iconography-contract: sizes=xs,sm,md,lg,xl;default=sm;library=Lucide;stroke=2 -->
+
+**Lucide** — biblioteca única. Cinco tamaños. Un stroke.
 
 ```
-Grid base     24px    icon-xl — referencia, uso raro
-Default       16px    icon-md — 90% del producto
-Compact       14px    icon-sm — badges, xs button
-Standalone    20px    icon-lg — empty state
+Extra compact 12px    icon-xs — metadata densa, badges
+Default       16px    icon-sm — 90% del producto
+Emphasis      20px    icon-md — acciones primarias, headers
+Grid base     24px    icon-lg — standalone, empty state
+Feature       32px    icon-xl — focal, uso raro
 
 Stroke        2       icon-stroke — universal
 Color         currentColor — hereda del padre
@@ -582,7 +585,6 @@ Components (className con utilidades)     ← Consumo
 |------------|--------------|-----------|
 | Label | Requerido para forms | P0 |
 | Popover | Base para Combobox, DatePicker | P0 |
-| Dropdown Menu | Acciones, SplitButton | P0 |
 | Command | Base para Combobox, search | P0 |
 | Alert | Feedback inline | P0 |
 | Alert Dialog | Confirmaciones | P0 |
@@ -645,7 +647,7 @@ Table
 | **IconButton** | Button (icon size) + aria-label enforcement | `@/components/composite/icon-button` |
 | **SearchInput** | InputGroup + SearchIcon + clear button | `@/components/composite/search-input` |
 | **Form** | react-hook-form context + FormField[] | `@/components/composite/form` |
-| **ButtonGroup** | Button[] con spacing unificado | `@/components/composite/button-group` |
+| **Button Group pattern** | Button[] con spacing y orden documentados | Se documenta dentro de `@/components/button` |
 | **StatCard** | Card + label + value + trend | `@/components/composite/stat-card` |
 | **ConfirmDialog** | AlertDialog + title + description + actions | `@/components/composite/confirm-dialog` |
 
@@ -673,15 +675,17 @@ Table
 
 ## 6. Templates — Catálogo objetivo
 
-| Template | Patterns incluidos | Caso de uso |
-|----------|-------------------|-------------|
-| **DashboardLayout** | Sidebar + PageHeader + grid de StatCards + Charts | Panel principal del médico |
-| **ListPageLayout** | PageHeader + SearchToolbar + DataTable + Pagination | Listado de pacientes, citas, órdenes |
-| **DetailPageLayout** | PageHeader + Tabs + Card sections + Actions | Ficha de paciente, detalle de orden |
-| **SettingsPageLayout** | Sidebar nav + FormLayout sections | Configuración de cuenta, preferencias |
-| **ModalFormLayout** | Dialog + FormLayout + Submit/Cancel | Crear/editar entidades inline |
+Templates definen layout, slots, comportamiento responsive y orquestación genérica. No contienen copy, validaciones, rutas ni reglas de producto. Patient Registration, Deposit Flow y Study Upload viven en Products.
 
-**Regla:** Los templates definen layout y slots, no contenido. El contenido lo provee la aplicación.
+| Template | Estado | Patterns / componentes | Caso de uso |
+|----------|--------|------------------------|-------------|
+| **MultiStepFlowLayout** | Publicado | Progress + header + content regions | Flujo multi-paso genérico. Patient Intake, Provider Onboarding, Clinic Registration, Radiology Workflow, Insurance Enrollment. No es un Product ni un layout de Patients. |
+| **AppShell** | Publicado | Sidebar + PageHeader + content slots | Dashboard Layout. Frame operativo. App Header, App Sidebar, Dashboard Grid y Dashboard Panel siguen siendo Components. |
+| **SearchResults** | Publicado | Toolbar + Global Search Bar + results slot | Búsqueda y exploración. Extraído de Scan Search. Se compone dentro de AppShell. Sin slot de filtros: la pantalla fuente no los tiene. |
+| **DetailView** | Planificado | PageHeader + Tabs + Card sections + Actions | Detalle de cualquier entidad. Bloqueado: no hay pantalla de detalle de entidad en producto. |
+| **FormPage** | No extraer | — | Todos los formularios vivos son pasos de MultiStepFlowLayout. |
+
+**Regla:** Los layouts pertenecen a Nuclear. Los products los consumen. Un layout nunca se nombra por un dominio de producto. Products solo contienen copy, validación, routing y reglas de negocio.
 
 ---
 
@@ -704,18 +708,29 @@ Los domain components son responsabilidad de las aplicaciones consumidoras, no d
 
 ```tsx
 // ✅ Correcto — compone desde el DS
-import { Card, CardHeader, CardTitle } from "@/components/ui/card"
-import { Avatar } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/card"
+import { Badge } from "@/components/badge"
 
 function PatientCard({ patient }: { patient: Patient }) {
   return (
     <Card>
       <CardHeader>
-        <Avatar src={patient.photo} fallback={patient.initials} />
-        <CardTitle>{patient.name}</CardTitle>
-        <Badge variant="secondary">{patient.status}</Badge>
+        <CardTitle>
+          <h3>{patient.name}</h3>
+        </CardTitle>
+        <CardDescription>{patient.mrn}</CardDescription>
+        <CardAction>
+          <Badge variant="secondary">{patient.status}</Badge>
+        </CardAction>
       </CardHeader>
+      <CardContent>{patient.summary}</CardContent>
     </Card>
   )
 }
@@ -765,11 +780,19 @@ docs/design-system/
 │   ├── page-header.mdx
 │   └── ...
 │
-└── templates/
-    ├── dashboard.mdx
-    ├── list-page.mdx
-    └── ...
+├── templates/
+│   ├── multi-step-flow.mdx
+│   ├── dashboard-layout.mdx
+│   ├── detail-view.mdx
+│   ├── search-results.mdx
+│   └── form-page.mdx
+│
+└── products/
+    ├── patients/
+    └── mpf-portal/                ← Mantiene `nuclear` como slug interno
 ```
+
+La navegación pública del sitio utiliza cinco capas: **Foundations, Components, Patterns, Templates y Products**. Primitive y Composite Components se agrupan bajo Components; las implementaciones específicas viven bajo Products.
 
 ### Estructura de cada página de componente
 
@@ -852,11 +875,11 @@ graph TD
     end
 
     subgraph Templates
-        DashboardLayout
-        ListPageLayout
-        DetailPageLayout
-        SettingsPageLayout
-        ModalFormLayout
+        MultiStepFlowLayout
+        AppShell
+        DetailView
+        SearchResults
+        FormPage
     end
 
     Foundations --> Primitives
@@ -869,11 +892,11 @@ graph TD
     Card --> StatCard
     Button --> PageHeader
     SearchInput --> SearchToolbar
-    StatCard --> DashboardLayout
-    DataTable --> ListPageLayout
-    PageHeader --> ListPageLayout
-    FormLayout --> ModalFormLayout
-    Dialog --> ModalFormLayout
+    StatCard --> AppShell
+    DataTable --> SearchResults
+    PageHeader --> DetailView
+    FormLayout --> FormPage
+    FormLayout --> MultiStepFlowLayout
     Patterns --> Templates
 ```
 
@@ -881,16 +904,16 @@ graph TD
 
 | Primitivo | Composite | Pattern | Template |
 |-----------|-----------|---------|----------|
-| Button | IconButton | PageHeader | ListPage |
-| Button | ButtonGroup | SearchToolbar | Dashboard |
-| Input | InputGroup → SearchInput | SearchToolbar | ListPage |
-| Select | FormField | FilterToolbar | ListPage |
+| Button | IconButton | PageHeader | DetailView |
+| Button | Button Group pattern | SearchToolbar | AppShell |
+| Input | InputGroup → SearchInput | SearchToolbar | SearchResults |
+| Select | FormField | FilterToolbar | SearchResults |
 | Checkbox | FormField | FilterToolbar | — |
-| Card | StatCard | — | Dashboard |
-| Table | — | DataTable | ListPage |
-| Dialog | ConfirmDialog | — | ModalForm |
-| Form | — | FormLayout | Settings, ModalForm |
-| Tabs | — | — | DetailPage |
+| Card | StatCard | — | AppShell |
+| Table | — | DataTable | SearchResults |
+| Dialog | ConfirmDialog | — | — |
+| Form | — | FormLayout | MultiStepFlowLayout, FormPage |
+| Tabs | — | — | DetailView |
 | Badge | StatusBadge | FilterToolbar | — |
 | Avatar | — | — | DetailPage |
 | Skeleton | — | LoadingState | Todos |

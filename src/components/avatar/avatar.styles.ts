@@ -1,8 +1,9 @@
 import { cva } from "class-variance-authority";
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
 
 export const avatarVariants = cva(
   [
-    "group/avatar relative flex shrink-0 select-none rounded-[var(--radius-avatar)]",
+    componentFontFamilyClassName, "group/avatar relative flex shrink-0 select-none rounded-[var(--radius-avatar)]",
     "after:absolute after:inset-0 after:rounded-[var(--radius-avatar)] after:border after:border-[var(--color-border)] after:mix-blend-darken dark:after:mix-blend-lighten",
   ].join(" "),
   {
@@ -24,7 +25,7 @@ export const avatarImageClassName =
 
 export const avatarFallbackVariants = cva(
   [
-    "flex size-full items-center justify-center rounded-[var(--radius-avatar)]",
+    componentFontFamilyClassName, "flex size-full items-center justify-center rounded-[var(--radius-avatar)]",
     "bg-[var(--color-surface-muted)] text-[var(--color-text-muted)]",
   ].join(" "),
   {
@@ -43,7 +44,7 @@ export const avatarFallbackVariants = cva(
 
 export const avatarBadgeVariants = cva(
   [
-    "absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-[var(--radius-full)]",
+    componentFontFamilyClassName, "absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-[var(--radius-full)]",
     "bg-[var(--color-action-primary)] text-[var(--color-action-primary-text)] ring-2 ring-[var(--color-background)] select-none",
   ].join(" "),
   {
@@ -65,7 +66,7 @@ export const avatarGroupClassName =
 
 export const avatarGroupCountVariants = cva(
   [
-    "relative flex shrink-0 items-center justify-center rounded-[var(--radius-avatar)]",
+    componentFontFamilyClassName, "relative flex shrink-0 items-center justify-center rounded-[var(--radius-avatar)]",
     "bg-[var(--color-surface-muted)] text-[var(--color-text-muted)] ring-2 ring-[var(--color-background)]",
   ].join(" "),
   {

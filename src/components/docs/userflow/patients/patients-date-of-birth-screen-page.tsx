@@ -13,17 +13,17 @@ import { DocsUserflowPage } from "@/components/docs/userflow/docs-userflow-page"
 import { DocsUserflowPreviewFrame } from "@/components/docs/userflow/docs-userflow-preview-frame";
 import { Label } from "@/components/label";
 import {
-  PatientsShell,
-  PatientsShellCard,
-  PatientsShellHeader,
-  PatientsShellInputPanel,
-  PatientsShellLocale,
-  PatientsShellMain,
-  PatientsShellMainDesktop,
-  PatientsShellProgress,
-  patientsFieldGroupClassName,
-  patientsShellDesktopContentClassName,
-} from "@/components/patients-shell";
+  MultiStepFlowLayout,
+  MultiStepFlowLayoutCard,
+  MultiStepFlowLayoutHeader,
+  MultiStepFlowLayoutInputPanel,
+  MultiStepFlowLayoutLocale,
+  MultiStepFlowLayoutMain,
+  MultiStepFlowLayoutMainDesktop,
+  MultiStepFlowLayoutProgress,
+  multiStepFlowFieldGroupClassName,
+  multiStepFlowLayoutDesktopContentClassName,
+} from "@/components/multi-step-flow-layout";
 import { cn } from "@/lib/utils";
 
 type DateOfBirthFormProps = {
@@ -38,7 +38,7 @@ function DateOfBirthField({
   onDateOfBirthChange,
 }: Pick<DateOfBirthFormProps, "dateOfBirth" | "onDateOfBirthChange">) {
   return (
-    <div className={cn(patientsFieldGroupClassName)}>
+    <div className={cn(multiStepFlowFieldGroupClassName)}>
       <Label htmlFor="patients-dob">Date of birth</Label>
       <DatePicker
         id="patients-dob"
@@ -58,14 +58,14 @@ function PatientsDateOfBirthMobileScreen({
   onContinue,
 }: DateOfBirthFormProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
-      <PatientsShellHeader>
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+      <MultiStepFlowLayoutHeader>
         <MedmoLogoLockup />
-        <PatientsShellLocale />
-      </PatientsShellHeader>
+        <MultiStepFlowLayoutLocale />
+      </MultiStepFlowLayoutHeader>
 
-      <PatientsShellMain className="flex-1">
-        <PatientsShellCard>
+      <MultiStepFlowLayoutMain className="flex-1">
+        <MultiStepFlowLayoutCard>
           <div className="flex flex-col gap-[var(--space-stack-xs)]">
             <h1 className="text-[length:var(--text-title-size)] font-semibold leading-[var(--text-title-line-height)] text-[var(--color-text-primary)]">
               Confirm your date of birth
@@ -85,9 +85,9 @@ function PatientsDateOfBirthMobileScreen({
           >
             Continue
           </PatientsFlowContinueButton>
-        </PatientsShellCard>
-      </PatientsShellMain>
-    </PatientsShell>
+        </MultiStepFlowLayoutCard>
+      </MultiStepFlowLayoutMain>
+    </MultiStepFlowLayout>
   );
 }
 
@@ -98,32 +98,32 @@ function PatientsDateOfBirthDesktopScreen({
   onContinue,
 }: DateOfBirthFormProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
       <div className="bg-[var(--color-surface)]">
-        <PatientsShellHeader className="pb-[var(--space-stack-sm)]">
+        <MultiStepFlowLayoutHeader className="pb-[var(--space-stack-sm)]">
           <MedmoLogoLockup />
-          <PatientsShellLocale showGlobe />
-        </PatientsShellHeader>
-        <PatientsShellProgress value={0.33} />
+          <MultiStepFlowLayoutLocale showGlobe />
+        </MultiStepFlowLayoutHeader>
+        <MultiStepFlowLayoutProgress value={0.33} />
       </div>
 
-      <PatientsShellMainDesktop className="flex-1">
-        <div className={patientsShellDesktopContentClassName}>
-          <PatientsShellCard className="gap-[var(--space-stack-sm)]">
+      <MultiStepFlowLayoutMainDesktop className="flex-1">
+        <div className={multiStepFlowLayoutDesktopContentClassName}>
+          <MultiStepFlowLayoutCard className="gap-[var(--space-stack-sm)]">
             <h1 className="text-[length:var(--text-title-size)] font-semibold leading-[var(--text-title-line-height)] text-[var(--color-text-primary)]">
               Confirm your identity
             </h1>
             <p className="text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-muted)]">
               To keep your information safe, please enter your date of birth.
             </p>
-          </PatientsShellCard>
+          </MultiStepFlowLayoutCard>
 
-          <PatientsShellInputPanel>
+          <MultiStepFlowLayoutInputPanel>
             <DateOfBirthField
               dateOfBirth={dateOfBirth}
               onDateOfBirthChange={onDateOfBirthChange}
             />
-          </PatientsShellInputPanel>
+          </MultiStepFlowLayoutInputPanel>
 
           <PatientsFlowContinueButton
                         disabled={!canContinue}
@@ -132,8 +132,8 @@ function PatientsDateOfBirthDesktopScreen({
             Continue
           </PatientsFlowContinueButton>
         </div>
-      </PatientsShellMainDesktop>
-    </PatientsShell>
+      </MultiStepFlowLayoutMainDesktop>
+    </MultiStepFlowLayout>
   );
 }
 

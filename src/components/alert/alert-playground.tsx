@@ -1,9 +1,13 @@
 "use client";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/alert";
-import { Button } from "@/components/button";
+import {
+  AlertErrorPreview,
+  AlertInfoPreview,
+  AlertSuccessPreview,
+  AlertWarningPreview,
+  DismissibleAlertPreview,
+} from "@/components/docs/components/alert/alert-preview-blocks";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { AlertTriangleIcon, InfoIcon } from "lucide-react";
 
 export function AlertPlayground() {
   return (
@@ -21,31 +25,12 @@ export function AlertPlayground() {
       </header>
 
       <section className="flex flex-col gap-4 rounded-lg border border-border bg-card p-6">
-        <h2 className="text-sm font-semibold">Critical lab result</h2>
-        <Alert variant="destructive">
-          <AlertTriangleIcon />
-          <AlertTitle>Potassium critically high — 6.8 mEq/L</AlertTitle>
-          <AlertDescription>
-            Result exceeds critical threshold. Notify attending physician
-            immediately and repeat stat draw to confirm.
-          </AlertDescription>
-        </Alert>
-        <Alert>
-          <AlertTitle>Follow-up scheduled</AlertTitle>
-          <AlertDescription>
-            Cardiology consult confirmed for Monday at 09:00.
-          </AlertDescription>
-        </Alert>
-        <Alert variant="success">
-          <InfoIcon />
-          <AlertTitle>Cancelation policy.</AlertTitle>
-          <AlertDescription>
-            Cancel at least 24 hours before your appointment for a full refund.
-          </AlertDescription>
-        </Alert>
-        <Button variant="outline" size="sm" className="w-fit">
-          Acknowledge alert
-        </Button>
+        <h2 className="text-sm font-semibold">Unified Alert variants</h2>
+        <AlertSuccessPreview />
+        <AlertWarningPreview />
+        <AlertErrorPreview />
+        <AlertInfoPreview />
+        <DismissibleAlertPreview />
       </section>
     </div>
   );

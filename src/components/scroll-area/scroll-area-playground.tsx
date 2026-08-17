@@ -4,16 +4,16 @@ import { ScrollArea } from "@/components/scroll-area";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const medications = [
-  "Metformina 850 mg — cada 12 h",
-  "Losartán 50 mg — cada 24 h",
-  "Atorvastatina 20 mg — cada 24 h",
-  "Aspirina 100 mg — cada 24 h",
-  "Levotiroxina 75 mcg — ayunas",
-  "Omeprazol 20 mg — antes del desayuno",
-  "Amlodipino 5 mg — cada 24 h",
-  "Insulina glargina 22 UI — noche",
-  "Empagliflozina 10 mg — mañana",
-  "Carvedilol 6.25 mg — cada 12 h",
+  "Metformin 850 mg — every 12 h",
+  "Losartan 50 mg — every 24 h",
+  "Atorvastatin 20 mg — every 24 h",
+  "Aspirin 100 mg — every 24 h",
+  "Levothyroxine 75 mcg — on empty stomach",
+  "Omeprazole 20 mg — before breakfast",
+  "Amlodipine 5 mg — every 24 h",
+  "Insulin glargine 22 units — at night",
+  "Empagliflozin 10 mg — in the morning",
+  "Carvedilol 6.25 mg — every 12 h",
 ];
 
 export function ScrollAreaPlayground() {

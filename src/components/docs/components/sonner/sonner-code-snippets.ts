@@ -17,12 +17,12 @@ export function Example() {
   return (
     <Button
       onClick={() =>
-        toast.success("Registro guardado", {
-          description: "Los cambios del paciente se sincronizaron correctamente.",
+        toast.success("Record saved", {
+          description: "Patient changes synced successfully.",
         })
       }
     >
-      Guardar registro
+      Save record
     </Button>
   );
 }`);
@@ -35,8 +35,8 @@ export const sonnerUsageSnippet = exampleSnippet(
 );
 
 export const sonnerSuccessSnippet = exampleSnippet(
-  `toast.success("Registro guardado", {
-  description: "Los cambios del paciente se sincronizaron correctamente.",
+  `toast.success("Record saved", {
+  description: "Patient changes synced successfully.",
 });`,
   { imports: [toastImport] }
 );
@@ -53,8 +53,8 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
 }`);
 
 export const sonnerLoadingSnippet = exampleSnippet(
-  `const toastId = toast.loading("Guardando registro…");
+  `const toastId = toast.loading("Saving record…");
 // later:
-toast.success("Registro guardado", { id: toastId });`,
+toast.success("Record saved", { id: toastId });`,
   { imports: [toastImport] }
 );

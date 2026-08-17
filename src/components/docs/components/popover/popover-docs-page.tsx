@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon, InfoIcon } from "lucide-react";
+import { InfoIcon } from "lucide-react";
 
 import { Button } from "@/components/button";
+
 import {
   Popover,
   PopoverContent,
@@ -49,28 +49,6 @@ export function PopoverDocsPage() {
         preview: <PopoverRealScreenPreview />,
         code: popoverRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/label" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Label
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/dropdown-menu" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Dropdown Menu
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">

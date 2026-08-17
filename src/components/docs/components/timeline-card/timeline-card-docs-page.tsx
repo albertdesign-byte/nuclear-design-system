@@ -1,9 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon, ClipboardListIcon } from "lucide-react";
+import { ClipboardListIcon } from "lucide-react";
 
-import { Button } from "@/components/button";
 import {
   timelineCardInstallationUiSnippet,
   timelineCardRealScreenSnippet,
@@ -50,28 +48,6 @@ export function TimelineCardDocsPage() {
         preview: <TimelineCardRealScreenPreview />,
         code: timelineCardRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/timeline" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Timeline
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/timeline" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Tooltip
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">

@@ -1,9 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-
-import { Button } from "@/components/button";
 import { ScrollArea } from "@/components/scroll-area";
 import {
   scrollAreaHorizontalSnippet,
@@ -42,28 +38,6 @@ export function ScrollAreaDocsPage() {
         preview: <ScrollAreaRealScreenPreview />,
         code: scrollAreaRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/tooltip" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Tooltip
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/separator" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Separator
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">

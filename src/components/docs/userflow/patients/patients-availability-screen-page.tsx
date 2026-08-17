@@ -4,7 +4,7 @@ import { ChevronLeftIcon, InfoIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/alert";
+import { Alert, AlertDescription, AlertIcon, AlertTitle } from "@/components/alert";
 import { AppFooter } from "@/components/app-footer";
 import { MedmoLogoLockup } from "@/components/brand/medmo-logo";
 import { Button } from "@/components/button";
@@ -16,17 +16,17 @@ import { DocsUserflowPage } from "@/components/docs/userflow/docs-userflow-page"
 import { DocsUserflowPreviewFrame } from "@/components/docs/userflow/docs-userflow-preview-frame";
 import { Label } from "@/components/label";
 import {
-  PatientsShell,
-  PatientsShellCard,
-  PatientsShellHeader,
-  PatientsShellInputPanel,
-  PatientsShellLocale,
-  PatientsShellMain,
-  PatientsShellMainDesktop,
-  PatientsShellProgress,
-  patientsFieldGroupClassName,
-  patientsShellDesktopContentClassName,
-} from "@/components/patients-shell";
+  MultiStepFlowLayout,
+  MultiStepFlowLayoutCard,
+  MultiStepFlowLayoutHeader,
+  MultiStepFlowLayoutInputPanel,
+  MultiStepFlowLayoutLocale,
+  MultiStepFlowLayoutMain,
+  MultiStepFlowLayoutMainDesktop,
+  MultiStepFlowLayoutProgress,
+  multiStepFlowFieldGroupClassName,
+  multiStepFlowLayoutDesktopContentClassName,
+} from "@/components/multi-step-flow-layout";
 import { cn } from "@/lib/utils";
 
 const SCHEDULING_NOTE_PLACEHOLDER = "{{scheduling note}}";
@@ -82,8 +82,8 @@ function AvailabilityIntro({ schedulingNote }: { schedulingNote: string }) {
         </p>
       </div>
 
-      <Alert variant="success">
-        <InfoIcon />
+      <Alert variant="info">
+        <AlertIcon><InfoIcon /></AlertIcon>
         <AlertTitle>Note from Medmo Care Team:</AlertTitle>
         <AlertDescription>{schedulingNote}</AlertDescription>
       </Alert>
@@ -106,7 +106,7 @@ function AvailabilityFormFields({
 }: AvailabilityFormFieldsProps) {
   return (
     <>
-      <div className={cn(patientsFieldGroupClassName)}>
+      <div className={cn(multiStepFlowFieldGroupClassName)}>
         <Label>Choose days</Label>
         <DayToggleGroup
           value={selectedDays}
@@ -115,7 +115,7 @@ function AvailabilityFormFields({
         />
       </div>
 
-      <div className={cn(patientsFieldGroupClassName)}>
+      <div className={cn(multiStepFlowFieldGroupClassName)}>
         <Label>Choose times</Label>
         <p className={timesHelperClassName}>
           Applies to all selected days. You can add more details later.
@@ -158,21 +158,21 @@ function PatientsAvailabilityMobileScreen({
   ...formProps
 }: AvailabilityScreenProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
-      <PatientsShellHeader>
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+      <MultiStepFlowLayoutHeader>
         <MedmoLogoLockup />
-        <PatientsShellLocale />
-      </PatientsShellHeader>
+        <MultiStepFlowLayoutLocale />
+      </MultiStepFlowLayoutHeader>
 
-      <PatientsShellMain className="flex-1 gap-[var(--space-stack-md)]">
-        <PatientsShellCard>
+      <MultiStepFlowLayoutMain className="flex-1 gap-[var(--space-stack-md)]">
+        <MultiStepFlowLayoutCard>
           <AvailabilityBackButton onClick={onBack} />
           <AvailabilityIntro schedulingNote={schedulingNote} />
-        </PatientsShellCard>
+        </MultiStepFlowLayoutCard>
 
-        <PatientsShellInputPanel>
+        <MultiStepFlowLayoutInputPanel>
           <AvailabilityFormFields {...formProps} />
-        </PatientsShellInputPanel>
+        </MultiStepFlowLayoutInputPanel>
 
         <PatientsFlowContinueButton
                     disabled={!canContinue}
@@ -180,8 +180,8 @@ function PatientsAvailabilityMobileScreen({
         >
           Continue
         </PatientsFlowContinueButton>
-      </PatientsShellMain>
-    </PatientsShell>
+      </MultiStepFlowLayoutMain>
+    </MultiStepFlowLayout>
   );
 }
 
@@ -193,25 +193,25 @@ function PatientsAvailabilityDesktopScreen({
   ...formProps
 }: AvailabilityScreenProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
       <div className="bg-[var(--color-surface)]">
-        <PatientsShellHeader className="pb-[var(--space-stack-sm)]">
+        <MultiStepFlowLayoutHeader className="pb-[var(--space-stack-sm)]">
           <MedmoLogoLockup />
-          <PatientsShellLocale showGlobe />
-        </PatientsShellHeader>
-        <PatientsShellProgress value={0.7} />
+          <MultiStepFlowLayoutLocale showGlobe />
+        </MultiStepFlowLayoutHeader>
+        <MultiStepFlowLayoutProgress value={0.7} />
       </div>
 
-      <PatientsShellMainDesktop className="flex-1">
-        <div className={patientsShellDesktopContentClassName}>
-          <PatientsShellCard>
+      <MultiStepFlowLayoutMainDesktop className="flex-1">
+        <div className={multiStepFlowLayoutDesktopContentClassName}>
+          <MultiStepFlowLayoutCard>
             <AvailabilityBackButton onClick={onBack} />
             <AvailabilityIntro schedulingNote={schedulingNote} />
-          </PatientsShellCard>
+          </MultiStepFlowLayoutCard>
 
-          <PatientsShellInputPanel>
+          <MultiStepFlowLayoutInputPanel>
             <AvailabilityFormFields {...formProps} />
-          </PatientsShellInputPanel>
+          </MultiStepFlowLayoutInputPanel>
 
           <PatientsFlowContinueButton
                         disabled={!canContinue}
@@ -220,8 +220,8 @@ function PatientsAvailabilityDesktopScreen({
             Continue
           </PatientsFlowContinueButton>
         </div>
-      </PatientsShellMainDesktop>
-    </PatientsShell>
+      </MultiStepFlowLayoutMainDesktop>
+    </MultiStepFlowLayout>
   );
 }
 

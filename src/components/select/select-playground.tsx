@@ -68,9 +68,9 @@ export function SelectPlayground() {
                   <SelectValue placeholder="Select status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="active">Activo</SelectItem>
-                  <SelectItem value="observation">En observación</SelectItem>
-                  <SelectItem value="discharged">Alta</SelectItem>
+                  <SelectItem value="active">Active</SelectItem>
+                  <SelectItem value="observation">Under observation</SelectItem>
+                  <SelectItem value="discharged">Discharged</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -85,7 +85,7 @@ export function SelectPlayground() {
                     <SelectValue placeholder={`Size ${item}`} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="active">Activo</SelectItem>
+                    <SelectItem value="active">Active</SelectItem>
                   </SelectContent>
                 </Select>
               ))}

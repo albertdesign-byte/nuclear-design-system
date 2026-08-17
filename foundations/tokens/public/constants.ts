@@ -10,10 +10,13 @@ export { focus, focusRingShadow } from "../../colors/focus/tokens"
 export { textTokenProperties, TEXT_TOKEN_PREFIX } from "../../typography/contract"
 export { narrowViewportBase } from "../../breakpoints/contract"
 export { zIndexStackOrder } from "../../z-index/types"
-export { iconLibrary, iconBaseGridPx } from "../../iconography/types"
-export { iconStroke } from "../../iconography/stroke"
-export { iconColorRule } from "../../iconography/contract"
-export { iconDefaultSizePx } from "../../iconography/scale"
+export { iconBaseGridPx } from "../../iconography/scale"
+export {
+  iconColorRule,
+  iconDefaultSizePx,
+  iconLibrary,
+  iconStroke,
+} from "../../iconography/semantics"
 
 /** CSS runtime entry path — stable relative to repo root */
 export const CSS_ENTRY_PATH = "foundations/tokens/index.css" as const

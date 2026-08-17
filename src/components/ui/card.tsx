@@ -6,6 +6,7 @@ export {
   CardAction,
   CardDescription,
   CardContent,
+  CardMedia,
   cardVariants,
 } from "@/components/card";
 export type {
@@ -14,6 +15,7 @@ export type {
   CardDescriptionProps,
   CardFooterProps,
   CardHeaderProps,
+  CardMediaProps,
   CardProps,
   CardSize,
   CardTitleProps,

@@ -3,7 +3,7 @@ import type { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-d
 
 import type { ButtonProps } from "@/components/button";
 
-export interface AlertDialogFooterProps extends ComponentProps<"div"> {}
+export type AlertDialogFooterProps = ComponentProps<"div">;
 
 export type AlertDialogActionProps = AlertDialogPrimitive.Close.Props &
   ButtonProps;

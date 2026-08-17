@@ -1,2 +1,8 @@
-export { Alert, AlertTitle, AlertDescription, AlertAction } from "@/components/alert";
-export type { AlertProps } from "@/components/alert";
+export {
+  Alert,
+  AlertAction,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+} from "@/components/alert";
+export type { AlertProps, AlertVariant } from "@/components/alert";

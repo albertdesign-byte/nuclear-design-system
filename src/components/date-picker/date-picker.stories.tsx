@@ -3,14 +3,17 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { useState } from "react";
 
+import { cn } from "@/lib/utils";
+import { datePickerStateClassName } from "@/stories/shared/interaction-state-classes";
 import { Label } from "@/components/label";
 
+import { InteractionStateGrid } from "../../../.storybook/interaction-state-grid";
 import { componentParameters } from "../../../.storybook/story-meta";
 
 import { DatePicker } from "./date-picker";
 
 const meta = {
-  title: "Components/DatePicker",
+  title: "Components/Date Picker",
   component: DatePicker,
   tags: ["autodocs"],
   parameters: {
@@ -90,6 +93,28 @@ export const Disabled: Story = {
       value={new Date(2024, 5, 12)}
       aria-label="Disabled date picker"
     />
+  ),
+};
+
+export const InteractionStates: Story = {
+  render: () => (
+    <InteractionStateGrid
+      disabled={
+        <DatePicker
+          disabled
+          value={new Date(2024, 5, 12)}
+          aria-label="Disabled date picker"
+        />
+      }
+    >
+      {(state) => (
+        <DatePicker
+          value={new Date(2024, 5, 12)}
+          aria-label={`Date picker ${state}`}
+          className={cn(datePickerStateClassName[state])}
+        />
+      )}
+    </InteractionStateGrid>
   ),
 };
 

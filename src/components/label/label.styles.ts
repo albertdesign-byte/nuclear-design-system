@@ -1,12 +1,13 @@
 import { cva } from "class-variance-authority";
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
+import { labelDisabledClassName } from "@/lib/disabled-styles";
 
 export const labelClassName = cva(
   [
-    "flex items-center gap-[var(--space-inline-sm)]",
+    componentFontFamilyClassName, "flex items-center gap-[var(--space-inline-sm)]",
     "text-[length:var(--text-label-size)] leading-[var(--text-label-line-height)] tracking-[var(--text-label-letter-spacing)] font-medium",
     "select-none",
-    "group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50",
-    "peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
+    labelDisabledClassName,
   ].join(" "),
   {
     variants: {

@@ -1,13 +1,15 @@
 ---
 title: Iconography
-description: Iconografía Medmo — Lucide, 4 tamaños, 1 stroke, reglas de uso clínico.
+description: Iconografía Medmo — Lucide, 5 tamaños, 1 stroke, reglas de uso clínico.
 status: complete
 version: 1.0.0
-lastUpdated: 2026-07-17
+lastUpdated: 2026-08-14
 phase: foundations
 ---
 
 # Iconography
+
+<!-- iconography-contract: sizes=xs,sm,md,lg,xl;default=sm;library=Lucide;stroke=2 -->
 
 > Los iconos apoyan la comprensión.
 > Nunca reemplazan el texto. Nunca decoran.
@@ -26,9 +28,9 @@ En una plataforma clínica, "Completed" con un check puede reforzar un estado �
 
 ### Menos iconos, usados consistentemente
 
-Cada icono distinto en una toolbar añade carga de parsing. Medmo prefiere **icon-md (16px)** en el 90% de casos, Lucide, stroke 2, `currentColor` — para que el usuario no re-aprenda vocabulario visual en cada pantalla.
+Cada icono distinto en una toolbar añade carga de parsing. Medmo prefiere **icon-sm (16px)** en el 90% de casos, Lucide, stroke 2, `currentColor` — para que el usuario no re-aprenda vocabulario visual en cada pantalla.
 
-**Implicación:** Cuatro tamaños. Un stroke. Una biblioteca. Sin excepciones locales.
+**Implicación:** Cinco tamaños. Un stroke. Una biblioteca. Sin excepciones locales.
 
 ### Claridad clínica sobre expresividad
 
@@ -38,7 +40,7 @@ No ilustraciones, no iconos "friendly", no gradientes en glyphs. Linear/GitHub/S
 
 ### Grid base 24px — no "default 24px everywhere"
 
-24px (`icon-xl`) es la **referencia de grid** alineada con spacing (space-page, space-dialog). El default de producto es **16px** (`icon-md`). xl es raro — empty state focal, una vez por vista.
+24px (`icon-lg`) es la **referencia de grid** alineada con spacing (space-page, space-dialog). El default de producto es **16px** (`icon-sm`). `icon-xl` es raro — empty state focal, una vez por vista.
 
 ---
 
@@ -51,7 +53,7 @@ No ilustraciones, no iconos "friendly", no gradientes en glyphs. Linear/GitHub/S
 | **Never decorate** | No icons "for beauty" |
 | **Lucide only** | No mixed libraries |
 | **currentColor** | Inherits semantic text/icon color |
-| **icon-md default** | 16px unless context says sm/lg/xl |
+| **icon-sm default** | 16px unless context says xs/md/lg/xl |
 | **One stroke (2)** | No thin decorative strokes |
 | **Spacing from Spacing** | gap via space-inline-* |
 
@@ -60,23 +62,23 @@ No ilustraciones, no iconos "friendly", no gradientes en glyphs. Linear/GitHub/S
 ## Arquitectura
 
 ```
-scale.ts + stroke.ts (primitivos)
+scale.ts (primitive dimensions)
         ↓
-semantics.ts (icon-sm/md/lg/xl + context mappings)
+semantics.ts (xs/sm/md/lg/xl + default + library + stroke + contexts)
         ↓
-iconography.css
+contract.ts + tooling.ts + iconography.css + documentation
         ↓
-Components: width/height var(--icon-md), strokeWidth 2, color currentColor
+Components: width/height var(--icon-sm), strokeWidth 2, color currentColor
 ```
 
 ```
 Context (documented, not extra tokens)     Size        Gap (Spacing)
 ──────────────────────────────────────     ────        ─────────────
-button                                     icon-md     space-inline-sm (8px)
-input prefix/suffix                        icon-md     space-inline-xs (4px)
-table row action                           icon-md     space-inline-xs
+button                                     icon-sm     space-button-icon-gap (6px)
+input prefix/suffix                        icon-sm     space-inline-xs (4px)
+table row action                           icon-sm     space-inline-xs
 empty-state focal                          icon-lg     —
-header action                              icon-md     space-inline-sm
+header action                              icon-sm     space-inline-sm
 ```
 
 ---
@@ -86,26 +88,25 @@ header action                              icon-md     space-inline-sm
 | Concepto | Valor | Uso |
 |--------|-------|-----|
 | Grid base | 24px | Alineación con ritmo spacing — referencia de diseño |
-| Default producto | 16px (`icon-md`) | Botones, inputs, tablas |
-| Máximo frecuente | 20px (`icon-lg`) | Empty states |
+| Default producto | 16px (`icon-sm`) | Botones, inputs, tablas |
+| Grid base | 24px (`icon-lg`) | Empty states y elementos standalone |
 
 ---
 
 ## Tamaños permitidos (API pública)
 
-| Token | px | rem | Cuándo |
-|-------|-----|-----|--------|
-| `icon-sm` | 14 | 0.875 | Badge, Button xs — compact only |
-| `icon-md` | 16 | 1 | **Default** — buttons, inputs, tables, menus |
-| `icon-lg` | 20 | 1.25 | Empty state, stat auxiliary |
-| `icon-xl` | 24 | 1.5 | Grid base — hero empty state, max one per view |
+La matriz ejecutable no se duplica en MDX. `foundations/iconography/scale.ts`
+define las dimensiones primitivas y `foundations/iconography/semantics.ts`
+asigna los cinco roles públicos (`icon-xs` a `icon-xl`). La documentación viva
+renderiza esa estructura directamente desde `@medmo/tokens/tooling`.
 
 ```css
-width: var(--icon-md);
-height: var(--icon-md);
+width: var(--icon-sm);
+height: var(--icon-sm);
 ```
 
-**Rechazado:** `icon-xs` (12px) — demasiado pequeño para scanning clínico.
+`icon-sm` es el default. `icon-xs` queda reservado para metadata densa y badges;
+`icon-xl` es un focal feature icon de uso excepcional.
 
 ---
 
@@ -142,13 +143,13 @@ No duplicamos gap en Iconography — usamos **Spacing**:
 
 | Contexto | Gap token | Valor |
 |----------|-----------|-------|
-| Button icon + label | `space-inline-sm` | 8px |
+| Button icon + label | `space-button-icon-gap` | 6px |
 | Input icon + text | `space-inline-xs` | 4px |
 | Table cell icon + label | `space-inline-xs` | 4px |
 | Toolbar actions | `space-inline-md` | 12px (between buttons, not icon-text) |
 
 ```css
-gap: var(--space-inline-sm); /* button with icon */
+gap: var(--space-button-icon-gap); /* button with icon */
 ```
 
 ---
@@ -157,23 +158,23 @@ gap: var(--space-inline-sm); /* button with icon */
 
 ### Botones
 
-- Tamaño: `icon-md` (16px)
-- Gap a label: `space-inline-sm`
+- Tamaño: `icon-sm` (default)
+- Gap a label: `space-button-icon-gap`
 - Icon-only: **obligatorio** `aria-label` descriptivo
 - Stroke: 2
 - No usar `icon-lg` en button default
 
 ### Inputs
 
-- Prefix/suffix (search, password toggle): `icon-md`
+- Prefix/suffix (search, password toggle): `icon-sm`
 - Gap: `space-inline-xs`
 - No reemplazar `<Label>` con icono
-- Chevron Select: `icon-md`, mismo stroke
+- Chevron Select: `icon-sm`, mismo stroke
 
 ### Tablas
 
-- Row actions: `icon-md` — paired with text tooltip or aria-label
-- Sort indicator: `icon-md`
+- Row actions: `icon-sm` — paired with text tooltip or aria-label
+- Sort indicator: `icon-sm`
 - Status: **icon + text + color** — never icon-only for clinical status
 - No columna decorativa de iconos
 - No `icon-xl` en filas repetidas
@@ -193,7 +194,7 @@ gap: var(--space-inline-sm); /* button with icon */
 | Decorative icon | `aria-hidden="true"` |
 | Functional icon | Texto visible adyacente o aria-label |
 | Estado clínico | Icon + text + color token — never color/icon alone |
-| Touch target | Icon-only button usa Button hit area (44px mobile) — no shrink icon below md for touch |
+| Touch target | Icon-only button usa Button hit area (44px mobile) — el hit area no depende del tamaño visual |
 | Contraste | currentColor sobre fondo — verificar par en Colors |
 
 ---
@@ -215,10 +216,10 @@ gap: var(--space-inline-sm); /* button with icon */
 
 | Escenario | Patrón |
 |-----------|--------|
-| Save button | `[SaveIcon md] + "Guardar"` + gap sm |
-| Search input | SearchIcon md prefix + xs gap |
-| Error state | AlertCircle md + error text + color-error-text |
-| Icon-only close | X md + `aria-label="Cerrar"` |
+| Save button | `[SaveIcon sm] + "Guardar"` + button icon gap |
+| Search input | SearchIcon sm prefix + xs gap |
+| Error state | AlertCircle sm + error text + color-error-text |
+| Icon-only close | X sm + `aria-label="Cerrar"` |
 | Empty list | Inbox lg + title + description (text) |
 
 ### DON'T
@@ -242,7 +243,7 @@ gap: var(--space-inline-sm); /* button with icon */
 - Ya instalado en el proyecto
 - No Heroicons, Font Awesome, SVG custom sets sin aprobación DS
 
-Constante: `foundations/iconography/types.ts` → `iconLibrary`
+Constante canónica: `foundations/iconography/semantics.ts` → `iconLibrary`
 
 ---
 
@@ -250,7 +251,7 @@ Constante: `foundations/iconography/types.ts` → `iconLibrary`
 
 ### DO
 
-- `var(--icon-md)` + `var(--icon-stroke)` + currentColor
+- `var(--icon-sm)` + `var(--icon-stroke)` + currentColor
 - Context mappings en `semantics.ts` para button/input/table
 - Preguntar token creation principle antes de nuevo tamaño
 
@@ -266,11 +267,11 @@ Constante: `foundations/iconography/types.ts` → `iconLibrary`
 
 | Archivo | Descripción |
 |---------|-------------|
-| `foundations/iconography/types.ts` | Tipos + Lucide constant |
-| `foundations/iconography/scale.ts` | 4 tamaños primitivos |
-| `foundations/iconography/stroke.ts` | Stroke único |
-| `foundations/iconography/semantics.ts` | Tamaños + context mappings |
-| `foundations/iconography/contract.ts` | Registro API |
+| `foundations/iconography/types.ts` | Tipos únicamente |
+| `foundations/iconography/scale.ts` | 5 dimensiones primitivas |
+| `foundations/iconography/stroke.ts` | Re-export de compatibilidad |
+| `foundations/iconography/semantics.ts` | Roles, default, Lucide, stroke, catálogo y context mappings |
+| `foundations/iconography/contract.ts` | Registro API derivado |
 | `foundations/iconography/resolve.ts` | Resolvers |
 | `foundations/iconography/iconography.css` | CSS variables |
 | `foundations/iconography/rules.md` | DO/DON'T |
@@ -296,7 +297,7 @@ import { resolveIconContext, iconLibrary, iconColorRule } from "../../foundation
 |------------|----------|
 | **Spacing** | icon-text gap via space-inline-xs/sm |
 | **Colors** | currentColor inherits semantic text/action colors |
-| **Typography** | Icon size independent of text scale — md with text-sm/base |
+| **Typography** | Icon size independent of text scale — icon-sm with body text |
 | **Accessibility** | aria-label, aria-hidden rules |
 
 ---
@@ -307,8 +308,8 @@ import { resolveIconContext, iconLibrary, iconColorRule } from "../../foundation
 
 | Propuesta | Veredicto |
 |-----------|-----------|
-| icon-xs (12px) | **Rechazado** — scan size clínico; sm cubre compact |
-| 5+ sizes (blueprint original) | **Reducido a 4** — md cubre 90% |
+| icon-xs | **Aprobado solo para metadata densa y badges** |
+| Cinco roles semánticos | **Aprobado** — sm cubre el default y xl queda excepcional |
 | Per-component sizes | **Rechazado** — use context mapping |
 
 ### ¿Más strokes?
@@ -327,7 +328,7 @@ import { resolveIconContext, iconLibrary, iconColorRule } from "../../foundation
 
 **Rechazado** — `space-inline-*` ya existe. Menos tokens, más intención.
 
-**Conclusión:** API mínima = 4 sizes + 1 stroke + `--icon-size` default. Todo lo demás es reglas de uso.
+**Conclusión:** API = 5 sizes + 1 stroke + `--icon-size` apuntando a `icon-sm`. Las definiciones ejecutables viven en `scale.ts` y `semantics.ts`.
 
 ---
 

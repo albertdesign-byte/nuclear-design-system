@@ -1,9 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-
-import { Button } from "@/components/button";
 import { Switch } from "@/components/switch";
 import {
   switchCheckedSnippet,
@@ -62,28 +58,6 @@ export function SwitchDocsPage() {
         preview: <SwitchRealScreenPreview />,
         code: switchRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/radio-group" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Radio Group
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/badge" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Badge
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">
@@ -175,7 +149,7 @@ export function SwitchDocsPage() {
                   htmlFor="lab-alerts-docs"
                   className="text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)]"
                 >
-                  Alertas de resultados críticos
+                  Critical results alerts
                 </label>
                 <Switch id="lab-alerts-docs" defaultChecked />
               </div>

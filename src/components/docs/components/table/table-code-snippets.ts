@@ -18,7 +18,7 @@ export function Example() {
       <TableHeader>
         <TableRow>
           <TableHead>MRN</TableHead>
-          <TableHead>Paciente</TableHead>
+          <TableHead>Patient</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -36,24 +36,24 @@ export const tableRealScreenSnippet = tsxSnippet(`${tableImport}
 export function Example() {
   return (
     <Table>
-      <TableCaption>Pacientes registrados hoy</TableCaption>
+      <TableCaption>Patients registered today</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>MRN</TableHead>
-          <TableHead>Paciente</TableHead>
-          <TableHead>Estado</TableHead>
+          <TableHead>Patient</TableHead>
+          <TableHead>Status</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         <TableRow>
           <TableCell className="font-medium">MRN-28491</TableCell>
           <TableCell>Elena Morales</TableCell>
-          <TableCell>Activo</TableCell>
+          <TableCell>Active</TableCell>
         </TableRow>
         <TableRow>
           <TableCell className="font-medium">MRN-19302</TableCell>
           <TableCell>Carlos Ruiz</TableCell>
-          <TableCell>Pendiente</TableCell>
+          <TableCell>Pending</TableCell>
         </TableRow>
       </TableBody>
     </Table>
@@ -65,7 +65,7 @@ export const tableUsageSnippet = exampleSnippet(
   <TableHeader>
     <TableRow>
       <TableHead>MRN</TableHead>
-      <TableHead>Paciente</TableHead>
+      <TableHead>Patient</TableHead>
     </TableRow>
   </TableHeader>
   <TableBody>
@@ -80,11 +80,11 @@ export const tableUsageSnippet = exampleSnippet(
 
 export const tableCaptionSnippet = exampleSnippet(
   `<Table>
-  <TableCaption>Pacientes registrados hoy</TableCaption>
+  <TableCaption>Patients registered today</TableCaption>
   <TableHeader>
     <TableRow>
       <TableHead>MRN</TableHead>
-      <TableHead>Paciente</TableHead>
+      <TableHead>Patient</TableHead>
     </TableRow>
   </TableHeader>
   <TableBody>
@@ -117,7 +117,7 @@ export const tableFooterSnippet = exampleSnippet(
   </TableHeader>
   <TableBody>
     <TableRow>
-      <TableCell>Consulta</TableCell>
+      <TableCell>Visit</TableCell>
       <TableCell>$120</TableCell>
     </TableRow>
   </TableBody>

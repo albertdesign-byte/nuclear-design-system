@@ -22,7 +22,7 @@ export const semanticTypography: Record<
 > = {
   display: role({
     role: "display",
-    fontFamily: "sans",
+    fontFamily: "component",
     fontSize: "4xl",
     fontWeight: "semibold",
     lineHeight: "tight",
@@ -34,7 +34,7 @@ export const semanticTypography: Record<
 
   h1: role({
     role: "h1",
-    fontFamily: "sans",
+    fontFamily: "component",
     fontSize: "3xl",
     fontWeight: "semibold",
     lineHeight: "tight",
@@ -46,7 +46,7 @@ export const semanticTypography: Record<
 
   h2: role({
     role: "h2",
-    fontFamily: "sans",
+    fontFamily: "component",
     fontSize: "2xl",
     fontWeight: "semibold",
     lineHeight: "snug",
@@ -58,7 +58,7 @@ export const semanticTypography: Record<
 
   h3: role({
     role: "h3",
-    fontFamily: "sans",
+    fontFamily: "component",
     fontSize: "xl",
     fontWeight: "semibold",
     lineHeight: "snug",
@@ -70,7 +70,7 @@ export const semanticTypography: Record<
 
   title: role({
     role: "title",
-    fontFamily: "sans",
+    fontFamily: "component",
     fontSize: "lg",
     fontWeight: "medium",
     lineHeight: "snug",
@@ -82,7 +82,7 @@ export const semanticTypography: Record<
 
   "body-large": role({
     role: "body-large",
-    fontFamily: "sans",
+    fontFamily: "component",
     fontSize: "lg",
     fontWeight: "regular",
     lineHeight: "relaxed",
@@ -94,7 +94,7 @@ export const semanticTypography: Record<
 
   body: role({
     role: "body",
-    fontFamily: "sans",
+    fontFamily: "component",
     fontSize: "base",
     fontWeight: "regular",
     lineHeight: "normal",
@@ -106,7 +106,7 @@ export const semanticTypography: Record<
 
   "body-small": role({
     role: "body-small",
-    fontFamily: "sans",
+    fontFamily: "component",
     fontSize: "sm",
     fontWeight: "regular",
     lineHeight: "normal",
@@ -118,7 +118,7 @@ export const semanticTypography: Record<
 
   label: role({
     role: "label",
-    fontFamily: "sans",
+    fontFamily: "component",
     fontSize: "sm",
     fontWeight: "medium",
     lineHeight: "normal",
@@ -130,7 +130,7 @@ export const semanticTypography: Record<
 
   caption: role({
     role: "caption",
-    fontFamily: "sans",
+    fontFamily: "component",
     fontSize: "xs",
     fontWeight: "regular",
     lineHeight: "normal",
@@ -142,7 +142,7 @@ export const semanticTypography: Record<
 
   overline: role({
     role: "overline",
-    fontFamily: "sans",
+    fontFamily: "component",
     fontSize: "2xs",
     fontWeight: "medium",
     lineHeight: "normal",

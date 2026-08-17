@@ -1,9 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-
-import { Button } from "@/components/button";
 import {
   Table,
   TableBody,
@@ -55,28 +51,6 @@ export function TableDocsPage() {
         preview: <TableRealScreenPreview />,
         code: tableRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/card" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Card
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/tabs" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Tabs
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">
@@ -85,7 +59,7 @@ export function TableDocsPage() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>MRN</TableHead>
-                    <TableHead>Paciente</TableHead>
+                    <TableHead>Patient</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -117,7 +91,7 @@ export function TableDocsPage() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>MRN</TableHead>
-                    <TableHead>Paciente</TableHead>
+                    <TableHead>Patient</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -137,11 +111,11 @@ export function TableDocsPage() {
           >
             <DocsPreview code={tableCaptionSnippet}>
               <Table>
-                <TableCaption>Pacientes registrados hoy</TableCaption>
+                <TableCaption>Patients registered today</TableCaption>
                 <TableHeader>
                   <TableRow>
                     <TableHead>MRN</TableHead>
-                    <TableHead>Paciente</TableHead>
+                    <TableHead>Patient</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -169,7 +143,7 @@ export function TableDocsPage() {
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell>Consulta</TableCell>
+                    <TableCell>Visit</TableCell>
                     <TableCell>$120</TableCell>
                   </TableRow>
                 </TableBody>

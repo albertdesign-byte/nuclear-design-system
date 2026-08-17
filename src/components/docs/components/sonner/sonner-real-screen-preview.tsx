@@ -13,8 +13,8 @@ export function SonnerRealScreenPreview() {
     setSaving(true);
     window.setTimeout(() => {
       setSaving(false);
-      toast.success("Registro guardado", {
-        description: "Los cambios del paciente se sincronizaron correctamente.",
+      toast.success("Record saved", {
+        description: "Patient changes synced successfully.",
       });
     }, 1200);
   }
@@ -25,14 +25,14 @@ export function SonnerRealScreenPreview() {
         {saving ? (
           <>
             <Spinner size="sm" aria-hidden />
-            Guardando…
+            Saving…
           </>
         ) : (
-          "Guardar registro"
+          "Save record"
         )}
       </Button>
       <p className="text-[length:var(--text-caption-size)] leading-[var(--text-caption-line-height)] text-[var(--color-text-muted)]">
-        La notificación usa el Toaster global montado en AppProviders.
+        The notification uses the global Toaster mounted in AppProviders.
       </p>
     </div>
   );

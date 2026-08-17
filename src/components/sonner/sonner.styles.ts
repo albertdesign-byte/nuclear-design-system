@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
 
 export const sonnerThemeStyle = {
   "--normal-bg": "var(--color-surface-floating)",

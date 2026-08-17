@@ -1,9 +1,9 @@
 /**
  * Medmo Radius System — CSS Custom Properties
  *
+ * Runtime mirror of primitives/scale.ts and semantic/*.
  * Subtle, discrete corners. Base default: 8px (--radius = --radius-lg).
  * Components consume --radius-* scale or --radius-{context} semantic tokens.
- * Never --radius-4, --radius-8 primitive px names in component styles.
  */
 
 :root {

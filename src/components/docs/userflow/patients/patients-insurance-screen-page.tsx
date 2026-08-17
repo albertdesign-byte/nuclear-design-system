@@ -14,16 +14,16 @@ import { DocsUserflowPreviewFrame } from "@/components/docs/userflow/docs-userfl
 import { Input } from "@/components/input";
 import { Label } from "@/components/label";
 import {
-  PatientsShell,
-  PatientsShellCard,
-  PatientsShellHeader,
-  PatientsShellLocale,
-  PatientsShellMain,
-  PatientsShellMainDesktop,
-  PatientsShellProgress,
-  patientsFieldGroupClassName,
-  patientsShellDesktopContentClassName,
-} from "@/components/patients-shell";
+  MultiStepFlowLayout,
+  MultiStepFlowLayoutCard,
+  MultiStepFlowLayoutHeader,
+  MultiStepFlowLayoutLocale,
+  MultiStepFlowLayoutMain,
+  MultiStepFlowLayoutMainDesktop,
+  MultiStepFlowLayoutProgress,
+  multiStepFlowFieldGroupClassName,
+  multiStepFlowLayoutDesktopContentClassName,
+} from "@/components/multi-step-flow-layout";
 import { cn } from "@/lib/utils";
 
 function InsuranceBackButton({ onClick }: { onClick: () => void }) {
@@ -90,7 +90,7 @@ function InsuranceFormFields({
     <>
       <InsuranceIntro onSkip={onSkip} />
 
-      <div className={cn(patientsFieldGroupClassName)}>
+      <div className={cn(multiStepFlowFieldGroupClassName)}>
         <Label htmlFor="patients-insurance-provider">Insurance provider</Label>
         <Input
           id="patients-insurance-provider"
@@ -99,7 +99,7 @@ function InsuranceFormFields({
         />
       </div>
 
-      <div className={cn(patientsFieldGroupClassName)}>
+      <div className={cn(multiStepFlowFieldGroupClassName)}>
         <Label htmlFor="patients-member-id">Member ID</Label>
         <Input
           id="patients-member-id"
@@ -108,7 +108,7 @@ function InsuranceFormFields({
         />
       </div>
 
-      <div className={cn(patientsFieldGroupClassName)}>
+      <div className={cn(multiStepFlowFieldGroupClassName)}>
         <Label htmlFor="patients-group-id">Group ID (optional)</Label>
         <Input
           id="patients-group-id"
@@ -133,14 +133,14 @@ function PatientsInsuranceMobileScreen({
   ...formProps
 }: InsuranceScreenProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
-      <PatientsShellHeader>
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+      <MultiStepFlowLayoutHeader>
         <MedmoLogoLockup />
-        <PatientsShellLocale />
-      </PatientsShellHeader>
+        <MultiStepFlowLayoutLocale />
+      </MultiStepFlowLayoutHeader>
 
-      <PatientsShellMain className="flex-1">
-        <PatientsShellCard>
+      <MultiStepFlowLayoutMain className="flex-1">
+        <MultiStepFlowLayoutCard>
           <InsuranceBackButton onClick={onBack} />
           <InsuranceFormFields {...formProps} />
           <PatientsFlowContinueButton
@@ -149,9 +149,9 @@ function PatientsInsuranceMobileScreen({
           >
             Continue
           </PatientsFlowContinueButton>
-        </PatientsShellCard>
-      </PatientsShellMain>
-    </PatientsShell>
+        </MultiStepFlowLayoutCard>
+      </MultiStepFlowLayoutMain>
+    </MultiStepFlowLayout>
   );
 }
 
@@ -162,21 +162,21 @@ function PatientsInsuranceDesktopScreen({
   ...formProps
 }: InsuranceScreenProps) {
   return (
-    <PatientsShell className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
+    <MultiStepFlowLayout className="min-h-[calc(100vh-var(--docs-header-height)-var(--space-page)*2)]">
       <div className="bg-[var(--color-surface)]">
-        <PatientsShellHeader className="pb-[var(--space-stack-sm)]">
+        <MultiStepFlowLayoutHeader className="pb-[var(--space-stack-sm)]">
           <MedmoLogoLockup />
-          <PatientsShellLocale showGlobe />
-        </PatientsShellHeader>
-        <PatientsShellProgress value={0.75} />
+          <MultiStepFlowLayoutLocale showGlobe />
+        </MultiStepFlowLayoutHeader>
+        <MultiStepFlowLayoutProgress value={0.75} />
       </div>
 
-      <PatientsShellMainDesktop className="flex-1">
-        <div className={patientsShellDesktopContentClassName}>
-          <PatientsShellCard>
+      <MultiStepFlowLayoutMainDesktop className="flex-1">
+        <div className={multiStepFlowLayoutDesktopContentClassName}>
+          <MultiStepFlowLayoutCard>
             <InsuranceBackButton onClick={onBack} />
             <InsuranceFormFields {...formProps} />
-          </PatientsShellCard>
+          </MultiStepFlowLayoutCard>
 
           <PatientsFlowContinueButton
                         disabled={!canContinue}
@@ -185,8 +185,8 @@ function PatientsInsuranceDesktopScreen({
             Continue
           </PatientsFlowContinueButton>
         </div>
-      </PatientsShellMainDesktop>
-    </PatientsShell>
+      </MultiStepFlowLayoutMainDesktop>
+    </MultiStepFlowLayout>
   );
 }
 

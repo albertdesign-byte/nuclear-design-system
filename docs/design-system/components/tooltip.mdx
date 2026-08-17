@@ -1,0 +1,87 @@
+---
+title: Tooltip
+description: Información visual suplementaria para hover y focus.
+status: published
+version: 1.0.0
+lastUpdated: 2026-08-14
+---
+
+# Tooltip
+
+Tooltip muestra una aclaración breve relacionada con un elemento cuando recibe
+hover de mouse o focus de teclado. Nunca contiene información crítica ni
+acciones interactivas.
+
+## Composition
+
+```tsx
+<Tooltip>
+  <TooltipTrigger
+    render={<Button size="icon-xl" aria-label="Patient ID help" />}
+  >
+    <CircleHelpIcon />
+  </TooltipTrigger>
+  <TooltipContent>Internal patient identifier</TooltipContent>
+</Tooltip>
+```
+
+`TooltipProvider` está montado globalmente mediante `AppProviders`.
+
+## Positioning
+
+- Posiciones oficiales: top, bottom, left y right.
+- `sideOffset`: 11px.
+- `arrowPadding`: 8px.
+- `collisionPadding`: 8px.
+- El arrow utiliza el posicionamiento de Base UI y no aplica transforms manuales
+  que compitan con Floating UI.
+- La posición puede cambiar cuando el viewport no tiene espacio suficiente.
+- El arrow debe permanecer visible, separado del trigger y lejos de las esquinas
+  redondeadas.
+
+## Trigger types
+
+- Icon Button: requiere `aria-label`.
+- Text Link: conserva semántica y navegación nativa.
+- Button: el label visible sigue siendo suficiente sin Tooltip.
+- Form Element: solo para ayuda suplementaria; labels e instrucciones requeridas
+  permanecen visibles.
+
+## Content
+
+| Pattern | Uso |
+|---------|-----|
+| Simple Text | Label breve para iconos familiares |
+| Short Description | Una oración que aclara un estado o término |
+| Help Content | Máximo dos oraciones breves, sin interacción |
+
+Contenido largo o interactivo utiliza Popover. Advertencias y errores utilizan
+Alert o contenido inline persistente.
+
+## Accessibility
+
+- Mouse hover y keyboard focus presentan el mismo contenido.
+- Tab mantiene focus en el trigger.
+- Escape cierra el Tooltip.
+- El contenido no recibe focus ni contiene controles.
+- Tooltip es ayuda visual suplementaria; no sustituye nombres accesibles,
+  labels, instrucciones, errores o información crítica.
+- Touch y lectores de pantalla no deben depender exclusivamente del Tooltip.
+
+## Healthcare examples
+
+- Patient ID: explica el identificador interno.
+- Study Status: aclara el estado del reporte.
+- Upload Information: resume formatos y validación.
+- Insurance Information: explica cobertura y elegibilidad.
+
+## Import
+
+```tsx
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/tooltip";
+```

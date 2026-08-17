@@ -10,7 +10,7 @@ export default function PatientsProductRoute() {
   return (
     <DocsProductOverview
       title="Patients"
-      description="Component map for the Patients product, based on the Figma inventory. Available components link to the shared library."
+      description="Patient intake, registration, payment, insurance, consent, scheduling, and screening implementations built from the shared Nuclear Design System."
     />
   );
 }

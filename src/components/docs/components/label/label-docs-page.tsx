@@ -1,10 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-
 import { FieldError } from "@/components/field-error";
-import { Button } from "@/components/button";
 import { Input } from "@/components/input";
 import { Label } from "@/components/label";
 import {
@@ -32,34 +28,12 @@ export function LabelDocsPage() {
   return (
     <DocsComponentPage
       title="Label"
-      description="Renders an accessible label associated with a form control."
+      description="Support component for form field labels. Prefer the Form Field Patterns guide for official usage examples."
       tocItems={labelTocItems}
       realScreen={{
         preview: <LabelRealScreenPreview />,
         code: labelRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/sonner" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Sonner
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/popover" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Popover
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">

@@ -8,6 +8,7 @@
 export type SpacingPrimitiveStep =
   | 2
   | 4
+  | 6
   | 8
   | 12
   | 16
@@ -17,6 +18,7 @@ export type SpacingPrimitiveStep =
   | 32
   | 36
   | 40
+  | 44
   | 48
   | 56
   | 64
@@ -43,6 +45,13 @@ export type ContextSpacingRole =
   | "form-label"
   | "form-group"
   | "card-gap"
+  | "button-icon-gap"
+  | "button-padding-sm"
+  | "button-padding-md"
+  | "button-padding-lg"
+  | "button-padding-xl"
+  | "button-padding-xxl"
+  | "touch-target-min"
 
 export interface SemanticSpacingToken {
   primitive: `spacing-${SpacingPrimitiveStep}`

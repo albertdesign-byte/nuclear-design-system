@@ -29,7 +29,7 @@ export function Example() {
       </Avatar>
       <div>
         <p className="text-sm font-medium">Dra. Ana Rivera</p>
-        <p className="text-xs text-muted-foreground">Médico tratante · Cardiología</p>
+        <p className="text-xs text-muted-foreground">Attending physician · Cardiology</p>
       </div>
     </div>
   );

@@ -35,22 +35,22 @@ export function DialogPlayground() {
         <h2 className="mb-4 text-sm font-semibold">Confirm cancellation</h2>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger render={<Button variant="outline" />}>
-            Cancelar cita
+            Cancel appointment
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>¿Cancelar cita?</DialogTitle>
+              <DialogTitle>Cancel appointment?</DialogTitle>
               <DialogDescription>
-                La cita del 18 de julio a las 10:30 se marcará como cancelada.
-                Esta acción no se puede deshacer.
+                The July 18 appointment at 10:30 will be marked as canceled.
+                This action cannot be undone.
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
               <Button variant="outline" onClick={() => setOpen(false)}>
-                Mantener cita
+                Keep appointment
               </Button>
               <Button intent="danger" onClick={() => setOpen(false)}>
-                Confirmar cancelación
+                Confirm cancellation
               </Button>
             </DialogFooter>
           </DialogContent>

@@ -21,9 +21,9 @@ export const textareaRealScreenSnippet = tsxSnippet(`${textareaImport}
 export function Example() {
   return (
     <div className="w-full max-w-sm rounded-lg border border-border bg-card p-4 shadow-sm">
-      <h3 className="text-lg font-semibold">Notas clínicas</h3>
+      <h3 className="text-lg font-semibold">Clinical notes</h3>
       <p className="mt-2 text-sm text-muted-foreground">
-        Documenta observaciones relevantes antes de cerrar la consulta.
+        Document relevant observations before closing the visit.
       </p>
       <div className="mt-4 grid gap-1.5">
         <label htmlFor="notes" className="text-sm font-medium">
@@ -31,8 +31,8 @@ export function Example() {
         </label>
         <Textarea
           id="notes"
-          placeholder="Resumen de la evaluación, plan de seguimiento…"
-          defaultValue="Paciente estable. Continuar tratamiento actual y control en 30 días."
+          placeholder="Evaluation summary, follow-up plan…"
+          defaultValue="Patient stable. Continue current treatment and follow-up in 30 days."
         />
       </div>
     </div>

@@ -15,6 +15,7 @@
   --docs-chrome-border: var(--color-border-subtle);
   --docs-nav-active-bg: var(--color-surface-muted);
   --docs-inline-code-bg: var(--color-surface-muted);
+  font-family: var(--font-family-sans);
 }
 
 .docs-nav-accordion .docs-nav-accordion-item {

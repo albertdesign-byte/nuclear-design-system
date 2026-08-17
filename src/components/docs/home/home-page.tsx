@@ -1,12 +1,12 @@
 import Link from "next/link";
 
 import { Button } from "@/components/button";
-import { docsComponentCategories } from "@/components/docs/config/navigation";
+import { getComponentNavCategories } from "@/components/docs/config/components-registry";
 
 import { ComponentPreviewCard } from "./component-preview-card";
 
-const homeCategories = docsComponentCategories.filter(
-  (category) => category.id !== "planned"
+const homeCategories = getComponentNavCategories().filter(
+  (category) => category.id !== "components-overview"
 );
 
 export function HomePage() {

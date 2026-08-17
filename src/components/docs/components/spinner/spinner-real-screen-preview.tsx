@@ -9,7 +9,7 @@ export function SpinnerRealScreenPreview() {
     >
       <Spinner size="sm" aria-hidden />
       <span className="text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
-        Guardando registro…
+        Saving record…
       </span>
     </div>
   );

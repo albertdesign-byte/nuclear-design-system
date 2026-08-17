@@ -1,19 +1,26 @@
 # Medmo Iconography
 
-Lucide-only. Four sizes. One stroke. Usage rules — not just a size chart.
+<!-- iconography-contract: sizes=xs,sm,md,lg,xl;default=sm;library=Lucide;stroke=2 -->
 
-## Grid base
+Lucide-only. Five semantic sizes. One universal stroke. Usage rules — not just a size chart.
 
-**24px** (`icon-xl`) — aligns with spacing rhythm. Default inline: **16px** (`icon-md`).
+## Source of truth
 
-## API
+Executable iconography data is defined only in:
 
-```
-icon-sm (14) | icon-md (16) | icon-lg (20) | icon-xl (24)
-icon-stroke: 2
-color: currentColor
-gap: space-inline-xs | space-inline-sm (Spacing)
-```
+- `scale.ts` — primitive dimensions and the 24px base grid.
+- `semantics.ts` — five public roles, default role, Lucide library, stroke, context mappings, and the approved documentation catalog.
+
+`contract.ts`, `tokens.ts`, public tooling, CSS, and documentation derive from or are validated against those files. They must not define an independent size matrix.
+
+## Current contract
+
+- Roles: `icon-xs` through `icon-xl`.
+- Product default: `icon-sm` (16px).
+- Library: Lucide (`lucide-react`).
+- Stroke: `2`.
+- Color: `currentColor`.
+- Icon-to-text gaps: semantic Spacing tokens.
 
 ## Documentation
 

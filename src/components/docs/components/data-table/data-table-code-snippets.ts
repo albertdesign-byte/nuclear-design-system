@@ -4,6 +4,8 @@ const dataTableImport = `import {
   DataTable,
   DataTableBody,
   DataTableCell,
+  DataTableFilterCell,
+  DataTableFilterRow,
   DataTableHead,
   DataTableHeader,
   DataTableLinkCell,
@@ -111,6 +113,18 @@ export const dataTableLinkCellSnippet = exampleSnippet(
 
 export const dataTableRowCountFooterSnippet = exampleSnippet(
   `<DataTableRowCountFooter count={rows.length} label="total rows" />`,
+  { imports: [dataTableImport] }
+);
+
+export const dataTableFilterRowSnippet = exampleSnippet(
+  `<DataTableFilterRow>
+  <DataTableFilterCell columnId="srid">
+    <Input size="sm" aria-label="Filter SRID" />
+  </DataTableFilterCell>
+  <DataTableFilterCell columnId="patient">
+    <Input size="sm" aria-label="Filter Patient" />
+  </DataTableFilterCell>
+</DataTableFilterRow>`,
   { imports: [dataTableImport] }
 );
 

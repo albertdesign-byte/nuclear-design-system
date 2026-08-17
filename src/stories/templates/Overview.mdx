@@ -4,6 +4,21 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 # Templates
 
-Templates represent full pages and flows — Patients registration, Nuclear dashboard tooling, and documentation chrome.
+Layouts belong to Nuclear. Products consume layouts. A layout is never named after a product domain.
 
-Template stories will reference production screen components from `src/components/docs/userflow/` without duplicating layout logic.
+Templates own structure, progress navigation, header, content regions, and responsive behavior. Products own copy, validation, routing, business rules, and domain-specific fields.
+
+## Published
+
+- **Templates/AppShell** — operational application layout (sidebar, header, main).
+- **Templates/MultiStepFlowLayout** — generic multi-step workflow (header, progress, content regions). Reuse for Patient Intake, Provider Onboarding, Clinic Registration, Radiology Workflow, Insurance Enrollment, or any guided multi-step process. Not a Patients template.
+- **Templates/SearchResults** — toolbar, search, and results slots. Compose inside AppShell. Extracted from Scan Search. Not an MPF template.
+
+## Not extracted
+
+- **Detail View** remains Coming Soon. No product entity-detail screen exists (header + tabs + sections). Dashboard workspace tabs are AppShell + Workspace Tabs, not Detail View. Do not invent from `/examples/patient-record`.
+- **Form Page** is not a template. Every live form is a MultiStepFlowLayout step. Use MultiStepFlowLayout or Card + Form Field.
+
+## Products consume these layouts
+
+Patients, Providers, Clinics, and other domain implementations live under **Products/**. They compose AppShell or MultiStepFlowLayout. They do not own the layout.

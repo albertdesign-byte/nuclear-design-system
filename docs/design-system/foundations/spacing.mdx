@@ -7,6 +7,8 @@ lastUpdated: 2026-07-17
 phase: foundations
 ---
 
+<!-- token-contract: family=spacing -->
+
 # Spacing
 
 > El espacio es el principal creador de jerarquía en Medmo.
@@ -28,7 +30,7 @@ En interfaces clínicas de 8+ horas, la diferencia entre un grupo de campos y un
 
 La mayoría de gaps entre componentes (botones, inputs, filas de tabla) caen en múltiplos de 8px. Esto crea un ritmo predecible: el usuario escanea la interfaz sin micro-variaciones arbitrarias de 10px, 14px o 18px que distraen en tablas densas.
 
-**Implicación:** `space-inline-sm` y `space-stack-sm` (8px) son el default para componentes. Los pasos intermedios (12, 20, 28…) existen para precisión — no para inventar nuevos ritmos.
+**Implicación:** `space-inline-sm` y `space-stack-sm` (8px) son el default para componentes. Button usa una excepción óptica aprobada de 6px entre icono y label mediante `space-button-icon-gap`.
 
 ### Los tokens semánticos codifican intención, no píxeles
 
@@ -38,7 +40,7 @@ La mayoría de gaps entre componentes (botones, inputs, filas de tabla) caen en 
 
 ### La grid de 4px garantiza precisión sin caos
 
-La unidad base de 4px alinea todo al pixel grid. La excepción de 2px (hairline) queda reservada para offsets ópticos — nunca para gaps entre componentes.
+La unidad base de 4px alinea todo al pixel grid. 2px queda reservado para hairlines y offsets; 6px es la excepción óptica documentada para icono + label dentro de Button.
 
 **Implicación:** Cualquier valor fuera de la escala oficial requiere justificación documentada y aprobación del equipo de Design System.
 

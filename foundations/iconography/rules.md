@@ -4,14 +4,15 @@
 
 | Token | Value | Role |
 |-------|-------|------|
-| `icon-sm` | 14px | Compact only |
-| `icon-md` | 16px | **Default** |
-| `icon-lg` | 20px | Standalone |
-| `icon-xl` | 24px | Grid base — rare |
-| `icon-size` | → md | System default |
+| `icon-xs` | 12px | Extra compact |
+| `icon-sm` | 16px | **Default** |
+| `icon-md` | 20px | Emphasis |
+| `icon-lg` | 24px | Standalone |
+| `icon-xl` | 32px | Feature focal — rare |
+| `icon-size` | → sm | System default |
 | `icon-stroke` | 2 | Universal stroke |
 
-**Lucide only.** Gap spacing: `--space-inline-xs` / `--space-inline-sm` (Spacing).
+**Lucide only.** Button gap: `--space-button-icon-gap` (6px). Other inline gaps use `--space-inline-*`.
 
 ## Color
 
@@ -20,10 +21,10 @@ Always `currentColor` on SVG — inherits text/icon color from parent semantic c
 ## DO
 
 - Lucide icons with `strokeWidth={2}` / `var(--icon-stroke)`
-- `width/height: var(--icon-md)` or size prop mapped to tokens
+- `width/height: var(--icon-sm)` or size prop mapped to tokens
 - Icon + text: always pair with visible text OR `aria-label` on icon-only control
-- Button: icon-md + gap `space-inline-sm`
-- Input prefix: icon-md + gap `space-inline-xs`
+- Button: icon-sm + gap `space-button-icon-gap` (6px)
+- Input prefix: icon-sm + gap `space-inline-xs`
 - Status: icon + text + color token — never icon alone for critical state
 
 ## DO NOT
@@ -46,4 +47,4 @@ Always `currentColor` on SVG — inherits text/icon color from parent semantic c
 
 ## Token creation principle
 
-New size needs 3+ components + cannot map to sm/md/lg/xl → DS review. Default answer: use icon-md.
+New size needs 3+ components + cannot map to xs/sm/md/lg/xl → DS review. Default answer: use icon-sm.

@@ -29,14 +29,14 @@ ${iconImport}
 
 export function Example() {
   return (
-    <div className="flex items-center gap-2">
-      <span className="text-sm">Resultado HbA1c: 7.2%</span>
+    <div className="flex items-center gap-[var(--space-inline-sm)]">
+      <span>Patient ID: MED-104829</span>
       <Tooltip>
-        <TooltipTrigger render={<Button variant="ghost" size="icon-sm" aria-label="Explicar HbA1c" />}>
+        <TooltipTrigger render={<Button variant="ghost" size="icon-sm" aria-label="Patient ID help" />}>
           <CircleHelpIcon />
         </TooltipTrigger>
         <TooltipContent side="top">
-          La hemoglobina glicosilada (HbA1c) refleja el control glucémico promedio de los últimos 2–3 meses.
+          Internal identifier used across referrals and imaging studies.
         </TooltipContent>
       </Tooltip>
     </div>
@@ -54,10 +54,14 @@ export const tooltipUsageSnippet = exampleSnippet(
 );
 
 export const tooltipSideSnippet = exampleSnippet(
-  `<Tooltip>
-  <TooltipTrigger render={<Button variant="outline" size="sm">Bottom</Button>} />
-  <TooltipContent side="bottom">Tooltip on bottom</TooltipContent>
-</Tooltip>`,
+  `{(["top", "bottom", "left", "right"] as const).map((side) => (
+  <Tooltip key={side}>
+    <TooltipTrigger
+      render={<Button variant="outline" size="sm">{side}</Button>}
+    />
+    <TooltipContent side={side}>Tooltip on {side}</TooltipContent>
+  </Tooltip>
+))}`,
   { imports: [tooltipImport, buttonImport] }
 );
 
@@ -74,3 +78,71 @@ export function Example() {
     </TooltipProvider>
   );
 }`);
+
+export const tooltipTriggerTypesSnippet = tsxSnippet(`${tooltipImport}
+${buttonImport}
+import { Input } from "@/components/input";
+import Link from "next/link";
+import { CircleHelpIcon } from "lucide-react";
+
+export function Example() {
+  return (
+    <>
+      <Tooltip>
+        <TooltipTrigger render={<Button size="icon-xl" aria-label="Patient ID help" />}>
+          <CircleHelpIcon />
+        </TooltipTrigger>
+        <TooltipContent>Patient ID help</TooltipContent>
+      </Tooltip>
+
+      <Tooltip>
+        <TooltipTrigger render={<Link href="/insurance">Insurance details</Link>} />
+        <TooltipContent>View plan and eligibility information</TooltipContent>
+      </Tooltip>
+
+      <Tooltip>
+        <TooltipTrigger render={<Button>Upload study</Button>} />
+        <TooltipContent>Upload DICOM files</TooltipContent>
+      </Tooltip>
+
+      <Tooltip>
+        <TooltipTrigger render={<Input aria-label="Patient ID" value="MED-104829" readOnly />} />
+        <TooltipContent>Internal patient identifier</TooltipContent>
+      </Tooltip>
+    </>
+  );
+}`);
+
+export const tooltipContentPatternsSnippet = exampleSnippet(
+  `<TooltipContent>Patient ID</TooltipContent>
+
+<TooltipContent>Report reviewed and ready to share.</TooltipContent>
+
+<TooltipContent>
+  Upload DICOM files only. Remove direct patient identifiers from filenames.
+</TooltipContent>`
+);
+
+export const tooltipHealthcareSnippet = exampleSnippet(
+  `<Tooltip>
+  <TooltipTrigger render={<Button variant="ghost" size="icon-xl" aria-label="Study status help" />}>
+    <CircleHelpIcon />
+  </TooltipTrigger>
+  <TooltipContent>
+    The radiology report has not been signed yet.
+  </TooltipContent>
+</Tooltip>`,
+  { imports: [tooltipImport, buttonImport, iconImport] }
+);
+
+export const tooltipAccessibilitySnippet = exampleSnippet(
+  `<Tooltip>
+  <TooltipTrigger
+    render={<Button variant="ghost" size="icon-xl" aria-label="Insurance information" />}
+  >
+    <CircleHelpIcon />
+  </TooltipTrigger>
+  <TooltipContent>Coverage was verified today.</TooltipContent>
+</Tooltip>`,
+  { imports: [tooltipImport, buttonImport, iconImport] }
+);

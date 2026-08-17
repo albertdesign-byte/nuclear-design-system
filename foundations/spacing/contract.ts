@@ -1,28 +1,29 @@
 /**
  * Spacing token contract — registry of allowed semantic token names.
+ * Role lists are derived from the semantic objects, not restated by hand.
  */
 
-import type { ContextSpacingRole, InlineSpacingRole, StackSpacingRole } from "./types"
+import { contextSpacing } from "./semantic/context"
+import { inlineSpacing } from "./semantic/inline"
+import { stackSpacing } from "./semantic/stack"
+import type {
+  ContextSpacingRole,
+  InlineSpacingRole,
+  StackSpacingRole,
+} from "./types"
 
-export const inlineSpacingRoles: InlineSpacingRole[] = ["xs", "sm", "md", "lg"]
-export const stackSpacingRoles: StackSpacingRole[] = ["xs", "sm", "md", "lg", "xl"]
-export const contextSpacingRoles: ContextSpacingRole[] = [
-  "page",
-  "section",
-  "card",
-  "form",
-  "table",
-  "dialog",
-  "form-label",
-  "form-group",
-  "card-gap",
-]
+export const inlineSpacingRoles = Object.keys(
+  inlineSpacing
+) as InlineSpacingRole[]
+export const stackSpacingRoles = Object.keys(stackSpacing) as StackSpacingRole[]
+export const contextSpacingRoles = Object.keys(
+  contextSpacing
+) as ContextSpacingRole[]
 
-/** Primitive names — FORBIDDEN in component code */
 export const semanticSpacingTokens = {
-  inline: inlineSpacingRoles.map((r) => `--space-inline-${r}`),
-  stack: stackSpacingRoles.map((r) => `--space-stack-${r}`),
-  context: contextSpacingRoles.map((r) => `--space-${r}`),
+  inline: inlineSpacingRoles.map((role) => `--space-inline-${role}`),
+  stack: stackSpacingRoles.map((role) => `--space-stack-${role}`),
+  context: contextSpacingRoles.map((role) => `--space-${role}`),
 } as const
 
 export const allSemanticSpacingTokens = [
@@ -31,5 +32,4 @@ export const allSemanticSpacingTokens = [
   ...semanticSpacingTokens.context,
 ]
 
-/** Primitive names — FORBIDDEN in component code */
 export const primitiveSpacingPattern = "--spacing-{px}" as const

@@ -1,16 +1,40 @@
 ---
 title: Typography
-description: Sistema tipográfico Medmo — IBM Plex Sans Condensed, roles semánticos, accesibilidad clínica.
+description: Sistema tipográfico Medmo — estrategia IBM Plex Sans Condensed (documentación) y Poppins (producto), roles semánticos, accesibilidad clínica.
 status: complete
 version: 1.0.0
-lastUpdated: 2026-07-17
+lastUpdated: 2026-08-14
 phase: foundations
 ---
+
+<!-- token-contract: family=typography -->
 
 # Typography
 
 > La jerarquía se comunica con tamaño, peso y espacio — no con color.
-> IBM Plex Sans Condensed es la voz tipográfica de Medmo.
+> Poppins es la tipografía canónica de producto. IBM Plex Sans Condensed es la voz de la documentación del Design System.
+
+---
+
+## Typography Strategy
+
+Nuclear usa **dos typefaces de forma intencional**. No son intercambiables y la coexistencia no es un error a unificar.
+
+| Typeface | Rol | Usar en | No usar en |
+|----------|-----|---------|------------|
+| **IBM Plex Sans Condensed** | Experiencia de documentación del Design System | Navegación, sidebar, contenido de documentación, guidelines, material educativo, chrome del Design System | Componentes, interfaces de producto, pantallas reales, UI de aplicación |
+| **Poppins** | Tipografía canónica de producto | Componentes, interfaces de producto, pantallas reales, UI de aplicación | Chrome de documentación, sidebar y prosa educativa del Design System |
+
+**Por qué existen las dos.** La documentación necesita una cara condensada para leer guidelines largas y navegar el catálogo. El producto necesita una cara de aplicación compartida por cada componente y cada pantalla real. Esos trabajos son distintos; las familias se mantienen separadas.
+
+**Reglas**
+
+- No especificar IBM Plex Sans Condensed en componentes, pantallas de producto o UI de aplicación.
+- No reemplazar el chrome de documentación, el sidebar o el copy educativo con Poppins.
+- No mezclar ambas familias dentro de un mismo componente o de una misma pantalla de producto.
+- Un preview de componente (Poppins) dentro del chrome de docs (IBM Plex) es documentación — no un patrón de producto a copiar.
+
+Los roles semánticos que consumen los componentes resuelven a Poppins.
 
 ---
 
@@ -36,11 +60,11 @@ Un H1 no es azul navy. Un label no es gris claro con color diferente al body. La
 
 **Implicación:** Los tokens de color (`color-text-primary`, `color-text-secondary`) complementan la tipografía — nunca la reemplazan.
 
-### IBM Plex Sans Condensed es identidad visual
+### IBM Plex Sans Condensed es la voz de la documentación
 
-No es una preferencia estética intercambiable. Es la tipografía oficial de Medmo, igual que `#242F50` es el color oficial. Geist, Inter, system-ui y cualquier otra fuente están prohibidas en la interfaz del producto.
+No es la tipografía de producto. IBM Plex Sans Condensed cubre navegación, sidebar, guidelines y chrome del Design System. Poppins es la tipografía canónica de componentes e interfaces de producto.
 
-**Implicación:** Solo el role `code` usa IBM Plex Mono. Todo lo demás usa IBM Plex Sans Condensed.
+**Implicación:** Los roles semánticos de UI (`display` a `overline`) resuelven a Poppins. IBM Plex Sans Condensed no se especifica en componentes ni en pantallas reales. Ver [Typography Strategy](#typography-strategy).
 
 ---
 

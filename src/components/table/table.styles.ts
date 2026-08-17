@@ -1,3 +1,5 @@
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
+
 export const tableContainerClassName = "relative w-full overflow-x-auto";
 
 export const tableClassName =
@@ -9,25 +11,25 @@ export const tableHeaderClassName =
 export const tableBodyClassName = "[&_tr:last-child]:border-0";
 
 export const tableFooterClassName = [
-  "border-t border-[var(--color-border)] bg-[var(--color-surface-muted)] font-medium",
+  componentFontFamilyClassName, "border-t border-[var(--color-border)] bg-[var(--color-surface-muted)] font-medium",
   "[&>tr]:last:border-b-0",
 ].join(" ");
 
 export const tableRowClassName = [
-  "border-b border-[var(--color-border)] transition-[var(--motion-hover)]",
+  componentFontFamilyClassName, "border-b border-[var(--color-border)] transition-[var(--motion-hover)]",
   "hover:bg-[var(--color-surface-hover)]",
   "has-aria-expanded:bg-[var(--color-surface-hover)]",
   "data-[state=selected]:bg-[var(--color-surface-muted)]",
 ].join(" ");
 
 export const tableHeadClassName = [
-  "h-10 px-[var(--space-table)] text-left align-middle font-medium whitespace-nowrap",
+  componentFontFamilyClassName, "h-10 px-[var(--space-table)] text-left align-middle font-medium whitespace-nowrap",
   "text-[var(--color-text-primary)]",
   "[&:has([role=checkbox])]:pr-0",
 ].join(" ");
 
 export const tableCellClassName = [
-  "p-[var(--space-table)] align-middle whitespace-nowrap",
+  componentFontFamilyClassName, "p-[var(--space-table)] align-middle whitespace-nowrap",
   "[&:has([role=checkbox])]:pr-0",
 ].join(" ");
 

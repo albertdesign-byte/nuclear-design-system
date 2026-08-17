@@ -6,6 +6,7 @@ import { Button } from "@/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/dropdown-menu";
@@ -53,16 +54,18 @@ export function DocsPatientsDeviceDropdown() {
         </DropdownMenuTrigger>
       </div>
       <DropdownMenuContent align="end" className="min-w-[9rem]">
-        {deviceOptions.map((option) => (
-          <DropdownMenuItem
-            key={option.value}
-            onClick={() => setDevice(option.value)}
-            className="justify-between"
-          >
-            {option.label}
-            {device === option.value ? <CheckIcon aria-hidden className="size-4" /> : null}
-          </DropdownMenuItem>
-        ))}
+        <DropdownMenuGroup>
+          {deviceOptions.map((option) => (
+            <DropdownMenuItem
+              key={option.value}
+              onClick={() => setDevice(option.value)}
+              className="justify-between"
+            >
+              {option.label}
+              {device === option.value ? <CheckIcon aria-hidden className="size-4" /> : null}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );

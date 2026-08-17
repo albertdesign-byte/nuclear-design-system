@@ -3,7 +3,8 @@
 ## Grid
 
 - Base unit: 4px
-- All layout values: multiples of 4
+- Most layout values: multiples of 4
+- 6px: approved optical exception for Button icon-to-label spacing
 - 2px: hairline exceptions only
 - Preferred component rhythm: 8px (`space-inline-sm`, `space-stack-sm`, `space-table`)
 
@@ -14,6 +15,8 @@
 - Use `space-stack-*` for vertical flex/grid gaps
 - Use context tokens for their named purpose (`space-dialog` in dialogs)
 - Use `space-form-label` (4px) between label and input
+- Use `space-button-icon-gap` (6px) between a Button icon and label
+- Use `space-button-padding-*` for Button horizontal padding
 - Use `space-section` (48px) between major page regions
 
 ## DO NOT
@@ -29,7 +32,8 @@
 
 | Scenario | Token |
 |----------|-------|
-| Icon + text in button | `space-inline-sm` |
+| Icon + text in button | `space-button-icon-gap` |
+| Button horizontal padding | `space-button-padding-sm/md/lg/xl/xxl` |
 | Toolbar actions | `space-inline-md` |
 | Label → Input | `space-form-label` or `space-stack-xs` |
 | Form fields in group | `space-form` |

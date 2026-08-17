@@ -1,171 +1,240 @@
-import { tsxSnippet } from "@/components/docs/primitives/docs-code-snippet";
+import { exampleSnippet, tsxSnippet } from "@/components/docs/primitives/docs-code-snippet";
 
-const selectImports = `import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/select";`;
+const selectImport =
+  'import { MultiSelectField, SearchableSelectField, SelectField } from "@/components/select";';
 
-const baseSelectJsx = `<Select defaultValue="active">
-  <SelectTrigger className="max-w-xs">
-    <SelectValue placeholder="Select status" />
-  </SelectTrigger>
-  <SelectContent>
-    <SelectItem value="active">Activo</SelectItem>
-    <SelectItem value="observation">En observación</SelectItem>
-    <SelectItem value="discharged">Alta</SelectItem>
-  </SelectContent>
-</Select>`;
+const statusOptions = `options={[
+    { value: "active", label: "Active" },
+    { value: "observation", label: "Under observation" },
+    { value: "discharged", label: "Discharged" },
+  ]}`;
 
-export const selectInstallationUiSnippet = tsxSnippet(`${selectImports}
+export const selectInstallationUiSnippet = tsxSnippet(`${selectImport}
 
 export function Example() {
   return (
-    <>
-      ${baseSelectJsx}
-      <Select defaultValue="bluecross">
-        <SelectTrigger className="max-w-xs">
-          <SelectValue placeholder="Select insurance" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="bluecross">BlueCross PPO</SelectItem>
-          <SelectItem value="aetna">Aetna HMO</SelectItem>
-        </SelectContent>
-      </Select>
-    </>
+    <SelectField
+      id="patient-status"
+      label="Patient status"
+      defaultValue="active"
+      ${statusOptions}
+    />
   );
 }`);
 
-export const selectRealScreenSnippet = tsxSnippet(`${selectImports}
+export const selectRealScreenSnippet = tsxSnippet(`${selectImport}
 
 export function Example() {
   return (
     <div className="w-full max-w-sm rounded-lg border border-border bg-card p-4 shadow-sm">
-      <h3 className="text-lg font-semibold">Datos del paciente</h3>
-      <div className="mt-4 grid gap-3">
-        <div className="grid gap-1.5">
-          <label htmlFor="insurance" className="text-sm font-medium">
-            Seguro médico
-          </label>
-          <Select defaultValue="bluecross">
-            <SelectTrigger id="insurance">
-              <SelectValue placeholder="Select insurance" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="bluecross">BlueCross PPO</SelectItem>
-              <SelectItem value="aetna">Aetna HMO</SelectItem>
-              <SelectItem value="medicare">Medicare</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
+      <SelectField
+        id="insurance"
+        label="Medical insurance"
+        defaultValue="bluecross"
+        options={[
+          { value: "bluecross", label: "BlueCross PPO" },
+          { value: "aetna", label: "Aetna HMO" },
+          { value: "medicare", label: "Medicare" },
+        ]}
+      />
     </div>
   );
 }`);
 
-export const selectUsageSnippet = tsxSnippet(`${selectImports}
+export const selectUsageSnippet = exampleSnippet(
+  `<SelectField
+  id="patient-status"
+  label="Patient status"
+  placeholder="Select status"
+  ${statusOptions}
+/>`,
+  { imports: [selectImport] }
+);
 
-export function Example() {
-  return (
-    ${baseSelectJsx}
-  );
-}`);
+export const selectDefaultSnippet = exampleSnippet(
+  `<SelectField
+  id="patient-status"
+  label="Patient status"
+  defaultValue="active"
+  ${statusOptions}
+/>`,
+  { imports: [selectImport] }
+);
 
-export const selectSizeSnippet = tsxSnippet(`${selectImports}
+export const selectRequiredSnippet = exampleSnippet(
+  `<SelectField
+  id="patient-status"
+  label="Patient status"
+  required
+  placeholder="Select status"
+  ${statusOptions}
+/>`,
+  { imports: [selectImport] }
+);
 
-export function Example() {
-  return (
-    <div className="flex max-w-md flex-col gap-2">
-      <Select defaultValue="active">
-        <SelectTrigger size="sm">
-          <SelectValue placeholder="Small" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="active">Activo</SelectItem>
-        </SelectContent>
-      </Select>
-      <Select defaultValue="active">
-        <SelectTrigger size="md">
-          <SelectValue placeholder="Medium" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="active">Activo</SelectItem>
-        </SelectContent>
-      </Select>
-      <Select defaultValue="active">
-        <SelectTrigger size="lg">
-          <SelectValue placeholder="Large" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="active">Activo</SelectItem>
-        </SelectContent>
-      </Select>
-    </div>
-  );
-}`);
+export const selectDisabledSnippet = exampleSnippet(
+  `<SelectField
+  id="patient-status"
+  label="Patient status"
+  disabled
+  defaultValue="active"
+  ${statusOptions}
+/>`,
+  { imports: [selectImport] }
+);
 
-export const selectDisabledSnippet = tsxSnippet(`${selectImports}
+export const selectErrorSnippet = exampleSnippet(
+  `<SelectField
+  id="patient-status"
+  label="Patient status"
+  error="Select a patient status to continue."
+  ${statusOptions}
+/>`,
+  { imports: [selectImport] }
+);
 
-export function Example() {
-  return (
-    <Select defaultValue="active" disabled>
-      <SelectTrigger className="max-w-xs">
-        <SelectValue placeholder="Disabled" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="active">Activo</SelectItem>
-      </SelectContent>
-    </Select>
-  );
-}`);
+export const selectReadOnlySnippet = exampleSnippet(
+  `<SelectField
+  id="patient-status"
+  label="Patient status"
+  readOnly
+  defaultValue="discharged"
+  helperText="This status is locked after the encounter is closed."
+  ${statusOptions}
+/>`,
+  { imports: [selectImport] }
+);
 
-export const selectInvalidSnippet = tsxSnippet(`${selectImports}
+export const selectLoadingSnippet = exampleSnippet(
+  `<SelectField
+  id="facility"
+  label="Imaging facility"
+  loading
+  options={[]}
+  helperText="Retrieving facilities from the scheduling network."
+/>`,
+  { imports: [selectImport] }
+);
 
-export function Example() {
-  return (
-    <Select>
-      <SelectTrigger className="max-w-xs" aria-invalid>
-        <SelectValue placeholder="Invalid value" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="active">Activo</SelectItem>
-      </SelectContent>
-    </Select>
-  );
-}`);
+export const selectHelperTextSnippet = exampleSnippet(
+  `<SelectField
+  id="patient-status"
+  label="Patient status"
+  defaultValue="active"
+  helperText="Status updates sync to the care team dashboard."
+  ${statusOptions}
+/>`,
+  { imports: [selectImport] }
+);
 
-export const selectPlaceholderSnippet = tsxSnippet(`${selectImports}
+export const selectValidationMessageSnippet = exampleSnippet(
+  `<SelectField
+  id="study-priority"
+  label="Study priority"
+  validationMessage="Choose STAT only when immediate clinical review is required."
+  options={[
+    { value: "routine", label: "Routine" },
+    { value: "urgent", label: "Urgent" },
+    { value: "stat", label: "STAT" },
+  ]}
+/>`,
+  { imports: [selectImport] }
+);
 
-export function Example() {
-  return (
-    <Select>
-      <SelectTrigger className="max-w-xs">
-        <SelectValue placeholder="Select appointment type" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="follow-up">Seguimiento</SelectItem>
-        <SelectItem value="urgent">Urgente</SelectItem>
-      </SelectContent>
-    </Select>
-  );
-}`);
+export const selectErrorMessageSnippet = exampleSnippet(
+  `<SelectField
+  id="facility"
+  label="Imaging facility"
+  error="Select a facility that supports the ordered study."
+  options={[
+    { value: "hospital", label: "Medmo General Hospital" },
+    { value: "clinic", label: "Downtown Imaging Clinic" },
+  ]}
+/>`,
+  { imports: [selectImport] }
+);
 
-export const selectFullWidthSnippet = tsxSnippet(`${selectImports}
+export const searchableSelectSnippet = exampleSnippet(
+  `<SearchableSelectField
+  id="patient"
+  label="Patient"
+  placeholder="Search by patient name or MRN"
+  options={[
+    { value: "elena", label: "Elena Morales · MRN 104829" },
+    { value: "marcus", label: "Marcus Lee · MRN 104912" },
+    { value: "priya", label: "Priya Shah · MRN 105031" },
+  ]}
+/>`,
+  { imports: [selectImport] }
+);
 
-export function Example() {
-  return (
-    <div className="w-full max-w-md">
-      <Select defaultValue="active">
-        <SelectTrigger fullWidth>
-          <SelectValue placeholder="Full width field" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="active">Activo</SelectItem>
-          <SelectItem value="observation">En observación</SelectItem>
-        </SelectContent>
-      </Select>
-    </div>
-  );
-}`);
+export const multiSelectSnippet = exampleSnippet(
+  `<MultiSelectField
+  id="studies"
+  label="Studies to include"
+  defaultValue={["brain-mri", "chest-ct"]}
+  options={[
+    { value: "brain-mri", label: "MRI brain without contrast" },
+    { value: "chest-ct", label: "CT chest with contrast" },
+    { value: "knee-xray", label: "X-ray knee, 3 views" },
+  ]}
+/>`,
+  { imports: [selectImport] }
+);
+
+export const groupedSelectSnippet = exampleSnippet(
+  `<SelectField
+  id="facility"
+  label="Imaging facility"
+  placeholder="Select facility"
+  options={[
+    { value: "hospital-a", label: "Medmo General Hospital", group: "Hospitals" },
+    { value: "hospital-b", label: "Northside Medical Center", group: "Hospitals" },
+    { value: "clinic-a", label: "Downtown Imaging Clinic", group: "Clinics" },
+    { value: "clinic-b", label: "Westbrook Outpatient Clinic", group: "Clinics" },
+  ]}
+/>`,
+  { imports: [selectImport] }
+);
+
+export const asyncSelectSnippet = exampleSnippet(
+  `<SearchableSelectField
+  id="network-facility"
+  label="Network facility"
+  options={facilities}
+  loading={isLoading}
+  loadingMessage="Loading facilities…"
+  placeholder="Search network facilities"
+/>`,
+  { imports: [selectImport] }
+);
+
+export const selectSizeSnippet = exampleSnippet(
+  `<div className="flex max-w-md flex-col gap-4">
+  <SelectField id="select-sm" label="Small" size="sm" ${statusOptions} />
+  <SelectField id="select-md" label="Medium" size="md" ${statusOptions} />
+  <SelectField id="select-lg" label="Large" size="lg" ${statusOptions} />
+</div>`,
+  { imports: [selectImport] }
+);
+
+export const selectFullWidthSnippet = exampleSnippet(
+  `<SelectField
+  id="patient-status"
+  label="Patient status"
+  fullWidth
+  ${statusOptions}
+/>`,
+  { imports: [selectImport] }
+);
+
+export const selectAccessibilitySnippet = exampleSnippet(
+  `<SelectField
+  id="patient-status"
+  label="Patient status"
+  required
+  helperText="Status updates sync to the care team dashboard."
+  ${statusOptions}
+/>`,
+  { imports: [selectImport] }
+);

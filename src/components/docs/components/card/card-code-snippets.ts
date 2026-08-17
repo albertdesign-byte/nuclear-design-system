@@ -7,6 +7,7 @@ const cardImport = `import {
   CardDescription,
   CardFooter,
   CardHeader,
+  CardMedia,
   CardTitle,
 } from "@/components/card";`;
 
@@ -16,38 +17,37 @@ export function Example() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Resumen del paciente</CardTitle>
-        <CardDescription>Última actualización hace 2 horas</CardDescription>
+        <CardTitle>
+          <h3>Patient summary</h3>
+        </CardTitle>
+        <CardDescription>Last updated 2 hours ago</CardDescription>
       </CardHeader>
-      <CardContent>
-        <p>Signos vitales dentro de rangos normales.</p>
-      </CardContent>
+      <CardContent>Vital signs within normal ranges.</CardContent>
     </Card>
   );
 }`);
 
 export const cardRealScreenSnippet = tsxSnippet(`${cardImport}
 import { Badge } from "@/components/badge";
+import { Button } from "@/components/button";
 
 export function Example() {
   return (
-    <Card className="max-w-sm">
+    <Card role="region" aria-labelledby="patient-summary-title">
       <CardHeader>
-        <CardTitle>María González</CardTitle>
-        <CardDescription>ID #48291 · 58 años</CardDescription>
+        <CardTitle>
+          <h3 id="patient-summary-title">Maria Gonzalez</h3>
+        </CardTitle>
+        <CardDescription>MRN 48291 · 58 years</CardDescription>
+        <CardAction>
+          <Badge variant="secondary">Stable</Badge>
+        </CardAction>
       </CardHeader>
-      <CardContent className="space-y-2">
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">Estado</span>
-          <Badge variant="secondary">Estable</Badge>
-        </div>
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">Próxima cita</span>
-          <span>18 Jul 2026</span>
-        </div>
+      <CardContent className="flex flex-col gap-[var(--space-stack-sm)]">
+        <p>Cardiology · Next appointment 18 Aug 2026</p>
       </CardContent>
       <CardFooter>
-        <button className="text-sm text-primary">Ver expediente</button>
+        <Button variant="outline" size="sm">View record</Button>
       </CardFooter>
     </Card>
   );
@@ -56,69 +56,109 @@ export function Example() {
 export const cardUsageSnippet = exampleSnippet(
   `<Card>
   <CardHeader>
-    <CardTitle>Resumen del paciente</CardTitle>
-    <CardDescription>Última actualización hace 2 horas</CardDescription>
+    <CardTitle>
+      <h3>Patient summary</h3>
+    </CardTitle>
+    <CardDescription>Last updated 2 hours ago</CardDescription>
   </CardHeader>
-  <CardContent>Signos vitales dentro de rangos normales.</CardContent>
+  <CardContent>Vital signs within normal ranges.</CardContent>
 </Card>`,
   { imports: [cardImport] }
 );
 
-export const cardSizeSnippet = exampleSnippet(
-  `<div className="grid gap-4 sm:grid-cols-2">
-  <Card size="default">
-    <CardHeader>
-      <CardTitle>Default</CardTitle>
-    </CardHeader>
-    <CardContent>Padding estándar con --space-card.</CardContent>
-  </Card>
-  <Card size="sm">
-    <CardHeader>
-      <CardTitle>Small</CardTitle>
-    </CardHeader>
-    <CardContent>Padding compacto para paneles densos.</CardContent>
-  </Card>
+export const cardVariantsSnippet = exampleSnippet(
+  `<Card>
+  <CardHeader>
+    <CardTitle><h3>Card with Header</h3></CardTitle>
+  </CardHeader>
+  <CardContent>Flexible content</CardContent>
+  <CardFooter>Responsive actions</CardFooter>
+</Card>`,
+  { imports: [cardImport] }
+);
+
+export const cardImageSnippet = exampleSnippet(
+  `<Card>
+  <CardMedia>
+    <img
+      src="/study-preview.jpg"
+      alt="Axial CT study preview"
+      className="aspect-video w-full object-cover"
+    />
+  </CardMedia>
+  <CardHeader>
+    <CardTitle><h3>Chest CT</h3></CardTitle>
+    <CardDescription>246 images</CardDescription>
+  </CardHeader>
+</Card>`,
+  { imports: [cardImport] }
+);
+
+export const cardFlexibilitySnippet = exampleSnippet(
+  `<Card>
+  <CardHeader>
+    <CardTitle>
+      <h3>A long title wraps instead of being truncated</h3>
+    </CardTitle>
+    <CardDescription>
+      Descriptions remain visible as content grows.
+    </CardDescription>
+  </CardHeader>
+  <CardContent>{dynamicContent}</CardContent>
+  <CardFooter className="justify-end">
+    <Button variant="ghost">Cancel</Button>
+    <Button variant="outline">Save draft</Button>
+    <Button>Finalize</Button>
+  </CardFooter>
+</Card>`,
+  {
+    imports: [
+      cardImport,
+      `import { Button } from "@/components/button";`,
+    ],
+  }
+);
+
+export const cardResponsiveSnippet = exampleSnippet(
+  `<div className="grid gap-[var(--space-card-gap)] sm:grid-cols-2 lg:grid-cols-3">
+  {items.map((item) => (
+    <Card key={item.id} className="min-w-0">
+      <CardHeader>
+        <CardTitle><h3>{item.title}</h3></CardTitle>
+        <CardDescription>{item.description}</CardDescription>
+      </CardHeader>
+      <CardContent>{item.content}</CardContent>
+    </Card>
+  ))}
 </div>`,
   { imports: [cardImport] }
 );
 
-export const cardHeaderSnippet = exampleSnippet(
-  `<CardHeader>
-  <CardTitle>Resumen del paciente</CardTitle>
-  <CardDescription>Última actualización hace 2 horas</CardDescription>
-</CardHeader>`,
+export const cardHealthcareSnippet = exampleSnippet(
+  `<Card role="region" aria-labelledby="study-card-title">
+  <CardHeader>
+    <CardTitle>
+      <h3 id="study-card-title">Study Card</h3>
+    </CardTitle>
+    <CardDescription>Chest CT with contrast</CardDescription>
+  </CardHeader>
+  <CardContent>246 images · Acquired today at 09:42</CardContent>
+</Card>`,
   { imports: [cardImport] }
 );
 
-export const cardContentSnippet = exampleSnippet(
-  `<CardContent>
-  <p>Signos vitales dentro de rangos normales.</p>
-</CardContent>`,
-  { imports: [cardImport] }
-);
+export const cardAccessibilitySnippet = tsxSnippet(`${cardImport}
 
-export const cardFooterSnippet = exampleSnippet(
-  `<CardFooter>
-  <button className="text-sm">Ver expediente</button>
-</CardFooter>`,
-  { imports: [cardImport] }
-);
-
-export const cardActionSnippet = tsxSnippet(`${cardImport}
-import { Button } from "@/components/button";
-
-export function Example() {
+export function AccessibleCard() {
   return (
-    <Card>
+    <Card role="region" aria-labelledby="report-card-title">
       <CardHeader>
-        <CardTitle>Resumen del paciente</CardTitle>
-        <CardDescription>Última actualización hace 2 horas</CardDescription>
-        <CardAction>
-          <Button variant="ghost" size="sm">
-            Editar
-          </Button>
-        </CardAction>
+        <CardTitle>
+          <h3 id="report-card-title">Report Card</h3>
+        </CardTitle>
+        <CardDescription>Radiology findings</CardDescription>
       </CardHeader>
+      <CardContent>Draft updated 12 minutes ago.</CardContent>
     </Card>
   );
 }`);

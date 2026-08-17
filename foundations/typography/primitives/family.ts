@@ -1,30 +1,30 @@
 /**
  * Font family primitives.
  *
- * Why IBM Plex Sans Condensed: Official Medmo typeface. Condensed width
- * allows more clinical data per row without sacrificing readability —
- * critical for dense tables and long shifts.
- *
- * Why IBM Plex Mono for code: Same design language as sans. Used for
- * patient IDs, lab values, and monospace-aligned data columns.
- *
- * Font loading (next/font) lives in Technical Setup — not here.
+ * Poppins — design system components only.
+ * IBM Plex Sans Condensed — documentation, navigation, and default UI.
  */
 
 export const fontFamily = {
   sans: {
     value: '"IBM Plex Sans Condensed", sans-serif',
     stack: ['"IBM Plex Sans Condensed"', "sans-serif"],
-    usage: "All UI text — headings, body, labels, captions",
+    usage: "Default UI — docs shell, navigation, prose",
+  },
+  component: {
+    value: '"Poppins", sans-serif',
+    stack: ['"Poppins"', "sans-serif"],
+    usage: "Design system components only",
   },
   mono: {
-    value: '"IBM Plex Mono", monospace',
-    stack: ['"IBM Plex Mono"', "monospace"],
-    usage: "Code, patient IDs, lab values, monospace data columns",
+    value: "var(--font-family-sans)",
+    stack: ['"IBM Plex Sans Condensed"', "sans-serif"],
+    usage: "Code in docs; component code inherits component font",
   },
 } as const
 
 export const fontFamilyCss = {
   sans: "var(--font-family-sans)",
+  component: "var(--font-family-component)",
   mono: "var(--font-family-mono)",
 } as const

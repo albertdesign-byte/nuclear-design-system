@@ -1,4 +1,6 @@
 import { cva } from "class-variance-authority";
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
+import { subtleInteractiveDisabledClassName } from "@/lib/disabled-styles";
 
 const focusRing =
   "focus-visible:border-[var(--color-focus-ring)] focus-visible:ring-[length:var(--focus-ring-width)] focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-[length:var(--focus-ring-offset)] focus-visible:outline-none";
@@ -8,7 +10,7 @@ export const tabsRootClassName =
 
 export const tabsListVariants = cva(
   [
-    "group/tabs-list inline-flex w-fit items-center justify-center rounded-[var(--radius-md)] p-[3px]",
+    componentFontFamilyClassName, "group/tabs-list inline-flex w-fit items-center justify-center rounded-[var(--radius-md)] p-[3px]",
     "text-[var(--color-text-secondary)]",
     "group-data-horizontal/tabs:h-8 group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col",
     "data-[variant=line]:rounded-none",
@@ -35,7 +37,7 @@ export const tabsListVariants = cva(
 );
 
 export const tabsTriggerClassName = [
-  "relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center",
+  componentFontFamilyClassName, "relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center",
   "gap-[var(--space-inline-sm)] rounded-[var(--radius-sm)] border border-transparent",
   "px-[var(--space-inline-sm)] py-[var(--space-inline-xs)]",
   "text-[length:var(--text-label-size)] font-medium whitespace-nowrap",
@@ -43,8 +45,7 @@ export const tabsTriggerClassName = [
   focusRing,
   "group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start",
   "hover:text-[var(--color-text-primary)]",
-  "disabled:pointer-events-none disabled:opacity-50",
-  "aria-disabled:pointer-events-none aria-disabled:opacity-50",
+  subtleInteractiveDisabledClassName,
   "has-data-[icon=inline-end]:pr-[var(--space-inline-xs)] has-data-[icon=inline-start]:pl-[var(--space-inline-xs)]",
   "group-data-[variant=default]/tabs-list:h-[var(--spacing-28)] group-data-[variant=default]/tabs-list:flex-none group-data-[variant=default]/tabs-list:rounded-[var(--radius-sm)] group-data-[variant=default]/tabs-list:px-[var(--space-inline-md)] group-data-[variant=default]/tabs-list:font-normal group-data-[variant=default]/tabs-list:data-active:bg-[var(--color-surface)] group-data-[variant=default]/tabs-list:data-active:font-semibold group-data-[variant=default]/tabs-list:data-active:text-[var(--color-text-primary)] group-data-[variant=default]/tabs-list:data-active:shadow-[var(--shadow-sm)]",
   "group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent group-data-[variant=line]/tabs-list:data-active:shadow-none group-data-[variant=line]/tabs-list:data-active:text-[var(--color-text-primary)]",
@@ -57,7 +58,7 @@ export const tabsTriggerClassName = [
 ].join(" ");
 
 export const tabsFolderContentClassName = [
-  "rounded-none border border-t-0 border-[var(--color-border-subtle)]",
+  componentFontFamilyClassName, "rounded-none border border-t-0 border-[var(--color-border-subtle)]",
   "bg-[var(--color-surface)] p-[var(--space-page)]",
 ].join(" ");
 

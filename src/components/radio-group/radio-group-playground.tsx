@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import {
+  RadioField,
   RadioGroup,
   RadioGroupItem,
 } from "@/components/radio-group";
@@ -12,13 +13,13 @@ import { ThemeToggle } from "@/components/theme-toggle";
 const sizes: RadioGroupItemSize[] = ["sm", "md", "lg"];
 
 const visitOptions = [
-  { value: "in-person", label: "Presencial" },
-  { value: "telemedicine", label: "Telemedicina" },
-  { value: "home", label: "Domiciliaria" },
+  { value: "in-person", label: "In-person" },
+  { value: "telemedicine", label: "Telemedicine" },
+  { value: "home", label: "Home visit" },
 ] as const;
 
 export function RadioGroupPlayground() {
-  const [size, setSize] = useState<RadioGroupItemSize>("md");
+  const [size, setSize] = useState<RadioGroupItemSize>("lg");
   const [disabled, setDisabled] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [horizontal, setHorizontal] = useState(false);
@@ -78,13 +79,12 @@ export function RadioGroupPlayground() {
               }
             >
               {visitOptions.map((option) => (
-                <label
+                <RadioField
                   key={option.value}
-                  className="flex items-center gap-2 text-sm"
-                >
-                  <RadioGroupItem value={option.value} size={size} />
-                  {option.label}
-                </label>
+                  value={option.value}
+                  size={size}
+                  label={option.label}
+                />
               ))}
             </RadioGroup>
             <p className="mt-4 text-xs text-muted-foreground">

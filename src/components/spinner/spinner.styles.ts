@@ -1,4 +1,5 @@
 import { cva } from "class-variance-authority";
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
 
 export const spinnerVariants = cva("animate-spin text-[var(--color-text-muted)]", {
   variants: {

@@ -1,10 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-
 import { DepositSummary } from "@/components/deposit-summary";
-import { Button } from "@/components/button";
 import {
   depositSummaryInstallationUiSnippet,
   depositSummaryRealScreenSnippet,
@@ -54,28 +50,6 @@ export function DepositSummaryDocsPage() {
         preview: <DepositSummaryRealScreenPreview />,
         code: depositSummaryRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/date-range-picker" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Date Range Picker
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/payment-form" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Payment Form
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">

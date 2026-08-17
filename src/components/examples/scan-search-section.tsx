@@ -14,12 +14,18 @@ import {
   DataTableRow,
   DataTableRowCountFooter,
 } from "@/components/data-table";
+import { GlobalSearchBar } from "@/components/global-search-bar";
+import {
+  SearchResults,
+  SearchResultsResults,
+  SearchResultsSearch,
+  SearchResultsToolbar,
+} from "@/components/search-results";
 import {
   getScanRequestSearchItems,
   searchScanRequests,
   type ScanRequest,
 } from "@/data/scan-requests";
-import { GlobalSearchBar } from "@/components/global-search-bar";
 
 function ScanSearchResultsTable({ rows }: { rows: ScanRequest[] }) {
   const [dobSort, setDobSort] = useState<"asc" | "desc" | null>(null);
@@ -101,8 +107,12 @@ function ScanSearchResultsTable({ rows }: { rows: ScanRequest[] }) {
   );
 }
 
-export function ScanSearchSection() {
-  const [hasSearched, setHasSearched] = useState(false);
+export function ScanSearchSection({
+  initiallySearched = false,
+}: {
+  initiallySearched?: boolean;
+} = {}) {
+  const [hasSearched, setHasSearched] = useState(initiallySearched);
   const [submittedQuery, setSubmittedQuery] = useState("");
 
   const filteredRows = useMemo(
@@ -121,30 +131,34 @@ export function ScanSearchSection() {
   }
 
   return (
-    <div className="flex flex-col gap-[var(--space-stack-md)]">
-      <div className="flex flex-wrap items-center justify-between gap-[var(--space-stack-md)]">
+    <SearchResults>
+      <SearchResultsToolbar>
         <h2 className="text-[length:var(--text-title-size)] font-semibold leading-[var(--text-title-line-height)] text-[var(--color-text-primary)]">
           Search scan requests
         </h2>
         <Button variant="outline" className="shrink-0">
           Create new scan request
         </Button>
-      </div>
+      </SearchResultsToolbar>
 
-      <GlobalSearchBar
-        placeholder="Search everything"
-        items={getScanRequestSearchItems()}
-        onSearch={handleSearch}
-        onSelect={handleSelect}
-        dialogTitle="Search scan requests"
-        dialogDescription="Search scan requests by patient, SRID, scan type, or agent"
-      />
+      <SearchResultsSearch>
+        <GlobalSearchBar
+          placeholder="Search everything"
+          items={getScanRequestSearchItems()}
+          onSearch={handleSearch}
+          onSelect={handleSelect}
+          dialogTitle="Search scan requests"
+          dialogDescription="Search scan requests by patient, SRID, scan type, or agent"
+        />
+      </SearchResultsSearch>
 
       {hasSearched ? (
-        <DataTable title="Search results">
-          <ScanSearchResultsTable rows={filteredRows} />
-        </DataTable>
+        <SearchResultsResults>
+          <DataTable title="Search results">
+            <ScanSearchResultsTable rows={filteredRows} />
+          </DataTable>
+        </SearchResultsResults>
       ) : null}
-    </div>
+    </SearchResults>
   );
 }

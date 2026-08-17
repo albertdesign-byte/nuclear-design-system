@@ -1,11 +1,8 @@
 /**
  * Medmo Shadow System — CSS Custom Properties
  *
+ * Runtime mirror of primitives/definitions.ts and semantic/scale.ts.
  * Public API: --shadow-none through --shadow-xl only.
- * Visual depth is primarily via Colors surface hierarchy + ring borders.
- * Shadows supplement separation when tone and border are insufficient.
- *
- * No elevation-* tokens. Depth guidance lives in shadows.mdx.
  */
 
 :root {

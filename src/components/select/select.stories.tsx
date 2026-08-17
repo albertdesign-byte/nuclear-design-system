@@ -1,124 +1,179 @@
+"use client";
+
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
-import { Label } from "@/components/label";
+import {
+  AsyncLoadingPreview,
+  GroupedFacilitiesPreview,
+  MultiSelectRemovablePreview,
+  MultiSelectStudiesPreview,
+  MultiSelectTagsPreview,
+  SearchableFacilitiesPreview,
+  SearchablePatientsPreview,
+  SearchableProvidersPreview,
+  SearchableStudiesPreview,
+  SelectDefaultPreview,
+  SelectDisabledPreview,
+  SelectErrorPreview,
+  SelectHelperTextPreview,
+  SelectLoadingPreview,
+  SelectReadOnlyPreview,
+  SelectRequiredPreview,
+  patientStatusOptions,
+} from "@/components/docs/components/select/select-preview-blocks";
+import { SelectField } from "@/components/select";
+import { selectVisualStateClassName } from "@/stories/shared/interaction-state-classes";
 
 import { componentParameters } from "../../../.storybook/story-meta";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./select";
-
 const meta = {
   title: "Components/Select",
-  component: SelectTrigger,
+  component: SelectField,
   tags: ["autodocs"],
-  subcomponents: {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectValue,
-  },
   parameters: {
     ...componentParameters,
     docs: {
       ...componentParameters.docs,
       description: {
         component:
-          "Dropdown for choosing one option from a list. Compose `Select`, `SelectTrigger`, `SelectValue`, `SelectContent`, and `SelectItem`.",
+          "Accessible selection patterns with visible labels: SelectField, SearchableSelectField, and MultiSelectField.",
       },
     },
   },
+  args: {
+    id: "story-select",
+    label: "Patient status",
+    options: patientStatusOptions,
+    placeholder: "Select status",
+  },
   decorators: [
     (Story) => (
-      <div className="w-full max-w-xs">
+      <div className="w-full max-w-md">
         <Story />
       </div>
     ),
   ],
-} satisfies Meta<typeof SelectTrigger>;
+} satisfies Meta<typeof SelectField>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
-  render: () => (
-    <Select defaultValue="mri">
-      <SelectTrigger>
-        <SelectValue placeholder="Select scan type" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="mri">MRI</SelectItem>
-        <SelectItem value="ct">CT Scan</SelectItem>
-        <SelectItem value="pet">PET Scan</SelectItem>
-      </SelectContent>
-    </Select>
-  ),
+  render: () => <SelectDefaultPreview />,
 };
 
 export const Default: Story = {
-  render: () => (
-    <div className="flex flex-col gap-[var(--space-stack-xs)]">
-      <Label htmlFor="select-default">Modality</Label>
-      <Select defaultValue="mri">
-        <SelectTrigger id="select-default">
-          <SelectValue placeholder="Select scan type" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="mri">MRI</SelectItem>
-          <SelectItem value="ct">CT Scan</SelectItem>
-          <SelectItem value="pet">PET Scan</SelectItem>
-        </SelectContent>
-      </Select>
-    </div>
-  ),
+  render: () => <SelectDefaultPreview />,
+};
+
+export const Required: Story = {
+  render: () => <SelectRequiredPreview />,
+};
+
+export const Disabled: Story = {
+  render: () => <SelectDisabledPreview />,
+};
+
+export const Error: Story = {
+  render: () => <SelectErrorPreview />,
+};
+
+export const ReadOnly: Story = {
+  render: () => <SelectReadOnlyPreview />,
+};
+
+export const Loading: Story = {
+  render: () => <SelectLoadingPreview />,
+};
+
+export const WithHelperText: Story = {
+  render: () => <SelectHelperTextPreview />,
+};
+
+export const SearchablePatients: Story = {
+  render: () => <SearchablePatientsPreview />,
+};
+
+export const SearchableProviders: Story = {
+  render: () => <SearchableProvidersPreview />,
+};
+
+export const SearchableFacilities: Story = {
+  render: () => <SearchableFacilitiesPreview />,
+};
+
+export const SearchableStudies: Story = {
+  render: () => <SearchableStudiesPreview />,
+};
+
+export const MultipleSelection: Story = {
+  render: () => <MultiSelectStudiesPreview />,
+};
+
+export const Tags: Story = {
+  render: () => <MultiSelectTagsPreview />,
+};
+
+export const RemovableSelections: Story = {
+  render: () => <MultiSelectRemovablePreview />,
+};
+
+export const GroupedOptions: Story = {
+  render: () => <GroupedFacilitiesPreview />,
+};
+
+export const AsyncLoading: Story = {
+  render: () => <AsyncLoadingPreview />,
 };
 
 export const Sizes: Story = {
   render: () => (
-    <div className="flex w-full flex-col gap-[var(--space-stack-sm)]">
-      {(["sm", "md", "lg"] as const).map((size) => (
-        <Select key={size} defaultValue="active">
-          <SelectTrigger size={size}>
-            <SelectValue placeholder={`Size ${size}`} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="active">Active</SelectItem>
-            <SelectItem value="pending">Pending</SelectItem>
-          </SelectContent>
-        </Select>
-      ))}
+    <div className="flex w-full flex-col gap-[var(--space-stack-md)]">
+      <SelectField id="select-size-sm" label="Small" size="sm" options={patientStatusOptions} />
+      <SelectField id="select-size-md" label="Medium" size="md" options={patientStatusOptions} />
+      <SelectField id="select-size-lg" label="Large" size="lg" options={patientStatusOptions} />
     </div>
   ),
 };
 
-export const Disabled: Story = {
-  render: () => (
-    <Select defaultValue="mri" disabled>
-      <SelectTrigger>
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="mri">MRI</SelectItem>
-      </SelectContent>
-    </Select>
-  ),
-};
+const visualStates = [
+  "Default",
+  "Hover",
+  "Focus",
+  "Filled",
+  "Disabled",
+  "Error",
+  "Loading",
+] as const;
 
-export const Invalid: Story = {
+export const InteractionStates: Story = {
   render: () => (
-    <Select>
-      <SelectTrigger aria-invalid>
-        <SelectValue placeholder="Select insurance provider" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="aetna">Aetna</SelectItem>
-        <SelectItem value="cigna">Cigna</SelectItem>
-      </SelectContent>
-    </Select>
+    <div className="grid gap-[var(--space-stack-md)] sm:grid-cols-2 xl:grid-cols-4">
+      {visualStates.map((state) => (
+        <div
+          key={state}
+          className="flex flex-col gap-[var(--space-stack-sm)] rounded-[var(--radius-md)] border border-[var(--color-border-subtle)] bg-[var(--color-surface)] p-[var(--space-inline-md)]"
+        >
+          <span className="text-[length:var(--text-caption-size)] font-medium uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
+            {state}
+          </span>
+          <SelectField
+            id={`select-state-${state.toLowerCase()}`}
+            label="Patient status"
+            options={patientStatusOptions}
+            defaultValue={state === "Filled" || state === "Disabled" ? "active" : undefined}
+            disabled={state === "Disabled"}
+            loading={state === "Loading"}
+            error={state === "Error" ? "Select a patient status." : undefined}
+            triggerClassName={
+              state === "Disabled" || state === "Error" || state === "Loading"
+                ? undefined
+                : selectVisualStateClassName[state]
+            }
+          />
+        </div>
+      ))}
+    </div>
   ),
 };

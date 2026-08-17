@@ -1,9 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-
-import { Button } from "@/components/button";
 import {
   Tabs,
   TabsContent,
@@ -68,9 +64,9 @@ function TabsDemo({
       className={isFolder ? "gap-0" : undefined}
     >
       <TabsList variant={variant}>
-        <TabsTrigger value="resumen">Resumen</TabsTrigger>
+        <TabsTrigger value="resumen">Summary</TabsTrigger>
         <TabsTrigger value="labs">Labs</TabsTrigger>
-        {isFolder ? <TabsTrigger value="notas">Notas</TabsTrigger> : null}
+        {isFolder ? <TabsTrigger value="notas">Notes</TabsTrigger> : null}
       </TabsList>
       <TabsContent
         value="resumen"
@@ -80,7 +76,7 @@ function TabsDemo({
             : tabsSegmentedContentClassName
         }
       >
-        Resumen clínico.
+        Clinical summary.
       </TabsContent>
       <TabsContent
         value="labs"
@@ -90,11 +86,11 @@ function TabsDemo({
             : tabsSegmentedContentClassName
         }
       >
-        Resultados de laboratorio.
+        Lab results.
       </TabsContent>
       {isFolder ? (
         <TabsContent value="notas" className={tabsFolderContentClassName}>
-          Notas clínicas.
+          Clinical notes.
         </TabsContent>
       ) : null}
     </Tabs>
@@ -111,28 +107,6 @@ export function TabsDocsPage() {
         preview: <TabsRealScreenPreview />,
         code: tabsRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/table" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            Table
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/dialog" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Dialog
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">
@@ -201,7 +175,7 @@ export function TabsDocsPage() {
             title="Vertical"
             description={
               <>
-                Set <DocsInlineCode>orientation="vertical"</DocsInlineCode> on{" "}
+                Set <DocsInlineCode>{'orientation="vertical"'}</DocsInlineCode> on{" "}
                 <DocsInlineCode>Tabs</DocsInlineCode>.
               </>
             }

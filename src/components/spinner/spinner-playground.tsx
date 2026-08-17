@@ -37,7 +37,7 @@ export function SpinnerPlayground() {
         <h2 className="mb-4 text-sm font-semibold">Saving indicator</h2>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Spinner size="sm" aria-hidden />
-          <span>Guardando registro…</span>
+          <span>Saving record…</span>
         </div>
       </section>
     </div>

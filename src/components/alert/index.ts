@@ -1,8 +1,10 @@
-export { Alert, AlertTitle, AlertDescription, AlertAction } from "./alert";
+export { Alert, AlertTitle, AlertDescription, AlertAction, AlertIcon } from "./alert";
 export {
   alertActionClassName,
+  alertCloseClassName,
   alertDescriptionClassName,
+  alertIconClassName,
   alertTitleClassName,
   alertVariants,
 } from "./alert.styles";
-export type { AlertProps } from "./alert.types";
+export type { AlertProps, AlertVariant } from "./alert.types";

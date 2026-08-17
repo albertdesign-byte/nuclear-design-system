@@ -43,7 +43,7 @@ export function isDateInRange(date: Date, from: Date | null, to: Date | null) {
   return value >= startOfDay(from).getTime() && value <= startOfDay(to).getTime();
 }
 
-export function formatDate(date: Date | null, locale = "es-ES") {
+export function formatDate(date: Date | null, locale = "en-US") {
   if (!date) {
     return "";
   }
@@ -55,14 +55,14 @@ export function formatDate(date: Date | null, locale = "es-ES") {
   }).format(date);
 }
 
-export function formatMonthYear(date: Date, locale = "es-ES") {
+export function formatMonthYear(date: Date, locale = "en-US") {
   return new Intl.DateTimeFormat(locale, {
     month: "long",
     year: "numeric",
   }).format(date);
 }
 
-export function getWeekdayLabels(locale = "es-ES") {
+export function getWeekdayLabels(locale = "en-US") {
   const formatter = new Intl.DateTimeFormat(locale, { weekday: "narrow" });
   const monday = new Date(2024, 0, 1);
 

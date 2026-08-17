@@ -71,10 +71,10 @@ function CommandInput({
   return (
     <div
       data-slot="command-input-wrapper"
-      className={commandInputWrapperClassName}
+      className={cn(commandInputWrapperClassName, "group/command-input")}
       cmdk-input-wrapper=""
     >
-      <SearchIcon className="size-4 shrink-0 opacity-50" />
+      <SearchIcon className="size-4 shrink-0 text-[var(--color-text-muted)] group-has-[:disabled]/command-input:text-[var(--color-disabled-text)]" />
       <CommandPrimitive.Input
         data-slot="command-input"
         className={cn(commandInputClassName, className)}

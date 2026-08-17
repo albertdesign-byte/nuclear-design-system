@@ -15,46 +15,34 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 
 import {
-  docsNavCategories,
-  docsNavDefaultOpenCategories,
+  componentsNavCategories,
+  foundationsNavCategories,
+  patternsNavCategories,
+  templatesNavCategories,
   type DocsNavItem,
 } from "../config/navigation";
+import { resolveActiveNavHref } from "../config/navigation-active";
 import { isNavItemNew } from "../config/new-component-badges";
 import {
   getProductNavCategories,
   getProductNavDefaultOpenCategories,
+  productsNavCategories,
+  productsNavDefaultOpenCategories,
 } from "../config/products-navigation";
 import {
-  getUserflowNavCategories,
-  getUserflowNavDefaultOpenCategories,
   getUserflowProductSlug,
 } from "../config/userflow-navigation";
 import { DocsSearch } from "./docs-search";
 
-function isNavItemActive(pathname: string, href: string) {
-  if (href === "#") {
-    return false;
-  }
-
-  if (href.includes("#")) {
-    return pathname === href.split("#")[0];
-  }
-
-  return (
-    pathname === href ||
-    pathname.startsWith(`${href}/`) ||
-    pathname.startsWith(href)
-  );
-}
-
 function NavLinks({ items }: { items: DocsNavItem[] }) {
   const pathname = usePathname();
+  const activeHref = resolveActiveNavHref(pathname, items);
 
   return (
     <ul className="flex flex-col gap-[var(--spacing-4)] pb-[var(--space-stack-sm)] pl-[var(--space-inline-sm)]">
       {items.map((item) => {
         const isDisabled = item.comingSoon || item.href === "#";
-        const isActive = !isDisabled && isNavItemActive(pathname, item.href);
+        const isActive = !isDisabled && activeHref === item.href;
 
         if (isDisabled) {
           return (
@@ -117,40 +105,73 @@ function NavLinks({ items }: { items: DocsNavItem[] }) {
 export function DocsSidebar() {
   const pathname = usePathname();
   const userflowProduct = getUserflowProductSlug(pathname);
-  const isUserflow = pathname.startsWith("/docs/userflow");
+  const isFoundations = pathname.startsWith("/docs/foundations");
+  const isPatterns = pathname.startsWith("/docs/patterns");
+  const isTemplates = pathname.startsWith("/docs/templates");
   const isNuclear = pathname.startsWith("/docs/products/nuclear");
   const isPatients = pathname.startsWith("/docs/products/patients");
+  const isProducts = pathname.startsWith("/docs/products");
 
-  let navCategories = docsNavCategories;
-  let defaultOpenCategories = docsNavDefaultOpenCategories;
+  let navCategories = componentsNavCategories;
+  let defaultOpenCategories = componentsNavCategories.map(
+    (category) => category.id
+  );
   let searchScope:
     | "components"
-    | "userflow-nuclear"
-    | "userflow-patients"
+    | "foundations"
+    | "patterns"
+    | "templates"
+    | "products"
     | "products-nuclear"
     | "products-patients" = "components";
   let ariaLabel = "Documentation";
 
   if (userflowProduct === "nuclear") {
-    navCategories = getUserflowNavCategories("nuclear");
-    defaultOpenCategories = getUserflowNavDefaultOpenCategories("nuclear");
-    searchScope = "userflow-nuclear";
-    ariaLabel = "Nuclear user flows";
+    navCategories = getProductNavCategories("nuclear");
+    defaultOpenCategories = getProductNavDefaultOpenCategories("nuclear");
+    searchScope = "products-nuclear";
+    ariaLabel = "MPF Portal product";
   } else if (userflowProduct === "patients") {
-    navCategories = getUserflowNavCategories("patients");
-    defaultOpenCategories = getUserflowNavDefaultOpenCategories("patients");
-    searchScope = "userflow-patients";
-    ariaLabel = "Patients user flows";
+    navCategories = getProductNavCategories("patients");
+    defaultOpenCategories = getProductNavDefaultOpenCategories("patients");
+    searchScope = "products-patients";
+    ariaLabel = "Patients product";
   } else if (isNuclear) {
     navCategories = getProductNavCategories("nuclear");
     defaultOpenCategories = getProductNavDefaultOpenCategories("nuclear");
     searchScope = "products-nuclear";
-    ariaLabel = "Nuclear product";
+    ariaLabel = "MPF Portal product";
   } else if (isPatients) {
     navCategories = getProductNavCategories("patients");
     defaultOpenCategories = getProductNavDefaultOpenCategories("patients");
     searchScope = "products-patients";
     ariaLabel = "Patients product";
+  } else if (isProducts) {
+    navCategories = productsNavCategories;
+    defaultOpenCategories = productsNavDefaultOpenCategories;
+    searchScope = "products";
+    ariaLabel = "Products";
+  } else if (isFoundations) {
+    navCategories = foundationsNavCategories;
+    defaultOpenCategories = foundationsNavCategories.map(
+      (category) => category.id
+    );
+    searchScope = "foundations";
+    ariaLabel = "Foundations";
+  } else if (isPatterns) {
+    navCategories = patternsNavCategories;
+    defaultOpenCategories = patternsNavCategories.map(
+      (category) => category.id
+    );
+    searchScope = "patterns";
+    ariaLabel = "Patterns";
+  } else if (isTemplates) {
+    navCategories = templatesNavCategories;
+    defaultOpenCategories = templatesNavCategories.map(
+      (category) => category.id
+    );
+    searchScope = "templates";
+    ariaLabel = "Templates";
   }
 
   return (

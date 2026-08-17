@@ -1,10 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-
 import { MedmoLogo, MedmoLogoLockup } from "@/components/brand";
-import { Button } from "@/components/button";
 import {
   logoInstallationUiSnippet,
   logoLockupSnippet,
@@ -50,28 +46,6 @@ export function LogoDocsPage() {
         preview: <LogoRealScreenPreview />,
         code: logoRealScreenSnippet,
       }}
-      footer={
-        <footer className="flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-md)]">
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/app-shell" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            <ArrowLeftIcon />
-            App Shell
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            render={<Link href="/docs/components/app-footer" />}
-            className="gap-[var(--space-inline-sm)]"
-          >
-            Data Table
-            <ArrowRightIcon />
-          </Button>
-        </footer>
-      }
       uiDesign={
         <>
           <section id="installation" className="scroll-mt-24">

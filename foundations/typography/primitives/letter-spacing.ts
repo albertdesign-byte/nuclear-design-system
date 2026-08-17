@@ -1,7 +1,7 @@
 /**
  * Letter spacing primitives.
  *
- * Why tight tracking on headings: IBM Plex Sans Condensed is already narrow.
+ * Why tight tracking on headings: improves visual density with Poppins at display sizes.
  * Slight negative tracking on large headings improves visual cohesion.
  *
  * Why wide tracking on overline: Uppercase labels at small sizes need

@@ -25,7 +25,7 @@ function RadioGroup({ className, ...props }: RadioGroupProps) {
 
 function RadioGroupItem({
   className,
-  size = "md",
+  size = "lg",
   disabled = false,
   ...props
 }: RadioGroupItemProps) {

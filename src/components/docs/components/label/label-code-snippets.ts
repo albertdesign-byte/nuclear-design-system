@@ -20,7 +20,7 @@ export function Example() {
   return (
     <div className="flex w-full max-w-md flex-col gap-[var(--space-stack-sm)]">
       <Label htmlFor="patient-name">Patient name</Label>
-      <Input id="patient-name" placeholder="Enter full legal name" defaultValue="María González" />
+      <Input id="patient-name" placeholder="Enter full legal name" defaultValue="Maria Gonzalez" />
     </div>
   );
 }`);

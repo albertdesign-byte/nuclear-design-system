@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import { Button } from "@/components/button";
+import { getComponentEntry } from "@/components/docs/config/components-registry";
 import {
   getPatientsComponentSlug,
   patientsSlugSupportsDevicePreview,
@@ -14,14 +15,17 @@ import { DocsPatientsDeviceDropdown } from "@/components/docs/layout/docs-patien
 export function DocsPageHeader({
   title,
   description,
+  storybook: storybookOverride,
 }: {
   title: string;
   description: string;
+  storybook?: string;
 }) {
   const pathname = usePathname();
   const [copied, setCopied] = useState(false);
   const patientsSlug = getPatientsComponentSlug(pathname);
   const showPatientsDeviceDropdown = patientsSlugSupportsDevicePreview(patientsSlug);
+  const storybook = storybookOverride ?? getComponentEntry(pathname)?.storybook;
 
   async function copyPage() {
     await navigator.clipboard.writeText(window.location.href);
@@ -38,6 +42,11 @@ export function DocsPageHeader({
         <p className="text-[length:var(--text-body-large-size)] leading-[var(--text-body-large-line-height)] text-muted-foreground">
           {description}
         </p>
+        {storybook ? (
+          <p className="text-[length:var(--text-caption-size)] leading-[var(--text-caption-line-height)] text-muted-foreground">
+            Storybook · {storybook}
+          </p>
+        ) : null}
       </div>
 
       <div className="flex shrink-0 items-center gap-[var(--space-inline-sm)]">

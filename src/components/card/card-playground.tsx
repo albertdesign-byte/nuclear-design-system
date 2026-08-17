@@ -14,6 +14,7 @@ import {
 } from "@/components/card";
 import type { CardSize } from "@/components/card";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { cn } from "@/lib/utils";
 
 const sizes: CardSize[] = ["default", "sm"];
 
@@ -21,6 +22,9 @@ export function CardPlayground() {
   const [size, setSize] = useState<CardSize>("default");
   const [showFooter, setShowFooter] = useState(true);
   const [showAction, setShowAction] = useState(false);
+  const [showLongContent, setShowLongContent] = useState(false);
+  const [multipleActions, setMultipleActions] = useState(false);
+  const [narrowPreview, setNarrowPreview] = useState(false);
 
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-8 p-8">
@@ -62,35 +66,69 @@ export function CardPlayground() {
             checked={showAction}
             onChange={setShowAction}
           />
+          <Toggle
+            label="Long content"
+            checked={showLongContent}
+            onChange={setShowLongContent}
+          />
+          <Toggle
+            label="Multiple footer actions"
+            checked={multipleActions}
+            onChange={setMultipleActions}
+          />
+          <Toggle
+            label="Narrow preview"
+            checked={narrowPreview}
+            onChange={setNarrowPreview}
+          />
         </aside>
 
         <div className="flex flex-col gap-8">
           <section className="rounded-lg border border-border bg-card p-6">
             <h2 className="mb-4 text-sm font-semibold">Preview</h2>
-            <Card size={size} className="max-w-sm">
+            <Card
+              size={size}
+              className={cn("w-full", narrowPreview ? "max-w-[17.5rem]" : "max-w-sm")}
+            >
               <CardHeader>
-                <CardTitle>María González</CardTitle>
-                <CardDescription>ID #48291 · 58 años</CardDescription>
+                <CardTitle>
+                  <h3>
+                    {showLongContent
+                      ? "Maria Gonzalez — coordinated cardiology and imaging follow-up"
+                      : "Maria Gonzalez"}
+                  </h3>
+                </CardTitle>
+                <CardDescription>
+                  {showLongContent
+                    ? "MRN 48291 · A longer description remains completely visible as the Card becomes narrow."
+                    : "MRN 48291 · 58 years"}
+                </CardDescription>
                 {showAction ? (
                   <CardAction>
                     <Button variant="ghost" size="sm">
-                      Editar
+                      Edit
                     </Button>
                   </CardAction>
                 ) : null}
               </CardHeader>
               <CardContent>
-                Signos vitales dentro de rangos normales. Próxima cita programada
-                para el 18 de julio.
+                {showLongContent
+                  ? "Vital signs remain within normal ranges. Additional dynamic notes can increase the Card height without clipping or hidden overflow."
+                  : "Vital signs within normal ranges. Next appointment scheduled for July 18."}
               </CardContent>
               {showFooter ? (
-                <CardFooter>
-                  <button
-                    type="button"
-                    className="text-sm text-primary hover:underline"
-                  >
-                    Ver expediente
-                  </button>
+                <CardFooter className="justify-end">
+                  {multipleActions ? (
+                    <>
+                      <Button variant="ghost" size="sm">
+                        Cancel
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        Save draft
+                      </Button>
+                    </>
+                  ) : null}
+                  <Button size="sm">View record</Button>
                 </CardFooter>
               ) : null}
             </Card>
@@ -102,7 +140,9 @@ export function CardPlayground() {
               {sizes.map((item) => (
                 <Card key={item} size={item}>
                   <CardHeader>
-                    <CardTitle>{item}</CardTitle>
+                    <CardTitle>
+                      <h3>{item}</h3>
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>Card spacing via Medmo tokens.</CardContent>
                 </Card>

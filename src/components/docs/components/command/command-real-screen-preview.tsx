@@ -1,23 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { UserIcon } from "lucide-react";
+import { CommandIcon } from "lucide-react";
 
 import { Button } from "@/components/button";
-import {
-  Command,
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/command";
-
-const patients = [
-  { name: "María González", mrn: "MRN-48291" },
-  { name: "Elena Morales", mrn: "MRN-51002" },
-];
+import { CommandDialog } from "@/components/command";
+import { CommandActionsPreview } from "@/components/docs/components/global-search-bar/search-command-preview-blocks";
 
 export function CommandRealScreenPreview() {
   const [open, setOpen] = useState(false);
@@ -25,35 +13,16 @@ export function CommandRealScreenPreview() {
   return (
     <>
       <Button variant="outline" size="sm" onClick={() => setOpen(true)}>
-        Search patients
+        <CommandIcon aria-hidden />
+        Open command palette
       </Button>
       <CommandDialog
         open={open}
         onOpenChange={setOpen}
-        title="Search patients"
-        description="Find a patient by name or MRN"
+        title="Command Palette"
+        description="Run an action or navigate across Medmo"
       >
-        <Command>
-          <CommandInput placeholder="Search patients…" />
-          <CommandList>
-            <CommandEmpty>No patients found.</CommandEmpty>
-            <CommandGroup heading="Patients">
-              {patients.map((patient) => (
-                <CommandItem
-                  key={patient.mrn}
-                  value={`${patient.name} ${patient.mrn}`}
-                  onSelect={() => setOpen(false)}
-                >
-                  <UserIcon />
-                  {patient.name}
-                  <span className="text-[var(--color-text-muted)]">
-                    {patient.mrn}
-                  </span>
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
+        <CommandActionsPreview onSelect={() => setOpen(false)} />
       </CommandDialog>
     </>
   );

@@ -1,5 +1,7 @@
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
+
 export const appShellClassName = [
-  "app-shell flex min-h-dvh w-full bg-[var(--color-background)] text-[var(--color-text-primary)]",
+  componentFontFamilyClassName, "app-shell flex min-h-dvh w-full bg-[var(--color-background)] text-[var(--color-text-primary)]",
   "[--app-sidebar-width:var(--spacing-64)]",
   "[--app-header-height:var(--spacing-64)]",
   "overflow-hidden",

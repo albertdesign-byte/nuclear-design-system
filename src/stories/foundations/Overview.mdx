@@ -1,20 +1,33 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 
+{/* token-contract: family=colors,spacing,typography,radius,shadows */}
+
 <Meta title="Foundations/Overview" />
 
 # Nuclear Design System — Foundations
 
-Medmo foundations define the visual language consumed by every component in `src/components`.
+Medmo foundations define the visual language consumed by every component in `src/components`. Values on the family pages come from `@medmo/tokens/tooling` — the same TypeScript sources that generate CSS.
 
 ## Token layers
 
 1. **Foundations** — color, typography, spacing, radius, motion, and shadows in `foundations/`.
 2. **Components** — React primitives documented under **Components/** in Storybook.
-3. **Patterns** — composed UI blocks from the docs site and user flows.
-4. **Templates** — full screens from the Patients and Nuclear products.
+3. **Patterns** — reusable, product-agnostic interaction and content compositions.
+4. **Templates** — reusable page and flow structures without product copy or business rules. Published: **AppShell** (operational layout) and **MultiStepFlowLayout** (generic multi-step workflow). Stories use the title prefix `Templates/`. Layouts belong to Nuclear; products consume them.
+5. **Products** — real Patients and MPF Portal implementations built from the shared layers.
+
+## Foundation pages
+
+- **Foundations/Colors** — primitive palettes, semantic roles, light and dark values
+- **Foundations/Typography** — dual-family strategy, product type scale, usage
+- **Foundations/Spacing** — 4px grid, 8px rhythm, semantic inline / stack / context
+- **Foundations/Radius** — scale, system default, context tokens
+- **Foundations/Shadows** — none through xl, surface guidance, light and dark values
+
+Use the Storybook **Theme** toolbar to switch light and dark. Color and shadow pages also show both modes side by side.
 
 ## Usage in Storybook
 
 Stories import production components directly from `@/components/*`. No duplicate implementations or sandbox-only wrappers are used.
 
-When extending the catalog, co-locate new stories beside the component (`component-name.stories.tsx`) and use the title prefix `Components/`.
+When extending the catalog, co-locate new stories beside the component (`component-name.stories.tsx`) and use the title prefix `Components/`. Page and flow frames use `Templates/`.

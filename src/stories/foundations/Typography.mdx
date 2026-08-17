@@ -1,0 +1,19 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+import { TypographyGallery } from "./typography-gallery";
+
+{/* token-contract: family=typography */}
+
+<Meta title="Foundations/Typography" />
+
+# Typography
+
+Nuclear uses two typefaces on purpose. IBM Plex Sans Condensed is the Design System documentation experience. Poppins is the canonical product typeface for components and application UI. They are not interchangeable, and the split is not a mismatch to resolve.
+
+## Overview
+
+Product components consume semantic roles (`text-display` through `text-code`), not raw font-size steps. Each role binds family, size, weight, line height, and letter spacing so a global scale change updates every heading without component edits.
+
+Hierarchy is built with size, weight, and space. Do not paint headings in brand color to make them important. Use at most one display title per page.
+
+<TypographyGallery />

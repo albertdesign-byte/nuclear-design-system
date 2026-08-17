@@ -1,5 +1,7 @@
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
+
 export const fieldErrorClassName = [
-  "text-[length:var(--text-caption-size)] leading-[var(--text-caption-line-height)]",
+  componentFontFamilyClassName, "text-[length:var(--text-caption-size)] leading-[var(--text-caption-line-height)]",
   "text-[var(--color-error-text)]",
 ].join(" ");
 
