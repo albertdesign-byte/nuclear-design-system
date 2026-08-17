@@ -52,6 +52,7 @@ const meta = {
   args: {
     variant: "default",
     title: "My active scans",
+    children: <div />,
   },
 } satisfies Meta<typeof DataTable>;
 
@@ -101,7 +102,7 @@ function DataTableDemo(
 }
 
 export const Playground: Story = {
-  render: (args) => <DataTableDemo {...args} />,
+  render: ({ variant, title }) => <DataTableDemo variant={variant} title={title} />,
 };
 
 export const Default: Story = {

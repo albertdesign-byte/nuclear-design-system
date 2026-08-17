@@ -31,7 +31,7 @@ function OperationalAppChrome({
 }: {
   defaultWorkspace: "scan-search" | "my-reports";
 }) {
-  const [activeTab, setActiveTab] = useState(defaultWorkspace);
+  const [activeTab, setActiveTab] = useState<string>(defaultWorkspace);
   const showHeaderSearch = activeTab !== "scan-search";
 
   return (

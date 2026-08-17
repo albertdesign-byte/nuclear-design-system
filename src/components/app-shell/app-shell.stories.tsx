@@ -27,6 +27,10 @@ const meta = {
       </div>
     ),
   ],
+  args: {
+    sidebar: <div />,
+    children: <div />,
+  },
 } satisfies Meta<typeof AppShell>;
 
 export default meta;

@@ -23,6 +23,11 @@ const meta = {
   },
   args: {
     title: "My active scans",
+    children: (
+      <p className="p-[var(--space-card)] text-[length:var(--text-body-small-size)] text-[var(--color-text-secondary)]">
+        Panel content slot.
+      </p>
+    ),
   },
 } satisfies Meta<typeof DashboardPanel>;
 

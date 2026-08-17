@@ -29,6 +29,9 @@ const meta = {
     },
   },
   argTypes: {},
+  args: {
+    children: <div />,
+  },
 } satisfies Meta<typeof MultiStepFlowLayout>;
 
 export default meta;

@@ -49,6 +49,9 @@ const meta = {
       },
     },
   },
+  args: {
+    children: <div />,
+  },
 } satisfies Meta<typeof SearchResults>;
 
 export default meta;

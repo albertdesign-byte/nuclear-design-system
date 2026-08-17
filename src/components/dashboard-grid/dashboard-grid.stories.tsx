@@ -20,6 +20,9 @@ const meta = {
       },
     },
   },
+  args: {
+    children: <div />,
+  },
 } satisfies Meta<typeof DashboardGrid>;
 
 export default meta;
