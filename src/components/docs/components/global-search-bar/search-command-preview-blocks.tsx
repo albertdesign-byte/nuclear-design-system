@@ -130,7 +130,7 @@ export function CommandActionsPreview({ onSelect }: { onSelect?: () => void } = 
 
 export function SearchCommandAuditPreview() {
   return (
-    <div className="grid w-full gap-[var(--space-stack-lg)] lg:grid-cols-2">
+    <div className="flex w-full flex-col gap-[var(--space-stack-lg)]">
       <div className="flex flex-col gap-[var(--space-stack-sm)]">
         <div className="flex items-center gap-[var(--space-inline-sm)]">
           <SearchIcon className="size-[var(--icon-sm)] text-[var(--color-info-foreground)]" aria-hidden />

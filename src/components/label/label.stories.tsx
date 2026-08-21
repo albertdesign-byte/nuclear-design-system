@@ -17,7 +17,7 @@ const meta = {
       ...componentParameters.docs,
       description: {
         component:
-          "Accessible label for form controls. Pair with `Input`, `Textarea`, `Select`, and `FieldError`.",
+          "Supported primitive for visible field labels. Prefer Field composites when one exists (`InputField`, `SelectField`, and similar). Use Label with controls that currently have no Field wrapper, such as DatePicker, Textarea, Switch, and DayToggleGroup.",
       },
     },
   },

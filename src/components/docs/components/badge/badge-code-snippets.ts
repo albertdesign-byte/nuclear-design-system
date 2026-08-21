@@ -22,7 +22,7 @@ export function Example() {
         <p className="text-sm font-medium">Maria Gonzalez</p>
         <p className="text-xs text-muted-foreground">ID #48291 · Cardiology</p>
       </div>
-      <Badge variant="secondary">Estable</Badge>
+      <Badge variant="secondary">Stable</Badge>
     </div>
   );
 }`);
@@ -60,7 +60,7 @@ export const badgeOutlineSnippet = exampleSnippet(
 );
 
 export const badgeGhostSnippet = exampleSnippet(
-  '<Badge variant="ghost">Archivado</Badge>',
+  '<Badge variant="ghost">Archived</Badge>',
   { imports: [badgeImport] }
 );
 

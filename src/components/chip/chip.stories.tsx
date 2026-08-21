@@ -17,7 +17,7 @@ const meta = {
       ...componentParameters.docs,
       description: {
         component:
-          "Compact label for filters, tags, and selections. Optional dismiss control via `onRemove`.",
+          "Compact label for filters, tags, and selections. Optional dismiss control via `onRemove`. Use Badge for non-interactive status or counts.",
       },
     },
   },

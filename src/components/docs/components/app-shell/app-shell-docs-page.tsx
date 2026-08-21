@@ -1,9 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import {
   BriefcaseMedicalIcon,
-  ArrowRightIcon,
   LayoutDashboardIcon,
   LogOutIcon,
   MessageSquareIcon,
@@ -13,7 +11,7 @@ import {
   UsersIcon,
 } from "lucide-react";
 
-import { Button } from "@/components/button";
+import { TextLink } from "@/components/text-link";
 
 import { AppShellRealScreenPreview } from "@/components/docs/components/app-shell/app-shell-real-screen-preview";
 import {
@@ -108,10 +106,7 @@ export function AppShellDocsPage() {
         title="Dashboard Example"
         description="Full dashboard replication using AppShell, Data Table, Dashboard Panel, and Folder Tabs. Domain copy in that example belongs to Products."
       >
-        <Button render={<Link href="/examples/dashboard" />}>
-          Open dashboard example
-          <ArrowRightIcon />
-        </Button>
+        <TextLink href="/examples/dashboard">Open dashboard example</TextLink>
       </DocsSection>
 
       <DocsSection id="api-reference" title="API Reference">

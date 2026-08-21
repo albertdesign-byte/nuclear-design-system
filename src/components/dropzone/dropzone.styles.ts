@@ -3,7 +3,7 @@ import { componentFontFamilyClassName } from "@/lib/component-font-family";
 export const dropzoneRootClassName = "flex flex-col gap-[var(--space-stack-xs)]";
 
 export const dropzoneTriggerClassName = [
-  componentFontFamilyClassName, "flex w-full items-center gap-[var(--space-inline-sm)] rounded-[var(--radius-input)] px-[var(--space-inline-sm)] py-[var(--space-stack-md)]",
+  componentFontFamilyClassName, "flex w-full cursor-pointer items-center gap-[var(--space-inline-sm)] rounded-[var(--radius-input)] px-[var(--space-inline-sm)] py-[var(--space-stack-md)]",
   "text-left outline-none transition-[var(--motion-hover)]",
   "focus-visible:border-[var(--color-focus-ring)] focus-visible:ring-[length:var(--focus-ring-width)] focus-visible:ring-[var(--color-focus-ring)]",
   "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-60",
@@ -21,6 +21,10 @@ export const dropzoneTriggerFilledClassName = [
 
 export const dropzoneTriggerInvalidClassName = [
   componentFontFamilyClassName, "border-[var(--color-error-border)] ring-[length:var(--focus-ring-width)] ring-[var(--color-error-border)]/30",
+].join(" ");
+
+export const dropzoneTriggerDraggingClassName = [
+  "border-[var(--color-action-primary)] bg-[var(--color-info-background)]",
 ].join(" ");
 
 export const dropzoneEmptyLabelClassName =

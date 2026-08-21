@@ -1,8 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
-import { Button } from "@/components/button";
 import {
   DataTable,
   DataTableBody,
@@ -36,7 +33,7 @@ export function TextLinkDocsPage() {
   return (
     <DocsComponentPage
       title="Text Link"
-      description="Primary navigation link styled for inline use in tables, lists, and dashboard content."
+      description="Enlace de texto para navegación. Renderiza un <a> (next/link cuando corresponda). No es un Button ni una variante de Button."
       tocItems={textLinkTocItems}
       realScreen={{
         preview: <TextLinkRealScreenPreview />,
@@ -56,7 +53,9 @@ export function TextLinkDocsPage() {
             description={
               <>
                 Import from <DocsInlineCode>@/components/text-link</DocsInlineCode>.
-                Uses link tokens for hover and focus states.
+                Se utiliza para navegación textual, renderiza un{" "}
+                <DocsInlineCode>{"<a>"}</DocsInlineCode> y usa los estilos de
+                enlace del Design System. No es un Button.
               </>
             }
           >
@@ -99,9 +98,7 @@ export function TextLinkDocsPage() {
             title="Full Example"
             description="See Text Link inside dashboard tables on the full dashboard screen."
           >
-            <Button render={<Link href="/examples/dashboard" />}>
-              Open dashboard example
-            </Button>
+            <TextLink href="/examples/dashboard">Open dashboard example</TextLink>
           </DocsSection>
 
           <DocsSection id="api-reference" title="API Reference">

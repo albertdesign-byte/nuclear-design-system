@@ -7,6 +7,7 @@ import {
   chipUsageSnippet,
 } from "@/components/docs/components/chip/chip-code-snippets";
 import { ChipRealScreenPreview } from "@/components/docs/components/chip/chip-real-screen-preview";
+import { ChipVsBadgeSection } from "@/components/docs/shared/chip-vs-badge-section";
 import { chipTocItems } from "@/components/docs/config/navigation";
 import { DocsApiTable } from "@/components/docs/primitives/docs-api-table";
 import { DocsPreview } from "@/components/docs/primitives/docs-preview";
@@ -38,7 +39,7 @@ export function ChipDocsPage() {
         <>
           <section id="installation" className="scroll-mt-24">
             <DocsPreview code={chipInstallationUiSnippet}>
-              <div className="flex flex-wrap gap-[var(--space-inline-xs)]">
+              <div className="flex flex-col items-start gap-[var(--space-stack-sm)]">
                 <Chip>MRI Brain</Chip>
                 <Chip variant="outline">Prior Auth</Chip>
               </div>
@@ -60,6 +61,8 @@ export function ChipDocsPage() {
               <Chip>MRI Brain</Chip>
             </DocsPreview>
           </DocsSection>
+
+          <ChipVsBadgeSection />
 
           <DocsSection id="api-reference" title="API Reference">
             <h3 className="mb-[var(--space-stack-sm)] text-[length:var(--text-title-size)] font-medium leading-[var(--text-title-line-height)]">

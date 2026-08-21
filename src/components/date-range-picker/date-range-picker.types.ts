@@ -14,6 +14,8 @@ export type DateRangePickerProps = {
   locale?: string;
   size?: InputSize;
   disabled?: boolean;
+  fromError?: string;
+  toError?: string;
   className?: string;
 };
 

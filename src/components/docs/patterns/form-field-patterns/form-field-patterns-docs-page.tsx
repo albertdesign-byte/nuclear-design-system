@@ -63,7 +63,7 @@ export function FormFieldPatternsDocsPage() {
         title="Input + Label"
         description="Text fields always ship with a visible label and optional helper or error text."
       >
-        <div className="grid gap-[var(--space-stack-md)] lg:grid-cols-2">
+        <div className="flex flex-col gap-[var(--space-stack-md)]">
           <DocsPreview code={formFieldInputSnippet}>
             <InputFieldPattern />
           </DocsPreview>
@@ -88,7 +88,7 @@ export function FormFieldPatternsDocsPage() {
         title="Checkbox + Label"
         description="Checkbox labels sit beside the control. Group headings use Label with aria-labelledby."
       >
-        <div className="grid gap-[var(--space-stack-md)] lg:grid-cols-2">
+        <div className="flex flex-col gap-[var(--space-stack-md)]">
           <DocsPreview code={formFieldCheckboxSnippet}>
             <CheckboxFieldPattern />
           </DocsPreview>

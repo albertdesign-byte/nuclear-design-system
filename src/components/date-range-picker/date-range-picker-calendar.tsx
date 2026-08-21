@@ -52,7 +52,8 @@ export function DateRangePickerCalendar({
   const [panel, setPanel] = useState<CalendarPanel>("days");
   const weekdays = useMemo(() => getWeekdayLabels(locale), [locale]);
   const days = useMemo(() => getCalendarDays(viewDate), [viewDate]);
-  const years = useMemo(() => getYearRange(viewDate.getFullYear()), [viewDate.getFullYear()]);
+  const viewYear = viewDate.getFullYear();
+  const years = useMemo(() => getYearRange(viewYear), [viewYear]);
   const months = useMemo(
     () =>
       Array.from({ length: 12 }, (_, index) =>
@@ -226,10 +227,10 @@ export function DateRangePickerCalendar({
 
       <div className={dateRangePickerFooterClassName}>
         <button type="button" className={dateRangePickerFooterActionClassName} onClick={onClear}>
-          Borrar
+          Clear
         </button>
         <button type="button" className={dateRangePickerFooterActionClassName} onClick={onToday}>
-          Hoy
+          Today
         </button>
       </div>
     </div>

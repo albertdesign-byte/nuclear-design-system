@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 import {
   AlertDialog,
@@ -24,6 +24,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/dialog";
+import { Dropzone } from "@/components/dropzone";
 import { InputField } from "@/components/input";
 
 type DialogFormExampleProps = {
@@ -106,6 +107,8 @@ export function EditProfileDialogPreview() {
 }
 
 export function UploadStudyDialogPreview() {
+  const [file, setFile] = useState<File | null>(null);
+
   return (
     <DialogFormExample
       trigger="Upload study"
@@ -114,7 +117,14 @@ export function UploadStudyDialogPreview() {
       submitLabel="Upload study"
     >
       <InputField id="upload-study-patient" label="Patient" defaultValue="Elena Morales · MRN 104829" readOnly />
-      <InputField id="upload-study-files" label="Study files" type="file" required />
+      <Dropzone
+        id="upload-study-files"
+        label="Study files"
+        file={file}
+        onFileChange={setFile}
+        accept=".pdf,.jpeg,.jpg,.png"
+        maxSize={10 * 1024 * 1024}
+      />
     </DialogFormExample>
   );
 }

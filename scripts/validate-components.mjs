@@ -85,8 +85,7 @@ check(
 check(
   shell.includes("DocsPageHeader") &&
     shell.includes("getComponentNeighbors") &&
-    shell.includes("Button") &&
-    shell.includes("Link"),
+    shell.includes("TextLink"),
   "DocsComponentPage uses existing primitives and registry neighbors"
 );
 check(
@@ -183,10 +182,9 @@ if (storybookHonesty) {
 }
 
 check(
-  registry.includes('storybook: "Components/Date Range Picker"') &&
-    !registry.includes('storybook: "Components/DatePicker"') &&
-    !registry.includes('storybook: "Components/Date Picker"'),
-  "Date Range Picker maps to its own stories, not Date Picker"
+  registry.includes('storybook: "Components/Date Picker"') &&
+    registry.includes('storybook: "Components/Date Range Picker"'),
+  "Date Picker and Date Range Picker map to their own stories"
 );
 check(
   registry.includes('storybook: "Components/Payment Form"') &&

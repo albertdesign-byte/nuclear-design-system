@@ -1,10 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { Button } from "@/components/button";
+import { TextLink } from "@/components/text-link";
 import {
   getPatternEntry,
   getPatternNeighbors,
@@ -39,27 +38,13 @@ export function DocsPatternPage({ children }: { children: ReactNode }) {
           className="mt-[var(--space-section)] flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-lg)]"
         >
           {previous ? (
-            <Button
-              variant="ghost"
-              size="sm"
-              render={<Link href={previous.href} />}
-              aria-label={`Previous pattern: ${previous.title}`}
-            >
-              Previous: {previous.title}
-            </Button>
+            <TextLink href={previous.href}>Previous: {previous.title}</TextLink>
           ) : (
             <span aria-hidden />
           )}
 
           {next ? (
-            <Button
-              variant="ghost"
-              size="sm"
-              render={<Link href={next.href} />}
-              aria-label={`Next pattern: ${next.title}`}
-            >
-              Next: {next.title}
-            </Button>
+            <TextLink href={next.href}>Next: {next.title}</TextLink>
           ) : (
             <span aria-hidden />
           )}

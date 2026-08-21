@@ -13,7 +13,7 @@ import { TextLink } from "@/components/text-link";
 
 export function DisabledOverviewPreview() {
   return (
-    <div className="flex flex-wrap items-center gap-[var(--space-inline-md)]">
+    <div className="flex flex-col items-start gap-[var(--space-stack-md)]">
       <Button disabled>Continue</Button>
       <Input disabled defaultValue="Read only" className="max-w-[12rem]" />
       <Checkbox disabled aria-label="Disabled checkbox" />
@@ -86,7 +86,7 @@ export function DisabledDontPreview() {
 
 export function DisabledHideVsDisablePreview() {
   return (
-    <div className="grid gap-[var(--space-stack-md)] sm:grid-cols-2">
+    <div className="flex flex-col gap-[var(--space-stack-md)]">
       <div className="rounded-[var(--radius-md)] border border-[var(--color-border-subtle)] p-[var(--space-inline-md)]">
         <p className="text-[length:var(--text-caption-size)] font-medium uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
           Disable when context exists

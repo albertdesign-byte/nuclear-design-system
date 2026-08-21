@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRightIcon } from "lucide-react";
 
-import { Button } from "@/components/button";
+import { TextLink } from "@/components/text-link";
 import { GlobalSearchBar } from "@/components/global-search-bar";
 import {
   globalSearchBarInstallationUiSnippet,
@@ -183,10 +182,7 @@ export function GlobalSearchBarDocsPage() {
             title="Full Example"
             description="See Global Search Bar in the app header on the dashboard screen."
           >
-            <Button render={<Link href="/examples/dashboard" />}>
-              Open dashboard example
-              <ArrowRightIcon />
-            </Button>
+            <TextLink href="/examples/dashboard">Open dashboard example</TextLink>
           </DocsSection>
 
           <DocsSection id="api-reference" title="API Reference">

@@ -37,7 +37,7 @@ export function StageFlowBadgeDocsPage() {
         <>
           <section id="installation" className="scroll-mt-24">
             <DocsPreview code={stageFlowBadgeInstallationUiSnippet}>
-              <div className="flex flex-wrap gap-[var(--space-inline-xs)]">
+              <div className="flex flex-col items-start gap-[var(--space-stack-sm)]">
                 <StageFlowBadge variant="success">Requested</StageFlowBadge>
                 <StageFlowBadge variant="success">MS1 Approved</StageFlowBadge>
                 <StageFlowBadge variant="warning">Pending payer</StageFlowBadge>

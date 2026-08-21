@@ -397,15 +397,3 @@ export const buttonHealthcareSnippet = exampleSnippet(
 <Button intent="danger">Delete study</Button>
 <Button variant="outline" intent="danger">Archive record</Button>`
 );
-
-export const buttonAsLinkSnippet = tsxSnippet(`${buttonImport}
-import { buttonVariants } from "@/components/button";
-import Link from "next/link";
-
-export function Example() {
-  return (
-    <Link href="/" className={buttonVariants({ variant: "primary", size: "md" })}>
-      Home
-    </Link>
-  );
-}`);

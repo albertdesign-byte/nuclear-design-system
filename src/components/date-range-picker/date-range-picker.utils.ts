@@ -43,16 +43,58 @@ export function isDateInRange(date: Date, from: Date | null, to: Date | null) {
   return value >= startOfDay(from).getTime() && value <= startOfDay(to).getTime();
 }
 
-export function formatDate(date: Date | null, locale = "en-US") {
+export const DATE_INPUT_PLACEHOLDER = "MM/DD/YYYY";
+
+export const DATE_INPUT_ERROR = "Enter a valid date as MM/DD/YYYY.";
+
+export function formatDate(date: Date | null, _locale = "en-US") {
   if (!date) {
     return "";
   }
 
-  return new Intl.DateTimeFormat(locale, {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  }).format(date);
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const year = String(date.getFullYear());
+
+  return `${month}/${day}/${year}`;
+}
+
+export function isCompleteDateInput(value: string) {
+  return /^\d{2}\/\d{2}\/\d{4}$/.test(value.trim());
+}
+
+export function parseDateInput(value: string): Date | null {
+  const trimmed = value.trim();
+
+  if (!trimmed) {
+    return null;
+  }
+
+  const match = trimmed.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+
+  if (!match) {
+    return null;
+  }
+
+  const month = Number(match[1]);
+  const day = Number(match[2]);
+  const year = Number(match[3]);
+
+  if (year < 1000 || month < 1 || month > 12 || day < 1 || day > 31) {
+    return null;
+  }
+
+  const next = new Date(year, month - 1, day);
+
+  if (
+    next.getFullYear() !== year ||
+    next.getMonth() !== month - 1 ||
+    next.getDate() !== day
+  ) {
+    return null;
+  }
+
+  return startOfDay(next);
 }
 
 export function formatMonthYear(date: Date, locale = "en-US") {

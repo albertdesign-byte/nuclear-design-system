@@ -1,9 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowRightIcon } from "lucide-react";
-
 import { Button } from "@/components/button";
+import { TextLink } from "@/components/text-link";
 import {
   DataTable,
   DataTableBody,
@@ -136,10 +134,7 @@ export function SearchResultsDocsPage() {
         title="Source screen"
         description="MPF Dashboard Scan Search is the extraction source. Domain copy and query logic stay on the product screen."
       >
-        <Button render={<Link href="/docs/userflow/nuclear/dashboard" />}>
-          Open MPF Dashboard
-          <ArrowRightIcon />
-        </Button>
+        <TextLink href="/docs/userflow/nuclear/dashboard">Open MPF Dashboard</TextLink>
       </DocsSection>
 
       <DocsSection id="api-reference" title="API Reference">

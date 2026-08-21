@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { Button } from "@/components/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/tabs";
+import { TextLink } from "@/components/text-link";
 import {
   getComponentEntry,
   getComponentNeighbors,
@@ -93,27 +92,13 @@ export function DocsComponentPage({
             className="mt-[var(--space-section)] flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-lg)]"
           >
             {previous ? (
-              <Button
-                variant="ghost"
-                size="sm"
-                render={<Link href={previous.href} />}
-                aria-label={`Previous component: ${previous.title}`}
-              >
-                Previous: {previous.title}
-              </Button>
+              <TextLink href={previous.href}>Previous: {previous.title}</TextLink>
             ) : (
               <span aria-hidden />
             )}
 
             {next ? (
-              <Button
-                variant="ghost"
-                size="sm"
-                render={<Link href={next.href} />}
-                aria-label={`Next component: ${next.title}`}
-              >
-                Next: {next.title}
-              </Button>
+              <TextLink href={next.href}>Next: {next.title}</TextLink>
             ) : (
               <span aria-hidden />
             )}

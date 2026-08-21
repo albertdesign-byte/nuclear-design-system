@@ -148,7 +148,7 @@ export function SelectDocsPage() {
           </DocsSection>
 
           <DocsSection id="searchable-select" title="Searchable Select" description="Use filtering when users need to locate a known record in a directory.">
-            <div className="grid gap-[var(--space-stack-lg)] lg:grid-cols-2">
+            <div className="flex flex-col gap-[var(--space-stack-lg)]">
               <DocsPreview code={searchableSelectSnippet}><SearchablePatientsPreview /></DocsPreview>
               <DocsPreview code={searchableSelectSnippet}><SearchableProvidersPreview /></DocsPreview>
               <DocsPreview code={searchableSelectSnippet}><SearchableFacilitiesPreview /></DocsPreview>

@@ -208,11 +208,6 @@ export const inputFullWidthSnippet = exampleSnippet(
   { imports: [inputImport] }
 );
 
-export const inputFileSnippet = exampleSnippet(
-  `<InputField id="insurance-card" label="Insurance card" type="file" />`,
-  { imports: [inputImport] }
-);
-
 export const inputAccessibilitySnippet = exampleSnippet(
   `<InputField
   id="patient-name"

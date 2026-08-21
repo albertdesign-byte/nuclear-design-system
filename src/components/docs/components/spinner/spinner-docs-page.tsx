@@ -67,7 +67,7 @@ export function SpinnerDocsPage() {
 
           <DocsSection id="size" title="Size">
             <DocsPreview code={spinnerSizeSnippet}>
-              <div className="flex items-center gap-[var(--space-inline-md)]">
+              <div className="flex flex-col items-start gap-[var(--space-stack-md)]">
                 <Spinner size="sm" />
                 <Spinner size="md" />
                 <Spinner size="lg" />

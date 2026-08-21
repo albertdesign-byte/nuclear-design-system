@@ -19,7 +19,7 @@ import { Button } from "@/components/button";
 
 export function AlertAuditPreview() {
   return (
-    <div className="grid w-full gap-[var(--space-stack-md)] lg:grid-cols-2">
+    <div className="flex w-full flex-col gap-[var(--space-stack-md)]">
       <div className="flex flex-col gap-[var(--space-stack-sm)]">
         <span className="text-[length:var(--text-caption-size)] font-medium uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
           Current Patient Alert

@@ -41,7 +41,7 @@ function getCatalogIcon(name: CatalogIconName) {
 
 export function IconsOverviewPreview() {
   return (
-    <div className="grid w-full gap-[var(--space-stack-md)] sm:grid-cols-2">
+    <div className="flex w-full flex-col gap-[var(--space-stack-md)]">
       <PreviewTile title="Icon + Text">
         <Button variant="outline" size="sm">
           <UploadIcon className="size-[var(--icon-sm)]" aria-hidden />
@@ -139,9 +139,9 @@ export function IconsSizesPreview() {
 
 export function IconsUsagePreview() {
   return (
-    <div className="grid w-full gap-[var(--space-stack-md)] lg:grid-cols-2">
+    <div className="flex w-full flex-col gap-[var(--space-stack-md)]">
       <PreviewTile title="Buttons">
-        <div className="flex flex-wrap items-center gap-[var(--space-inline-sm)]">
+        <div className="flex flex-col items-start gap-[var(--space-stack-sm)]">
           <Button size="sm">
             <DownloadIcon className="size-[var(--icon-sm)]" aria-hidden />
             Export
@@ -206,7 +206,7 @@ export function IconsColorPreview() {
   ] as const;
 
   return (
-    <div className="grid w-full gap-[var(--space-stack-xs)] sm:grid-cols-2 lg:grid-cols-3">
+    <div className="flex w-full flex-col gap-[var(--space-stack-xs)]">
       {rows.map(({ label, className, state }) => (
         <div
           key={label}
@@ -229,7 +229,7 @@ export function IconsColorPreview() {
 
 export function IconsAccessibilityPreview() {
   return (
-    <div className="grid w-full gap-[var(--space-stack-md)] sm:grid-cols-2">
+    <div className="flex w-full flex-col gap-[var(--space-stack-md)]">
       <GuidanceTile tone="correct" title="Icon-only control">
         <Button variant="outline" size="icon-md" aria-label="Download report">
           <DownloadIcon className="size-[var(--icon-sm)]" />
@@ -269,7 +269,7 @@ export function IconsAccessibilityPreview() {
 
 export function IconsDoDontPreview() {
   return (
-    <div className="grid w-full gap-[var(--space-stack-md)] sm:grid-cols-2">
+    <div className="flex w-full flex-col gap-[var(--space-stack-md)]">
       <GuidanceTile tone="correct" title="Consistent outline style">
         <div className="flex items-center gap-[var(--space-inline-sm)]">
           <SearchIcon className="size-[var(--icon-sm)]" aria-hidden />
@@ -329,7 +329,7 @@ export function IconsDoDontPreview() {
 
 export function IconsDeveloperPreview() {
   return (
-    <div className="grid w-full gap-[var(--space-stack-md)] sm:grid-cols-2">
+    <div className="flex w-full flex-col gap-[var(--space-stack-md)]">
       <PreviewTile title="Icon button">
         <Button variant="outline" size="icon-md" aria-label="Notifications">
           <BellIcon className="size-[var(--icon-sm)]" />

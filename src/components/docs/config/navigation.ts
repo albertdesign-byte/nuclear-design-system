@@ -101,7 +101,6 @@ export const buttonTocItems = [
   { id: "guidelines", label: "Button Guidelines" },
   { id: "accessibility", label: "Accessibility" },
   { id: "full-width", label: "Full Width" },
-  { id: "as-link", label: "As Link" },
   { id: "api-reference", label: "API Reference" },
 ];
 
@@ -120,7 +119,6 @@ export const inputTocItems = [
   { id: "helper-text", label: "Helper Text" },
   { id: "size", label: "Size" },
   { id: "full-width", label: "Full Width" },
-  { id: "file", label: "File" },
   { id: "guidelines", label: "Input Guidelines" },
   { id: "accessibility", label: "Accessibility" },
   { id: "api-reference", label: "API Reference" },
@@ -204,6 +202,7 @@ export const switchTocItems = [
   { id: "disabled", label: "Disabled" },
   { id: "invalid", label: "Invalid" },
   { id: "with-label", label: "With Label" },
+  { id: "guidelines", label: "Guidelines" },
   { id: "api-reference", label: "API Reference" },
 ];
 
@@ -217,6 +216,7 @@ export const badgeTocItems = [
   { id: "outline", label: "Outline" },
   { id: "ghost", label: "Ghost" },
   { id: "link", label: "Link" },
+  { id: "chip-vs-badge", label: "Chip vs Badge" },
   { id: "api-reference", label: "API Reference" },
 ];
 
@@ -327,6 +327,7 @@ export const sonnerTocItems = [
 export const labelTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
+  { id: "guidelines", label: "Guidelines" },
   { id: "disabled", label: "Disabled" },
   { id: "invalid", label: "Invalid" },
   { id: "api-reference", label: "API Reference" },
@@ -389,7 +390,8 @@ export const paymentFormTocItems = [
 export const dropzoneTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
-  { id: "error", label: "Error" },
+  { id: "states", label: "States" },
+  { id: "file-constraints", label: "Accepted types and size" },
   { id: "api-reference", label: "API Reference" },
 ];
 
@@ -433,6 +435,7 @@ export const accordionTocItems = [
 export const chipTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
+  { id: "chip-vs-badge", label: "Chip vs Badge" },
   { id: "api-reference", label: "API Reference" },
 ];
 
@@ -524,6 +527,14 @@ export const userProfileBlockTocItems = [
   { id: "usage", label: "Usage" },
   { id: "with-settings", label: "With Settings" },
   { id: "full-example", label: "Full Example" },
+  { id: "api-reference", label: "API Reference" },
+];
+
+export const datePickerTocItems = [
+  { id: "installation", label: "Installation" },
+  { id: "usage", label: "Usage" },
+  { id: "controlled", label: "Controlled" },
+  { id: "guidelines", label: "Guidelines" },
   { id: "api-reference", label: "API Reference" },
 ];
 

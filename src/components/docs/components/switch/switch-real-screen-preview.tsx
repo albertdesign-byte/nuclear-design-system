@@ -1,3 +1,4 @@
+import { Label } from "@/components/label";
 import { Switch } from "@/components/switch";
 
 export function SwitchRealScreenPreview() {
@@ -10,12 +11,7 @@ export function SwitchRealScreenPreview() {
         Configure automatic reminders for the treatment plan.
       </p>
       <div className="mt-[var(--space-stack-md)] flex items-center justify-between gap-[var(--space-inline-md)]">
-        <label
-          htmlFor="switch-real-screen-reminders"
-          className="text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)]"
-        >
-          Medication reminders
-        </label>
+        <Label htmlFor="switch-real-screen-reminders">Medication reminders</Label>
         <Switch id="switch-real-screen-reminders" defaultChecked />
       </div>
     </div>

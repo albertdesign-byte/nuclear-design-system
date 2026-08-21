@@ -58,7 +58,7 @@ function PlacementTooltip({ side }: { side: TooltipSide }) {
 
 export function TooltipTriggerTypesPreview() {
   return (
-    <div className="grid gap-[var(--space-stack-lg)] md:grid-cols-2">
+    <div className="flex flex-col gap-[var(--space-stack-lg)]">
       <TriggerExample label="Icon Button">
         <Tooltip>
           <TooltipTrigger
@@ -144,7 +144,7 @@ function TriggerExample({
 
 export function TooltipContentPatternsPreview() {
   return (
-    <div className="flex flex-wrap items-center gap-[var(--space-inline-lg)]">
+    <div className="flex flex-col items-start gap-[var(--space-stack-md)]">
       <TooltipExample trigger="Simple text" content="Patient ID" />
       <TooltipExample
         trigger="Short description"
@@ -181,7 +181,7 @@ function TooltipExample({
 
 export function HealthcareTooltipExamplesPreview() {
   return (
-    <div className="grid gap-[var(--space-stack-md)] lg:grid-cols-2">
+    <div className="flex flex-col gap-[var(--space-stack-md)]">
       <HealthcareExample
         label="Patient ID"
         value="MED-104829"
