@@ -97,7 +97,7 @@ export function AvatarDocsPage() {
             }
           >
             <DocsPreview code={avatarSizeSnippet}>
-              <div className="flex items-center gap-[var(--space-inline-md)]">
+              <div className="flex flex-col items-start gap-[var(--space-stack-md)]">
                 <Avatar size="sm">
                   <AvatarFallback>SM</AvatarFallback>
                 </Avatar>

@@ -7,6 +7,7 @@ export type DatePickerProps = {
   locale?: string;
   size?: InputSize;
   disabled?: boolean;
+  error?: string;
   className?: string;
   id?: string;
   "aria-label"?: string;

@@ -7,6 +7,7 @@ import { AlertDocsPage } from "@/components/docs/components/alert/alert-docs-pag
 import { ButtonDocsPage } from "@/components/docs/components/button/button-docs-page";
 import { CheckboxDocsPage } from "@/components/docs/components/checkbox/checkbox-docs-page";
 import { ChipDocsPage } from "@/components/docs/components/chip/chip-docs-page";
+import { DatePickerDocsPage } from "@/components/docs/components/date-picker/date-picker-docs-page";
 import { DateRangePickerDocsPage } from "@/components/docs/components/date-range-picker/date-range-picker-docs-page";
 import { DayToggleGroupDocsPage } from "@/components/docs/components/day-toggle-group/day-toggle-group-docs-page";
 import { DepositSummaryDocsPage } from "@/components/docs/components/deposit-summary/deposit-summary-docs-page";
@@ -115,7 +116,7 @@ export const patientsComponentRoutes: Record<string, PatientsComponentRoute> = {
     component: DropzoneDocsPage,
     metadata: {
       title: "Dropzone",
-      description: "Medmo Design System — Dropzone component documentation.",
+      description: "Medmo Design System — official file upload with click and drag and drop.",
     },
   },
   dialog: {
@@ -123,6 +124,13 @@ export const patientsComponentRoutes: Record<string, PatientsComponentRoute> = {
     metadata: {
       title: "Dialog",
       description: "Medmo Design System — Dialog component documentation.",
+    },
+  },
+  "date-picker": {
+    component: DatePickerDocsPage,
+    metadata: {
+      title: "Date Picker",
+      description: "Medmo Design System — Date Picker component documentation.",
     },
   },
   "date-range-picker": {

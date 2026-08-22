@@ -69,7 +69,7 @@ export function BadgePlayground() {
           <section className="rounded-lg border border-border bg-card p-6">
             <h2 className="mb-4 text-sm font-semibold">Preview</h2>
             <Badge size={size} variant={variant}>
-              Estable
+              Stable
             </Badge>
           </section>
 

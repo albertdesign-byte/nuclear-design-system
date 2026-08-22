@@ -228,6 +228,9 @@ describe("components registry", () => {
       }
     }
 
+    expect(getComponentEntry("/docs/components/date-picker")?.storybook).toBe(
+      "Components/Date Picker"
+    );
     expect(getComponentEntry("/docs/components/date-range-picker")?.storybook).toBe(
       "Components/Date Range Picker"
     );

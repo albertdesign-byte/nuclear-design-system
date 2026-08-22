@@ -1,6 +1,4 @@
-import Link from "next/link";
-
-import { Button } from "@/components/button";
+import { TextLink } from "@/components/text-link";
 import { getComponentNavCategories } from "@/components/docs/config/components-registry";
 
 import { ComponentPreviewCard } from "./component-preview-card";
@@ -26,13 +24,7 @@ export function HomePage() {
           All components are ready for use.
         </p>
 
-        <Button
-          size="lg"
-          render={<Link href="/docs/components/button" />}
-          className="rounded-full px-[var(--space-inline-lg)]"
-        >
-          Get lifetime access
-        </Button>
+        <TextLink href="/docs/components/button">Get lifetime access</TextLink>
       </section>
 
       <div className="flex flex-col gap-[var(--space-section)]">

@@ -60,7 +60,7 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     title: "Button",
     href: "/docs/components/button",
     description:
-      "The single Nuclear DS action standard for healthcare and enterprise workflows, including semantic danger actions, icons, groups, and async states.",
+      "Se utiliza para acciones y renderiza un <button>. No se utiliza como Link ni para navegación.",
     status: "stable",
     aliases: ["CTA", "action button"],
     keywords: [
@@ -82,7 +82,6 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     ],
     accessibility: ["focus ring", "disabled", "aria-label", "keyboard"],
     relatedComponents: [
-      "/docs/components/text-link",
       "/docs/components/dropdown-menu",
       "/docs/components/alert-dialog",
     ],
@@ -107,6 +106,26 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     ],
   },
   {
+    title: "Date Picker",
+    href: "/docs/components/date-picker",
+    description:
+      "Single date field with MM/DD/YYYY typing and an optional calendar. Used for date of birth and clinical dates.",
+    status: "stable",
+    aliases: ["datepicker", "calendar input", "date of birth"],
+    keywords: ["form controls", "calendar", "mm/dd/yyyy", "date of birth"],
+    figma: "",
+    storybook: "Components/Date Picker",
+    category: "Inputs",
+    tokens: ["--icon-sm", "--color-action-primary", "--radius-md"],
+    accessibility: ["keyboard", "focus ring", "aria-invalid", "disabled"],
+    relatedComponents: [
+      "/docs/components/date-range-picker",
+      "/docs/components/input",
+      "/docs/components/label",
+      "/docs/components/field-error",
+    ],
+  },
+  {
     title: "Date Range Picker",
     href: "/docs/components/date-range-picker",
     description:
@@ -120,6 +139,7 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     tokens: ["--icon-sm", "--color-action-primary", "--radius-md"],
     accessibility: ["keyboard", "focus ring", "disabled", "dialog"],
     relatedComponents: [
+      "/docs/components/date-picker",
       "/docs/components/input",
       "/docs/components/popover",
       "/docs/components/button",
@@ -144,22 +164,22 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     title: "Dropzone",
     href: "/docs/components/dropzone",
     description:
-      "File upload surface for studies, insurance cards, and supporting documents.",
+      "Official file upload: click to select or drag and drop. Empty, dragging, loading, success, and error states.",
     status: "stable",
-    aliases: ["file upload", "upload area"],
-    keywords: ["form controls", "files", "drag and drop", "attachment"],
+    aliases: ["file upload", "upload area", "file input"],
+    keywords: ["form controls", "files", "drag and drop", "attachment", "max size"],
     figma: "",
     storybook: "Components/Dropzone",
     category: "Inputs",
     tokens: ["--color-border-subtle", "--icon-md", "--color-action-primary"],
-    accessibility: ["keyboard", "aria-label", "disabled"],
-    relatedComponents: ["/docs/components/input", "/docs/components/button"],
+    accessibility: ["keyboard", "aria-label", "aria-busy", "disabled"],
+    relatedComponents: ["/docs/components/field-error", "/docs/components/button"],
   },
   {
     title: "Input",
     href: "/docs/components/input",
     description:
-      "Text, numeric, and file fields used across Medmo forms, search, and clinical data entry.",
+      "Text and numeric fields used across Medmo forms, search, and clinical data entry.",
     status: "stable",
     aliases: ["text field", "text input"],
     keywords: ["form controls", "search", "prefix", "suffix", "helper text"],
@@ -178,6 +198,7 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
       "/docs/components/field-error",
       "/docs/components/textarea",
       "/docs/components/select",
+      "/docs/components/dropzone",
     ],
   },
   {
@@ -253,10 +274,24 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     ],
   },
   {
+    title: "Text Link",
+    href: "/docs/components/text-link",
+    description: "Enlace de texto para navegación.",
+    status: "stable",
+    aliases: ["anchor", "inline link"],
+    keywords: ["navigation", "href", "underline", "text link"],
+    figma: "",
+    storybook: "Components/Text Link",
+    category: "Inputs",
+    tokens: ["--color-text-link", "--color-disabled-text"],
+    accessibility: ["focus ring", "aria-disabled", "keyboard"],
+    relatedComponents: ["/docs/components/app-footer"],
+  },
+  {
     title: "Label",
     href: "/docs/components/label",
     description:
-      "Accessible field labels that associate visible text with form controls.",
+      "Supported primitive for visible field labels. Prefer Field composites when one exists; use Label with controls that have no Field wrapper.",
     status: "stable",
     aliases: ["field label", "form label"],
     keywords: ["form controls", "required", "caption"],
@@ -302,7 +337,7 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     category: "Inputs",
     tokens: [],
     accessibility: [],
-    relatedComponents: ["/docs/components/date-range-picker"],
+    relatedComponents: ["/docs/components/date-picker", "/docs/components/date-range-picker"],
   },
   {
     title: "Attachment",
@@ -386,24 +421,6 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     tokens: ["--icon-sm", "--color-border-subtle"],
     accessibility: ["keyboard", "aria-expanded"],
     relatedComponents: ["/docs/components/tabs", "/docs/components/separator"],
-  },
-  {
-    title: "Text Link",
-    href: "/docs/components/text-link",
-    description:
-      "Inline navigation and secondary actions that look like text, not buttons.",
-    status: "stable",
-    aliases: ["anchor", "inline link"],
-    keywords: ["navigation", "href", "underline"],
-    figma: "",
-    storybook: "Components/Text Link",
-    category: "Navigation",
-    tokens: ["--color-text-link", "--color-disabled-text"],
-    accessibility: ["focus ring", "aria-disabled", "keyboard"],
-    relatedComponents: [
-      "/docs/components/button",
-      "/docs/components/app-footer",
-    ],
   },
   {
     title: "App Footer",

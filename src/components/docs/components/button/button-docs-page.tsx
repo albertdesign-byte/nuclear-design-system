@@ -1,12 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { ArrowUpIcon } from "lucide-react";
 
-import { Button, buttonVariants } from "@/components/button";
+import { Button } from "@/components/button";
 
 import {
-  buttonAsLinkSnippet,
   buttonDangerSnippet,
   buttonDangerStatesSnippet,
   buttonFullWidthSnippet,
@@ -77,7 +75,7 @@ export function ButtonDocsPage() {
         <>
           <section id="installation" className="scroll-mt-24">
             <DocsPreview code={buttonInstallationUiSnippet}>
-              <div className="flex flex-wrap items-center gap-[var(--space-inline-sm)]">
+              <div className="flex flex-col items-start gap-[var(--space-stack-sm)]">
                 <Button variant="outline">Button</Button>
                 <Button variant="outline" size="icon-xl" aria-label="Upload study">
                   <ArrowUpIcon />
@@ -92,9 +90,11 @@ export function ButtonDocsPage() {
             description={
               <>
                 Import Button from{" "}
-                <DocsInlineCode>@/components/button</DocsInlineCode>. Use it for
-                immediate actions; use a semantic link for navigation and a
-                toggle control for persistent selection.
+                <DocsInlineCode>@/components/button</DocsInlineCode>. Se
+                utiliza para acciones y renderiza un{" "}
+                <DocsInlineCode>{"<button>"}</DocsInlineCode>. No se utiliza
+                como Link ni para navegación. Para selección persistente, usa un
+                control de toggle.
               </>
             }
           >
@@ -123,7 +123,7 @@ export function ButtonDocsPage() {
             title="Button Variants"
             description="Variant controls visual emphasis. Intent communicates whether the action is destructive."
           >
-            <div className="flex flex-wrap items-center gap-[var(--space-inline-md)]">
+            <div className="flex flex-col items-start gap-[var(--space-stack-md)]">
               <Button>Primary</Button>
               <Button variant="secondary">Secondary</Button>
               <Button variant="outline">Outline</Button>
@@ -138,7 +138,7 @@ export function ButtonDocsPage() {
             description="Danger uses a soft red background, red border, and red text. It communicates consequence without the alarm fatigue of a solid-red default."
           >
             <DocsPreview code={buttonDangerSnippet}>
-              <div className="flex flex-wrap gap-[var(--space-inline-sm)]">
+              <div className="flex flex-col items-start gap-[var(--space-stack-sm)]">
                 <Button intent="danger">Delete patient</Button>
                 <Button intent="danger">Delete study</Button>
                 <Button intent="danger">Remove user</Button>
@@ -248,6 +248,11 @@ export function ButtonDocsPage() {
                 <li>Correct: Delete study after explicit confirmation.</li>
                 <li>Incorrect: red styling for Cancel or validation errors.</li>
               </ButtonGuidelineCard>
+              <ButtonGuidelineCard title="Acción, no navegación">
+                <li>Button se utiliza para acciones y renderiza un <DocsInlineCode>{"<button>"}</DocsInlineCode>.</li>
+                <li>No se utiliza como Link y no debe utilizarse para navegación.</li>
+                <li>No existe un patrón “Button as Link” en este Design System.</li>
+              </ButtonGuidelineCard>
             </div>
           </DocsSection>
 
@@ -285,21 +290,6 @@ export function ButtonDocsPage() {
               <div className="w-full max-w-xs">
                 <Button fullWidth>Save patient</Button>
               </div>
-            </DocsPreview>
-          </DocsSection>
-
-          <DocsSection
-            id="as-link"
-            title="As Link"
-            description="Navigation must remain a semantic link. Apply buttonVariants to Link instead of rendering a link through the Base UI Button primitive."
-          >
-            <DocsPreview code={buttonAsLinkSnippet}>
-              <Link
-                href="/"
-                className={buttonVariants({ variant: "primary", size: "md" })}
-              >
-                Return home
-              </Link>
             </DocsPreview>
           </DocsSection>
 

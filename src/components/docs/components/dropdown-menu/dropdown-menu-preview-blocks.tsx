@@ -42,7 +42,7 @@ function PreviewCell({
 
 export function DropdownVariantsPreview() {
   return (
-    <div className="grid w-full gap-[var(--space-grid-gap)] sm:grid-cols-2 xl:grid-cols-5">
+    <div className="flex w-full flex-col gap-[var(--space-grid-gap)]">
       <PreviewCell label="Default">
         <DropdownMenu>
           <DropdownMenuButton size="sm">Actions</DropdownMenuButton>
@@ -134,7 +134,7 @@ const triggerStateClasses = {
 
 export function DropdownStatesPreview() {
   return (
-    <div className="grid w-full gap-[var(--space-grid-gap)] sm:grid-cols-2 xl:grid-cols-5">
+    <div className="flex w-full flex-col gap-[var(--space-grid-gap)]">
       <PreviewCell label="Closed">
         <DropdownMenu open={false}>
           <DropdownMenuButton size="sm">Actions</DropdownMenuButton>
@@ -177,7 +177,7 @@ export function DropdownStatesPreview() {
 
 export function DropdownContentPatternsPreview() {
   return (
-    <div className="grid w-full gap-[var(--space-grid-gap)] sm:grid-cols-2 xl:grid-cols-4">
+    <div className="flex w-full flex-col gap-[var(--space-grid-gap)]">
       <PreviewCell label="Simple Actions">
         <DropdownMenu>
           <DropdownMenuButton size="sm">Patient</DropdownMenuButton>
@@ -293,7 +293,7 @@ const healthcareMenus = [
 
 export function DropdownHealthcareExamplesPreview() {
   return (
-    <div className="grid w-full gap-[var(--space-grid-gap)] sm:grid-cols-2">
+    <div className="flex w-full flex-col gap-[var(--space-grid-gap)]">
       {healthcareMenus.map(({ label, icon: Icon, items }) => (
         <div
           key={label}

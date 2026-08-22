@@ -14,6 +14,7 @@ import {
   badgeUsageSnippet,
 } from "@/components/docs/components/badge/badge-code-snippets";
 import { BadgeRealScreenPreview } from "@/components/docs/components/badge/badge-real-screen-preview";
+import { ChipVsBadgeSection } from "@/components/docs/shared/chip-vs-badge-section";
 import { badgeTocItems } from "@/components/docs/config/navigation";
 import { DocsApiTable } from "@/components/docs/primitives/docs-api-table";
 import type { CodeLine } from "@/components/docs/primitives/docs-preview";
@@ -69,7 +70,7 @@ const badgeVariants = [
     id: "ghost",
     label: "Ghost",
     snippet: badgeGhostSnippet,
-    preview: <Badge variant="ghost">Archivado</Badge>,
+    preview: <Badge variant="ghost">Archived</Badge>,
   },
   {
     id: "link",
@@ -93,7 +94,7 @@ export function BadgeDocsPage() {
         <>
           <section id="installation" className="scroll-mt-24">
             <DocsPreview code={badgeInstallationUiSnippet}>
-              <div className="flex flex-wrap items-center gap-[var(--space-inline-sm)]">
+              <div className="flex flex-col items-start gap-[var(--space-stack-sm)]">
                 <Badge>Active</Badge>
                 <Badge variant="secondary">Under review</Badge>
               </div>
@@ -127,7 +128,7 @@ export function BadgeDocsPage() {
             }
           >
             <DocsPreview code={badgeSizeSnippet}>
-              <div className="flex flex-wrap items-center gap-[var(--space-inline-sm)]">
+              <div className="flex flex-col items-start gap-[var(--space-stack-sm)]">
                 <Badge size="sm">SM</Badge>
                 <Badge size="md">MD</Badge>
                 <Badge size="lg">LG</Badge>
@@ -144,6 +145,8 @@ export function BadgeDocsPage() {
               preview={preview}
             />
           ))}
+
+          <ChipVsBadgeSection />
 
           <DocsSection id="api-reference" title="API Reference">
             <h3 className="mb-[var(--space-stack-sm)] text-[length:var(--text-title-size)] font-medium leading-[var(--text-title-line-height)]">

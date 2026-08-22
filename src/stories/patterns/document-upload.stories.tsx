@@ -73,7 +73,7 @@ const meta = {
       ...fullWidthParameters.docs,
       description: {
         component:
-          "Attach a clinical document with a labeled Dropzone on a Patients step. Required single file: Continue stays disabled until a valid file is attached. Accept .pdf, .jpeg, .jpg, .png. Do not redesign the dropzone, add a file manager, or move upload into a modal or drawer.",
+          "Attach a clinical document with a labeled Dropzone on a Patients step. Click to select or drag and drop. Required single file: Continue stays disabled until a valid file is attached. Accept .pdf, .jpeg, .jpg, .png. Do not use a separate File Input, redesign the dropzone, add a file manager, or move upload into a modal or drawer.",
       },
     },
   },

@@ -12,9 +12,8 @@ export const dateRangePickerLabelClassName =
 export const dateRangePickerInputWrapperClassName = "relative w-full min-w-[10rem]";
 
 export const dateRangePickerInputClassName = [
-  componentFontFamilyClassName, "cursor-pointer pr-[calc(var(--space-inline-sm)+1.5rem)]",
+  componentFontFamilyClassName, "pr-[calc(var(--space-inline-sm)+1.5rem)]",
   pickerInputDisabledClassName,
-  "read-only:focus-visible:border-[var(--color-border)] read-only:focus-visible:ring-0",
 ].join(" ");
 
 export const dateRangePickerTriggerClassName = [

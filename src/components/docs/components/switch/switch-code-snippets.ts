@@ -1,6 +1,8 @@
 import { exampleSnippet, tsxSnippet } from "@/components/docs/primitives/docs-code-snippet";
 
 const switchImport = 'import { Switch } from "@/components/switch";';
+const switchFieldImports = `import { Label } from "@/components/label";
+import { Switch } from "@/components/switch";`;
 
 export const switchInstallationUiSnippet = tsxSnippet(`${switchImport}
 
@@ -13,7 +15,7 @@ export function Example() {
   );
 }`);
 
-export const switchRealScreenSnippet = tsxSnippet(`${switchImport}
+export const switchRealScreenSnippet = tsxSnippet(`${switchFieldImports}
 
 export function Example() {
   return (
@@ -23,9 +25,7 @@ export function Example() {
         Configure automatic reminders for the treatment plan.
       </p>
       <div className="mt-4 flex items-center justify-between gap-3">
-        <label htmlFor="medication-reminders" className="text-sm">
-          Medication reminders
-        </label>
+        <Label htmlFor="medication-reminders">Medication reminders</Label>
         <Switch id="medication-reminders" defaultChecked />
       </div>
     </div>
@@ -67,14 +67,12 @@ export const switchInvalidSnippet = exampleSnippet(
   { imports: [switchImport] }
 );
 
-export const switchWithLabelSnippet = tsxSnippet(`${switchImport}
+export const switchWithLabelSnippet = tsxSnippet(`${switchFieldImports}
 
 export function Example() {
   return (
-    <div className="flex items-center justify-between gap-3">
-      <label htmlFor="lab-alerts" className="text-sm">
-        Critical results alerts
-      </label>
+    <div className="flex max-w-md items-center justify-between gap-[var(--space-inline-md)]">
+      <Label htmlFor="lab-alerts">Critical results alerts</Label>
       <Switch id="lab-alerts" defaultChecked />
     </div>
   );

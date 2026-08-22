@@ -83,8 +83,7 @@ check(
 check(
   shell.includes("DocsPageHeader") &&
     shell.includes("getTemplateNeighbors") &&
-    shell.includes("Button") &&
-    shell.includes("Link"),
+    shell.includes("TextLink"),
   "DocsTemplatePage uses existing primitives and registry neighbors"
 );
 check(

@@ -1,5 +1,7 @@
 "use client";
 
+import { FieldDescription } from "@/components/field-description";
+import { Label } from "@/components/label";
 import { Switch } from "@/components/switch";
 import {
   switchCheckedSnippet,
@@ -62,7 +64,7 @@ export function SwitchDocsPage() {
         <>
           <section id="installation" className="scroll-mt-24">
             <DocsPreview code={switchInstallationUiSnippet}>
-              <div className="flex items-center gap-[var(--space-inline-md)]">
+              <div className="flex flex-col items-start gap-[var(--space-stack-md)]">
                 <Switch defaultChecked aria-label="Enable reminders" />
                 <Switch aria-label="Enable notifications" />
               </div>
@@ -97,7 +99,7 @@ export function SwitchDocsPage() {
             }
           >
             <DocsPreview code={switchSizeSnippet}>
-              <div className="flex items-center gap-[var(--space-inline-md)]">
+              <div className="flex flex-col items-start gap-[var(--space-stack-md)]">
                 <Switch size="sm" defaultChecked aria-label="Small" />
                 <Switch size="md" defaultChecked aria-label="Medium" />
                 <Switch size="lg" defaultChecked aria-label="Large" />
@@ -110,7 +112,7 @@ export function SwitchDocsPage() {
             title="Checked"
             code={switchCheckedSnippet}
             preview={
-              <div className="flex items-center gap-[var(--space-inline-md)]">
+              <div className="flex flex-col items-start gap-[var(--space-stack-md)]">
                 <Switch aria-label="Off" />
                 <Switch defaultChecked aria-label="On" />
               </div>
@@ -122,7 +124,7 @@ export function SwitchDocsPage() {
             title="Disabled"
             code={switchDisabledSnippet}
             preview={
-              <div className="flex items-center gap-[var(--space-inline-md)]">
+              <div className="flex flex-col items-start gap-[var(--space-stack-md)]">
                 <Switch disabled aria-label="Disabled off" />
                 <Switch disabled defaultChecked aria-label="Disabled on" />
               </div>
@@ -142,18 +144,94 @@ export function SwitchDocsPage() {
             preview={<Switch aria-invalid aria-label="Invalid" />}
           />
 
-          <DocsSection id="with-label" title="With Label">
+          <DocsSection
+            id="with-label"
+            title="With Label"
+            description="En filas de settings, el Label queda a la izquierda y el Switch a la derecha, unidos con htmlFor e id."
+          >
             <DocsPreview code={switchWithLabelSnippet}>
               <div className="flex max-w-md items-center justify-between gap-[var(--space-inline-md)]">
-                <label
-                  htmlFor="lab-alerts-docs"
-                  className="text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)]"
-                >
-                  Critical results alerts
-                </label>
+                <Label htmlFor="lab-alerts-docs">Critical results alerts</Label>
                 <Switch id="lab-alerts-docs" defaultChecked />
               </div>
             </DocsPreview>
+          </DocsSection>
+
+          <DocsSection
+            id="guidelines"
+            title="Guidelines"
+            description="No existe SwitchField. Switch se compone con Label. Preferir Field solo cuando exista un Field correspondiente para ese control."
+          >
+            <div className="flex flex-col gap-[var(--space-stack-md)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
+              <div>
+                <h4 className="font-medium text-[var(--color-text-primary)]">
+                  Cuándo usar Label con Switch
+                </h4>
+                <ul className="mt-[var(--space-stack-xs)] list-disc space-y-[var(--space-stack-xs)] pl-[var(--space-inline-md)]">
+                  <li>
+                    Usa <DocsInlineCode>Label</DocsInlineCode> visible siempre
+                    que el Switch represente un ajuste con nombre (notificaciones,
+                    recordatorios, preferencias).
+                  </li>
+                  <li>
+                    Un Switch sin texto visible necesita{" "}
+                    <DocsInlineCode>aria-label</DocsInlineCode>. No combines
+                    aria-label con un Label visible que diga lo mismo.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-[var(--color-text-primary)]">
+                  Colocación
+                </h4>
+                <ul className="mt-[var(--space-stack-xs)] list-disc space-y-[var(--space-stack-xs)] pl-[var(--space-inline-md)]">
+                  <li>
+                    En filas de settings, el Label va a la izquierda y el Switch
+                    a la derecha, alineados en el eje vertical y con{" "}
+                    <DocsInlineCode>justify-between</DocsInlineCode>.
+                  </li>
+                  <li>
+                    Relación visual: el texto nombra el ajuste; el control
+                    queda al final de la fila como la acción on/off.
+                  </li>
+                  <li>
+                    Spacing:{" "}
+                    <DocsInlineCode>gap-[var(--space-inline-md)]</DocsInlineCode>{" "}
+                    entre Label y Switch. No apiles un Label encima y otro al
+                    lado del mismo Switch.
+                  </li>
+                  <li>
+                    Conecta <DocsInlineCode>Label htmlFor</DocsInlineCode> con el{" "}
+                    <DocsInlineCode>id</DocsInlineCode> del Switch.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-[var(--color-text-primary)]">
+                  Texto auxiliar
+                </h4>
+                <ul className="mt-[var(--space-stack-xs)] list-disc space-y-[var(--space-stack-xs)] pl-[var(--space-inline-md)]">
+                  <li>
+                    El texto auxiliar (ayuda o descripción) va debajo del Label,
+                    a la izquierda, con{" "}
+                    <DocsInlineCode>FieldDescription</DocsInlineCode>. El Switch
+                    permanece a la derecha de toda la columna de texto.
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="mt-[var(--space-stack-md)] flex max-w-md items-center justify-between gap-[var(--space-inline-md)]">
+              <div className="flex min-w-0 flex-col gap-[var(--space-stack-xs)]">
+                <Label htmlFor="switch-guidelines-helper">
+                  Critical results alerts
+                </Label>
+                <FieldDescription>
+                  Notify the ordering physician when a lab result is marked
+                  critical.
+                </FieldDescription>
+              </div>
+              <Switch id="switch-guidelines-helper" defaultChecked />
+            </div>
           </DocsSection>
 
           <DocsSection id="api-reference" title="API Reference">

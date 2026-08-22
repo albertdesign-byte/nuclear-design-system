@@ -121,12 +121,14 @@ function dialogFormSnippet({
   description,
   fields,
   submitLabel,
+  extraImports = [],
 }: {
   trigger: string;
   title: string;
   description: string;
   fields: string;
   submitLabel: string;
+  extraImports?: string[];
 }) {
   return exampleSnippet(
     `<Dialog>
@@ -147,7 +149,7 @@ function dialogFormSnippet({
     </DialogFooter>
   </DialogContent>
 </Dialog>`,
-    { imports: [dialogImport] }
+    { imports: [dialogImport, ...extraImports] }
   );
 }
 
@@ -183,6 +185,17 @@ export const uploadStudyDialogSnippet = dialogFormSnippet({
   title: "Upload imaging study",
   description: "Add DICOM files and associate them with the patient record.",
   fields: `<InputField id="study-patient" label="Patient" readOnly />
-      <InputField id="study-files" label="Study files" type="file" required />`,
+      <Dropzone
+        id="study-files"
+        label="Study files"
+        file={file}
+        onFileChange={setFile}
+        accept=".pdf,.jpeg,.jpg,.png"
+        maxSize={10 * 1024 * 1024}
+      />`,
   submitLabel: "Upload study",
+  extraImports: [
+    'import { Dropzone } from "@/components/dropzone";',
+    'import { useState } from "react";',
+  ],
 });

@@ -11,7 +11,7 @@ export function BadgeRealScreenPreview() {
           ID #48291 · Cardiology
         </p>
       </div>
-      <Badge variant="secondary">Estable</Badge>
+      <Badge variant="secondary">Stable</Badge>
     </div>
   );
 }

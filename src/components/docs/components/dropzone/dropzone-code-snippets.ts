@@ -14,6 +14,7 @@ export function Example() {
       file={file}
       onFileChange={setFile}
       accept=".pdf,.jpeg,.jpg,.png"
+      maxSize={10 * 1024 * 1024}
     />
   );
 }`);
@@ -34,12 +35,14 @@ export function Example() {
         file={frontFile}
         onFileChange={setFrontFile}
         accept=".pdf,.jpeg,.jpg,.png"
+        maxSize={10 * 1024 * 1024}
       />
       <Dropzone
         label="Upload back of card"
         file={backFile}
         onFileChange={setBackFile}
         accept=".pdf,.jpeg,.jpg,.png"
+        maxSize={10 * 1024 * 1024}
         error="Use file in .pdf, .jpeg or .png"
       />
     </div>
@@ -52,8 +55,51 @@ export const dropzoneUsageSnippet = exampleSnippet(
   file={file}
   onFileChange={setFile}
   accept=".pdf,.jpeg,.jpg,.png"
+  maxSize={10 * 1024 * 1024}
 />`,
   { imports: [dropzoneImport, 'import { useState } from "react";'] }
+);
+
+export const dropzoneEmptySnippet = exampleSnippet(
+  `<Dropzone
+  label="Upload prescription (PDF or image)"
+  file={file}
+  onFileChange={setFile}
+  accept=".pdf,.jpeg,.jpg,.png"
+  maxSize={10 * 1024 * 1024}
+/>`,
+  { imports: [dropzoneImport] }
+);
+
+export const dropzoneDraggingSnippet = exampleSnippet(
+  `<Dropzone
+  label="Upload prescription (PDF or image)"
+  accept=".pdf,.jpeg,.jpg,.png"
+  maxSize={10 * 1024 * 1024}
+  dragging
+/>`,
+  { imports: [dropzoneImport] }
+);
+
+export const dropzoneLoadingSnippet = exampleSnippet(
+  `<Dropzone
+  label="Upload prescription (PDF or image)"
+  accept=".pdf,.jpeg,.jpg,.png"
+  maxSize={10 * 1024 * 1024}
+  loading
+/>`,
+  { imports: [dropzoneImport] }
+);
+
+export const dropzoneSuccessSnippet = exampleSnippet(
+  `<Dropzone
+  label="Upload prescription"
+  file={file}
+  onFileChange={setFile}
+  accept=".pdf,.jpeg,.jpg,.png"
+  maxSize={10 * 1024 * 1024}
+/>`,
+  { imports: [dropzoneImport] }
 );
 
 export const dropzoneErrorSnippet = exampleSnippet(
@@ -62,7 +108,19 @@ export const dropzoneErrorSnippet = exampleSnippet(
   file={file}
   onFileChange={setFile}
   accept=".pdf,.jpeg,.jpg,.png"
+  maxSize={10 * 1024 * 1024}
   error="Use file in .pdf, .jpeg or .png"
+/>`,
+  { imports: [dropzoneImport] }
+);
+
+export const dropzoneConstraintsSnippet = exampleSnippet(
+  `<Dropzone
+  label="Upload front of card"
+  file={file}
+  onFileChange={setFile}
+  accept=".pdf,.jpeg,.jpg,.png"
+  maxSize={10 * 1024 * 1024}
 />`,
   { imports: [dropzoneImport] }
 );

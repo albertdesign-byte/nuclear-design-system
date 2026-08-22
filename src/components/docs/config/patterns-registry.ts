@@ -814,7 +814,7 @@ export const patternsRegistry: PatternRegistryEntry[] = [
     title: "Document upload",
     href: "/docs/patterns/document-upload",
     description:
-      "Attach a clinical document with a labeled dropzone and file-type validation.",
+      "Attach a clinical document with a labeled Dropzone: click to select or drag and drop.",
     aliases: ["file upload step", "dropzone step"],
     keywords: [
       "dropzone",
@@ -846,8 +846,8 @@ export const patternsRegistry: PatternRegistryEntry[] = [
     ],
     structure: [
       "Step intro (why the file is needed).",
-      "One or two Dropzones with a visible label.",
-      "Accept .pdf, .jpeg, .jpg, .png. Error copy: “Use file in .pdf, .jpeg or .png”.",
+      "One or two Dropzones with a visible label. Click to select or drag and drop — do not use a separate File Input.",
+      "Accept .pdf, .jpeg, .jpg, .png. Error copy: “Use file in .pdf, .jpeg or .png”. Pass maxSize when the product has a file size limit.",
       "Continue: required or skippable depending on the variation.",
     ],
     variations: [

@@ -84,7 +84,6 @@ export function InputPlayground() {
               <Input placeholder="Default" />
               <Input disabled placeholder="Disabled" />
               <Input aria-invalid placeholder="Invalid" />
-              <Input type="file" />
             </div>
           </section>
         </div>

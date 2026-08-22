@@ -13,7 +13,8 @@ const meta = {
     docs: {
       ...componentParameters.docs,
       description: {
-        component: "Compact status and metadata label for tables, headers, and cards.",
+        component:
+          "Compact status and count label for tables, headers, and cards. Use Chip for filters and dismissible selections.",
       },
     },
   },

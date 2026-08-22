@@ -25,6 +25,8 @@ const dateRangePickerApiRows = [
   { prop: "locale", type: "string", defaultValue: '"en-US"' },
   { prop: "size", type: '"sm" | "md" | "lg"', defaultValue: '"md"' },
   { prop: "disabled", type: "boolean", defaultValue: "false" },
+  { prop: "fromError", type: "string", defaultValue: "undefined" },
+  { prop: "toError", type: "string", defaultValue: "undefined" },
 ];
 
 export function DateRangePickerDocsPage() {
@@ -36,7 +38,7 @@ export function DateRangePickerDocsPage() {
   return (
     <DocsComponentPage
       title="Date Range Picker"
-      description="Input fields with calendar popover for selecting a start and end date."
+      description="Editable start and end date fields. Type MM/DD/YYYY or open the calendar to pick dates."
       tocItems={dateRangePickerTocItems}
       realScreen={{
         preview: <DateRangePickerRealScreenPreview />,
@@ -53,7 +55,7 @@ export function DateRangePickerDocsPage() {
           <DocsSection
             id="usage"
             title="Usage"
-            description="Use two linked inputs with calendar icons. Pick a start date first, then an end date."
+            description="Use two linked inputs. Type digits (07121992) or slashes (9/). The calendar opens on focus and does not block typing. Incomplete values are not errors."
           >
             <DocsPreview code={dateRangePickerUsageSnippet}>
               <DateRangePicker from={range.from} to={range.to} onRangeChange={setRange} />

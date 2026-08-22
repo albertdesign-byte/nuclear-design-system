@@ -19,7 +19,7 @@ const meta = {
       ...fullWidthParameters.docs,
       description: {
         component:
-          "Select a start and end date for scheduling, reporting, and clinical windows.",
+          "Start and end date fields with the same MM/DD/YYYY formatter. Type digits or slashes, or pick dates from the calendar.",
       },
     },
   },
@@ -50,8 +50,8 @@ function ControlledDateRangePicker(
   props: ComponentProps<typeof DateRangePicker>
 ) {
   const [range, setRange] = useState<DateRange>({
-    from: props.from ?? new Date(2026, 6, 20),
-    to: props.to ?? new Date(2026, 6, 24),
+    from: props.from !== undefined ? props.from : new Date(2026, 6, 20),
+    to: props.to !== undefined ? props.to : new Date(2026, 6, 24),
   });
 
   return (
@@ -69,7 +69,39 @@ export const Playground: Story = {
 };
 
 export const Default: Story = {
+  name: "Date range",
   render: () => <ControlledDateRangePicker from={null} to={null} />,
+};
+
+export const DirectTextEntry: Story = {
+  name: "Direct text entry",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Type digits such as 07121992 or a slash after a one-digit month (9/). Incomplete values are not errors.",
+      },
+    },
+  },
+  render: () => <ControlledDateRangePicker from={null} to={null} />,
+};
+
+export const DateValidation: Story = {
+  name: "Date validation",
+  parameters: {
+    docs: {
+      description: {
+        story: "Invalid complete dates show the Field Error state on the affected field.",
+      },
+    },
+  },
+  render: () => (
+    <DateRangePicker
+      from={null}
+      to={null}
+      fromError="Enter a valid date as MM/DD/YYYY."
+    />
+  ),
 };
 
 export const Sizes: Story = {

@@ -159,7 +159,7 @@ export function CardVariantsPreview() {
 
 export function CardContentFlexibilityPreview() {
   return (
-    <div className="grid w-full items-start gap-[var(--space-card-gap)] md:grid-cols-2">
+    <div className="flex w-full flex-col items-start gap-[var(--space-card-gap)]">
       <Card>
         <CardHeader>
           <CardTitle>
@@ -336,7 +336,7 @@ const healthcareCards = [
 
 export function HealthcareCardExamplesPreview() {
   return (
-    <div className="grid w-full items-start gap-[var(--space-card-gap)] sm:grid-cols-2">
+    <div className="flex w-full flex-col items-start gap-[var(--space-card-gap)]">
       {healthcareCards.map(
         ({ id, title, description, icon: Icon, content, badge }) => (
           <Card key={id} role="region" aria-labelledby={id}>

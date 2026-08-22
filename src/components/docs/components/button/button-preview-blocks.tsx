@@ -55,7 +55,7 @@ const textSizes: Array<{
 
 export function ButtonPaddingComparisonPreview() {
   return (
-    <div className="grid gap-[var(--space-stack-md)] lg:grid-cols-2">
+    <div className="flex flex-col gap-[var(--space-stack-md)]">
       <PaddingColumn title="Current" description="8 / 8 / 12 / 12 / 16px">
         {textSizes.map(({ size, current, currentClassName }) => (
           <PaddingRow key={size} label={`${size} · ${current}`}>
@@ -124,31 +124,42 @@ const dangerStateClassName = {
 
 export function DangerButtonStatesPreview() {
   return (
-    <div className="grid gap-[var(--space-stack-md)] sm:grid-cols-2 xl:grid-cols-6">
+    <div className="flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border-subtle)] bg-[var(--color-surface)]">
       {Object.entries(dangerStateClassName).map(([state, className]) => (
-        <StateCard key={state} label={state}>
+        <StateStripRow key={state} label={state}>
           <Button intent="danger" className={cn("pointer-events-none", className)}>
             Delete study
           </Button>
-        </StateCard>
+        </StateStripRow>
       ))}
-      <StateCard label="Disabled">
+      <StateStripRow label="Disabled">
         <Button intent="danger" disabled>
           Delete study
         </Button>
-      </StateCard>
-      <StateCard label="Loading">
+      </StateStripRow>
+      <StateStripRow label="Loading">
         <Button intent="danger" loading loadingLabel="Deleting study">
           Delete study
         </Button>
-      </StateCard>
+      </StateStripRow>
+    </div>
+  );
+}
+
+function StateStripRow({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className="flex items-center justify-between gap-[var(--space-inline-md)] border-t border-[var(--color-border-subtle)] px-[var(--space-inline-md)] py-[var(--space-stack-sm)] first:border-t-0">
+      <span className="shrink-0 text-[length:var(--text-caption-size)] font-medium uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
+        {label}
+      </span>
+      <div className="min-w-0 shrink-0">{children}</div>
     </div>
   );
 }
 
 export function ButtonIconPatternsPreview() {
   return (
-    <div className="flex flex-wrap items-center gap-[var(--space-inline-md)]">
+    <div className="flex flex-col items-start gap-[var(--space-stack-md)]">
       <Button>
         <SaveIcon data-icon="inline-start" />
         Save patient
@@ -191,7 +202,7 @@ function ButtonGroupExample({
   children: ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-[var(--space-stack-sm)] rounded-[var(--radius-card)] border border-[var(--color-border-subtle)] p-[var(--space-card)] sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-[var(--space-stack-sm)] rounded-[var(--radius-card)] border border-[var(--color-border-subtle)] p-[var(--space-card)]">
       <span className="text-[length:var(--text-body-small-size)] font-medium text-[var(--color-text-secondary)]">
         {label}
       </span>
@@ -210,9 +221,9 @@ export function ButtonStatesPreview() {
   const states = ["Default", "Hover", "Focus", "Active"] as const;
 
   return (
-    <div className="grid gap-[var(--space-stack-md)] sm:grid-cols-2 xl:grid-cols-6">
+    <div className="flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border-subtle)] bg-[var(--color-surface)]">
       {states.map((state) => (
-        <StateCard key={state} label={state}>
+        <StateStripRow key={state} label={state}>
           <Button
             className={cn(
               "pointer-events-none",
@@ -221,34 +232,23 @@ export function ButtonStatesPreview() {
           >
             Save patient
           </Button>
-        </StateCard>
+        </StateStripRow>
       ))}
-      <StateCard label="Disabled">
+      <StateStripRow label="Disabled">
         <Button disabled>Save patient</Button>
-      </StateCard>
-      <StateCard label="Loading">
+      </StateStripRow>
+      <StateStripRow label="Loading">
         <Button loading loadingLabel="Saving patient">
           Save patient
         </Button>
-      </StateCard>
-    </div>
-  );
-}
-
-function StateCard({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <div className="flex min-h-28 flex-col gap-[var(--space-stack-sm)] rounded-[var(--radius-card)] border border-[var(--color-border-subtle)] bg-[var(--color-surface)] p-[var(--space-inline-md)]">
-      <span className="text-[length:var(--text-caption-size)] font-medium uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
-        {label}
-      </span>
-      <div className="flex flex-1 items-center">{children}</div>
+      </StateStripRow>
     </div>
   );
 }
 
 export function HealthcareButtonExamplesPreview() {
   return (
-    <div className="flex flex-wrap items-center gap-[var(--space-inline-md)]">
+    <div className="flex flex-col items-start gap-[var(--space-stack-md)]">
       <Button>
         <SaveIcon data-icon="inline-start" />
         Save patient

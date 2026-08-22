@@ -7,7 +7,6 @@ import {
   inputEndIconSnippet,
   inputErrorMessageSnippet,
   inputErrorSnippet,
-  inputFileSnippet,
   inputFullWidthSnippet,
   inputHelperTextSnippet,
   inputInstallationUiSnippet,
@@ -164,7 +163,7 @@ export function InputDocsPage() {
                 </div>
               </DocsPreview>
               <DocsPreview code={inputSuffixSnippets}>
-                <div className="grid gap-[var(--space-stack-md)] sm:grid-cols-2">
+                <div className="flex flex-col gap-[var(--space-stack-md)]">
                   <InputSuffixKgPreview />
                   <InputSuffixCmPreview />
                   <InputSuffixLbsPreview />
@@ -181,7 +180,7 @@ export function InputDocsPage() {
 
           <DocsSection id="units-input" title="Units Input" description="Clinical vitals and coverage fields with consistent suffix placement.">
             <DocsPreview code={inputUnitsSnippet}>
-              <div className="grid gap-[var(--space-stack-md)] sm:grid-cols-2">
+              <div className="flex flex-col gap-[var(--space-stack-md)]">
                 <InputUnitWeightPreview />
                 <InputUnitHeightPreview />
                 <InputUnitAgePreview />
@@ -225,12 +224,6 @@ export function InputDocsPage() {
             </DocsPreview>
           </DocsSection>
 
-          <DocsSection id="file" title="File">
-            <DocsPreview code={inputFileSnippet}>
-              <InputField id="insurance-card" label="Insurance card" type="file" />
-            </DocsPreview>
-          </DocsSection>
-
           <DocsSection id="guidelines" title="Input Guidelines" description="When to use each text-entry pattern in Medmo healthcare and admin flows.">
             <div className="flex flex-col gap-[var(--space-stack-md)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
               <div>
@@ -270,6 +263,7 @@ export function InputDocsPage() {
                   <li>Do use suffix units consistently across vitals screens (kg vs lbs by locale).</li>
                   <li>Don&apos;t build custom bordered wrappers — use <DocsInlineCode>InputGroup</DocsInlineCode>.</li>
                   <li>Don&apos;t use Input for long clinical notes — use Textarea.</li>
+                  <li>Don&apos;t use Input for file upload — use <DocsInlineCode>Dropzone</DocsInlineCode> for click-to-select and drag and drop.</li>
                 </ul>
               </div>
             </div>

@@ -1,10 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowRightIcon } from "lucide-react";
 import { useState } from "react";
 
-import { Button } from "@/components/button";
+import { TextLink } from "@/components/text-link";
 
 import {
   DataTable,
@@ -301,10 +299,7 @@ export function DataTableDocsPage() {
             title="Full Example"
             description="See Data Table composed inside dashboard panels on the full dashboard screen."
           >
-            <Button render={<Link href="/examples/dashboard" />}>
-              Open dashboard example
-              <ArrowRightIcon />
-            </Button>
+            <TextLink href="/examples/dashboard">Open dashboard example</TextLink>
           </DocsSection>
 
           <DocsSection id="api-reference" title="API Reference">

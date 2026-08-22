@@ -28,7 +28,7 @@ export function LabelDocsPage() {
   return (
     <DocsComponentPage
       title="Label"
-      description="Support component for form field labels. Prefer the Form Field Patterns guide for official usage examples."
+      description="Supported primitive for visible field labels. Prefer a Field composite when one exists; use Label with controls that currently have no Field wrapper."
       tocItems={labelTocItems}
       realScreen={{
         preview: <LabelRealScreenPreview />,
@@ -63,6 +63,39 @@ export function LabelDocsPage() {
                 <Input id="patient-name" placeholder="Enter full legal name" />
               </div>
             </DocsPreview>
+          </DocsSection>
+
+          <DocsSection
+            id="guidelines"
+            title="Guidelines"
+            description="Label sigue siendo un primitive soportado para controles que actualmente no tienen un Field composite correspondiente. Los componentes Field siguen siendo la API preferida siempre que exista uno."
+          >
+            <ul className="list-disc space-y-[var(--space-stack-xs)] pl-[var(--space-inline-md)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
+              <li>
+                Prefer Field composites whenever a corresponding Field exists:{" "}
+                <DocsInlineCode>InputField</DocsInlineCode>,{" "}
+                <DocsInlineCode>SelectField</DocsInlineCode>,{" "}
+                <DocsInlineCode>SearchableSelectField</DocsInlineCode>,{" "}
+                <DocsInlineCode>MultiSelectField</DocsInlineCode>, and similar
+                wrappers. See the{" "}
+                <DocsInlineCode>Form Field Patterns</DocsInlineCode> guide for
+                those recipes.
+              </li>
+              <li>
+                Keep using <DocsInlineCode>Label</DocsInlineCode> with controls
+                that have no Field composite today:{" "}
+                <DocsInlineCode>DatePicker</DocsInlineCode>,{" "}
+                <DocsInlineCode>Textarea</DocsInlineCode>,{" "}
+                <DocsInlineCode>Switch</DocsInlineCode>,{" "}
+                <DocsInlineCode>DayToggleGroup</DocsInlineCode>, and other
+                legitimate product or userflow Label + control compositions.
+              </li>
+              <li>
+                Using <DocsInlineCode>Label</DocsInlineCode> outside a Field is
+                not an architectural problem and is not an open gap. Label stays
+                public in code and exports.
+              </li>
+            </ul>
           </DocsSection>
 
           <DocsSection
