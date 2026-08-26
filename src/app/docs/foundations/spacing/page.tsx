@@ -43,7 +43,7 @@ export default function SpacingFoundationRoute() {
   return (
     <DocsFoundationPage>
       <DocsSection id="grid-rhythm" title="4px grid and 8px rhythm">
-          <div className="grid gap-[var(--space-grid-gap)] md:grid-cols-2">
+          <div className="grid gap-[var(--space-card-gap)] md:grid-cols-2">
             <article className="rounded-[var(--radius-lg)] border border-[var(--color-border-subtle)] bg-[var(--color-surface)] p-[var(--space-dialog)]">
               <div className="flex items-end gap-1">
                 {[1, 2, 3, 4, 5, 6, 7, 8].map((unit) => (
@@ -178,7 +178,7 @@ export default function SpacingFoundationRoute() {
       </DocsSection>
 
       <DocsSection id="examples" title="Examples">
-          <div className="grid gap-[var(--space-grid-gap)] md:grid-cols-3">
+          <div className="grid gap-[var(--space-card-gap)] md:grid-cols-3">
             {[
               {
                 name: "Inline actions",

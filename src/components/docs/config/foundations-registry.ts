@@ -49,10 +49,16 @@ export const foundationsRegistry: FoundationRegistryEntry[] = [
     ],
     sections: [
       {
-        id: "primary-palette",
-        title: "Primary palette",
-        aliases: ["brand palette"],
-        keywords: ["primary scale", "hex", "swatches"],
+        id: "primary",
+        title: "Primary",
+        aliases: ["brand palette", "primary palette", "primary 800"],
+        keywords: ["primary scale", "hex", "swatch", "anchor"],
+      },
+      {
+        id: "tones",
+        title: "Tones",
+        aliases: ["primary tones", "brand tones"],
+        keywords: ["shades", "hex", "swatches", "primary scale"],
       },
       {
         id: "semantic-colors",
@@ -78,14 +84,11 @@ export const foundationsRegistry: FoundationRegistryEntry[] = [
     title: "Typography",
     href: "/docs/foundations/typography",
     description:
-      "Typography strategy for documentation versus product UI, the complete semantic type scale, weights, line heights, and usage guidance.",
+      "Poppins is the official Medmo typeface. Semantic type scale, weights, line heights, and usage guidance.",
     aliases: ["type", "type scale", "font"],
     keywords: [
-      "IBM Plex Sans Condensed",
       "Poppins",
-      "typography strategy",
-      "documentation typeface",
-      "product typeface",
+      "typeface",
       "font size",
       "font weight",
       "line height",
@@ -96,20 +99,14 @@ export const foundationsRegistry: FoundationRegistryEntry[] = [
       {
         id: "typography-strategy",
         title: "Typography Strategy",
-        aliases: ["dual typeface", "font strategy"],
-        keywords: [
-          "IBM Plex Sans Condensed",
-          "Poppins",
-          "documentation",
-          "product UI",
-          "components",
-        ],
+        aliases: ["font strategy", "official typeface"],
+        keywords: ["Poppins", "product UI", "components"],
       },
       {
         id: "typeface",
-        title: "IBM Plex Sans Condensed",
-        aliases: ["font family", "typeface", "documentation typeface"],
-        keywords: ["regular", "medium", "semibold", "docs chrome"],
+        title: "Poppins",
+        aliases: ["font family", "typeface"],
+        keywords: ["regular", "medium", "semibold", "bold"],
       },
       {
         id: "type-scale",

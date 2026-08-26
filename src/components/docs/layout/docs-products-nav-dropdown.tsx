@@ -12,6 +12,7 @@ import {
 } from "@/components/popover";
 import { cn } from "@/lib/utils";
 
+import { docsChromeFontClassName } from "./docs-nav-styles";
 import {
   docsProductNavEntries,
   type DocsProductNavEntry,
@@ -62,7 +63,10 @@ export function DocsProductsNavDropdown({
       <PopoverContent
         align="start"
         sideOffset={8}
-        className="w-[22rem] gap-0 p-[var(--space-inline-xs)]"
+        className={cn(
+          "w-[22rem] gap-0 p-[var(--space-inline-xs)]",
+          docsChromeFontClassName
+        )}
       >
         <div className="flex flex-col gap-[var(--space-stack-xs)]">
           {docsProductNavEntries.map((product) => {
@@ -91,7 +95,12 @@ export function DocsProductsNavDropdown({
                 >
                   <Icon aria-hidden className="size-[1rem]" />
                 </span>
-                <span className="flex min-w-0 flex-col gap-[var(--space-stack-xs)] pt-[0.125rem]">
+                <span
+                  className={cn(
+                    "flex min-w-0 flex-col gap-[var(--space-stack-xs)] pt-[0.125rem]",
+                    docsChromeFontClassName
+                  )}
+                >
                   <span className="text-[length:var(--text-label-size)] font-medium leading-[var(--text-label-line-height)] text-foreground">
                     {product.title}
                   </span>

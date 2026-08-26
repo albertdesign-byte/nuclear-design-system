@@ -29,7 +29,7 @@ export default function ShadowsFoundationRoute() {
         title="Shadow scale"
         description="XS through XL support progressively detached surfaces. None remains the default for most static UI."
       >
-          <div className="grid gap-[var(--space-grid-gap)] sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-[var(--space-card-gap)] sm:grid-cols-2 lg:grid-cols-3">
             {shadows.map((shadow) => (
               <article
                 key={shadow.role}

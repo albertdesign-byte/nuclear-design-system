@@ -7,6 +7,8 @@ import { semanticTypography } from "@medmo/tokens/tooling";
 import { getFoundationEntry } from "@/components/docs/config/foundations-registry";
 import { DocsFoundationPage } from "@/components/docs/foundations/docs-foundation-page";
 import { DocsSection } from "@/components/docs/primitives/docs-section";
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
+import { cn } from "@/lib/utils";
 
 const foundation = getFoundationEntry("/docs/foundations/typography")!;
 export const metadata: Metadata = {
@@ -40,7 +42,7 @@ export default function TypographyFoundationRoute() {
       <DocsSection
         id="typography-strategy"
         title="Typography Strategy"
-        description="Nuclear uses two typefaces on purpose. They are not interchangeable, and the split is not a mismatch to resolve."
+        description="Poppins is the official Medmo typeface. Components, product screens, and application UI all use it."
       >
         <div className="overflow-x-auto rounded-[var(--radius-lg)] border border-[var(--color-border-subtle)]">
           <table className="w-full min-w-[40rem] border-collapse text-left text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)]">
@@ -54,30 +56,15 @@ export default function TypographyFoundationRoute() {
             </thead>
             <tbody>
               <tr className="border-t border-[var(--color-border-subtle)] align-top">
-                <td className="p-[var(--space-table)] font-medium">
-                  IBM Plex Sans Condensed
-                </td>
-                <td className="p-[var(--space-table)]">
-                  Design System documentation experience
-                </td>
-                <td className="p-[var(--space-table)]">
-                  Navigation, sidebar, documentation content, guidelines,
-                  educational material, and Design System chrome
-                </td>
-                <td className="p-[var(--space-table)]">
-                  Components, product interfaces, real screens, and application UI
-                </td>
-              </tr>
-              <tr className="border-t border-[var(--color-border-subtle)] align-top">
                 <td className="p-[var(--space-table)] font-medium">Poppins</td>
                 <td className="p-[var(--space-table)]">
-                  Canonical product typeface
+                  Official Medmo typeface
                 </td>
                 <td className="p-[var(--space-table)]">
                   Components, product interfaces, real screens, and application UI
                 </td>
                 <td className="p-[var(--space-table)]">
-                  Design System documentation chrome, sidebar, and educational prose
+                  Do not replace it with a second product family or a platform default
                 </td>
               </tr>
             </tbody>
@@ -86,58 +73,45 @@ export default function TypographyFoundationRoute() {
 
         <div className="mt-[var(--space-stack-md)] max-w-[44rem] space-y-[var(--space-stack-sm)] text-[length:var(--text-body-size)] leading-[var(--text-body-line-height)] text-[var(--color-text-secondary)]">
           <p>
-            Documentation needs a condensed, information-dense reading face for
-            long guidelines and navigation. Product UI needs a canonical
-            application face that every component, real screen, and shipped
-            interface shares. Those jobs are different, so the families stay
-            separate.
-          </p>
-          <p>
             Semantic type roles consumed by components resolve to Poppins.
-            Specimens in the type scale below show product roles in Poppins.
-            IBM Plex Sans Condensed remains the face of this documentation site
-            — including the page you are reading.
+            Specimens in the type scale below show those roles in Poppins.
           </p>
         </div>
 
         <ul className="mt-[var(--space-stack-md)] list-disc space-y-[var(--space-stack-xs)] pl-[var(--space-inline-md)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
           <li>
-            Do not specify IBM Plex Sans Condensed on components, product
-            screens, or application UI.
+            Use Poppins through semantic type roles, not ad-hoc font-family
+            declarations on product UI.
           </li>
+          <li>Do not introduce a second official product typeface.</li>
           <li>
-            Do not replace documentation chrome, sidebar, or educational copy
-            with Poppins.
-          </li>
-          <li>
-            Do not mix both families inside a single component or a single
-            product screen.
-          </li>
-          <li>
-            Treat a screen that shows both as a documentation preview of a
-            component (Poppins) sitting in docs chrome (IBM Plex) — not as a
-            product pattern to copy.
+            Build hierarchy with size, weight, and space — not by swapping
+            families.
           </li>
         </ul>
       </DocsSection>
 
-      <DocsSection id="typeface" title="IBM Plex Sans Condensed">
-          <div className="rounded-[var(--radius-lg)] border border-[var(--color-border-subtle)] bg-[var(--color-surface)] p-[var(--space-dialog)]">
+      <DocsSection id="typeface" title="Poppins">
+          <div
+            className={cn(
+              componentFontFamilyClassName,
+              "rounded-[var(--radius-lg)] border border-[var(--color-border-subtle)] bg-[var(--color-surface)] p-[var(--space-dialog)]"
+            )}
+          >
             <p className="text-[length:var(--text-h1-size)] font-semibold leading-[var(--text-h1-line-height)]">
               Clear clinical communication
             </p>
             <p className="mt-[var(--space-stack-sm)] max-w-[44rem] text-[length:var(--text-body-size)] leading-[var(--text-body-line-height)] text-muted-foreground">
-              IBM Plex Sans Condensed is the Design System documentation
-              typeface. Its condensed proportions support dense navigation,
-              guidelines, and educational material without reducing the
-              functional text-size baseline. It is not the product UI family —
-              that is Poppins.
+              Poppins is the official Medmo typeface. Every component, product
+              screen, and application interface uses it through semantic type
+              roles.
             </p>
-            <div className="mt-[var(--space-stack-md)] grid gap-[var(--space-grid-gap)] sm:grid-cols-3">
+            <div className="mt-[var(--space-stack-md)] grid gap-[var(--space-card-gap)] sm:grid-cols-2 lg:grid-cols-4">
               {[
                 ["Regular", "400"],
                 ["Medium", "500"],
                 ["Semibold", "600"],
+                ["Bold", "700"],
               ].map(([name, weight]) => (
                 <div
                   key={weight}
@@ -161,7 +135,7 @@ export default function TypographyFoundationRoute() {
       <DocsSection
         id="type-scale"
         title="Complete type scale"
-        description="Semantic roles consumed by components. These specimens render in Poppins, the canonical product typeface."
+        description="Semantic roles consumed by components. These specimens render in Poppins."
       >
           <div className="space-y-[var(--space-stack-sm)]">
             {roles.map(({ role, resolved }) => {

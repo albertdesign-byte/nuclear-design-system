@@ -4,12 +4,14 @@ import { useState, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/tabs";
-import { TextLink } from "@/components/text-link";
+import { cn } from "@/lib/utils";
 import {
   getComponentEntry,
   getComponentNeighbors,
 } from "@/components/docs/config/components-registry";
 import { DocsPageHeader } from "@/components/docs/layout/docs-page-header";
+import { DocsPager } from "@/components/docs/layout/docs-pager";
+import { docsChromeFontClassName } from "@/components/docs/layout/docs-nav-styles";
 import type { CodeLine } from "@/components/docs/primitives/docs-preview";
 import { DocsPreview } from "@/components/docs/primitives/docs-preview";
 import {
@@ -62,9 +64,19 @@ export function DocsComponentPage({
             value={previewTab}
             onValueChange={(value) => setPreviewTab(value as DocsPreviewMode)}
           >
-            <TabsList variant="line" className="h-auto w-full justify-start bg-transparent">
+            <TabsList
+              variant="line"
+              className={cn(
+                "h-auto w-full justify-start bg-transparent",
+                docsChromeFontClassName
+              )}
+            >
               {docsPreviewModeTabs.map((item) => (
-                <TabsTrigger key={item.value} value={item.value}>
+                <TabsTrigger
+                  key={item.value}
+                  value={item.value}
+                  className={docsChromeFontClassName}
+                >
                   {item.label}
                 </TabsTrigger>
               ))}
@@ -87,22 +99,11 @@ export function DocsComponentPage({
             )}
           </DocsPreviewModeProvider>
 
-          <nav
-            aria-label="Components pagination"
-            className="mt-[var(--space-section)] flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-lg)]"
-          >
-            {previous ? (
-              <TextLink href={previous.href}>Previous: {previous.title}</TextLink>
-            ) : (
-              <span aria-hidden />
-            )}
-
-            {next ? (
-              <TextLink href={next.href}>Next: {next.title}</TextLink>
-            ) : (
-              <span aria-hidden />
-            )}
-          </nav>
+          <DocsPager
+            label="Components pagination"
+            previous={previous}
+            next={next}
+          />
         </div>
       </main>
     </div>

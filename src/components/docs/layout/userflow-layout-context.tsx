@@ -11,7 +11,7 @@ import {
 } from "react";
 
 type UserflowLayoutContextValue = {
-  /** Sidebar visible — "Contraer" layout (default). */
+  /** Sidebar visible — collapsed canvas layout (default). */
   sidebarVisible: boolean;
   setSidebarVisible: (visible: boolean) => void;
   toggleSidebarVisible: () => void;

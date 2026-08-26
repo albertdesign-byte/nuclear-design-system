@@ -36,7 +36,7 @@ export function DatePickerDocsPage() {
   return (
     <DocsComponentPage
       title="Date Picker"
-      description="Campo de fecha única. Escribe MM/DD/YYYY o abre el calendario. DateRangePicker cubre rangos."
+      description="Single-date field. Type MM/DD/YYYY or open the calendar. DateRangePicker covers ranges."
       tocItems={datePickerTocItems}
       realScreen={{
         preview: <DatePickerRealScreenPreview />,
@@ -53,7 +53,7 @@ export function DatePickerDocsPage() {
           <DocsSection
             id="usage"
             title="Usage"
-            description="Al hacer clic o enfocar el campo se abre el calendario. El usuario puede escribir, navegar meses y años, o elegir un día. Los valores incompletos no son error."
+            description="Clicking or focusing the field opens the calendar. The user can type, browse months and years, or pick a day. Incomplete values are not treated as errors."
           >
             <DocsPreview code={datePickerUsageSnippet}>
               <div className="flex w-full max-w-xs flex-col gap-[var(--space-stack-xs)]">
@@ -71,7 +71,7 @@ export function DatePickerDocsPage() {
           <DocsSection
             id="controlled"
             title="Controlled"
-            description="Controla la fecha desde el componente padre."
+            description="Control the date from the parent component."
           >
             <DocsPreview code={datePickerControlledSnippet}>
               <DatePicker value={date} onChange={setDate} />
@@ -81,33 +81,33 @@ export function DatePickerDocsPage() {
           <DocsSection
             id="guidelines"
             title="Guidelines"
-            description="DatePicker es el control de fecha única. DateRangePicker es la misma familia para un rango."
+            description="DatePicker is the single-date control. DateRangePicker is the same family for a range."
           >
             <ul className="list-disc space-y-[var(--space-stack-xs)] pl-[var(--space-inline-md)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
               <li>
-                Formato <DocsInlineCode>MM/DD/YYYY</DocsInlineCode>. La máscara
-                formatea al escribir: <DocsInlineCode>9/</DocsInlineCode> pasa a{" "}
+                Format <DocsInlineCode>MM/DD/YYYY</DocsInlineCode>. The mask
+                formats as you type: <DocsInlineCode>9/</DocsInlineCode> becomes{" "}
                 <DocsInlineCode>09/</DocsInlineCode>;{" "}
-                <DocsInlineCode>09</DocsInlineCode> se respeta; las barras
-                aparecen al completar mes o día.
+                <DocsInlineCode>09</DocsInlineCode> is kept; slashes appear when
+                month or day is complete.
               </li>
               <li>
-                Calendario y teclado coexisten.{" "}
+                Calendar and keyboard coexist.{" "}
                 <DocsInlineCode>inputMode=&quot;numeric&quot;</DocsInlineCode>{" "}
-                cubre teclado físico y de teléfono.
+                covers physical and phone keyboards.
               </li>
               <li>
-                Date of birth y Mammogram date usan este DatePicker, no un{" "}
-                <DocsInlineCode>Input</DocsInlineCode> suelto.
+                Date of birth and Mammogram date use this DatePicker, not a
+                standalone <DocsInlineCode>Input</DocsInlineCode>.
               </li>
               <li>
-                Para un intervalo, usa{" "}
-                <DocsInlineCode>DateRangePicker</DocsInlineCode>. No hay un
-                segundo DatePicker.
+                For a range, use{" "}
+                <DocsInlineCode>DateRangePicker</DocsInlineCode>. Do not use a
+                second DatePicker.
               </li>
               <li>
-                No existe <DocsInlineCode>DatePickerField</DocsInlineCode>.
-                Compón <DocsInlineCode>Label</DocsInlineCode> +{" "}
+                There is no <DocsInlineCode>DatePickerField</DocsInlineCode>.
+                Compose <DocsInlineCode>Label</DocsInlineCode> +{" "}
                 <DocsInlineCode>DatePicker</DocsInlineCode>.
               </li>
             </ul>

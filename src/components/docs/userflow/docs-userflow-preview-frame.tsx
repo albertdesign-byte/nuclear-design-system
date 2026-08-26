@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 import type { PatientsPreviewDevice } from "@/components/docs/layout/patients-device-context";
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
 import { cn } from "@/lib/utils";
 
 type DocsUserflowPreviewFrameProps = {
@@ -45,6 +46,7 @@ export function DocsUserflowPreviewFrame({
       <div
         data-device={device}
         className={cn(
+          componentFontFamilyClassName,
           "w-full transition-[max-width,transform,opacity] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
           device === "mobile" ? "max-w-[24rem]" : "max-w-[min(100%,90rem)]",
           isTransitioning

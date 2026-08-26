@@ -90,11 +90,11 @@ export function ButtonDocsPage() {
             description={
               <>
                 Import Button from{" "}
-                <DocsInlineCode>@/components/button</DocsInlineCode>. Se
-                utiliza para acciones y renderiza un{" "}
-                <DocsInlineCode>{"<button>"}</DocsInlineCode>. No se utiliza
-                como Link ni para navegación. Para selección persistente, usa un
-                control de toggle.
+                <DocsInlineCode>@/components/button</DocsInlineCode>. Use it
+                for actions; it renders a{" "}
+                <DocsInlineCode>{"<button>"}</DocsInlineCode>. Do not use it as
+                a Link or for navigation. For persistent selection, use a toggle
+                control.
               </>
             }
           >
@@ -248,10 +248,10 @@ export function ButtonDocsPage() {
                 <li>Correct: Delete study after explicit confirmation.</li>
                 <li>Incorrect: red styling for Cancel or validation errors.</li>
               </ButtonGuidelineCard>
-              <ButtonGuidelineCard title="Acción, no navegación">
-                <li>Button se utiliza para acciones y renderiza un <DocsInlineCode>{"<button>"}</DocsInlineCode>.</li>
-                <li>No se utiliza como Link y no debe utilizarse para navegación.</li>
-                <li>No existe un patrón “Button as Link” en este Design System.</li>
+              <ButtonGuidelineCard title="Action, not navigation">
+                <li>Button is used for actions and renders a <DocsInlineCode>{"<button>"}</DocsInlineCode>.</li>
+                <li>Do not use it as a Link, and do not use it for navigation.</li>
+                <li>There is no “Button as Link” pattern in this Design System.</li>
               </ButtonGuidelineCard>
             </div>
           </DocsSection>

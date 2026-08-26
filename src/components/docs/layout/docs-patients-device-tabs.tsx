@@ -2,6 +2,8 @@
 
 import { cn } from "@/lib/utils";
 
+import { docsChromeFontClassName } from "./docs-nav-styles";
+
 import {
   type PatientsPreviewDevice,
   usePatientsDeviceOptional,
@@ -43,6 +45,7 @@ export function DocsPatientsDeviceTabs({ className }: { className?: string }) {
             className={cn(
               "inline-flex h-[calc(var(--spacing-32)-0.25rem)] min-w-[5.5rem] items-center justify-center rounded-[var(--radius-md)] px-[0.75rem]",
               "text-[length:var(--text-label-size)] font-medium leading-[var(--text-label-line-height)] transition-[var(--motion-hover)]",
+              docsChromeFontClassName,
               isActive
                 ? "bg-[var(--docs-nav-active-bg)] text-foreground shadow-sm"
                 : "text-muted-foreground hover:text-foreground"

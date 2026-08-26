@@ -20,7 +20,7 @@ export default function TemplatesOverviewRoute() {
 
   return (
     <DocsTemplatePage>
-      <div className="grid gap-[var(--space-grid-gap)] sm:grid-cols-2">
+      <div className="grid gap-[var(--space-card-gap)] sm:grid-cols-2">
         {catalog.map((entry) =>
           entry.comingSoon || entry.href === "#" ? (
             <div

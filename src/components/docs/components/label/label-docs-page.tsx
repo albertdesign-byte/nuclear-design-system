@@ -68,7 +68,7 @@ export function LabelDocsPage() {
           <DocsSection
             id="guidelines"
             title="Guidelines"
-            description="Label sigue siendo un primitive soportado para controles que actualmente no tienen un Field composite correspondiente. Los componentes Field siguen siendo la API preferida siempre que exista uno."
+            description="Label remains a supported primitive for controls that do not yet have a corresponding Field composite. Field components remain the preferred API whenever one exists."
           >
             <ul className="list-disc space-y-[var(--space-stack-xs)] pl-[var(--space-inline-md)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
               <li>

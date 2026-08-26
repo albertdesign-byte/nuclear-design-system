@@ -33,7 +33,7 @@ export function TextLinkDocsPage() {
   return (
     <DocsComponentPage
       title="Text Link"
-      description="Enlace de texto para navegación. Renderiza un <a> (next/link cuando corresponda). No es un Button ni una variante de Button."
+      description="Text link for navigation. Renders an <a> (or next/link when appropriate). It is not a Button or a Button variant."
       tocItems={textLinkTocItems}
       realScreen={{
         preview: <TextLinkRealScreenPreview />,
@@ -53,9 +53,9 @@ export function TextLinkDocsPage() {
             description={
               <>
                 Import from <DocsInlineCode>@/components/text-link</DocsInlineCode>.
-                Se utiliza para navegación textual, renderiza un{" "}
-                <DocsInlineCode>{"<a>"}</DocsInlineCode> y usa los estilos de
-                enlace del Design System. No es un Button.
+                Use it for text navigation; it renders an{" "}
+                <DocsInlineCode>{"<a>"}</DocsInlineCode> and uses Design System
+                link styles. It is not a Button.
               </>
             }
           >

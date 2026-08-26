@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function FoundationsOverviewRoute() {
   return (
     <DocsFoundationPage>
-      <div className="grid gap-[var(--space-grid-gap)] sm:grid-cols-2">
+      <div className="grid gap-[var(--space-card-gap)] sm:grid-cols-2">
         {foundationsRegistry.slice(1).map((entry) => (
           <Link
             key={entry.href}

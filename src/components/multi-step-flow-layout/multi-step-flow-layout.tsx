@@ -2,10 +2,13 @@ import type { ReactNode } from "react";
 
 import { GlobeIcon } from "lucide-react";
 
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
 import { cn } from "@/lib/utils";
 
-export const multiStepFlowLayoutClassName =
-  "flex min-h-full w-full flex-col bg-[var(--color-surface-muted)]";
+export const multiStepFlowLayoutClassName = [
+  componentFontFamilyClassName,
+  "flex min-h-full w-full flex-col bg-[var(--color-surface-muted)]",
+].join(" ");
 
 export const multiStepFlowLayoutHeaderClassName = [
   "flex items-center justify-between",

@@ -37,7 +37,7 @@ export default function RadiusFoundationRoute() {
         title="Radius scale"
         description={`${base.token} (${base.px}px) is the system default. Context tokens are preferred in components.`}
       >
-        <div className="grid gap-[var(--space-grid-gap)] sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-[var(--space-card-gap)] sm:grid-cols-2 lg:grid-cols-3">
           {scale.map((token) => (
             <article
               key={token.role}
