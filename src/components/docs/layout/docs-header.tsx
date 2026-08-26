@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { DocsProductsNavDropdown } from "./docs-products-nav-dropdown";
 import { DocsPatientsDeviceTabs } from "./docs-patients-device-tabs";
 import { DocsSearch } from "./docs-search";
+import { docsNavLinkClassName } from "./docs-nav-styles";
 import {
   getUserflowPatientsScreenSlug,
   userflowSlugSupportsDevicePreview,
@@ -51,10 +52,7 @@ export function DocsHeader({
   const navLinkClassName = (active: boolean) =>
     cn(
       "inline-flex h-[var(--spacing-32)] items-center rounded-[var(--radius-button)] px-[0.625rem]",
-      "text-[length:var(--text-label-size)] font-medium leading-[var(--text-label-line-height)]",
-      active
-        ? "bg-[var(--docs-nav-active-bg)] text-foreground"
-        : "text-foreground hover:bg-[var(--color-surface-hover)]"
+      docsNavLinkClassName(active)
     );
 
   return (
@@ -120,8 +118,8 @@ export function DocsHeader({
                 type="button"
                 variant="ghost"
                 size="icon-md"
-                aria-label={sidebarVisible ? "Expandir" : "Contraer"}
-                title={sidebarVisible ? "Expandir" : "Contraer"}
+                aria-label={sidebarVisible ? "Expand" : "Collapse"}
+                title={sidebarVisible ? "Expand" : "Collapse"}
                 onClick={toggleSidebarVisible}
               >
                 {sidebarVisible ? (

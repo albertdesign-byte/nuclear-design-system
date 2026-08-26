@@ -3,11 +3,12 @@
 import { Card, CardContent } from "@/components/card";
 import { Separator } from "@/components/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/tabs";
+import { docsChromeFontClassName } from "@/components/docs/layout/docs-nav-styles";
 import { cn } from "@/lib/utils";
 
 import type { ComponentCodeExample } from "./component-code-example";
-import { DocsCodeBlock } from "./docs-code-block";
-import type { CodeLine } from "./docs-code-types";
+import { DocsCodeBlock, DocsCopyableCode } from "./docs-code-block";
+import { codeLinesToText, type CodeLine } from "./docs-code-types";
 import { useDocsPreviewMode } from "./docs-preview-mode-context";
 
 const htmlCssTodoMessage: CodeLine[] = [
@@ -33,6 +34,10 @@ export function ComponentCodeTabs({
   const previewMode = useDocsPreviewMode();
   const showCodeTabs = previewMode === "ui-design";
   const hasHtmlCss = Boolean(code.html?.length && code.css?.length);
+  const reactSource = codeLinesToText(code.react);
+  const htmlCssSource = hasHtmlCss
+    ? `${codeLinesToText(code.html!)}\n\n${codeLinesToText(code.css!)}`
+    : codeLinesToText(htmlCssTodoMessage);
 
   return (
     <Card
@@ -51,42 +56,61 @@ export function ComponentCodeTabs({
         {showCodeTabs ? (
           <Tabs defaultValue="react">
             <div className="border-b border-[var(--docs-chrome-border)] px-[var(--space-inline-md)]">
-              <TabsList variant="line" className="h-9 w-full justify-start bg-transparent">
-                <TabsTrigger value="react">React (TSX)</TabsTrigger>
-                <TabsTrigger value="html-css">HTML + CSS</TabsTrigger>
+              <TabsList
+                variant="line"
+                className={cn(
+                  "h-9 w-full justify-start bg-transparent",
+                  docsChromeFontClassName
+                )}
+              >
+                <TabsTrigger value="react" className={docsChromeFontClassName}>
+                  React (TSX)
+                </TabsTrigger>
+                <TabsTrigger
+                  value="html-css"
+                  className={docsChromeFontClassName}
+                >
+                  HTML + CSS
+                </TabsTrigger>
               </TabsList>
             </div>
 
             <TabsContent value="react" className="mt-0">
-              <DocsCodeBlock lines={code.react} />
+              <DocsCopyableCode text={reactSource}>
+                <DocsCodeBlock lines={code.react} />
+              </DocsCopyableCode>
             </TabsContent>
 
             <TabsContent value="html-css" className="mt-0">
-              {hasHtmlCss ? (
-                <div className="flex flex-col">
-                  <div className="border-b border-[var(--docs-chrome-border)] px-[var(--space-inline-md)] py-[var(--space-inline-xs)]">
-                    <span className="text-[length:var(--text-caption-size)] font-medium uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
-                      HTML
-                    </span>
-                  </div>
-                  <DocsCodeBlock lines={code.html!} />
+              <DocsCopyableCode text={htmlCssSource}>
+                {hasHtmlCss ? (
+                  <div className="flex flex-col">
+                    <div className="border-b border-[var(--docs-chrome-border)] px-[var(--space-inline-md)] py-[var(--space-inline-xs)]">
+                      <span className="text-[length:var(--text-caption-size)] font-medium uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
+                        HTML
+                      </span>
+                    </div>
+                    <DocsCodeBlock lines={code.html!} />
 
-                  <Separator />
+                    <Separator />
 
-                  <div className="border-b border-[var(--docs-chrome-border)] px-[var(--space-inline-md)] py-[var(--space-inline-xs)]">
-                    <span className="text-[length:var(--text-caption-size)] font-medium uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
-                      CSS
-                    </span>
+                    <div className="border-b border-[var(--docs-chrome-border)] px-[var(--space-inline-md)] py-[var(--space-inline-xs)]">
+                      <span className="text-[length:var(--text-caption-size)] font-medium uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
+                        CSS
+                      </span>
+                    </div>
+                    <DocsCodeBlock lines={code.css!} />
                   </div>
-                  <DocsCodeBlock lines={code.css!} />
-                </div>
-              ) : (
-                <DocsCodeBlock lines={htmlCssTodoMessage} />
-              )}
+                ) : (
+                  <DocsCodeBlock lines={htmlCssTodoMessage} />
+                )}
+              </DocsCopyableCode>
             </TabsContent>
           </Tabs>
         ) : (
-          <DocsCodeBlock lines={code.react} />
+          <DocsCopyableCode text={reactSource}>
+            <DocsCodeBlock lines={code.react} />
+          </DocsCopyableCode>
         )}
       </div>
     </Card>

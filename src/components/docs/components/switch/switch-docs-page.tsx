@@ -147,7 +147,7 @@ export function SwitchDocsPage() {
           <DocsSection
             id="with-label"
             title="With Label"
-            description="En filas de settings, el Label queda a la izquierda y el Switch a la derecha, unidos con htmlFor e id."
+            description="In settings rows, the Label sits on the left and the Switch on the right, connected with htmlFor and id."
           >
             <DocsPreview code={switchWithLabelSnippet}>
               <div className="flex max-w-md items-center justify-between gap-[var(--space-inline-md)]">
@@ -160,62 +160,62 @@ export function SwitchDocsPage() {
           <DocsSection
             id="guidelines"
             title="Guidelines"
-            description="No existe SwitchField. Switch se compone con Label. Preferir Field solo cuando exista un Field correspondiente para ese control."
+            description="There is no SwitchField. Compose Switch with Label. Prefer Field only when a corresponding Field exists for that control."
           >
             <div className="flex flex-col gap-[var(--space-stack-md)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
               <div>
                 <h4 className="font-medium text-[var(--color-text-primary)]">
-                  Cuándo usar Label con Switch
+                  When to use Label with Switch
                 </h4>
                 <ul className="mt-[var(--space-stack-xs)] list-disc space-y-[var(--space-stack-xs)] pl-[var(--space-inline-md)]">
                   <li>
-                    Usa <DocsInlineCode>Label</DocsInlineCode> visible siempre
-                    que el Switch represente un ajuste con nombre (notificaciones,
-                    recordatorios, preferencias).
+                    Use a visible <DocsInlineCode>Label</DocsInlineCode> whenever
+                    the Switch represents a named setting (notifications,
+                    reminders, preferences).
                   </li>
                   <li>
-                    Un Switch sin texto visible necesita{" "}
-                    <DocsInlineCode>aria-label</DocsInlineCode>. No combines
-                    aria-label con un Label visible que diga lo mismo.
+                    A Switch without visible text needs{" "}
+                    <DocsInlineCode>aria-label</DocsInlineCode>. Do not combine
+                    aria-label with a visible Label that says the same thing.
                   </li>
                 </ul>
               </div>
               <div>
                 <h4 className="font-medium text-[var(--color-text-primary)]">
-                  Colocación
+                  Placement
                 </h4>
                 <ul className="mt-[var(--space-stack-xs)] list-disc space-y-[var(--space-stack-xs)] pl-[var(--space-inline-md)]">
                   <li>
-                    En filas de settings, el Label va a la izquierda y el Switch
-                    a la derecha, alineados en el eje vertical y con{" "}
+                    In settings rows, the Label is on the left and the Switch on
+                    the right, vertically aligned, with{" "}
                     <DocsInlineCode>justify-between</DocsInlineCode>.
                   </li>
                   <li>
-                    Relación visual: el texto nombra el ajuste; el control
-                    queda al final de la fila como la acción on/off.
+                    Visual relationship: the text names the setting; the control
+                    sits at the end of the row as the on/off action.
                   </li>
                   <li>
                     Spacing:{" "}
                     <DocsInlineCode>gap-[var(--space-inline-md)]</DocsInlineCode>{" "}
-                    entre Label y Switch. No apiles un Label encima y otro al
-                    lado del mismo Switch.
+                    between Label and Switch. Do not stack one Label above and
+                    another beside the same Switch.
                   </li>
                   <li>
-                    Conecta <DocsInlineCode>Label htmlFor</DocsInlineCode> con el{" "}
-                    <DocsInlineCode>id</DocsInlineCode> del Switch.
+                    Connect <DocsInlineCode>Label htmlFor</DocsInlineCode> with the{" "}
+                    <DocsInlineCode>id</DocsInlineCode> of the Switch.
                   </li>
                 </ul>
               </div>
               <div>
                 <h4 className="font-medium text-[var(--color-text-primary)]">
-                  Texto auxiliar
+                  Helper text
                 </h4>
                 <ul className="mt-[var(--space-stack-xs)] list-disc space-y-[var(--space-stack-xs)] pl-[var(--space-inline-md)]">
                   <li>
-                    El texto auxiliar (ayuda o descripción) va debajo del Label,
-                    a la izquierda, con{" "}
-                    <DocsInlineCode>FieldDescription</DocsInlineCode>. El Switch
-                    permanece a la derecha de toda la columna de texto.
+                    Helper text (help or description) sits below the Label, on
+                    the left, using{" "}
+                    <DocsInlineCode>FieldDescription</DocsInlineCode>. The Switch
+                    stays to the right of the entire text column.
                   </li>
                 </ul>
               </div>

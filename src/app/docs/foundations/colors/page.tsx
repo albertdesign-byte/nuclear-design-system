@@ -7,6 +7,7 @@ import {
 } from "@medmo/tokens/tooling";
 
 import { getFoundationEntry } from "@/components/docs/config/foundations-registry";
+import { DocsColorSwatchCard } from "@/components/docs/foundations/docs-color-swatch-card";
 import { DocsFoundationPage } from "@/components/docs/foundations/docs-foundation-page";
 import { DocsSection } from "@/components/docs/primitives/docs-section";
 
@@ -56,46 +57,45 @@ const feedbackExamples = [
   { name: "Info", tokens: lightSemantic.feedback.info },
 ] as const;
 
+const PRIMARY_ANCHOR_STEP = "800";
+
 export default function ColorsFoundationRoute() {
-  const primaryScale = Object.entries(colorPrimitives.primary);
+  const primaryAnchor = colorPrimitives.primary[800];
+  const tones = Object.entries(colorPrimitives.primary).filter(
+    ([step]) => step !== PRIMARY_ANCHOR_STEP
+  );
 
   return (
     <DocsFoundationPage>
       <DocsSection
-        id="primary-palette"
-        title="Primary palette"
+        id="primary"
+        title="Primary"
         description="The Medmo brand scale is anchored at Primary 800."
       >
-          <div className="grid gap-[var(--space-grid-gap)] sm:grid-cols-2 lg:grid-cols-4">
-            {primaryScale.map(([step, color]) => (
-              <article
-                key={step}
-                className="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border-subtle)] bg-[var(--color-surface)]"
-              >
-                <div
-                  className="flex h-24 items-end p-[var(--space-stack-sm)]"
-                  style={{ backgroundColor: color.hex }}
-                >
-                  <span
-                    className="text-[length:var(--text-caption-size)] font-semibold"
-                    style={{
-                      color: Number(step) >= 500 ? "#FFFFFF" : "#343842",
-                    }}
-                  >
-                    {step}
-                  </span>
-                </div>
-                <div className="p-[var(--space-card)]">
-                  <code className="text-[length:var(--text-caption-size)]">
-                    {color.hex}
-                  </code>
-                  <p className="mt-[var(--space-stack-xs)] text-[length:var(--text-caption-size)] leading-[var(--text-caption-line-height)] text-muted-foreground">
-                    {color.usage}
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
+        <div className="grid gap-[var(--space-card-gap)] sm:grid-cols-2 lg:grid-cols-4">
+          <DocsColorSwatchCard
+            step={PRIMARY_ANCHOR_STEP}
+            hex={primaryAnchor.hex}
+            usage={primaryAnchor.usage}
+          />
+        </div>
+      </DocsSection>
+
+      <DocsSection
+        id="tones"
+        title="Tones"
+        description="Supporting steps of the primary scale."
+      >
+        <div className="grid gap-[var(--space-card-gap)] sm:grid-cols-2 lg:grid-cols-4">
+          {tones.map(([step, color]) => (
+            <DocsColorSwatchCard
+              key={step}
+              step={step}
+              hex={color.hex}
+              usage={color.usage}
+            />
+          ))}
+        </div>
       </DocsSection>
 
       <DocsSection
@@ -103,7 +103,7 @@ export default function ColorsFoundationRoute() {
         title="Semantic colors"
         description="Semantic roles encode intent and remain stable across themes."
       >
-          <div className="grid gap-[var(--space-grid-gap)] sm:grid-cols-2">
+          <div className="grid gap-[var(--space-card-gap)] sm:grid-cols-2">
             {semanticExamples.map(({ name, variable, token }) => {
               const color = resolvePrimitiveColor(token.primitive);
               return (
@@ -134,7 +134,7 @@ export default function ColorsFoundationRoute() {
       </DocsSection>
 
       <DocsSection id="feedback-examples" title="Feedback examples">
-          <div className="grid gap-[var(--space-grid-gap)] sm:grid-cols-2">
+          <div className="grid gap-[var(--space-card-gap)] sm:grid-cols-2">
             {feedbackExamples.map(({ name, tokens }) => {
               const background = resolvePrimitiveColor(tokens.background.primitive);
               const border = resolvePrimitiveColor(tokens.border.primitive);

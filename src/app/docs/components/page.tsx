@@ -31,7 +31,7 @@ export default function ComponentsOverviewRoute() {
             <h2 className="text-[length:var(--text-title-size)] font-semibold leading-[var(--text-title-line-height)]">
               {category}
             </h2>
-            <div className="mt-[var(--space-stack-sm)] grid gap-[var(--space-grid-gap)] sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-[var(--space-stack-sm)] grid gap-[var(--space-card-gap)] sm:grid-cols-2 lg:grid-cols-3">
               {items.map((item) =>
                 item.status === "planned" || item.href === "#" ? (
                   <div

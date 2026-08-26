@@ -1,9 +1,9 @@
 import { IBM_Plex_Sans_Condensed, Poppins } from "next/font/google";
 
 /**
- * Dual typeface setup:
- * - Poppins → design system components only (--font-family-component)
- * - IBM Plex Sans Condensed → docs, navigation, and all non-component UI (--font-family-sans)
+ * Font loading:
+ * - Poppins → official Medmo typeface for components (--font-family-component)
+ * - IBM Plex Sans Condensed → library documentation chrome only (--font-family-sans)
  */
 export const poppins = Poppins({
   subsets: ["latin"],

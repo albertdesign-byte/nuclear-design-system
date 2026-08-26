@@ -60,7 +60,7 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     title: "Button",
     href: "/docs/components/button",
     description:
-      "Se utiliza para acciones y renderiza un <button>. No se utiliza como Link ni para navegación.",
+      "Used for actions and renders a <button>. Do not use it as a Link or for navigation.",
     status: "stable",
     aliases: ["CTA", "action button"],
     keywords: [
@@ -276,7 +276,7 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
   {
     title: "Text Link",
     href: "/docs/components/text-link",
-    description: "Enlace de texto para navegación.",
+    description: "Text link for navigation.",
     status: "stable",
     aliases: ["anchor", "inline link"],
     keywords: ["navigation", "href", "underline", "text link"],

@@ -9,14 +9,14 @@ export function ChipVsBadgeSection() {
   return (
     <DocsSection
       id="chip-vs-badge"
-      title="Cuándo usar Chip vs Badge"
-      description="Badge comunica estado o cantidad. Chip es un filtro o valor seleccionado, a menudo interactivo o descartable."
+      title="When to use Chip vs Badge"
+      description="Badge communicates status or a count. Chip is a selected filter or value, often interactive or dismissible."
     >
       <div className="flex flex-col gap-[var(--space-stack-md)]">
         <div className="rounded-[var(--radius-md)] border border-[var(--docs-chrome-border)] p-[var(--space-inline-md)]">
           <h4 className="font-medium text-[var(--color-text-primary)]">Badge</h4>
           <p className="mt-[var(--space-stack-xs)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
-            Información contextual que no requiere interacción.
+            Contextual information that does not require interaction.
           </p>
           <div className="mt-[var(--space-stack-sm)] flex flex-col items-start gap-[var(--space-stack-sm)]">
             <Badge variant="secondary">Stable</Badge>
@@ -24,16 +24,16 @@ export function ChipVsBadgeSection() {
             <Badge variant="destructive">Critical</Badge>
           </div>
           <ul className="mt-[var(--space-stack-sm)] list-disc space-y-[var(--space-stack-xs)] pl-[var(--space-inline-md)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
-            <li>Estado de un registro (Stable, Under review, Critical).</li>
-            <li>Cantidad o recuento (resultados pendientes, ítems en un filtro).</li>
-            <li>Metadato de solo lectura en tablas, cards y headers.</li>
-            <li>No se descarta ni se selecciona como un filtro.</li>
+            <li>Record status (Stable, Under review, Critical).</li>
+            <li>Count or quantity (pending results, items in a filter).</li>
+            <li>Read-only metadata in tables, cards, and headers.</li>
+            <li>It is not dismissed or selected as a filter.</li>
           </ul>
         </div>
         <div className="rounded-[var(--radius-md)] border border-[var(--docs-chrome-border)] p-[var(--space-inline-md)]">
           <h4 className="font-medium text-[var(--color-text-primary)]">Chip</h4>
           <p className="mt-[var(--space-stack-xs)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
-            Valor elegido o filtro que el usuario puede cambiar.
+            A chosen value or filter the user can change.
           </p>
           <div className="mt-[var(--space-stack-sm)] flex flex-col items-start gap-[var(--space-stack-sm)]">
             <Chip onRemove={() => {}}>MRI Brain</Chip>
@@ -41,20 +41,20 @@ export function ChipVsBadgeSection() {
             <Chip variant="muted">Stat</Chip>
           </div>
           <ul className="mt-[var(--space-stack-sm)] list-disc space-y-[var(--space-stack-xs)] pl-[var(--space-inline-md)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
-            <li>Filtros activos (modalidad, sede, estado de orden).</li>
-            <li>Selección de valores en un campo multi-valor.</li>
+            <li>Active filters (modality, site, order status).</li>
+            <li>Multi-value field selections.</li>
             <li>
-              Elementos descartables con <DocsInlineCode>onRemove</DocsInlineCode>{" "}
-              cuando el usuario debe poder quitarlos.
+              Dismissible items with <DocsInlineCode>onRemove</DocsInlineCode>{" "}
+              when the user must be able to remove them.
             </li>
-            <li>Interacción del usuario: elegir, quitar o representar una selección.</li>
+            <li>User interaction: choose, remove, or represent a selection.</li>
           </ul>
         </div>
       </div>
       <p className="mt-[var(--space-stack-md)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
-        Decisión rápida: si solo informa y no se toca, usa{" "}
-        <DocsInlineCode>Badge</DocsInlineCode>. Si el usuario lo eligió o puede
-        quitarlo, usa <DocsInlineCode>Chip</DocsInlineCode>.
+        Quick rule: if it only informs and is not interactive, use{" "}
+        <DocsInlineCode>Badge</DocsInlineCode>. If the user chose it or can
+        remove it, use <DocsInlineCode>Chip</DocsInlineCode>.
       </p>
     </DocsSection>
   );

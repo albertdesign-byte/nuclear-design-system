@@ -3,12 +3,12 @@
 import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
-import { TextLink } from "@/components/text-link";
 import {
   getFoundationEntry,
   getFoundationNeighbors,
 } from "@/components/docs/config/foundations-registry";
 import { DocsPageHeader } from "@/components/docs/layout/docs-page-header";
+import { DocsPager } from "@/components/docs/layout/docs-pager";
 import { DocsProductPage } from "@/components/docs/products/docs-product-page";
 
 export function DocsFoundationPage({ children }: { children: ReactNode }) {
@@ -29,22 +29,11 @@ export function DocsFoundationPage({ children }: { children: ReactNode }) {
           {children}
         </div>
 
-        <nav
-          aria-label="Foundations pagination"
-          className="mt-[var(--space-section)] flex items-center justify-between border-t border-[var(--docs-chrome-border)] pt-[var(--space-stack-lg)]"
-        >
-          {previous ? (
-            <TextLink href={previous.href}>Previous: {previous.title}</TextLink>
-          ) : (
-            <span aria-hidden />
-          )}
-
-          {next ? (
-            <TextLink href={next.href}>Next: {next.title}</TextLink>
-          ) : (
-            <span aria-hidden />
-          )}
-        </nav>
+        <DocsPager
+          label="Foundations pagination"
+          previous={previous}
+          next={next}
+        />
       </div>
     </DocsProductPage>
   );

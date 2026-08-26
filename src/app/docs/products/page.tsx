@@ -27,7 +27,7 @@ export default function ProductsOverviewRoute() {
           a product domain.
         </p>
 
-        <div className="mt-[var(--space-stack-lg)] grid gap-[var(--space-grid-gap)] sm:grid-cols-2">
+        <div className="mt-[var(--space-stack-lg)] grid gap-[var(--space-card-gap)] sm:grid-cols-2">
           {docsProductNavEntries.map((product) => (
             <Link
               key={product.id}

@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/dialog";
+import { componentFontFamilyClassName } from "@/lib/component-font-family";
 import { cn } from "@/lib/utils";
 
 const consentDialogBodyClassName =
@@ -24,6 +25,7 @@ export function ShareResultsConsentDialog() {
           <button
             type="button"
             className={cn(
+              componentFontFamilyClassName,
               "inline-flex w-fit items-center gap-[var(--space-inline-xs)]",
               "font-medium text-[var(--color-text-link)] underline-offset-[3px]",
               "transition-[var(--motion-hover)] hover:text-[var(--color-text-link-hover)] hover:underline",

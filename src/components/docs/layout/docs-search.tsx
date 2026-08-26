@@ -216,6 +216,7 @@ export function DocsSearch({
       dialogTitle={searchLabel}
       dialogDescription={searchDescription}
       emptyMessage={emptyMessage}
+      typography="chrome"
       className={cn(variant === "header" ? "max-w-[16rem]" : "mb-[var(--space-stack-md)]")}
     />
   );

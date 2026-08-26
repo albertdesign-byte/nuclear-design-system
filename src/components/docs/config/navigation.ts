@@ -216,7 +216,7 @@ export const badgeTocItems = [
   { id: "outline", label: "Outline" },
   { id: "ghost", label: "Ghost" },
   { id: "link", label: "Link" },
-  { id: "chip-vs-badge", label: "Chip vs Badge" },
+  { id: "chip-vs-badge", label: "When to use Chip vs Badge" },
   { id: "api-reference", label: "API Reference" },
 ];
 
@@ -435,7 +435,7 @@ export const accordionTocItems = [
 export const chipTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
-  { id: "chip-vs-badge", label: "Chip vs Badge" },
+  { id: "chip-vs-badge", label: "When to use Chip vs Badge" },
   { id: "api-reference", label: "API Reference" },
 ];
 

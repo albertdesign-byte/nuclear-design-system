@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckIcon, CopyIcon, ChevronDownIcon } from "lucide-react";
+import { CheckIcon, CopyIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
@@ -11,6 +11,8 @@ import {
   patientsSlugSupportsDevicePreview,
 } from "@/components/docs/config/patients-component-routes";
 import { DocsPatientsDeviceDropdown } from "@/components/docs/layout/docs-patients-device-dropdown";
+import { docsChromeFontClassName } from "@/components/docs/layout/docs-nav-styles";
+import { cn } from "@/lib/utils";
 
 export function DocsPageHeader({
   title,
@@ -56,21 +58,11 @@ export function DocsPageHeader({
             type="button"
             variant="ghost"
             size="sm"
-            className="rounded-none border-0"
+            className={cn(docsChromeFontClassName, "rounded-none border-0")}
             onClick={copyPage}
           >
             {copied ? <CheckIcon /> : <CopyIcon />}
             Copy Page
-          </Button>
-          <div className="w-px self-stretch bg-[var(--docs-chrome-border)]" />
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon-sm"
-            className="rounded-none border-0"
-            aria-label="More actions"
-          >
-            <ChevronDownIcon />
           </Button>
         </div>
       </div>

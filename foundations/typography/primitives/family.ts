@@ -1,20 +1,20 @@
 /**
  * Font family primitives.
  *
- * Poppins — design system components only.
- * IBM Plex Sans Condensed — documentation, navigation, and default UI.
+ * Poppins — official Medmo typeface for design system components.
+ * IBM Plex Sans Condensed — library documentation chrome only, not a Medmo product typeface.
  */
 
 export const fontFamily = {
   sans: {
     value: '"IBM Plex Sans Condensed", sans-serif',
     stack: ['"IBM Plex Sans Condensed"', "sans-serif"],
-    usage: "Default UI — docs shell, navigation, prose",
+    usage: "Library documentation chrome only — not a Medmo product typeface",
   },
   component: {
     value: '"Poppins", sans-serif',
     stack: ['"Poppins"', "sans-serif"],
-    usage: "Design system components only",
+    usage: "Official Medmo typeface for components, product UI, and application screens",
   },
   mono: {
     value: "var(--font-family-sans)",

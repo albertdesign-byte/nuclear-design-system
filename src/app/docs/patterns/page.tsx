@@ -37,7 +37,7 @@ export default function PatternsOverviewRoute() {
             <h2 className="text-[length:var(--text-title-size)] font-semibold leading-[var(--text-title-line-height)]">
               {category}
             </h2>
-            <div className="mt-[var(--space-stack-sm)] grid gap-[var(--space-grid-gap)] sm:grid-cols-2">
+            <div className="mt-[var(--space-stack-sm)] grid gap-[var(--space-card-gap)] sm:grid-cols-2">
               {items.map((item) => (
                 <Link
                   key={item.href}

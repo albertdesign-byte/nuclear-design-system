@@ -18,3 +18,7 @@ export const docsCodeColors = {
 export function codeLine(...tokens: { text: string; className?: string }[]): CodeLine {
   return { tokens };
 }
+
+export function codeLinesToText(lines: CodeLine[]): string {
+  return lines.map((line) => line.tokens.map((token) => token.text).join("")).join("\n");
+}

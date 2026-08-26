@@ -36,20 +36,12 @@ const roles = Object.values(semanticTypography).map((token) => ({
 
 const familyPrimitives = [
   {
-    token: "--font-family-sans",
-    value: tokenCssExports.typography.primitives["--font-family-sans"],
-    role: "Design System documentation experience",
-    use: "Navigation, sidebar, documentation content, guidelines, educational material, and Design System chrome",
-    doNot:
-      "Components, product interfaces, real screens, and application UI",
-  },
-  {
     token: "--font-family-component",
     value: tokenCssExports.typography.primitives["--font-family-component"],
-    role: "Canonical product typeface",
+    role: "Official Medmo typeface",
     use: "Components, product interfaces, real screens, and application UI",
     doNot:
-      "Design System documentation chrome, sidebar, and educational prose",
+      "Do not replace it with a second product family or a platform default",
   },
   {
     token: "--font-family-mono",
@@ -70,7 +62,7 @@ export function TypographyGallery() {
       <FoundationSection
         id="typography-strategy"
         title="Typography strategy"
-        description="Nuclear uses two typefaces on purpose. They are not interchangeable, and the split is not a mismatch to resolve."
+        description="Poppins is the official Medmo typeface. Components, product screens, and application UI all use it."
       >
         <FoundationTable
           minWidthClassName="min-w-[48rem]"
@@ -93,7 +85,7 @@ export function TypographyGallery() {
       <FoundationSection
         id="visual-preview"
         title="Visual preview"
-        description="Product specimens render in Poppins, the canonical component typeface."
+        description="Specimens render in Poppins, the official Medmo typeface."
       >
         <div className="grid gap-[var(--space-card-gap)] sm:grid-cols-3">
           {weightPrimitives.map(({ token, value }) => (
@@ -234,7 +226,7 @@ export function TypographyGallery() {
             <p
               className="text-[var(--color-text-primary)]"
               style={{
-                fontFamily: tokenCssExports.typography.primitives["--font-family-sans"],
+                fontFamily: "ui-sans-serif, system-ui, sans-serif",
                 fontSize: medmoResolve.typography.role("h1").fontSize,
                 fontWeight: medmoResolve.typography.role("h1").fontWeight,
                 lineHeight: medmoResolve.typography.role("h1").lineHeight,
@@ -243,7 +235,7 @@ export function TypographyGallery() {
               Patient records
             </p>
           }
-          dontCaption="Do not use IBM Plex Sans Condensed for components or product screens."
+          dontCaption="Do not replace Poppins with a platform default or a second product typeface."
         />
       </FoundationSection>
     </div>

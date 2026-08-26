@@ -17,6 +17,8 @@ import { inputVariants } from "@/components/input";
 import { cn } from "@/lib/utils";
 
 import {
+  globalSearchBarChromeTypographyClassName,
+  globalSearchBarComponentTypographyClassName,
   globalSearchBarContainerClassName,
   globalSearchBarIconClassName,
   globalSearchBarInputClassName,
@@ -41,6 +43,8 @@ export type GlobalSearchBarProps = {
   dialogDescription?: string;
   emptyMessage?: string;
   shortcutEnabled?: boolean;
+  /** Docs shell uses sans + label scale to match navbar chrome. @default "component" */
+  typography?: "component" | "chrome";
 };
 
 export function GlobalSearchBar({
@@ -53,6 +57,7 @@ export function GlobalSearchBar({
   dialogDescription = "Search across the application",
   emptyMessage = "No results found.",
   shortcutEnabled = true,
+  typography = "component",
 }: GlobalSearchBarProps) {
   const [open, setOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -101,7 +106,13 @@ export function GlobalSearchBar({
           aria-label={placeholder}
           aria-haspopup="dialog"
           aria-expanded={open}
-          className={cn(inputVariants({ size: "sm" }), globalSearchBarInputClassName)}
+          className={cn(
+            inputVariants({ size: "sm" }),
+            globalSearchBarInputClassName,
+            typography === "chrome"
+              ? globalSearchBarChromeTypographyClassName
+              : globalSearchBarComponentTypographyClassName
+          )}
           onClick={() => setOpen(true)}
         >
           {placeholder}

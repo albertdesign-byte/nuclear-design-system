@@ -33,6 +33,7 @@ import {
   getUserflowProductSlug,
 } from "../config/userflow-navigation";
 import { DocsSearch } from "./docs-search";
+import { docsChromeFontClassName, docsNavLinkClassName } from "./docs-nav-styles";
 
 function NavLinks({ items }: { items: DocsNavItem[] }) {
   const pathname = usePathname();
@@ -51,13 +52,17 @@ function NavLinks({ items }: { items: DocsNavItem[] }) {
                 aria-disabled="true"
                 className={cn(
                   "flex h-[1.875rem] items-center justify-between rounded-[var(--radius-button)] px-[0.5625rem]",
-                  "text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)]",
-                  "cursor-not-allowed text-foreground opacity-50"
+                  docsNavLinkClassName(false),
+                  "cursor-not-allowed opacity-50"
                 )}
               >
                 <span>{item.title}</span>
                 {item.comingSoon ? (
-                  <Badge variant="secondary" size="sm">
+                  <Badge
+                    variant="secondary"
+                    size="sm"
+                    className={docsChromeFontClassName}
+                  >
                     Coming Soon
                   </Badge>
                 ) : item.badge ? (
@@ -77,10 +82,7 @@ function NavLinks({ items }: { items: DocsNavItem[] }) {
               href={item.href}
               className={cn(
                 "flex h-[1.875rem] items-center justify-between rounded-[var(--radius-button)] px-[0.5625rem]",
-                "text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)]",
-                isActive
-                  ? "bg-[var(--docs-nav-active-bg)] font-medium text-foreground"
-                  : "text-foreground hover:bg-[var(--color-surface-hover)]"
+                docsNavLinkClassName(isActive)
               )}
             >
               <span>{item.title}</span>
@@ -177,7 +179,7 @@ export function DocsSidebar() {
   return (
     <aside
       className={cn(
-        "sticky top-[var(--docs-header-height)] hidden h-[calc(100vh-var(--docs-header-height))]",
+        "docs-sidebar sticky top-[var(--docs-header-height)] hidden h-[calc(100vh-var(--docs-header-height))]",
         "w-[var(--docs-sidebar-width)] shrink-0 self-start border-r border-[var(--docs-chrome-border)]",
         "bg-background lg:block"
       )}
