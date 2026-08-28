@@ -103,15 +103,15 @@ export function ButtonDocsPage() {
 
           <DocsSection
             id="padding-review"
-            title="Horizontal Padding Review"
-            description="Previous vs official horizontal padding after the fully rounded silhouette. Previous values felt compressed; the official scale is what Button uses now."
+            title="Horizontal Padding"
+            description="Text buttons use 12, 12, 16, 20, and 24px of horizontal padding from sm through xxl."
           >
             <DocsPreview code={buttonPaddingReviewSnippet}>
               <ButtonPaddingComparisonPreview />
             </DocsPreview>
             <p className="mt-[var(--space-stack-md)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
               Icon-only sizes remain square and use no horizontal padding. The
-              text-button scale now uses 12, 12, 16, 20, and 24px from{" "}
+              text-button scale uses{" "}
               <DocsInlineCode>--space-button-padding-*</DocsInlineCode>.
             </p>
           </DocsSection>

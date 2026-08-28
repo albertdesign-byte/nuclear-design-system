@@ -91,7 +91,7 @@ export const docsComponents = docsComponentCategories.flatMap(
 export const buttonTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
-  { id: "padding-review", label: "Padding Review" },
+  { id: "padding-review", label: "Horizontal Padding" },
   { id: "variants", label: "Variants" },
   { id: "danger", label: "Danger Button" },
   { id: "icons", label: "Button with Icon" },

@@ -341,9 +341,7 @@ export const buttonGroupSnippet = exampleSnippet(
 );
 
 export const buttonPaddingReviewSnippet = exampleSnippet(
-  `// Adopted horizontal padding by size:
-// sm 12px · md 12px · lg 16px · xl 20px · xxl 24px
-<Button size="sm">Save patient</Button>
+  `<Button size="sm">Save patient</Button>
 <Button size="md">Save patient</Button>
 <Button size="lg">Save patient</Button>
 <Button size="xl">Save patient</Button>

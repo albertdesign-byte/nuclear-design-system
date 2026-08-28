@@ -23,89 +23,23 @@ import {
 
 const textSizes: Array<{
   size: Exclude<ButtonSize, `icon-${string}`>;
-  current: string;
-  currentClassName: string;
-  proposed: string;
+  padding: string;
 }> = [
-  {
-    size: "sm",
-    current: "8px",
-    currentClassName: "!px-[var(--space-inline-sm)]",
-    proposed: "12px",
-  },
-  {
-    size: "md",
-    current: "8px",
-    currentClassName: "!px-[var(--space-inline-sm)]",
-    proposed: "12px",
-  },
-  {
-    size: "lg",
-    current: "12px",
-    currentClassName: "!px-[var(--space-inline-md)]",
-    proposed: "16px",
-  },
-  {
-    size: "xl",
-    current: "12px",
-    currentClassName: "!px-[var(--space-inline-md)]",
-    proposed: "20px",
-  },
-  {
-    size: "xxl",
-    current: "16px",
-    currentClassName: "!px-[var(--space-inline-lg)]",
-    proposed: "24px",
-  },
+  { size: "sm", padding: "12px" },
+  { size: "md", padding: "12px" },
+  { size: "lg", padding: "16px" },
+  { size: "xl", padding: "20px" },
+  { size: "xxl", padding: "24px" },
 ];
 
 export function ButtonPaddingComparisonPreview() {
   return (
-    <div className="flex w-full flex-col gap-[var(--space-stack-lg)]">
-      <PaddingColumn
-        title="Previous"
-        description="Compressed padding used before the fully rounded silhouette: 8 / 8 / 12 / 12 / 16px."
-      >
-        {textSizes.map(({ size, current, currentClassName }) => (
-          <PaddingRow key={size} label={`${size} · ${current}`}>
-            <Button size={size} className={currentClassName}>
-              Save patient
-            </Button>
-          </PaddingRow>
-        ))}
-      </PaddingColumn>
-      <PaddingColumn
-        title="Official"
-        description="Adopted scale used by Button today: 12 / 12 / 16 / 20 / 24px."
-      >
-        {textSizes.map(({ size, proposed }) => (
-          <PaddingRow key={size} label={`${size} · ${proposed}`}>
-            <Button size={size}>Save patient</Button>
-          </PaddingRow>
-        ))}
-      </PaddingColumn>
-    </div>
-  );
-}
-
-function PaddingColumn({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
-  return (
-    <div className="flex flex-col gap-[var(--space-stack-sm)]">
-      <div>
-        <h4 className="font-medium text-[var(--color-text-primary)]">{title}</h4>
-        <p className="text-[length:var(--text-caption-size)] text-[var(--color-text-secondary)]">
-          {description}
-        </p>
-      </div>
-      {children}
+    <div className="flex w-full flex-col gap-[var(--space-stack-sm)]">
+      {textSizes.map(({ size, padding }) => (
+        <PaddingRow key={size} label={`${size} · ${padding}`}>
+          <Button size={size}>Save patient</Button>
+        </PaddingRow>
+      ))}
     </div>
   );
 }
