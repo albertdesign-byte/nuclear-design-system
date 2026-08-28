@@ -51,7 +51,7 @@ const radioGroupApiRows = [
 
 const radioGroupItemApiRows = [
   { prop: "value", type: "string", defaultValue: "required" },
-  { prop: "size", type: '"sm" | "md" | "lg"', defaultValue: '"lg"' },
+  { prop: "size", type: '"sm" | "md" | "lg"', defaultValue: '"sm"' },
   { prop: "disabled", type: "boolean", defaultValue: "false" },
 ];
 
@@ -59,7 +59,7 @@ const radioFieldApiRows = [
   { prop: "value", type: "string", defaultValue: "required" },
   { prop: "label", type: "ReactNode", defaultValue: "required" },
   { prop: "description", type: "ReactNode", defaultValue: "—" },
-  { prop: "size", type: '"sm" | "md" | "lg"', defaultValue: '"lg"' },
+  { prop: "size", type: '"sm" | "md" | "lg"', defaultValue: '"sm"' },
   { prop: "disabled", type: "boolean", defaultValue: "false" },
   { prop: "invalid", type: "boolean", defaultValue: "false" },
 ];

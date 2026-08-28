@@ -6,7 +6,6 @@ import { Button } from "@/components/button";
 
 import {
   buttonDangerSnippet,
-  buttonDangerStatesSnippet,
   buttonFullWidthSnippet,
   buttonGroupSnippet,
   buttonHealthcareSnippet,
@@ -23,7 +22,6 @@ import {
   ButtonIconPatternsPreview,
   ButtonPaddingComparisonPreview,
   ButtonStatesPreview,
-  DangerButtonStatesPreview,
   HealthcareButtonExamplesPreview,
 } from "@/components/docs/components/button/button-preview-blocks";
 import { ButtonRealScreenPreview } from "@/components/docs/components/button/button-real-screen-preview";
@@ -106,7 +104,7 @@ export function ButtonDocsPage() {
           <DocsSection
             id="padding-review"
             title="Horizontal Padding Review"
-            description="The former padding felt compressed after adopting the fully rounded silhouette. The proposed values are now the official scale: they preserve compact heights while restoring readable optical balance."
+            description="Previous vs official horizontal padding after the fully rounded silhouette. Previous values felt compressed; the official scale is what Button uses now."
           >
             <DocsPreview code={buttonPaddingReviewSnippet}>
               <ButtonPaddingComparisonPreview />
@@ -145,14 +143,6 @@ export function ButtonDocsPage() {
                 <Button intent="danger">Archive record</Button>
               </div>
             </DocsPreview>
-            <div className="mt-[var(--space-stack-lg)]">
-              <h4 className="mb-[var(--space-stack-sm)] font-medium text-[var(--color-text-primary)]">
-                Danger states
-              </h4>
-              <DocsPreview code={buttonDangerStatesSnippet}>
-                <DangerButtonStatesPreview />
-              </DocsPreview>
-            </div>
             <div className="mt-[var(--space-stack-md)] grid gap-[var(--space-stack-md)] lg:grid-cols-2">
               <ButtonGuidelineCard title="Use Danger">
                 <li>For deletion, access removal, and consequential archival.</li>
@@ -205,7 +195,7 @@ export function ButtonDocsPage() {
           <DocsSection
             id="states"
             title="States"
-            description="Every variant supports default, hover, focus, active, disabled, and loading. Focus is visible only for keyboard-style focus; loading disables repeat submission and announces progress."
+            description="Hover, focus, active, disabled, and loading apply to every variant — Primary, Secondary, Outline, Ghost, and Danger. Focus is visible only for keyboard-style focus; loading disables repeat submission and announces progress."
           >
             <DocsPreview code={buttonStatesSnippet}>
               <ButtonStatesPreview />

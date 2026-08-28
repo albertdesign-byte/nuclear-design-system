@@ -1,4 +1,3 @@
-import { TextLink } from "@/components/text-link";
 import { getComponentNavCategories } from "@/components/docs/config/components-registry";
 
 import { ComponentPreviewCard } from "./component-preview-card";
@@ -23,8 +22,6 @@ export function HomePage() {
         <p className="max-w-[36rem] text-[clamp(1.125rem,2.5vw,1.75rem)] leading-[var(--text-body-large-line-height)] text-[var(--color-text-secondary)]">
           All components are ready for use.
         </p>
-
-        <TextLink href="/docs/components/button">Get lifetime access</TextLink>
       </section>
 
       <div className="flex flex-col gap-[var(--space-section)]">

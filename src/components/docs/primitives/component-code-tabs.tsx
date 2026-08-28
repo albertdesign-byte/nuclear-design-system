@@ -42,15 +42,13 @@ export function ComponentCodeTabs({
   return (
     <Card
       className={cn(
-        "overflow-hidden rounded-[var(--docs-preview-radius)] border-[var(--docs-chrome-border)] py-0 shadow-none",
+        "min-w-0 isolate overflow-hidden rounded-[var(--docs-preview-radius)] border-[var(--docs-chrome-border)] py-0 shadow-none",
         className
       )}
     >
       <CardContent className="flex min-h-[var(--docs-preview-min-height)] items-center justify-center p-[var(--spacing-40)]">
         {children}
       </CardContent>
-
-      <Separator />
 
       <div className="bg-[var(--docs-code-bg)]">
         {showCodeTabs ? (

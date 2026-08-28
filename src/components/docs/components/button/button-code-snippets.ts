@@ -384,6 +384,10 @@ export function Example() {
 
 export const buttonStatesSnippet = exampleSnippet(
   `<Button>Save patient</Button>
+<Button variant="secondary">Back</Button>
+<Button variant="outline">Cancel</Button>
+<Button variant="ghost">View report</Button>
+<Button intent="danger">Delete study</Button>
 <Button disabled>Save patient</Button>
 <Button loading loadingLabel="Saving patient">
   Save patient

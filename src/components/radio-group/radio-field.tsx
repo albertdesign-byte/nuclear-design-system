@@ -31,28 +31,16 @@ function RadioField({
   contentClassName,
   itemClassName,
   disabled,
-  size = "lg",
+  size = "sm",
   "aria-describedby": ariaDescribedBy,
   ...itemProps
 }: RadioFieldProps) {
-  const hasDescription = Boolean(description);
-
   return (
     <label
-      className={cn(
-        radioFieldClassName,
-        hasDescription ? "items-start" : "items-center",
-        className
-      )}
+      className={cn(radioFieldClassName, "items-start", className)}
       data-slot="radio-field"
     >
-      <span
-        className={cn(
-          radioControlClassName,
-          hasDescription &&
-            "mt-[calc((var(--text-label-line-height)-var(--icon-lg))/2)]"
-        )}
-      >
+      <span className={radioControlClassName}>
         <RadioGroupItem
           size={size}
           disabled={disabled}

@@ -8,6 +8,7 @@ import {
 
 import { getFoundationEntry } from "@/components/docs/config/foundations-registry";
 import { DocsFoundationPage } from "@/components/docs/foundations/docs-foundation-page";
+import { DocsCopyToken } from "@/components/docs/primitives/docs-copy-token";
 import { DocsSection } from "@/components/docs/primitives/docs-section";
 
 const foundation = getFoundationEntry("/docs/foundations/spacing")!;
@@ -107,7 +108,7 @@ export default function SpacingFoundationRoute() {
                       className="border-t border-[var(--color-border-subtle)]"
                     >
                       <td className="p-[var(--space-table)]">
-                        <code>spacing-{step}</code>
+                        <DocsCopyToken value={`--spacing-${step}`} />
                       </td>
                       <td className="p-[var(--space-table)]">{token.px}px</td>
                       <td className="p-[var(--space-table)]">
@@ -157,9 +158,9 @@ export default function SpacingFoundationRoute() {
                           className="border-t border-[var(--color-border-subtle)] align-top"
                         >
                           <td className="p-[var(--space-table)]">
-                            <code>
-                              {group.prefix}-{role}
-                            </code>
+                            <DocsCopyToken
+                              value={`--${group.prefix}-${role}`}
+                            />
                           </td>
                           <td className="p-[var(--space-table)]">
                             {getSpacingValue(token.primitive)}px

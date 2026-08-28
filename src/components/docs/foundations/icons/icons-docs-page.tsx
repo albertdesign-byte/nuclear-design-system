@@ -10,17 +10,19 @@ import {
 } from "@/components/docs/foundations/icons/icons-code-snippets";
 import {
   IconsAccessibilityPreview,
+  IconsButtonWithIconPreview,
   IconsColorPreview,
-  IconsDeveloperPreview,
   IconsDoDontPreview,
+  IconsIconButtonPreview,
+  IconsInputWithIconPreview,
   IconsLibraryPreview,
+  IconsNavItemPreview,
   IconsOverviewPreview,
   IconsSizesPreview,
   IconsUsagePreview,
 } from "@/components/docs/foundations/icons/icons-preview-blocks";
 import { DocsFoundationPage } from "@/components/docs/foundations/docs-foundation-page";
-import { DocsCodeBlock } from "@/components/docs/primitives/docs-code-block";
-import { DocsInlineCode } from "@/components/docs/primitives/docs-inline-code";
+import { DocsCopyToken } from "@/components/docs/primitives/docs-copy-token";
 import { DocsPreview } from "@/components/docs/primitives/docs-preview";
 import { DocsSection } from "@/components/docs/primitives/docs-section";
 import { iconDocumentation } from "@medmo/tokens/tooling";
@@ -49,7 +51,7 @@ export function IconsDocsPage() {
               description={
                 <>
                   Medmo uses {iconDocumentation.library.name} through{" "}
-                  <DocsInlineCode>{iconDocumentation.library.package}</DocsInlineCode> as the official icon library.
+                  <DocsCopyToken value={iconDocumentation.library.package} /> as the official icon library.
                   Do not mix Heroicons, Font Awesome, or custom SVG sets in product UI.
                 </>
               }
@@ -57,14 +59,6 @@ export function IconsDocsPage() {
               <DocsPreview code={iconsLibrarySnippet}>
                 <IconsLibraryPreview />
               </DocsPreview>
-              <div className="mt-[var(--space-stack-md)] rounded-[var(--radius-md)] border border-[var(--docs-chrome-border)] bg-[var(--docs-code-bg)] p-[var(--space-inline-md)]">
-                <p className="text-[length:var(--text-caption-size)] font-medium uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
-                  React import
-                </p>
-                <pre className="mt-[var(--space-stack-xs)] overflow-x-auto font-mono text-[0.875rem] text-[var(--color-text-primary)]">
-                  {`import { SearchIcon, UsersIcon } from "lucide-react";`}
-                </pre>
-              </div>
             </DocsSection>
 
             <DocsSection
@@ -107,13 +101,13 @@ export function IconsDocsPage() {
                             {context.purpose}
                           </td>
                           <td className="px-[var(--space-inline-md)] py-[var(--space-stack-sm)]">
-                            <DocsInlineCode>--icon-{context.size}</DocsInlineCode>
+                            <DocsCopyToken value={`--icon-${context.size}`} />
                           </td>
                           <td className="px-[var(--space-inline-md)] py-[var(--space-stack-sm)]">
                             {context.gapSpacing === "none" ? (
                               "—"
                             ) : (
-                              <DocsInlineCode>--{context.gapSpacing}</DocsInlineCode>
+                              <DocsCopyToken value={`--${context.gapSpacing}`} />
                             )}
                           </td>
                         </tr>
@@ -153,31 +147,38 @@ export function IconsDocsPage() {
               title="Developer Examples"
               description="Common React patterns for Medmo components."
             >
-              <IconsDeveloperPreview />
-              <div className="mt-[var(--space-stack-md)] flex flex-col gap-[var(--space-stack-md)]">
-                <div>
+              <div className="flex min-w-0 flex-col gap-[var(--space-stack-md)]">
+                <div className="min-w-0">
                   <h3 className="mb-[var(--space-stack-sm)] text-[length:var(--text-title-size)] font-medium leading-[var(--text-title-line-height)]">
                     Icon button
                   </h3>
-                  <DocsCodeBlock lines={iconButtonSnippet} />
+                  <DocsPreview code={iconButtonSnippet}>
+                    <IconsIconButtonPreview />
+                  </DocsPreview>
                 </div>
-                <div>
+                <div className="min-w-0">
                   <h3 className="mb-[var(--space-stack-sm)] text-[length:var(--text-title-size)] font-medium leading-[var(--text-title-line-height)]">
                     Button with icon
                   </h3>
-                  <DocsCodeBlock lines={buttonWithIconSnippet} />
+                  <DocsPreview code={buttonWithIconSnippet}>
+                    <IconsButtonWithIconPreview />
+                  </DocsPreview>
                 </div>
-                <div>
+                <div className="min-w-0">
                   <h3 className="mb-[var(--space-stack-sm)] text-[length:var(--text-title-size)] font-medium leading-[var(--text-title-line-height)]">
                     Input with icon
                   </h3>
-                  <DocsCodeBlock lines={inputWithIconSnippet} />
+                  <DocsPreview code={inputWithIconSnippet}>
+                    <IconsInputWithIconPreview />
+                  </DocsPreview>
                 </div>
-                <div>
+                <div className="min-w-0">
                   <h3 className="mb-[var(--space-stack-sm)] text-[length:var(--text-title-size)] font-medium leading-[var(--text-title-line-height)]">
                     Navigation item with icon
                   </h3>
-                  <DocsCodeBlock lines={navigationItemWithIconSnippet} />
+                  <DocsPreview code={navigationItemWithIconSnippet}>
+                    <IconsNavItemPreview />
+                  </DocsPreview>
                 </div>
               </div>
             </DocsSection>

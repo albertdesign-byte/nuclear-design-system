@@ -13,7 +13,7 @@ import {
   checkboxFieldClassName,
   checkboxFieldContentClassName,
   checkboxFieldLabelClassName,
-  checkboxFieldMessageInsetClassName,
+  checkboxFieldMessageInsetBySize,
 } from "./checkbox.styles";
 import type { CheckboxProps } from "./checkbox.types";
 
@@ -40,7 +40,7 @@ function CheckboxField({
   contentClassName,
   checkboxClassName,
   disabled,
-  size = "lg",
+  size = "sm",
   "aria-describedby": ariaDescribedBy,
   ...checkboxProps
 }: CheckboxFieldProps) {
@@ -48,7 +48,8 @@ function CheckboxField({
   const helperId = id ? `${id}-helper` : undefined;
   const errorId = id ? `${id}-error` : undefined;
   const isInvalid = invalid || Boolean(error);
-  const hasDescription = Boolean(description);
+  const controlSize = size ?? "sm";
+  const messageInsetClassName = checkboxFieldMessageInsetBySize[controlSize];
 
   const describedBy = [
     ariaDescribedBy,
@@ -62,23 +63,13 @@ function CheckboxField({
   const field = (
     <label
       htmlFor={id}
-      className={cn(
-        checkboxFieldClassName,
-        hasDescription ? "items-start" : "items-center",
-        className
-      )}
+      className={cn(checkboxFieldClassName, "items-start", className)}
       data-slot="checkbox-field"
     >
-      <span
-        className={cn(
-          checkboxControlClassName,
-          hasDescription &&
-            "mt-[calc((var(--text-label-line-height)-var(--icon-lg))/2)]"
-        )}
-      >
+      <span className={checkboxControlClassName}>
         <Checkbox
           id={id}
-          size={size}
+          size={controlSize}
           disabled={disabled}
           className={checkboxClassName}
           aria-invalid={isInvalid || undefined}
@@ -107,13 +98,13 @@ function CheckboxField({
       {helperText ? (
         <FieldDescription
           id={helperId}
-          className={checkboxFieldMessageInsetClassName}
+          className={messageInsetClassName}
         >
           {helperText}
         </FieldDescription>
       ) : null}
       {error ? (
-        <FieldError id={errorId} className={checkboxFieldMessageInsetClassName}>
+        <FieldError id={errorId} className={messageInsetClassName}>
           {error}
         </FieldError>
       ) : null}

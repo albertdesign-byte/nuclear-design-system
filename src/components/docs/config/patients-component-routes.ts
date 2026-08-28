@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import type { ComponentType } from "react";
 
 import { AppFooterDocsPage } from "@/components/docs/components/app-footer/app-footer-docs-page";
-import { FieldErrorDocsPage } from "@/components/docs/components/field-error/field-error-docs-page";
 import { AlertDocsPage } from "@/components/docs/components/alert/alert-docs-page";
 import { ButtonDocsPage } from "@/components/docs/components/button/button-docs-page";
 import { CheckboxDocsPage } from "@/components/docs/components/checkbox/checkbox-docs-page";
@@ -82,13 +81,6 @@ export const patientsComponentRoutes: Record<string, PatientsComponentRoute> = {
     metadata: {
       title: "Chip",
       description: "Medmo Design System — Chip component documentation.",
-    },
-  },
-  "field-error": {
-    component: FieldErrorDocsPage,
-    metadata: {
-      title: "Field Error",
-      description: "Medmo Design System — Field Error component documentation.",
     },
   },
   alert: {

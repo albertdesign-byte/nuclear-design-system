@@ -11,9 +11,15 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/button";
-import type { ButtonSize } from "@/components/button";
+import type { ButtonSize, ButtonVariant } from "@/components/button";
 import { cn } from "@/lib/utils";
-import { buttonPrimaryStateClassName } from "@/stories/shared/interaction-state-classes";
+import {
+  buttonDangerStateClassName,
+  buttonGhostStateClassName,
+  buttonOutlineStateClassName,
+  buttonPrimaryStateClassName,
+  buttonSecondaryStateClassName,
+} from "@/stories/shared/interaction-state-classes";
 
 const textSizes: Array<{
   size: Exclude<ButtonSize, `icon-${string}`>;
@@ -55,8 +61,11 @@ const textSizes: Array<{
 
 export function ButtonPaddingComparisonPreview() {
   return (
-    <div className="flex flex-col gap-[var(--space-stack-md)]">
-      <PaddingColumn title="Current" description="8 / 8 / 12 / 12 / 16px">
+    <div className="flex w-full flex-col gap-[var(--space-stack-lg)]">
+      <PaddingColumn
+        title="Previous"
+        description="Compressed padding used before the fully rounded silhouette: 8 / 8 / 12 / 12 / 16px."
+      >
         {textSizes.map(({ size, current, currentClassName }) => (
           <PaddingRow key={size} label={`${size} · ${current}`}>
             <Button size={size} className={currentClassName}>
@@ -66,8 +75,8 @@ export function ButtonPaddingComparisonPreview() {
         ))}
       </PaddingColumn>
       <PaddingColumn
-        title="Proposed · adopted"
-        description="12 / 12 / 16 / 20 / 24px"
+        title="Official"
+        description="Adopted scale used by Button today: 12 / 12 / 16 / 20 / 24px."
       >
         {textSizes.map(({ size, proposed }) => (
           <PaddingRow key={size} label={`${size} · ${proposed}`}>
@@ -89,7 +98,7 @@ function PaddingColumn({
   children: ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-[var(--space-stack-sm)] rounded-[var(--radius-card)] border border-[var(--color-border-subtle)] bg-[var(--color-surface)] p-[var(--space-card)]">
+    <div className="flex flex-col gap-[var(--space-stack-sm)]">
       <div>
         <h4 className="font-medium text-[var(--color-text-primary)]">{title}</h4>
         <p className="text-[length:var(--text-caption-size)] text-[var(--color-text-secondary)]">
@@ -114,17 +123,14 @@ function PaddingRow({ label, children }: { label: string; children: ReactNode })
 
 const dangerStateClassName = {
   Default: "",
-  Hover:
-    "border-[var(--color-error-foreground)] text-[var(--color-error-foreground)]",
-  Focus:
-    "border-[var(--color-focus-ring)] ring-[length:var(--focus-ring-width)] ring-[var(--color-focus-ring)] ring-offset-[length:var(--focus-ring-offset)]",
-  Active:
-    "border-[var(--color-error-foreground)] bg-[var(--color-error-background)] text-[var(--color-error-foreground)]",
+  Hover: buttonDangerStateClassName.Hover,
+  Focus: buttonDangerStateClassName.Focus,
+  Active: buttonDangerStateClassName.Active,
 } as const;
 
 export function DangerButtonStatesPreview() {
   return (
-    <div className="flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border-subtle)] bg-[var(--color-surface)]">
+    <div className="flex flex-col">
       {Object.entries(dangerStateClassName).map(([state, className]) => (
         <StateStripRow key={state} label={state}>
           <Button intent="danger" className={cn("pointer-events-none", className)}>
@@ -219,29 +225,84 @@ function ButtonGroupExample({
 
 export function ButtonStatesPreview() {
   const states = ["Default", "Hover", "Focus", "Active"] as const;
+  const variants: Array<{
+    label: string;
+    variant?: ButtonVariant;
+    intent?: "default" | "danger";
+    children: string;
+    stateClassName: Record<(typeof states)[number], string>;
+  }> = [
+    {
+      label: "Primary",
+      children: "Save patient",
+      stateClassName: buttonPrimaryStateClassName,
+    },
+    {
+      label: "Secondary",
+      variant: "secondary",
+      children: "Back",
+      stateClassName: buttonSecondaryStateClassName,
+    },
+    {
+      label: "Outline",
+      variant: "outline",
+      children: "Cancel",
+      stateClassName: buttonOutlineStateClassName,
+    },
+    {
+      label: "Ghost",
+      variant: "ghost",
+      children: "View report",
+      stateClassName: buttonGhostStateClassName,
+    },
+    {
+      label: "Danger",
+      intent: "danger",
+      children: "Delete study",
+      stateClassName: buttonDangerStateClassName,
+    },
+  ];
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border-subtle)] bg-[var(--color-surface)]">
-      {states.map((state) => (
-        <StateStripRow key={state} label={state}>
-          <Button
-            className={cn(
-              "pointer-events-none",
-              buttonPrimaryStateClassName[state]
-            )}
-          >
-            Save patient
-          </Button>
-        </StateStripRow>
+    <div className="flex w-full flex-col gap-[var(--space-stack-lg)]">
+      {variants.map((item) => (
+        <div key={item.label} className="flex flex-col gap-[var(--space-stack-sm)]">
+          <h4 className="font-medium text-[var(--color-text-primary)]">
+            {item.label}
+          </h4>
+          <div className="flex flex-col">
+            {states.map((state) => (
+              <StateStripRow key={state} label={state}>
+                <Button
+                  variant={item.variant}
+                  intent={item.intent}
+                  className={cn(
+                    "pointer-events-none",
+                    item.stateClassName[state]
+                  )}
+                >
+                  {item.children}
+                </Button>
+              </StateStripRow>
+            ))}
+            <StateStripRow label="Disabled">
+              <Button variant={item.variant} intent={item.intent} disabled>
+                {item.children}
+              </Button>
+            </StateStripRow>
+            <StateStripRow label="Loading">
+              <Button
+                variant={item.variant}
+                intent={item.intent}
+                loading
+                loadingLabel={item.children}
+              >
+                {item.children}
+              </Button>
+            </StateStripRow>
+          </div>
+        </div>
       ))}
-      <StateStripRow label="Disabled">
-        <Button disabled>Save patient</Button>
-      </StateStripRow>
-      <StateStripRow label="Loading">
-        <Button loading loadingLabel="Saving patient">
-          Save patient
-        </Button>
-      </StateStripRow>
     </div>
   );
 }

@@ -327,39 +327,44 @@ export function IconsDoDontPreview() {
   );
 }
 
-export function IconsDeveloperPreview() {
+export function IconsIconButtonPreview() {
   return (
-    <div className="flex w-full flex-col gap-[var(--space-stack-md)]">
-      <PreviewTile title="Icon button">
-        <Button variant="outline" size="icon-md" aria-label="Notifications">
-          <BellIcon className="size-[var(--icon-sm)]" />
-        </Button>
-      </PreviewTile>
+    <Button variant="outline" size="icon-md" aria-label="Notifications">
+      <BellIcon className="size-[var(--icon-sm)]" />
+    </Button>
+  );
+}
 
-      <PreviewTile title="Button with icon">
-        <Button size="sm">
-          <UploadIcon className="size-[var(--icon-sm)]" aria-hidden />
-          Upload
-        </Button>
-      </PreviewTile>
+export function IconsButtonWithIconPreview() {
+  return (
+    <Button size="sm">
+      <UploadIcon className="size-[var(--icon-sm)]" aria-hidden />
+      Upload study
+    </Button>
+  );
+}
 
-      <PreviewTile title="Input with icon">
-        <div className="relative w-full max-w-xs">
-          <SearchIcon
-            className="pointer-events-none absolute top-1/2 left-[var(--space-inline-sm)] size-[var(--icon-sm)] -translate-y-1/2 text-[var(--color-text-muted)]"
-            aria-hidden
-          />
-          <Input className="pl-[calc(var(--space-inline-sm)+var(--icon-sm)+var(--space-inline-xs))]" placeholder="Search studies" />
-        </div>
-      </PreviewTile>
-
-      <PreviewTile title="Navigation item">
-        <span className="inline-flex items-center gap-[var(--space-inline-sm)] text-[length:var(--text-body-small-size)] font-medium text-[var(--color-text-primary)]">
-          <ClipboardListIcon className="size-[var(--icon-sm)]" aria-hidden />
-          Reports
-        </span>
-      </PreviewTile>
+export function IconsInputWithIconPreview() {
+  return (
+    <div className="relative w-full max-w-xs">
+      <SearchIcon
+        className="pointer-events-none absolute top-1/2 left-[var(--space-inline-sm)] size-[var(--icon-sm)] -translate-y-1/2 text-[var(--color-text-muted)]"
+        aria-hidden
+      />
+      <Input
+        className="pl-[calc(var(--space-inline-sm)+var(--icon-sm)+var(--space-inline-xs))]"
+        placeholder="Search patients"
+      />
     </div>
+  );
+}
+
+export function IconsNavItemPreview() {
+  return (
+    <span className="inline-flex items-center gap-[var(--space-inline-sm)] text-[length:var(--text-body-small-size)] font-medium text-[var(--color-text-primary)]">
+      <ClipboardListIcon className="size-[var(--icon-sm)]" aria-hidden />
+      Reports
+    </span>
   );
 }
 

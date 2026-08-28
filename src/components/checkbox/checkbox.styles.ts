@@ -36,7 +36,7 @@ export const checkboxVariants = cva(
       },
     },
     defaultVariants: {
-      size: "lg",
+      size: "md",
     },
   }
 );
@@ -44,10 +44,12 @@ export const checkboxVariants = cva(
 export const checkboxIndicatorClassName =
   "grid place-content-center text-current [&>svg]:pointer-events-none";
 
-/** Visual-only wrapper — sizes to the checkbox, not the touch target. */
+/** Visual-only wrapper — sizes to the checkbox, not the touch target.
+ *  Height matches the first label line box so the control aligns with line 1. */
 export const checkboxControlClassName = [
   componentFontFamilyClassName,
-  "relative inline-flex shrink-0 items-center justify-center self-center",
+  "relative inline-flex shrink-0 items-center justify-center self-start",
+  "min-h-[calc(var(--text-label-size)*var(--text-label-line-height))]",
 ].join(" ");
 
 /** @deprecated Use checkboxControlClassName */
@@ -69,9 +71,16 @@ export const checkboxFieldClassName = [
 export const checkboxFieldContentClassName =
   "flex min-w-0 flex-1 flex-col gap-[var(--space-stack-xs)]";
 
-/** Align helper/error with label column (24px control + 6px gap). */
+/** Align helper/error with the label column (control size + 6px gap). */
+export const checkboxFieldMessageInsetBySize = {
+  sm: "pl-[calc(var(--icon-sm)+var(--spacing-6))]",
+  md: "pl-[calc(var(--icon-md)+var(--spacing-6))]",
+  lg: "pl-[calc(var(--icon-lg)+var(--spacing-6))]",
+} as const;
+
+/** @deprecated Use checkboxFieldMessageInsetBySize[size] */
 export const checkboxFieldMessageInsetClassName =
-  "pl-[calc(var(--icon-lg)+var(--spacing-6))]";
+  checkboxFieldMessageInsetBySize.sm;
 
 export const checkboxFieldLabelClassName = cva(
   [

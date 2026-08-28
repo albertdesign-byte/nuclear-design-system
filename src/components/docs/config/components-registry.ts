@@ -122,7 +122,6 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
       "/docs/components/date-range-picker",
       "/docs/components/input",
       "/docs/components/label",
-      "/docs/components/field-error",
     ],
   },
   {
@@ -173,7 +172,7 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     category: "Inputs",
     tokens: ["--color-border-subtle", "--icon-md", "--color-action-primary"],
     accessibility: ["keyboard", "aria-label", "aria-busy", "disabled"],
-    relatedComponents: ["/docs/components/field-error", "/docs/components/button"],
+    relatedComponents: ["/docs/components/input", "/docs/components/button"],
   },
   {
     title: "Input",
@@ -181,8 +180,8 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     description:
       "Text and numeric fields used across Medmo forms, search, and clinical data entry.",
     status: "stable",
-    aliases: ["text field", "text input"],
-    keywords: ["form controls", "search", "prefix", "suffix", "helper text"],
+    aliases: ["text field", "text input", "field error", "validation message"],
+    keywords: ["form controls", "search", "prefix", "suffix", "helper text", "field error", "validation"],
     figma: "",
     storybook: "Components/Input",
     category: "Inputs",
@@ -195,7 +194,6 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     accessibility: ["label", "focus ring", "aria-invalid", "disabled"],
     relatedComponents: [
       "/docs/components/label",
-      "/docs/components/field-error",
       "/docs/components/textarea",
       "/docs/components/select",
       "/docs/components/dropzone",
@@ -270,7 +268,6 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     relatedComponents: [
       "/docs/components/input",
       "/docs/components/label",
-      "/docs/components/field-error",
     ],
   },
   {
@@ -302,27 +299,7 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     accessibility: ["label", "required", "disabled"],
     relatedComponents: [
       "/docs/components/input",
-      "/docs/components/field-error",
       "/docs/components/checkbox",
-    ],
-  },
-  {
-    title: "Field Error",
-    href: "/docs/components/field-error",
-    description:
-      "Inline validation messages that explain what is wrong and how to fix it.",
-    status: "stable",
-    aliases: ["error message", "validation message"],
-    keywords: ["form controls", "invalid", "aria-invalid", "helper text"],
-    figma: "",
-    storybook: "Components/Field Error",
-    category: "Inputs",
-    tokens: ["--color-error-text", "--icon-sm"],
-    accessibility: ["aria-invalid", "aria-describedby", "error"],
-    relatedComponents: [
-      "/docs/components/input",
-      "/docs/components/label",
-      "/docs/components/alert",
     ],
   },
   {
@@ -474,7 +451,7 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     accessibility: ["role=alert", "aria-live"],
     relatedComponents: [
       "/docs/components/sonner",
-      "/docs/components/field-error",
+      "/docs/components/input",
       "/docs/components/alert-dialog",
     ],
   },

@@ -38,7 +38,7 @@ export const radioGroupItemVariants = cva(
       },
     },
     defaultVariants: {
-      size: "lg",
+      size: "sm",
     },
   }
 );
@@ -55,14 +55,16 @@ export const radioGroupIndicatorDotVariants = cva("rounded-full bg-current", {
     },
   },
   defaultVariants: {
-    size: "lg",
+    size: "sm",
   },
 });
 
-/** Visual-only wrapper — sizes to the radio, not the touch target. */
+/** Visual-only wrapper — sizes to the radio, not the touch target.
+ *  Height matches the first label line box so the control aligns with line 1. */
 export const radioControlClassName = [
   componentFontFamilyClassName,
-  "relative inline-flex shrink-0 items-center justify-center self-center",
+  "relative inline-flex shrink-0 items-center justify-center self-start",
+  "min-h-[calc(var(--text-label-size)*var(--text-label-line-height))]",
 ].join(" ");
 
 /** Visual gap between control and label text (6px). */
@@ -81,9 +83,15 @@ export const radioFieldClassName = [
 export const radioFieldContentClassName =
   "flex min-w-0 flex-1 flex-col gap-[var(--space-stack-xs)]";
 
-/** Align helper/error with label column (24px control + 6px gap). */
-export const radioFieldMessageInsetClassName =
-  "pl-[calc(var(--icon-lg)+var(--spacing-6))]";
+/** Align helper/error with the label column (control size + 6px gap). */
+export const radioFieldMessageInsetBySize = {
+  sm: "pl-[calc(var(--icon-sm)+var(--spacing-6))]",
+  md: "pl-[calc(var(--icon-md)+var(--spacing-6))]",
+  lg: "pl-[calc(var(--icon-lg)+var(--spacing-6))]",
+} as const;
+
+/** @deprecated Use radioFieldMessageInsetBySize[size] */
+export const radioFieldMessageInsetClassName = radioFieldMessageInsetBySize.sm;
 
 export const radioFieldLabelClassName = cva(
   [

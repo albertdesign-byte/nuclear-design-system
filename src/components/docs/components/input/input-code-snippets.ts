@@ -107,6 +107,13 @@ export const inputErrorSnippet = exampleSnippet(
   { imports: [inputImport] }
 );
 
+export const inputFieldErrorIconSnippet = exampleSnippet(
+  `<FieldError showIcon id="upload-error">
+  Use file in .pdf, .jpeg or .png
+</FieldError>`,
+  { imports: ['import { FieldError } from "@/components/field-error";'] }
+);
+
 export const inputHelperTextSnippet = exampleSnippet(
   `<InputField
   id="patient-name"

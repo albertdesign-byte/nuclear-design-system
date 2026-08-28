@@ -5,6 +5,7 @@ import { semanticShadows } from "@medmo/tokens/tooling";
 
 import { getFoundationEntry } from "@/components/docs/config/foundations-registry";
 import { DocsFoundationPage } from "@/components/docs/foundations/docs-foundation-page";
+import { DocsCopyToken } from "@/components/docs/primitives/docs-copy-token";
 import { DocsSection } from "@/components/docs/primitives/docs-section";
 
 const foundation = getFoundationEntry("/docs/foundations/shadows")!;
@@ -47,9 +48,10 @@ export default function ShadowsFoundationRoute() {
                       {shadow.purpose}
                     </h3>
                   </div>
-                  <code className="mt-[var(--space-stack-md)] break-all text-[length:var(--text-caption-size)] text-muted-foreground">
-                    --shadow-{shadow.role}
-                  </code>
+                  <DocsCopyToken
+                    className="mt-[var(--space-stack-md)] break-all"
+                    value={`--shadow-${shadow.role}`}
+                  />
                 </div>
               </article>
             ))}
@@ -69,9 +71,7 @@ export default function ShadowsFoundationRoute() {
                     className="flex h-24 items-center justify-center rounded-[var(--radius-md)] border border-[var(--color-border-subtle)] bg-[var(--color-surface-floating)]"
                     style={{ boxShadow: shadow.boxShadow }}
                   >
-                    <code className="text-[length:var(--text-caption-size)]">
-                      shadow-{shadow.role}
-                    </code>
+                    <DocsCopyToken value={`--shadow-${shadow.role}`} />
                   </div>
                   <div>
                     <h3 className="text-[length:var(--text-label-size)] font-semibold">
@@ -109,7 +109,7 @@ export default function ShadowsFoundationRoute() {
                     className="border-t border-[var(--color-border-subtle)] align-top"
                   >
                     <td className="p-[var(--space-table)]">
-                      <code>shadow-{shadow.role}</code>
+                      <DocsCopyToken value={`--shadow-${shadow.role}`} />
                     </td>
                     <td className="p-[var(--space-table)]">
                       {shadow.surfaceGuidance}

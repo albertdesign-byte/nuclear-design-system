@@ -5,6 +5,7 @@ import { semanticRadius } from "@medmo/tokens/tooling";
 
 import { getFoundationEntry } from "@/components/docs/config/foundations-registry";
 import { DocsFoundationPage } from "@/components/docs/foundations/docs-foundation-page";
+import { DocsCopyToken } from "@/components/docs/primitives/docs-copy-token";
 import { DocsSection } from "@/components/docs/primitives/docs-section";
 
 const foundation = getFoundationEntry("/docs/foundations/radius")!;
@@ -49,7 +50,7 @@ export default function RadiusFoundationRoute() {
                 style={{ borderRadius: token.rem }}
               />
               <h3 className="mt-[var(--space-stack-sm)] text-[length:var(--text-label-size)] font-semibold">
-                radius-{token.role}
+                <DocsCopyToken value={`--radius-${token.role}`} />
               </h3>
               <p className="mt-[var(--space-stack-xs)] text-[length:var(--text-caption-size)] text-muted-foreground">
                 {token.px}px · {token.purpose}
@@ -80,10 +81,10 @@ export default function RadiusFoundationRoute() {
                   className="border-t border-[var(--color-border-subtle)] align-top"
                 >
                   <td className="p-[var(--space-table)]">
-                    <code>radius-{token.role}</code>
+                    <DocsCopyToken value={`--radius-${token.role}`} />
                   </td>
                   <td className="p-[var(--space-table)]">
-                    <code>radius-{token.scale}</code>
+                    <DocsCopyToken value={`--radius-${token.scale}`} />
                   </td>
                   <td className="p-[var(--space-table)]">{token.usage}</td>
                 </tr>

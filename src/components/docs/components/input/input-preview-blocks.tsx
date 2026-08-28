@@ -2,6 +2,7 @@
 
 import { SearchIcon, UserIcon } from "lucide-react";
 
+import { FieldError } from "@/components/field-error";
 import { InputField, InputGroup } from "@/components/input";
 
 export function InputDefaultPreview() {
@@ -45,6 +46,14 @@ export function InputErrorPreview() {
       defaultValue="not-an-email"
       error="Enter a valid email address."
     />
+  );
+}
+
+export function InputFieldErrorIconPreview() {
+  return (
+    <FieldError showIcon id="input-field-error-icon-example">
+      Use file in .pdf, .jpeg or .png
+    </FieldError>
   );
 }
 

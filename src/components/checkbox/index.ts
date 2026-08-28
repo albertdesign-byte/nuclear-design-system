@@ -9,6 +9,7 @@ export {
   checkboxFieldContentClassName,
   checkboxFieldLabelClassName,
   checkboxFieldMessageInsetClassName,
+  checkboxFieldMessageInsetBySize,
   checkboxGroupClassName,
   checkboxGroupListClassName,
   checkboxGroupLegendClassName,

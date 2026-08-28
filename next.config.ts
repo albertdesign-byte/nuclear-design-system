@@ -13,6 +13,16 @@ const nextConfig: NextConfig = {
         destination: "/docs/templates/multi-step-flow-layout",
         permanent: true,
       },
+      {
+        source: "/docs/components/field-error",
+        destination: "/docs/components/input#error",
+        permanent: true,
+      },
+      {
+        source: "/docs/products/patients/field-error",
+        destination: "/docs/components/input#error",
+        permanent: true,
+      },
     ];
   },
 };

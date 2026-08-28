@@ -54,6 +54,7 @@ const checkboxFieldApiRows = [
   { prop: "helperText", type: "ReactNode", defaultValue: "—" },
   { prop: "error", type: "ReactNode", defaultValue: "—" },
   { prop: "invalid", type: "boolean", defaultValue: "false" },
+  { prop: "size", type: '"sm" | "md" | "lg"', defaultValue: '"sm"' },
 ];
 
 export function CheckboxDocsPage() {

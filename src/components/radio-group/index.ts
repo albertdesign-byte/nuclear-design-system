@@ -11,6 +11,7 @@ export {
   radioFieldContentClassName,
   radioFieldLabelClassName,
   radioFieldMessageInsetClassName,
+  radioFieldMessageInsetBySize,
   radioGroupListClassName,
   radioGroupLegendClassName,
   radioGroupFieldClassName,

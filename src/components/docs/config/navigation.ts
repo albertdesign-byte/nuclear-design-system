@@ -111,6 +111,7 @@ export const inputTocItems = [
   { id: "required", label: "Required" },
   { id: "disabled", label: "Disabled" },
   { id: "error", label: "Error" },
+  { id: "field-error-icon", label: "Field Error Icon" },
   { id: "read-only", label: "Read Only" },
   { id: "loading", label: "Loading" },
   { id: "with-icon", label: "Input with Icon" },
@@ -330,14 +331,6 @@ export const labelTocItems = [
   { id: "guidelines", label: "Guidelines" },
   { id: "disabled", label: "Disabled" },
   { id: "invalid", label: "Invalid" },
-  { id: "api-reference", label: "API Reference" },
-];
-
-export const fieldErrorTocItems = [
-  { id: "installation", label: "Installation" },
-  { id: "usage", label: "Usage" },
-  { id: "field-group", label: "Field Group" },
-  { id: "with-icon", label: "With Icon" },
   { id: "api-reference", label: "API Reference" },
 ];
 

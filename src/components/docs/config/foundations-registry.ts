@@ -52,7 +52,13 @@ export const foundationsRegistry: FoundationRegistryEntry[] = [
         id: "primary",
         title: "Primary",
         aliases: ["brand palette", "primary palette", "primary 800"],
-        keywords: ["primary scale", "hex", "swatch", "anchor"],
+        keywords: ["primary scale", "hex", "swatch", "anchor", "primary 700"],
+      },
+      {
+        id: "secondary",
+        title: "Secondary",
+        aliases: ["secondary palette", "secondary brand"],
+        keywords: ["secondary text", "secondary interactive", "primary 500", "primary 600"],
       },
       {
         id: "tones",

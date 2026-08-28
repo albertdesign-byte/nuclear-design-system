@@ -7,6 +7,7 @@ import {
   inputEndIconSnippet,
   inputErrorMessageSnippet,
   inputErrorSnippet,
+  inputFieldErrorIconSnippet,
   inputFullWidthSnippet,
   inputHelperTextSnippet,
   inputInstallationUiSnippet,
@@ -30,6 +31,7 @@ import {
   InputEndIconPreview,
   InputErrorMessagePreview,
   InputErrorPreview,
+  InputFieldErrorIconPreview,
   InputHelperTextPreview,
   InputLoadingPreview,
   InputPrefixCurrencyPreview,
@@ -83,6 +85,12 @@ const inputFieldApiRows = [
   { prop: "endIcon", type: "ReactNode", defaultValue: "—" },
 ];
 
+const fieldErrorApiRows = [
+  { prop: "showIcon", type: "boolean", defaultValue: "false" },
+  { prop: "id", type: "string", defaultValue: "—" },
+  { prop: "className", type: "string", defaultValue: "undefined" },
+];
+
 const inputGroupApiRows = [
   { prop: "prefix", type: "ReactNode", defaultValue: "—" },
   { prop: "suffix", type: "ReactNode", defaultValue: "—" },
@@ -128,7 +136,40 @@ export function InputDocsPage() {
           <StateSection id="default" title="Default" code={inputDefaultSnippet} preview={<InputDefaultPreview />} />
           <StateSection id="required" title="Required" description="Mark required fields in the label and set aria-required on the input." code={inputRequiredSnippet} preview={<InputRequiredPreview />} />
           <StateSection id="disabled" title="Disabled" code={inputDisabledSnippet} preview={<InputDisabledPreview />} />
-          <StateSection id="error" title="Error" code={inputErrorSnippet} preview={<InputErrorPreview />} />
+          <StateSection
+            id="error"
+            title="Error"
+            description={
+              <>
+                Prefer <DocsInlineCode>InputField</DocsInlineCode> with{" "}
+                <DocsInlineCode>error</DocsInlineCode> — it renders{" "}
+                <DocsInlineCode>FieldError</DocsInlineCode> and wires{" "}
+                <DocsInlineCode>aria-invalid</DocsInlineCode> /{" "}
+                <DocsInlineCode>aria-describedby</DocsInlineCode>. Use{" "}
+                <DocsInlineCode>showIcon</DocsInlineCode> on{" "}
+                <DocsInlineCode>FieldError</DocsInlineCode> for file validation
+                and other errors that benefit from a warning glyph.
+              </>
+            }
+            code={inputErrorSnippet}
+            preview={<InputErrorPreview />}
+          />
+          <DocsSection
+            id="field-error-icon"
+            title="Field error with icon"
+            description={
+              <>
+                <DocsInlineCode>FieldError</DocsInlineCode> remains the shared
+                validation message primitive. Inputs, selects, checkboxes, and
+                dropzones already include it — this is the icon variant, not a
+                separate documentation page.
+              </>
+            }
+          >
+            <DocsPreview code={inputFieldErrorIconSnippet}>
+              <InputFieldErrorIconPreview />
+            </DocsPreview>
+          </DocsSection>
           <StateSection id="read-only" title="Read Only" description="Use readOnly for system-assigned values that should remain visible but not editable." code={inputReadOnlySnippet} preview={<InputReadOnlyPreview />} />
           <StateSection id="loading" title="Loading" description="Set loading on InputField to disable the control and show a spinner in the suffix slot." code={inputLoadingSnippet} preview={<InputLoadingPreview />} />
 
@@ -289,6 +330,8 @@ export function InputDocsPage() {
             <DocsApiTable rows={inputFieldApiRows} />
             <h3 className="mb-[var(--space-stack-sm)] mt-[var(--space-stack-lg)] text-[length:var(--text-title-size)] font-medium">InputGroup</h3>
             <DocsApiTable rows={inputGroupApiRows} />
+            <h3 className="mb-[var(--space-stack-sm)] mt-[var(--space-stack-lg)] text-[length:var(--text-title-size)] font-medium">FieldError</h3>
+            <DocsApiTable rows={fieldErrorApiRows} />
           </DocsSection>
         </>
       }

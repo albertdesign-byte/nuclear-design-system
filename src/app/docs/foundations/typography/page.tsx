@@ -6,6 +6,7 @@ import { semanticTypography } from "@medmo/tokens/tooling";
 
 import { getFoundationEntry } from "@/components/docs/config/foundations-registry";
 import { DocsFoundationPage } from "@/components/docs/foundations/docs-foundation-page";
+import { DocsCopyToken } from "@/components/docs/primitives/docs-copy-token";
 import { DocsSection } from "@/components/docs/primitives/docs-section";
 import { componentFontFamilyClassName } from "@/lib/component-font-family";
 import { cn } from "@/lib/utils";
@@ -157,9 +158,7 @@ export default function TypographyFoundationRoute() {
                   className="grid gap-[var(--space-stack-md)] rounded-[var(--radius-lg)] border border-[var(--color-border-subtle)] bg-[var(--color-surface)] p-[var(--space-card)] lg:grid-cols-[10rem_minmax(0,1fr)]"
                 >
                   <div>
-                    <code className="text-[length:var(--text-caption-size)]">
-                      text-{role}
-                    </code>
+                    <DocsCopyToken value={`--text-${role}-size`} />
                     <dl className="mt-[var(--space-stack-xs)] text-[length:var(--text-caption-size)] leading-[var(--text-caption-line-height)] text-muted-foreground">
                       <div>{resolved.fontSizePx}px</div>
                       <div>Weight {resolved.fontWeight}</div>
@@ -204,7 +203,7 @@ export default function TypographyFoundationRoute() {
                     className="border-t border-[var(--color-border-subtle)] align-top"
                   >
                     <td className="p-[var(--space-table)]">
-                      <code>text-{role}</code>
+                      <DocsCopyToken value={`--text-${role}-size`} />
                     </td>
                     <td className="p-[var(--space-table)]">
                       {resolved.fontSizePx}px

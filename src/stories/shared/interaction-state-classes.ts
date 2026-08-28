@@ -13,6 +13,42 @@ export const buttonPrimaryStateClassName: Record<InteractionState, string> = {
   Disabled: "",
 };
 
+export const buttonSecondaryStateClassName: Record<InteractionState, string> = {
+  Default: "",
+  Hover: "bg-[var(--color-surface-hover)] text-[var(--color-text-primary)]",
+  Focus: focusRingClassName,
+  Active: "bg-[var(--color-surface-active)]",
+  Disabled: "",
+};
+
+export const buttonOutlineStateClassName: Record<InteractionState, string> = {
+  Default: "",
+  Hover:
+    "border-[var(--color-border-strong)] bg-[var(--color-surface-muted)]",
+  Focus: focusRingClassName,
+  Active: "bg-[var(--color-surface-active)]",
+  Disabled: "",
+};
+
+export const buttonGhostStateClassName: Record<InteractionState, string> = {
+  Default: "",
+  Hover:
+    "bg-[var(--color-surface-muted)] text-[var(--color-text-primary)]",
+  Focus: focusRingClassName,
+  Active: "bg-[var(--color-surface-active)]",
+  Disabled: "",
+};
+
+export const buttonDangerStateClassName: Record<InteractionState, string> = {
+  Default: "",
+  Hover:
+    "border-[var(--color-error-foreground)] text-[var(--color-error-foreground)]",
+  Focus: focusRingClassName,
+  Active:
+    "border-[var(--color-error-foreground)] bg-[var(--color-error-background)] text-[var(--color-error-foreground)]",
+  Disabled: "",
+};
+
 export type InputVisualState =
   | "Default"
   | "Hover"

@@ -9,6 +9,7 @@ import {
 import { getFoundationEntry } from "@/components/docs/config/foundations-registry";
 import { DocsColorSwatchCard } from "@/components/docs/foundations/docs-color-swatch-card";
 import { DocsFoundationPage } from "@/components/docs/foundations/docs-foundation-page";
+import { DocsCopyToken } from "@/components/docs/primitives/docs-copy-token";
 import { DocsSection } from "@/components/docs/primitives/docs-section";
 
 const foundation = getFoundationEntry("/docs/foundations/colors")!;
@@ -57,12 +58,26 @@ const feedbackExamples = [
   { name: "Info", tokens: lightSemantic.feedback.info },
 ] as const;
 
-const PRIMARY_ANCHOR_STEP = "800";
+const PRIMARY_STEPS = ["800", "700"] as const;
+const SECONDARY_STEPS = ["500", "600"] as const;
+
+function primaryTokenName(step: string) {
+  return `primary-${step}`;
+}
 
 export default function ColorsFoundationRoute() {
-  const primaryAnchor = colorPrimitives.primary[800];
+  const primary = PRIMARY_STEPS.map((step) => ({
+    step,
+    color: colorPrimitives.primary[step],
+  }));
+  const secondary = SECONDARY_STEPS.map((step) => ({
+    step,
+    color: colorPrimitives.primary[step],
+  }));
   const tones = Object.entries(colorPrimitives.primary).filter(
-    ([step]) => step !== PRIMARY_ANCHOR_STEP
+    ([step]) =>
+      !PRIMARY_STEPS.includes(step as (typeof PRIMARY_STEPS)[number]) &&
+      !SECONDARY_STEPS.includes(step as (typeof SECONDARY_STEPS)[number])
   );
 
   return (
@@ -70,21 +85,43 @@ export default function ColorsFoundationRoute() {
       <DocsSection
         id="primary"
         title="Primary"
-        description="The Medmo brand scale is anchored at Primary 800."
+        description="The Medmo brand action pair. 800 is the brand anchor; 700 is the hover and default-link companion. Components consume these through semantic action tokens."
       >
         <div className="grid gap-[var(--space-card-gap)] sm:grid-cols-2 lg:grid-cols-4">
-          <DocsColorSwatchCard
-            step={PRIMARY_ANCHOR_STEP}
-            hex={primaryAnchor.hex}
-            usage={primaryAnchor.usage}
-          />
+          {primary.map(({ step, color }) => (
+            <DocsColorSwatchCard
+              key={step}
+              step={step}
+              hex={color.hex}
+              usage={color.usage}
+              token={primaryTokenName(step)}
+            />
+          ))}
+        </div>
+      </DocsSection>
+
+      <DocsSection
+        id="secondary"
+        title="Secondary"
+        description="Supporting brand text and secondary interactive states. Same hue as Primary — not a second brand color. Remaining tints stay in Tones."
+      >
+        <div className="grid gap-[var(--space-card-gap)] sm:grid-cols-2 lg:grid-cols-4">
+          {secondary.map(({ step, color }) => (
+            <DocsColorSwatchCard
+              key={step}
+              step={step}
+              hex={color.hex}
+              usage={color.usage}
+              token={primaryTokenName(step)}
+            />
+          ))}
         </div>
       </DocsSection>
 
       <DocsSection
         id="tones"
         title="Tones"
-        description="Supporting steps of the primary scale."
+        description="Remaining steps of the primary scale for tints, borders, and pressed surfaces. Do not delete these values — semantic tokens still resolve to them."
       >
         <div className="grid gap-[var(--space-card-gap)] sm:grid-cols-2 lg:grid-cols-4">
           {tones.map(([step, color]) => (
@@ -93,6 +130,7 @@ export default function ColorsFoundationRoute() {
               step={step}
               hex={color.hex}
               usage={color.usage}
+              token={primaryTokenName(step)}
             />
           ))}
         </div>
@@ -120,9 +158,7 @@ export default function ColorsFoundationRoute() {
                     <h3 className="text-[length:var(--text-label-size)] font-semibold">
                       {name}
                     </h3>
-                    <code className="text-[length:var(--text-caption-size)] text-muted-foreground">
-                      {variable}
-                    </code>
+                    <DocsCopyToken value={variable} />
                     <p className="mt-[var(--space-stack-xs)] text-[length:var(--text-caption-size)] leading-[var(--text-caption-line-height)] text-muted-foreground">
                       {token.usage}
                     </p>
@@ -178,7 +214,7 @@ export default function ColorsFoundationRoute() {
                     className="border-t border-[var(--color-border-subtle)]"
                   >
                     <td className="p-[var(--space-table)]">
-                      <code>{variable}</code>
+                      <DocsCopyToken value={variable} />
                     </td>
                     <td className="p-[var(--space-table)]">{token.usage}</td>
                     <td className="p-[var(--space-table)]">{token.doNot}</td>
