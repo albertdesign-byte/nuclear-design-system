@@ -5,7 +5,7 @@ import Link from "next/link";
 import { PanelLeftCloseIcon, PanelLeftOpenIcon } from "lucide-react";
 import { useState } from "react";
 
-import { MedmoLogo } from "@/components/brand";
+import { MedmoLogo, MedmoLogoLockup } from "@/components/brand";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/tooltip";
 import { cn } from "@/lib/utils";
 
@@ -129,7 +129,15 @@ function AppSidebar({
         aria-label="Medmo home"
         className={appSidebarLogoClassName}
       >
-        <MedmoLogo className="size-[var(--spacing-32)]" />
+        {expanded ? (
+          <MedmoLogoLockup
+            size="md"
+            variant="inverse"
+            iconClassName="size-[var(--spacing-32)]"
+          />
+        ) : (
+          <MedmoLogo className="size-[var(--spacing-32)]" />
+        )}
       </Link>
 
       <nav aria-label="Application" className={appSidebarNavClassName}>

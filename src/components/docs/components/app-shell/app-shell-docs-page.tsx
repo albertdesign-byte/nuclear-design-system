@@ -81,6 +81,7 @@ export function AppShellDocsPage() {
         <DocsPreview code={appSidebarSnippet}>
           <div className="flex h-[28rem] overflow-hidden rounded-[var(--radius-card)] ring-1 ring-[var(--color-border-subtle)]">
             <AppSidebar
+              defaultExpanded
               items={[
                 {
                   label: "Dashboard",

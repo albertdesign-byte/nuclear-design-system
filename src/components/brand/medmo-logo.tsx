@@ -73,7 +73,7 @@ export function MedmoLogoLockup({
           wordmarkClassName
         )}
       >
-        medmo
+        Medmo
       </span>
     </span>
   );

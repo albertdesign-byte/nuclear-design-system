@@ -25,3 +25,8 @@ export const logoUsageSnippet = exampleSnippet(`<MedmoLogo className="size-8" />
 export const logoLockupSnippet = exampleSnippet(`<MedmoLogoLockup />`, {
   imports: [brandImport],
 });
+
+export const logoInverseSnippet = exampleSnippet(
+  `<MedmoLogoLockup variant="inverse" />`,
+  { imports: [brandImport] }
+);

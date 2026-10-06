@@ -3,6 +3,7 @@
 import { MedmoLogo, MedmoLogoLockup } from "@/components/brand";
 import {
   logoInstallationUiSnippet,
+  logoInverseSnippet,
   logoLockupSnippet,
   logoRealScreenSnippet,
   logoUsageSnippet,
@@ -33,6 +34,21 @@ const logoLockupApiRows = [
     prop: "iconClassName",
     type: "string",
     defaultValue: "undefined",
+  },
+  {
+    prop: "wordmarkClassName",
+    type: "string",
+    defaultValue: "undefined",
+  },
+  {
+    prop: "size",
+    type: '"md" | "lg"',
+    defaultValue: '"md"',
+  },
+  {
+    prop: "variant",
+    type: '"default" | "inverse"',
+    defaultValue: '"default"',
   },
 ];
 
@@ -75,14 +91,28 @@ export function LogoDocsPage() {
             title="Lockup"
             description={
               <>
-                Use <DocsInlineCode>MedmoLogoLockup</DocsInlineCode> for the
-                Patients application shell pattern: icon plus the{" "}
-                <DocsInlineCode>medmo</DocsInlineCode> wordmark.
+                Use <DocsInlineCode>MedmoLogoLockup</DocsInlineCode> for the mark
+                plus the <DocsInlineCode>Medmo</DocsInlineCode> wordmark — the
+                same M as the sidebar, with the name beside it. On dark chrome
+                such as the expanded app menu, pass{" "}
+                <DocsInlineCode>variant=&quot;inverse&quot;</DocsInlineCode>.
               </>
             }
           >
             <DocsPreview code={logoLockupSnippet}>
               <MedmoLogoLockup />
+            </DocsPreview>
+          </DocsSection>
+
+          <DocsSection
+            id="inverse"
+            title="Inverse"
+            description="Use on dark surfaces such as the expanded App Sidebar."
+          >
+            <DocsPreview code={logoInverseSnippet}>
+              <div className="flex w-full items-center rounded-[var(--radius-md)] bg-[var(--color-action-primary)] px-[var(--space-inline-md)] py-[var(--space-stack-sm)]">
+                <MedmoLogoLockup variant="inverse" />
+              </div>
             </DocsPreview>
           </DocsSection>
 

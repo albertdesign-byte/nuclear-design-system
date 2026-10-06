@@ -466,6 +466,7 @@ export const logoTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
   { id: "lockup", label: "Lockup" },
+  { id: "inverse", label: "Inverse" },
   { id: "api-reference", label: "API Reference" },
 ];
 
