@@ -20,11 +20,12 @@ export function ChipVsBadgeSection() {
           </p>
           <div className="mt-[var(--space-stack-sm)] flex flex-col items-start gap-[var(--space-stack-sm)]">
             <Badge variant="secondary">Stable</Badge>
+            <Badge variant="success">Yes</Badge>
+            <Badge variant="destructive">No</Badge>
             <Badge>3</Badge>
-            <Badge variant="destructive">Critical</Badge>
           </div>
           <ul className="mt-[var(--space-stack-sm)] list-disc space-y-[var(--space-stack-xs)] pl-[var(--space-inline-md)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
-            <li>Record status (Stable, Under review, Critical).</li>
+            <li>Record status (Stable, Under review, Yes, No).</li>
             <li>Count or quantity (pending results, items in a filter).</li>
             <li>Read-only metadata in tables, cards, and headers.</li>
             <li>It is not dismissed or selected as a filter.</li>

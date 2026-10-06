@@ -3,12 +3,11 @@
 import { CalendarIcon } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 
+import { Calendar } from "@/components/calendar";
 import { FieldError } from "@/components/field-error";
 import { Input } from "@/components/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
 import { cn } from "@/lib/utils";
-
-import { DateRangePickerCalendar } from "./date-range-picker-calendar";
 import {
   dateRangePickerClassName,
   dateRangePickerFieldClassName,
@@ -215,8 +214,8 @@ export function DateRangePicker({
       />
 
       <PopoverContent align="start" initialFocus={false} className="w-auto p-0">
-        <DateRangePickerCalendar
-          activeField={activeField}
+        <Calendar
+          value={activeField === "from" ? from : to}
           from={from}
           to={to}
           viewDate={viewDate}

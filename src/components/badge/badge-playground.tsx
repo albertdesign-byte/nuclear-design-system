@@ -10,6 +10,7 @@ const sizes: BadgeSize[] = ["sm", "md", "lg"];
 const variants: BadgeVariant[] = [
   "default",
   "secondary",
+  "success",
   "destructive",
   "outline",
   "ghost",

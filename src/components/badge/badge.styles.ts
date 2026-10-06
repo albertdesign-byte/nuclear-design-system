@@ -27,8 +27,13 @@ export const badgeVariants = cva(
           "bg-[var(--color-surface-muted)] text-[var(--color-text-secondary)]",
           "[a]:hover:bg-[var(--color-surface-hover)] [a]:hover:text-[var(--color-text-primary)]",
         ].join(" "),
+        success: [
+          "border-[var(--color-success-border)] bg-[var(--color-success-background)] text-[var(--color-success-text)]",
+          "focus-visible:ring-[var(--color-success-border)]/30",
+          "[a]:hover:bg-[var(--color-success-background)] [a]:hover:text-[var(--color-success-foreground)]",
+        ].join(" "),
         destructive: [
-          "bg-[var(--color-error-background)] text-[var(--color-error-text)]",
+          "border-[var(--color-error-border)] bg-[var(--color-error-background)] text-[var(--color-error-text)]",
           "focus-visible:ring-[var(--color-error-border)]/30",
           "[a]:hover:bg-[var(--color-error-background)] [a]:hover:text-[var(--color-error-foreground)]",
         ].join(" "),

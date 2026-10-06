@@ -1,9 +1,19 @@
 "use client";
 
+import { SearchIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
+import { CommandShortcut } from "@/components/command";
 import { GlobalSearchBar } from "@/components/global-search-bar";
+import {
+  globalSearchBarChromeTypographyClassName,
+  globalSearchBarContainerClassName,
+  globalSearchBarFilterInputClassName,
+  globalSearchBarIconClassName,
+  globalSearchBarShortcutClassName,
+} from "@/components/global-search-bar/global-search-bar.styles";
+import { inputVariants } from "@/components/input";
 import { cn } from "@/lib/utils";
 
 import {
@@ -11,11 +21,26 @@ import {
   patternsNavCategories,
   templatesNavCategories,
   type DocsNavCategory,
+  type DocsNavItem,
 } from "../config/navigation";
-import { getComponentSearchEntries } from "../config/components-registry";
-import { getFoundationSearchEntries } from "../config/foundations-registry";
-import { getPatternSearchEntries } from "../config/patterns-registry";
-import { getTemplateSearchEntries } from "../config/templates-registry";
+import {
+  componentMatchesQuery,
+  getComponentEntry,
+  getComponentSearchEntries,
+} from "../config/components-registry";
+import {
+  getFoundationEntry,
+  getFoundationSearchEntries,
+} from "../config/foundations-registry";
+import {
+  getPatternEntry,
+  getPatternSearchEntries,
+  patternMatchesQuery,
+} from "../config/patterns-registry";
+import {
+  getTemplateEntry,
+  getTemplateSearchEntries,
+} from "../config/templates-registry";
 import {
   nuclearProductNavCategories,
   patientsProductNavCategories,
@@ -64,7 +89,7 @@ const patientsSearchCategories = filterSearchableCategories(
   patientsProductNavCategories
 );
 
-type DocsSearchScope =
+export type DocsSearchScope =
   | "components"
   | "foundations"
   | "patterns"
@@ -75,14 +100,116 @@ type DocsSearchScope =
   | "products-nuclear"
   | "products-patients";
 
+export function getDocsSearchEmptyMessage(scope: DocsSearchScope) {
+  switch (scope) {
+    case "foundations":
+      return "No foundations found.";
+    case "patterns":
+      return "No patterns found.";
+    case "templates":
+      return "No templates found.";
+    case "products":
+      return "No products found.";
+    case "userflow-nuclear":
+      return "No MPF Portal user flows found.";
+    case "userflow-patients":
+      return "No Patients user flows found.";
+    case "products-nuclear":
+      return "No MPF Portal implementations found.";
+    case "products-patients":
+      return "No Patients implementations found.";
+    default:
+      return "No components found.";
+  }
+}
+
+export function navItemMatchesQuery(
+  item: DocsNavItem,
+  query: string,
+  scope: DocsSearchScope
+) {
+  const normalized = query.trim().toLowerCase();
+
+  if (!normalized) {
+    return true;
+  }
+
+  if (item.title.toLowerCase().includes(normalized)) {
+    return true;
+  }
+
+  if (!item.href || item.href === "#" || item.comingSoon) {
+    return false;
+  }
+
+  if (scope === "components") {
+    const entry = getComponentEntry(item.href);
+    return entry ? componentMatchesQuery(entry, normalized) : false;
+  }
+
+  if (scope === "foundations") {
+    const entry = getFoundationEntry(item.href);
+    if (!entry) {
+      return false;
+    }
+
+    return [entry.title, entry.description, ...entry.aliases, ...entry.keywords]
+      .join(" ")
+      .toLowerCase()
+      .includes(normalized);
+  }
+
+  if (scope === "patterns") {
+    const entry = getPatternEntry(item.href);
+    return entry ? patternMatchesQuery(entry, normalized) : false;
+  }
+
+  if (scope === "templates") {
+    const entry = getTemplateEntry(item.href);
+    if (!entry) {
+      return false;
+    }
+
+    return [entry.title, entry.description, ...entry.aliases, ...entry.keywords]
+      .join(" ")
+      .toLowerCase()
+      .includes(normalized);
+  }
+
+  return false;
+}
+
+export function filterDocsNavCategories(
+  categories: DocsNavCategory[],
+  query: string,
+  scope: DocsSearchScope
+) {
+  if (!query.trim()) {
+    return categories;
+  }
+
+  return categories
+    .map((category) => ({
+      ...category,
+      items: category.items.filter((item) =>
+        navItemMatchesQuery(item, query, scope)
+      ),
+    }))
+    .filter((category) => category.items.length > 0);
+}
+
 type DocsSearchProps = {
   variant?: "sidebar" | "header";
   scope?: DocsSearchScope;
+  query?: string;
+  onQueryChange?: (query: string) => void;
 };
 
 export function DocsSearch({
   variant = "sidebar",
   scope = "components",
+  query = "",
+  onQueryChange,
 }: DocsSearchProps) {
   const router = useRouter();
 
@@ -156,28 +283,7 @@ export function DocsSearch({
     }
   }, [scope]);
 
-  const emptyMessage = useMemo(() => {
-    switch (scope) {
-      case "foundations":
-        return "No foundations found.";
-      case "patterns":
-        return "No patterns found.";
-      case "templates":
-        return "No templates found.";
-      case "products":
-        return "No products found.";
-      case "userflow-nuclear":
-        return "No MPF Portal user flows found.";
-      case "userflow-patients":
-        return "No Patients user flows found.";
-      case "products-nuclear":
-        return "No MPF Portal implementations found.";
-      case "products-patients":
-        return "No Patients implementations found.";
-      default:
-        return "No components found.";
-    }
-  }, [scope]);
+  const emptyMessage = useMemo(() => getDocsSearchEmptyMessage(scope), [scope]);
 
   const items = useMemo(
     () => {
@@ -208,6 +314,17 @@ export function DocsSearch({
     [scope, searchableCategories]
   );
 
+  if (variant === "sidebar") {
+    return (
+      <SidebarFilterInput
+        query={query}
+        onQueryChange={onQueryChange}
+        placeholder={searchLabel}
+        shortcutEnabled
+      />
+    );
+  }
+
   return (
     <GlobalSearchBar
       placeholder={searchLabel}
@@ -217,7 +334,63 @@ export function DocsSearch({
       dialogDescription={searchDescription}
       emptyMessage={emptyMessage}
       typography="chrome"
-      className={cn(variant === "header" ? "max-w-[16rem]" : "mb-[var(--space-stack-md)]")}
+      className="max-w-[16rem]"
     />
+  );
+}
+
+function SidebarFilterInput({
+  query,
+  onQueryChange,
+  placeholder,
+  shortcutEnabled,
+}: {
+  query: string;
+  onQueryChange?: (query: string) => void;
+  placeholder: string;
+  shortcutEnabled: boolean;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!shortcutEnabled) {
+      return;
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        inputRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [shortcutEnabled]);
+
+  return (
+    <div className={cn(globalSearchBarContainerClassName, "mb-[var(--space-stack-md)]")}>
+      <SearchIcon className={globalSearchBarIconClassName} aria-hidden />
+      <input
+        ref={inputRef}
+        type="search"
+        value={query}
+        onChange={(event) => onQueryChange?.(event.target.value)}
+        placeholder={placeholder}
+        aria-label={placeholder}
+        autoComplete="off"
+        spellCheck={false}
+        className={cn(
+          inputVariants({ size: "sm" }),
+          globalSearchBarFilterInputClassName,
+          globalSearchBarChromeTypographyClassName
+        )}
+      />
+      {shortcutEnabled ? (
+        <CommandShortcut className={globalSearchBarShortcutClassName}>
+          ⌘K
+        </CommandShortcut>
+      ) : null}
+    </div>
   );
 }

@@ -6,6 +6,7 @@ import type { badgeVariants } from "./badge.styles";
 export type BadgeVariant =
   | "default"
   | "secondary"
+  | "success"
   | "destructive"
   | "outline"
   | "ghost"

@@ -11,6 +11,7 @@ import {
   badgeRealScreenSnippet,
   badgeSecondarySnippet,
   badgeSizeSnippet,
+  badgeSuccessSnippet,
   badgeUsageSnippet,
 } from "@/components/docs/components/badge/badge-code-snippets";
 import { BadgeRealScreenPreview } from "@/components/docs/components/badge/badge-real-screen-preview";
@@ -26,7 +27,7 @@ import { DocsSection } from "@/components/docs/primitives/docs-section";
 const badgeApiRows = [
   {
     prop: "variant",
-    type: '"default" | "secondary" | "destructive" | "outline" | "ghost" | "link"',
+    type: '"default" | "secondary" | "success" | "destructive" | "outline" | "ghost" | "link"',
     defaultValue: '"default"',
   },
   {
@@ -55,10 +56,16 @@ const badgeVariants = [
     preview: <Badge variant="secondary">Under review</Badge>,
   },
   {
+    id: "success",
+    label: "Success",
+    snippet: badgeSuccessSnippet,
+    preview: <Badge variant="success">Yes</Badge>,
+  },
+  {
     id: "destructive",
     label: "Destructive",
     snippet: badgeDestructiveSnippet,
-    preview: <Badge variant="destructive">Critical</Badge>,
+    preview: <Badge variant="destructive">No</Badge>,
   },
   {
     id: "outline",
@@ -108,7 +115,10 @@ export function BadgeDocsPage() {
               <>
                 Import the Medmo Badge from{" "}
                 <DocsInlineCode>@/components/badge</DocsInlineCode>. Use badges
-                for patient status, priority labels, and compact metadata.
+                for patient status, priority labels, and compact metadata. Use{" "}
+                <DocsInlineCode>success</DocsInlineCode> and{" "}
+                <DocsInlineCode>destructive</DocsInlineCode> for binary status
+                such as Yes / No.
               </>
             }
           >

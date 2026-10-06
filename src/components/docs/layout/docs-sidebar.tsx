@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 
 import {
   Accordion,
@@ -25,14 +26,17 @@ import { resolveActiveNavHref } from "../config/navigation-active";
 import { isNavItemNew } from "../config/new-component-badges";
 import {
   getProductNavCategories,
-  getProductNavDefaultOpenCategories,
   productsNavCategories,
-  productsNavDefaultOpenCategories,
 } from "../config/products-navigation";
 import {
   getUserflowProductSlug,
 } from "../config/userflow-navigation";
-import { DocsSearch } from "./docs-search";
+import {
+  DocsSearch,
+  filterDocsNavCategories,
+  getDocsSearchEmptyMessage,
+  type DocsSearchScope,
+} from "./docs-search";
 import { docsChromeFontClassName, docsNavLinkClassName } from "./docs-nav-styles";
 
 function NavLinks({ items }: { items: DocsNavItem[] }) {
@@ -115,66 +119,66 @@ export function DocsSidebar() {
   const isProducts = pathname.startsWith("/docs/products");
 
   let navCategories = componentsNavCategories;
-  let defaultOpenCategories = componentsNavCategories.map(
-    (category) => category.id
-  );
-  let searchScope:
-    | "components"
-    | "foundations"
-    | "patterns"
-    | "templates"
-    | "products"
-    | "products-nuclear"
-    | "products-patients" = "components";
+  let searchScope: DocsSearchScope = "components";
   let ariaLabel = "Documentation";
 
   if (userflowProduct === "nuclear") {
     navCategories = getProductNavCategories("nuclear");
-    defaultOpenCategories = getProductNavDefaultOpenCategories("nuclear");
     searchScope = "products-nuclear";
     ariaLabel = "MPF Portal product";
   } else if (userflowProduct === "patients") {
     navCategories = getProductNavCategories("patients");
-    defaultOpenCategories = getProductNavDefaultOpenCategories("patients");
     searchScope = "products-patients";
     ariaLabel = "Patients product";
   } else if (isNuclear) {
     navCategories = getProductNavCategories("nuclear");
-    defaultOpenCategories = getProductNavDefaultOpenCategories("nuclear");
     searchScope = "products-nuclear";
     ariaLabel = "MPF Portal product";
   } else if (isPatients) {
     navCategories = getProductNavCategories("patients");
-    defaultOpenCategories = getProductNavDefaultOpenCategories("patients");
     searchScope = "products-patients";
     ariaLabel = "Patients product";
   } else if (isProducts) {
     navCategories = productsNavCategories;
-    defaultOpenCategories = productsNavDefaultOpenCategories;
     searchScope = "products";
     ariaLabel = "Products";
   } else if (isFoundations) {
     navCategories = foundationsNavCategories;
-    defaultOpenCategories = foundationsNavCategories.map(
-      (category) => category.id
-    );
     searchScope = "foundations";
     ariaLabel = "Foundations";
   } else if (isPatterns) {
     navCategories = patternsNavCategories;
-    defaultOpenCategories = patternsNavCategories.map(
-      (category) => category.id
-    );
     searchScope = "patterns";
     ariaLabel = "Patterns";
   } else if (isTemplates) {
     navCategories = templatesNavCategories;
-    defaultOpenCategories = templatesNavCategories.map(
-      (category) => category.id
-    );
     searchScope = "templates";
     ariaLabel = "Templates";
   }
+
+  const [query, setQuery] = useState("");
+  const [openCategories, setOpenCategories] = useState(() =>
+    navCategories.map((category) => category.id)
+  );
+
+  useEffect(() => {
+    setQuery("");
+    setOpenCategories(navCategories.map((category) => category.id));
+  }, [searchScope]);
+
+  const filteredCategories = useMemo(
+    () => filterDocsNavCategories(navCategories, query, searchScope),
+    [navCategories, query, searchScope]
+  );
+
+  useEffect(() => {
+    if (!query.trim()) {
+      setOpenCategories(navCategories.map((category) => category.id));
+      return;
+    }
+
+    setOpenCategories(filteredCategories.map((category) => category.id));
+  }, [query, searchScope]);
 
   return (
     <aside
@@ -189,30 +193,41 @@ export function DocsSidebar() {
           aria-label={ariaLabel}
           className="px-[var(--space-inline-md)] py-[var(--space-page)]"
         >
-          <DocsSearch scope={searchScope} />
+          <DocsSearch
+            scope={searchScope}
+            query={query}
+            onQueryChange={setQuery}
+          />
 
-          <Accordion
-            multiple
-            defaultValue={defaultOpenCategories}
-            className="docs-nav-accordion gap-[var(--space-stack-md)]"
-          >
-            {navCategories.map((category) => (
-              <AccordionItem
-                key={category.id}
-                value={category.id}
-                className="docs-nav-accordion-item"
-              >
-                <AccordionHeader className="docs-nav-accordion-header">
-                  <AccordionTrigger className="docs-nav-accordion-trigger">
-                    {category.title}
-                  </AccordionTrigger>
-                </AccordionHeader>
-                <AccordionContent className="docs-nav-accordion-content">
-                  <NavLinks items={category.items} />
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          {query.trim() && filteredCategories.length === 0 ? (
+            <p className="px-[var(--space-inline-sm)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-muted)]">
+              {getDocsSearchEmptyMessage(searchScope)}
+            </p>
+          ) : (
+            <Accordion
+              multiple
+              value={openCategories}
+              onValueChange={(value) => setOpenCategories(value)}
+              className="docs-nav-accordion gap-[var(--space-stack-md)]"
+            >
+              {filteredCategories.map((category) => (
+                <AccordionItem
+                  key={category.id}
+                  value={category.id}
+                  className="docs-nav-accordion-item"
+                >
+                  <AccordionHeader className="docs-nav-accordion-header">
+                    <AccordionTrigger className="docs-nav-accordion-trigger">
+                      {category.title}
+                    </AccordionTrigger>
+                  </AccordionHeader>
+                  <AccordionContent className="docs-nav-accordion-content">
+                    <NavLinks items={category.items} />
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          )}
         </nav>
       </ScrollArea>
     </aside>

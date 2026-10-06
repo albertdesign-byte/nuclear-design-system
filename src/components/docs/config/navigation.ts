@@ -213,6 +213,7 @@ export const badgeTocItems = [
   { id: "size", label: "Size" },
   { id: "default", label: "Default" },
   { id: "secondary", label: "Secondary" },
+  { id: "success", label: "Success" },
   { id: "destructive", label: "Destructive" },
   { id: "outline", label: "Outline" },
   { id: "ghost", label: "Ghost" },
@@ -520,6 +521,32 @@ export const userProfileBlockTocItems = [
   { id: "usage", label: "Usage" },
   { id: "with-settings", label: "With Settings" },
   { id: "full-example", label: "Full Example" },
+  { id: "api-reference", label: "API Reference" },
+];
+
+export const calendarTocItems = [
+  { id: "installation", label: "Installation" },
+  { id: "usage", label: "Usage" },
+  { id: "default", label: "Default" },
+  { id: "selected", label: "Selected" },
+  { id: "today", label: "Today" },
+  { id: "disabled", label: "Disabled" },
+  { id: "with-date-picker", label: "With Date Picker" },
+  { id: "guidelines", label: "Guidelines" },
+  { id: "accessibility", label: "Accessibility" },
+  { id: "api-reference", label: "API Reference" },
+];
+
+export const breadcrumbTocItems = [
+  { id: "installation", label: "Installation" },
+  { id: "usage", label: "Usage" },
+  { id: "default", label: "Default" },
+  { id: "multiple-levels", label: "Multiple levels" },
+  { id: "with-home-icon", label: "With Home icon" },
+  { id: "long-trail", label: "Long trail" },
+  { id: "disabled", label: "Disabled" },
+  { id: "guidelines", label: "Guidelines" },
+  { id: "accessibility", label: "Accessibility" },
   { id: "api-reference", label: "API Reference" },
 ];
 

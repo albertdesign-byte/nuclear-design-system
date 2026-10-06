@@ -49,8 +49,13 @@ export const badgeSecondarySnippet = exampleSnippet(
   { imports: [badgeImport] }
 );
 
+export const badgeSuccessSnippet = exampleSnippet(
+  '<Badge variant="success">Yes</Badge>',
+  { imports: [badgeImport] }
+);
+
 export const badgeDestructiveSnippet = exampleSnippet(
-  '<Badge variant="destructive">Critical</Badge>',
+  '<Badge variant="destructive">No</Badge>',
   { imports: [badgeImport] }
 );
 

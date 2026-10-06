@@ -13,6 +13,13 @@ export const globalSearchBarInputClassName = [
   "![color:var(--color-text-muted)]",
 ].join(" ");
 
+/** Sidebar live filter — same chrome as the command trigger, but typeable. */
+export const globalSearchBarFilterInputClassName = [
+  "w-full bg-[var(--color-surface-muted)] pl-[calc(var(--space-inline-sm)+1.25rem)] text-left",
+  "pr-[calc(var(--space-inline-sm)+2.75rem)]",
+  "[&::-webkit-search-cancel-button]:hidden",
+].join(" ");
+
 /** Product surfaces — Poppins + input body scale. */
 export const globalSearchBarComponentTypographyClassName =
   componentFontFamilyClassName;

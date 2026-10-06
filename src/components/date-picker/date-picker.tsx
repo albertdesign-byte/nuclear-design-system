@@ -3,7 +3,7 @@
 import { CalendarIcon } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 
-import { DateRangePickerCalendar } from "@/components/date-range-picker/date-range-picker-calendar";
+import { Calendar } from "@/components/calendar";
 import {
   dateRangePickerInputClassName,
   dateRangePickerInputWrapperClassName,
@@ -138,10 +138,8 @@ export function DatePicker({
         />
 
         <PopoverContent align="start" initialFocus={false} className="w-auto p-0">
-          <DateRangePickerCalendar
-            activeField="from"
-            from={value}
-            to={null}
+          <Calendar
+            value={value}
             viewDate={viewDate}
             locale={locale}
             onViewDateChange={setViewDate}
