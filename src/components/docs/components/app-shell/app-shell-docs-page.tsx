@@ -68,11 +68,22 @@ export function AppShellDocsPage() {
       <DocsSection
         id="preview"
         title="Live preview"
-        description="Operational layout with sidebar, header, and main slots. No product copy is owned here."
+        description="Operational layout with sidebar, header, and main slots. The menu fills the viewport and stays in place while the right column scrolls. Collapse remains pinned at the bottom of the rail. No product copy is owned here."
       >
         <DocsPreview code={appShellRealScreenSnippet}>
           <div className="flex h-[24rem] overflow-hidden rounded-[var(--radius-card)] ring-1 ring-[var(--color-border-subtle)]">
-            <AppShellRealScreenPreview />
+            <AppShellRealScreenPreview>
+              <div className="flex min-h-[40rem] flex-col gap-[var(--space-stack-sm)]">
+                <p className="text-[length:var(--text-body-small-size)] text-[var(--color-text-muted)]">
+                  Scroll this column — the menu and Collapse stay in view. Full
+                  dashboard at{" "}
+                  <TextLink href="/examples/dashboard">
+                    /examples/dashboard
+                  </TextLink>
+                  .
+                </p>
+              </div>
+            </AppShellRealScreenPreview>
           </div>
         </DocsPreview>
       </DocsSection>

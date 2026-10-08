@@ -27,7 +27,7 @@ const meta = {
       ...fullWidthParameters.docs,
       description: {
         component:
-          "Collapsible application navigation rail. Expanded shows labels; collapsed shows icon tooltips.",
+          "Collapsible application navigation rail. Expanded shows labels; collapsed shows icon tooltips. The rail fills its parent height; Collapse stays pinned at the bottom.",
       },
     },
   },

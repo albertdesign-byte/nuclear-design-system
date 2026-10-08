@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Link from "next/link";
 import {
   BriefcaseMedicalIcon,
@@ -29,7 +30,11 @@ const previewItems = [
   { label: "Sign out", href: "#", icon: LogOutIcon },
 ];
 
-export function AppShellRealScreenPreview() {
+export function AppShellRealScreenPreview({
+  children,
+}: {
+  children?: ReactNode;
+}) {
   return (
     <AppShell
       className="h-full min-h-0"
@@ -44,13 +49,15 @@ export function AppShellRealScreenPreview() {
           />
         }
       >
-        <p className="text-[length:var(--text-body-small-size)] text-[var(--color-text-muted)]">
-          Main content slot — see the full dashboard at{" "}
-          <Link href="/examples/dashboard" className="text-[var(--color-text-link)] underline">
-            /examples/dashboard
-          </Link>
-          .
-        </p>
+        {children ?? (
+          <p className="text-[length:var(--text-body-small-size)] text-[var(--color-text-muted)]">
+            Main content slot — see the full dashboard at{" "}
+            <Link href="/examples/dashboard" className="text-[var(--color-text-link)] underline">
+              /examples/dashboard
+            </Link>
+            .
+          </p>
+        )}
       </AppShell>
   );
 }

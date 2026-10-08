@@ -32,7 +32,6 @@ import { GlobalSearchBar } from "@/components/global-search-bar";
 import { getActiveScansPreview, getGlobalSearchItems } from "@/data/scan-requests";
 import { Tabs, TabsContent, TabsList, TabsTrigger, tabsSegmentedContentClassName } from "@/components/tabs";
 import { UserProfileBlock } from "@/components/user-profile-block";
-import { cn } from "@/lib/utils";
 
 const sidebarItems = (
   dashboardHref: string
@@ -130,7 +129,7 @@ export function DashboardScreen({
 
   return (
     <AppShell
-      className={cn("min-h-dvh", className)}
+      className={className}
       sidebar={<AppSidebar items={sidebarItems(dashboardHref)} logoHref="/" />}
       header={
         <AppHeader

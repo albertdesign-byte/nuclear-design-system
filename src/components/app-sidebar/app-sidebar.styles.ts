@@ -4,7 +4,7 @@ import { inverseInteractiveDisabledClassName } from "@/lib/disabled-styles";
 export const appSidebarExpandedWidth = "12.5rem";
 
 export const appSidebarClassName = [
-  componentFontFamilyClassName, "group/app-sidebar flex min-h-0 self-stretch shrink-0 flex-col",
+  componentFontFamilyClassName, "group/app-sidebar sticky top-0 z-[var(--z-sticky)] flex h-full min-h-0 self-stretch shrink-0 flex-col overflow-hidden",
   "w-[var(--app-sidebar-width,var(--spacing-64))]",
   "bg-[var(--color-action-primary)] py-[var(--space-stack-md)]",
   "gap-[var(--space-stack-md)]",
@@ -47,6 +47,6 @@ export const appSidebarToggleClassName = [
 ].join(" ");
 
 export const appSidebarFooterClassName = [
-  componentFontFamilyClassName, "mt-auto flex w-full shrink-0 flex-col",
+  componentFontFamilyClassName, "mt-auto flex w-full shrink-0 flex-col bg-[var(--color-action-primary)]",
   "items-center group-data-expanded/app-sidebar:items-stretch",
 ].join(" ");

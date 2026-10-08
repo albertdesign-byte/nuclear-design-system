@@ -28,7 +28,7 @@ export const templatesRegistry: TemplateRegistryEntry[] = [
     title: "AppShell",
     href: "/docs/templates/app-shell",
     description:
-      "Operational application layout with sidebar, header, and main content slots. Compose App Sidebar, App Header, and page content. No product copy or routing.",
+      "Operational application layout with sidebar, header, and main content slots. The sidebar stays in the viewport while main content scrolls. Compose App Sidebar, App Header, and page content. No product copy or routing.",
     aliases: ["application frame", "dashboard layout", "operational shell"],
     keywords: ["sidebar", "header", "main", "layout", "chrome"],
     storybook: "Templates/AppShell",

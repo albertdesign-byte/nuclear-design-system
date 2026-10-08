@@ -16,7 +16,7 @@ const meta = {
       ...fullWidthParameters.docs,
       description: {
         component:
-          "Operational application layout: sidebar, header, and main slots. Product-agnostic. App Header, App Sidebar, and header actions remain Components; this template only frames them.",
+          "Operational application layout: sidebar, header, and main slots. The sidebar stays in view while main content scrolls; Collapse stays pinned at the bottom of the rail. Product-agnostic. App Header, App Sidebar, and header actions remain Components; this template only frames them.",
       },
     },
   },
