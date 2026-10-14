@@ -1,11 +1,22 @@
 "use client";
 
-import type { ComponentProps } from "react";
+import { createContext, useContext, type ComponentProps } from "react";
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import { XIcon } from "lucide-react";
 
 import { Button } from "@/components/button";
+import {
+  sideModalCloseButtonClassName,
+  sideModalContentClassName,
+  sideModalDescriptionClassName,
+  sideModalFooterClassName,
+  sideModalPanelWidth,
+  sideModalTitleClassName,
+  sideModalViewportClassName,
+} from "@/components/side-modal/side-modal.styles";
 import { cn } from "@/lib/utils";
+
+import "../side-modal/side-modal.nested-floating.css";
 
 import {
   dialogContentClassName,
@@ -13,10 +24,17 @@ import {
   dialogFooterClassName,
   dialogHeaderClassName,
   dialogOverlayClassName,
+  dialogSideHeaderClassName,
   dialogTitleClassName,
   dialogViewportClassName,
 } from "./dialog.styles";
-import type { DialogContentProps, DialogFooterProps } from "./dialog.types";
+import type {
+  DialogContentPlacement,
+  DialogContentProps,
+  DialogFooterProps,
+} from "./dialog.types";
+
+const DialogPlacementContext = createContext<DialogContentPlacement>("center");
 
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
@@ -64,44 +82,75 @@ function DialogContent({
   className,
   children,
   showCloseButton = true,
+  placement = "center",
+  style,
   ...props
 }: DialogContentProps) {
+  const isSide = placement === "side";
+
   return (
     <DialogPortal>
       <DialogOverlay />
-      <DialogViewport>
+      <DialogPrimitive.Viewport
+        data-slot="dialog-viewport"
+        className={isSide ? sideModalViewportClassName : dialogViewportClassName}
+      >
         <DialogPrimitive.Popup
           data-slot="dialog-content"
-          className={cn(dialogContentClassName, className)}
+          data-placement={placement}
+          className={cn(
+            isSide ? sideModalContentClassName : dialogContentClassName,
+            "group/dialog-content",
+            className
+          )}
+          style={
+            isSide
+              ? {
+                  width: `min(100%, ${sideModalPanelWidth})`,
+                  ...style,
+                }
+              : style
+          }
           {...props}
         >
-          {children}
-          {showCloseButton && (
-            <DialogPrimitive.Close
-              data-slot="dialog-close"
-              render={
-                <Button
-                  variant="ghost"
-                  className="absolute top-[var(--space-inline-sm)] right-[var(--space-inline-sm)]"
-                  size="icon-sm"
-                />
-              }
-            >
-              <XIcon />
-              <span className="sr-only">Close</span>
-            </DialogPrimitive.Close>
-          )}
+          <DialogPlacementContext.Provider value={placement}>
+            {children}
+            {showCloseButton && (
+              <DialogPrimitive.Close
+                data-slot="dialog-close"
+                render={
+                  <Button
+                    variant="ghost"
+                    className={
+                      isSide
+                        ? sideModalCloseButtonClassName
+                        : "absolute top-[var(--space-inline-sm)] right-[var(--space-inline-sm)]"
+                    }
+                    size="icon-sm"
+                  />
+                }
+              >
+                <XIcon />
+                <span className="sr-only">Close</span>
+              </DialogPrimitive.Close>
+            )}
+          </DialogPlacementContext.Provider>
         </DialogPrimitive.Popup>
-      </DialogViewport>
+      </DialogPrimitive.Viewport>
     </DialogPortal>
   );
 }
 
 function DialogHeader({ className, ...props }: ComponentProps<"div">) {
+  const placement = useContext(DialogPlacementContext);
+
   return (
     <div
       data-slot="dialog-header"
-      className={cn(dialogHeaderClassName, className)}
+      className={cn(
+        placement === "side" ? dialogSideHeaderClassName : dialogHeaderClassName,
+        className
+      )}
       {...props}
     />
   );
@@ -113,10 +162,15 @@ function DialogFooter({
   children,
   ...props
 }: DialogFooterProps) {
+  const placement = useContext(DialogPlacementContext);
+
   return (
     <div
       data-slot="dialog-footer"
-      className={cn(dialogFooterClassName, className)}
+      className={cn(
+        placement === "side" ? sideModalFooterClassName : dialogFooterClassName,
+        className
+      )}
       {...props}
     >
       {children}
@@ -130,10 +184,15 @@ function DialogFooter({
 }
 
 function DialogTitle({ className, ...props }: DialogPrimitive.Title.Props) {
+  const placement = useContext(DialogPlacementContext);
+
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn(dialogTitleClassName, className)}
+      className={cn(
+        placement === "side" ? sideModalTitleClassName : dialogTitleClassName,
+        className
+      )}
       {...props}
     />
   );
@@ -143,10 +202,17 @@ function DialogDescription({
   className,
   ...props
 }: DialogPrimitive.Description.Props) {
+  const placement = useContext(DialogPlacementContext);
+
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"
-      className={cn(dialogDescriptionClassName, className)}
+      className={cn(
+        placement === "side"
+          ? sideModalDescriptionClassName
+          : dialogDescriptionClassName,
+        className
+      )}
       {...props}
     />
   );

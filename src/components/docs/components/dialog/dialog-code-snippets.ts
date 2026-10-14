@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  dialogSideBodyClassName,
 } from "@/components/dialog";
 import { InputField } from "@/components/input";`;
 
@@ -39,14 +40,14 @@ export function Example() {
       <DialogTrigger render={<Button variant="outline" />}>
         Edit patient
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent placement="side">
         <DialogHeader>
           <DialogTitle>Edit patient</DialogTitle>
           <DialogDescription>
             Update demographic information for Elena Morales.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-1">
+        <div className={dialogSideBodyClassName}>
           <InputField id="patient-name" label="Patient name" defaultValue="Elena Morales" />
           <InputField id="patient-dob" label="Date of birth" type="date" defaultValue="1987-04-16" />
         </div>
@@ -135,12 +136,12 @@ function dialogFormSnippet({
   <DialogTrigger render={<Button variant="outline" />}>
     ${trigger}
   </DialogTrigger>
-  <DialogContent>
+  <DialogContent placement="side">
     <DialogHeader>
       <DialogTitle>${title}</DialogTitle>
       <DialogDescription>${description}</DialogDescription>
     </DialogHeader>
-    <div className="grid gap-4 py-1">
+    <div className={dialogSideBodyClassName}>
       ${fields}
     </div>
     <DialogFooter>

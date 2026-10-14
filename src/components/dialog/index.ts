@@ -17,7 +17,13 @@ export {
   dialogFooterClassName,
   dialogHeaderClassName,
   dialogOverlayClassName,
+  dialogSideBodyClassName,
+  dialogSideHeaderClassName,
   dialogTitleClassName,
   dialogViewportClassName,
 } from "./dialog.styles";
-export type { DialogContentProps, DialogFooterProps } from "./dialog.types";
+export type {
+  DialogContentPlacement,
+  DialogContentProps,
+  DialogFooterProps,
+} from "./dialog.types";

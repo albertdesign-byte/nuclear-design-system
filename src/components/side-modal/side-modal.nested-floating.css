@@ -5,6 +5,8 @@
  * While the overlay is present, lift them to the modal tier. No new z-index token.
  */
 body:has([data-slot="side-modal-overlay"]) .z-\[var\(--z-dropdown\)\],
-body:has([data-slot="side-modal-overlay"]) .z-\[var\(--z-popover\)\] {
+body:has([data-slot="side-modal-overlay"]) .z-\[var\(--z-popover\)\],
+body:has([data-slot="dialog-content"][data-placement="side"]) .z-\[var\(--z-dropdown\)\],
+body:has([data-slot="dialog-content"][data-placement="side"]) .z-\[var\(--z-popover\)\] {
   z-index: var(--z-modal);
 }

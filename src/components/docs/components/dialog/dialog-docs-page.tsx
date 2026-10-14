@@ -30,6 +30,7 @@ import { DocsSection } from "@/components/docs/primitives/docs-section";
 
 const dialogApiRows = [
   { prop: "showCloseButton", type: "boolean", defaultValue: "true" },
+  { prop: "placement", type: '"center" | "side"', defaultValue: '"center"' },
   { prop: "open", type: "boolean", defaultValue: "—" },
   { prop: "onOpenChange", type: "(open: boolean) => void", defaultValue: "—" },
 ];

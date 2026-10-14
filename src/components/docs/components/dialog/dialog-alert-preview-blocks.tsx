@@ -23,6 +23,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  dialogSideBodyClassName,
 } from "@/components/dialog";
 import { Dropzone } from "@/components/dropzone";
 import { InputField } from "@/components/input";
@@ -47,14 +48,12 @@ function DialogFormExample({
       <DialogTrigger render={<Button variant="outline" size="sm" />}>
         {trigger}
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent placement="side">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <div className="grid gap-[var(--space-stack-md)] py-[var(--space-stack-xs)]">
-          {children}
-        </div>
+        <div className={dialogSideBodyClassName}>{children}</div>
         <DialogFooter>
           <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
           <DialogClose render={<Button />}>{submitLabel}</DialogClose>

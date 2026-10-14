@@ -24,6 +24,20 @@ export const dialogContentClassName = [
 export const dialogHeaderClassName =
   "flex flex-col gap-[var(--space-stack-sm)]";
 
+export const dialogSideHeaderClassName = [
+  componentFontFamilyClassName,
+  "flex min-w-0 shrink-0 flex-col gap-[var(--space-stack-xs)]",
+  "border-b border-[var(--color-border-subtle)] bg-[var(--color-surface)]",
+  "px-[var(--space-dialog)] py-[var(--space-dialog)] pr-[var(--spacing-48)]",
+].join(" ");
+
+export const dialogSideBodyClassName = [
+  componentFontFamilyClassName,
+  "flex min-h-0 min-w-0 flex-1 flex-col gap-[var(--space-form)]",
+  "overflow-y-auto overscroll-contain",
+  "bg-[var(--color-surface-muted)] px-[var(--space-dialog)] py-[var(--space-stack-md)]",
+].join(" ");
+
 export const dialogFooterClassName = [
   componentFontFamilyClassName, "-mx-[var(--space-dialog)] -mb-[var(--space-dialog)] flex flex-col-reverse",
   "gap-[var(--space-stack-sm)] rounded-b-[var(--radius-card)] border-t border-[var(--color-border)]",

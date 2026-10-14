@@ -11,4 +11,8 @@ export {
   DialogTrigger,
   DialogViewport,
 } from "@/components/dialog";
-export type { DialogContentProps, DialogFooterProps } from "@/components/dialog";
+export type {
+  DialogContentPlacement,
+  DialogContentProps,
+  DialogFooterProps,
+} from "@/components/dialog";
