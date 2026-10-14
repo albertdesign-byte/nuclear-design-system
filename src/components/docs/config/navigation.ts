@@ -269,7 +269,21 @@ export const dialogTocItems = [
   { id: "overview", label: "Component Overview" },
   { id: "usage", label: "Usage" },
   { id: "dialog-examples", label: "Dialog Examples" },
+  { id: "side-modal", label: "Side Modal" },
   { id: "dialog-vs-alert-dialog", label: "Dialog vs Alert Dialog" },
+  { id: "accessibility", label: "Accessibility" },
+  { id: "best-practices", label: "Best Practices" },
+  { id: "api-reference", label: "API Reference" },
+];
+
+export const sideModalTocItems = [
+  { id: "installation", label: "Installation" },
+  { id: "usage", label: "Usage" },
+  { id: "when-to-use", label: "When to use" },
+  { id: "controlled", label: "Controlled" },
+  { id: "scrolling", label: "Scrolling body" },
+  { id: "create-new-user", label: "Create new user" },
+  { id: "guidelines", label: "Guidelines" },
   { id: "accessibility", label: "Accessibility" },
   { id: "best-practices", label: "Best Practices" },
   { id: "api-reference", label: "API Reference" },

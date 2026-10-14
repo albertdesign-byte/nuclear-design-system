@@ -764,6 +764,7 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     accessibility: ["focus trap", "escape", "aria-labelledby", "dialog"],
     relatedComponents: [
       "/docs/components/alert-dialog",
+      "/docs/components/side-modal",
       "/docs/components/popover",
     ],
   },
@@ -784,6 +785,48 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
       "/docs/components/dialog",
       "/docs/components/button",
       "/docs/components/alert",
+    ],
+  },
+  {
+    title: "Side Modal",
+    href: "/docs/components/side-modal",
+    description:
+      "Right-aligned modal panel for create and edit tasks. Header and footer stay in view while the body scrolls.",
+    status: "stable",
+    aliases: ["sheet", "drawer", "side panel"],
+    keywords: [
+      "side modal",
+      "sheet",
+      "drawer",
+      "overlay",
+      "panel",
+      "form",
+      "create",
+      "edit",
+    ],
+    figma:
+      "https://www.figma.com/design/0mdT8ZGcIWs03rXrGDRoU4/modales?node-id=1-2133&t=vZj6GPYKsQ95Oys5-4",
+    storybook: "Components/Side Modal",
+    category: "Overlay",
+    tokens: [
+      "--z-modal",
+      "--color-overlay",
+      "--space-dialog",
+      "--shadow-lg",
+      "--color-surface",
+    ],
+    accessibility: [
+      "focus trap",
+      "escape",
+      "aria-labelledby",
+      "aria-describedby",
+      "dialog",
+    ],
+    relatedComponents: [
+      "/docs/components/dialog",
+      "/docs/components/button",
+      "/docs/components/scroll-area",
+      "/docs/components/card",
     ],
   },
   {

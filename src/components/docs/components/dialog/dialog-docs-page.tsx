@@ -18,6 +18,8 @@ import {
   EditProfileDialogPreview,
   UploadStudyDialogPreview,
 } from "@/components/docs/components/dialog/dialog-alert-preview-blocks";
+import { sideModalCreateUserSnippet } from "@/components/docs/components/side-modal/side-modal-code-snippets";
+import { CreateNewUserSideModalPreview } from "@/components/docs/components/side-modal/side-modal-preview-blocks";
 import { DialogRealScreenPreview } from "@/components/docs/components/dialog/dialog-real-screen-preview";
 import { dialogTocItems } from "@/components/docs/config/navigation";
 import { DocsApiTable } from "@/components/docs/primitives/docs-api-table";
@@ -96,6 +98,26 @@ export function DialogDocsPage() {
           </DocsSection>
 
           <DocsSection
+            id="side-modal"
+            title="Side Modal"
+            description="Long create and edit tasks open in a right panel. Side Modal is a separate compound — it does not replace centered Dialog."
+          >
+            <DocsPreview code={sideModalCreateUserSnippet}>
+              <CreateNewUserSideModalPreview />
+            </DocsPreview>
+            <p className="mt-[var(--space-stack-md)] text-[length:var(--text-body-small-size)] text-[var(--color-text-secondary)]">
+              Full API and guidelines live on{" "}
+              <Link
+                className="font-medium text-[var(--color-text-link)] underline underline-offset-3"
+                href="/docs/components/side-modal"
+              >
+                Side Modal
+              </Link>
+              .
+            </p>
+          </DocsSection>
+
+          <DocsSection
             id="dialog-vs-alert-dialog"
             title="Dialog vs Alert Dialog"
             description="Choose by workflow responsibility, not by visual appearance."
@@ -103,9 +125,17 @@ export function DialogDocsPage() {
             <DialogComparisonTable />
             <p className="mt-[var(--space-stack-md)] text-[length:var(--text-body-small-size)] text-[var(--color-text-secondary)]">
               For destructive confirmation, use{" "}
-              <Link className="font-medium text-[var(--color-link)] underline underline-offset-3" href="/docs/components/alert-dialog">
+              <Link className="font-medium text-[var(--color-text-link)] underline underline-offset-3" href="/docs/components/alert-dialog">
                 Alert Dialog
-              </Link>.
+              </Link>
+              . For long create or edit forms, use{" "}
+              <Link
+                className="font-medium text-[var(--color-text-link)] underline underline-offset-3"
+                href="/docs/components/side-modal"
+              >
+                Side Modal
+              </Link>
+              .
             </p>
           </DocsSection>
 

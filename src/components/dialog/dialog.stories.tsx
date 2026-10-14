@@ -12,9 +12,13 @@ import {
   EditProfileDialogPreview,
   UploadStudyDialogPreview,
 } from "@/components/docs/components/dialog/dialog-alert-preview-blocks";
+import { CreateNewUserSideModalPreview } from "@/components/docs/components/side-modal/side-modal-preview-blocks";
 
 import { InteractionStateGrid } from "../../../.storybook/interaction-state-grid";
-import { componentParameters } from "../../../.storybook/story-meta";
+import {
+  componentParameters,
+  fullWidthParameters,
+} from "../../../.storybook/story-meta";
 
 import {
   Dialog,
@@ -76,6 +80,20 @@ export const EditProfile: Story = {
 
 export const UploadStudy: Story = {
   render: () => <UploadStudyDialogPreview />,
+};
+
+export const CreateNewUser: Story = {
+  render: () => <CreateNewUserSideModalPreview />,
+  parameters: {
+    ...fullWidthParameters,
+    docs: {
+      ...fullWidthParameters.docs,
+      description: {
+        story:
+          "Long create/edit forms use Side Modal, not centered Dialog. Open Create new user from this story.",
+      },
+    },
+  },
 };
 
 export const HealthcareExamples: Story = {

@@ -1,0 +1,10 @@
+/**
+ * Nested floating UI (foundations/z-index/rules.md):
+ * Select / Popover / Dropdown portal to the document at --z-dropdown / --z-popover.
+ * Side Modal overlay uses --z-modal, so those popups would paint behind the overlay.
+ * While the overlay is present, lift them to the modal tier. No new z-index token.
+ */
+body:has([data-slot="side-modal-overlay"]) .z-\[var\(--z-dropdown\)\],
+body:has([data-slot="side-modal-overlay"]) .z-\[var\(--z-popover\)\] {
+  z-index: var(--z-modal);
+}
