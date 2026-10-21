@@ -214,36 +214,6 @@ export function MenuDocsPage() {
           </DocsSection>
 
           <DocsSection
-            id="menu-vs-dropdown"
-            title="Menu vs Dropdown Menu"
-            description="Use Menu for persistent application navigation. Use Dropdown Menu for overlay actions. Accordion is for in-page FAQ-style content, not app navigation."
-          >
-            <ul className="list-disc space-y-[var(--space-stack-xs)] pl-[var(--space-inline-md)] text-[length:var(--text-body-small-size)] leading-[var(--text-body-small-line-height)] text-[var(--color-text-secondary)]">
-              <li>
-                <strong className="text-[var(--color-text-primary)]">Menu</strong>{" "}
-                — left rail, Default or Expandable, composed by App Shell.
-              </li>
-              <li>
-                <strong className="text-[var(--color-text-primary)]">
-                  Dropdown Menu
-                </strong>{" "}
-                — overlay commands such as overflow, row, and page actions. See{" "}
-                <TextLink href="/docs/components/dropdown-menu">
-                  Dropdown Menu
-                </TextLink>
-                .
-              </li>
-              <li>
-                <strong className="text-[var(--color-text-primary)]">
-                  Accordion
-                </strong>{" "}
-                — stacked in-page disclosures. See{" "}
-                <TextLink href="/docs/components/accordion">Accordion</TextLink>.
-              </li>
-            </ul>
-          </DocsSection>
-
-          <DocsSection
             id="accessibility"
             title="Accessibility"
             description="The rail is an application landmark. Leaf and child links use aria-current when active. Each parent is a single button with aria-expanded and aria-controls. The chevron is decorative. Collapsed icons have accessible names and tooltips."

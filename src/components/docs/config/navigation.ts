@@ -484,7 +484,6 @@ export const menuTocItems = [
   { id: "multiple-open", label: "Multiple open groups" },
   { id: "active-nested", label: "Active nested item" },
   { id: "collapsed", label: "Collapsed" },
-  { id: "menu-vs-dropdown", label: "Menu vs Dropdown Menu" },
   { id: "accessibility", label: "Accessibility" },
   { id: "api-reference", label: "API Reference" },
 ];
