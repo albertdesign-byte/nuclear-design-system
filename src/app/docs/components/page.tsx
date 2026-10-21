@@ -7,6 +7,7 @@ import {
   getComponentEntry,
 } from "@/components/docs/config/components-registry";
 import { DocsComponentPage } from "@/components/docs/components/docs-component-page";
+import { slugifyHeadingId } from "@/components/docs/layout/docs-toc";
 
 const overview = getComponentEntry("/docs/components")!;
 export const metadata: Metadata = {
@@ -27,7 +28,7 @@ export default function ComponentsOverviewRoute() {
         }
 
         return (
-          <section key={category}>
+          <section key={category} id={slugifyHeadingId(category)}>
             <h2 className="text-[length:var(--text-title-size)] font-semibold leading-[var(--text-title-line-height)]">
               {category}
             </h2>

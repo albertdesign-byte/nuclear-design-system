@@ -1043,13 +1043,14 @@ export const patternsRegistry: PatternRegistryEntry[] = [
       "/docs/patterns/patients-intake-chrome",
     ],
     relatedComponents: [
+      "/docs/components/menu",
       "/docs/components/global-search-bar",
       "/docs/components/user-profile-block",
     ],
     storybook: "Patterns/Operational app chrome",
     componentsUsed: [
       { name: "AppShell", href: "/docs/templates/app-shell" },
-      { name: "AppSidebar" },
+      { name: "Menu", href: "/docs/components/menu" },
       { name: "AppHeader" },
       { name: "GlobalSearchBar", href: "/docs/components/global-search-bar" },
       { name: "UserProfileBlock", href: "/docs/components/user-profile-block" },
@@ -1062,7 +1063,7 @@ export const patternsRegistry: PatternRegistryEntry[] = [
     ],
     structure: [
       "AppShell.",
-      "AppSidebar — icon plus label items; one active.",
+      "Menu — icon plus label items; one active.",
       "AppHeader — page title, optional GlobalSearchBar, UserProfileBlock.",
       "main — tabbed workspace.",
     ],

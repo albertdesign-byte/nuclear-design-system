@@ -55,6 +55,7 @@ export const newComponentBadges: Record<string, string> = {
   "/docs/components/dropdown-menu": "2026-08-14",
   "/docs/components/card": "2026-08-14",
   "/docs/components/app-footer": "2026-08-14",
+  "/docs/components/menu": "2026-10-21",
 };
 
 export function isNavItemNew(href: string, now = new Date()) {

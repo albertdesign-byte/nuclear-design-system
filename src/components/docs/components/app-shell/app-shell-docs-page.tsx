@@ -1,31 +1,19 @@
 "use client";
 
-import {
-  BriefcaseMedicalIcon,
-  LayoutDashboardIcon,
-  LogOutIcon,
-  MessageSquareIcon,
-  PlusIcon,
-  StethoscopeIcon,
-  UploadIcon,
-  UsersIcon,
-} from "lucide-react";
-
 import { TextLink } from "@/components/text-link";
 
 import { AppShellRealScreenPreview } from "@/components/docs/components/app-shell/app-shell-real-screen-preview";
 import {
   appShellInstallationUiSnippet,
+  appShellNavigationSnippet,
   appShellRealScreenSnippet,
   appShellUsageSnippet,
-  appSidebarSnippet,
 } from "@/components/docs/components/app-shell/app-shell-code-snippets";
 import { DocsApiTable } from "@/components/docs/primitives/docs-api-table";
 import { DocsPreview } from "@/components/docs/primitives/docs-preview";
 import { DocsInlineCode } from "@/components/docs/primitives/docs-inline-code";
 import { DocsSection } from "@/components/docs/primitives/docs-section";
 import { DocsTemplatePage } from "@/components/docs/templates/docs-template-page";
-import { AppSidebar } from "@/components/app-sidebar";
 
 const appShellApiRows = [
   { prop: "sidebar", type: "ReactNode", defaultValue: "—" },
@@ -50,11 +38,12 @@ export function AppShellDocsPage() {
         description={
           <>
             Compose from{" "}
-            <DocsInlineCode>@/components/app-shell</DocsInlineCode>,{" "}
-            <DocsInlineCode>app-sidebar</DocsInlineCode>, and{" "}
-            <DocsInlineCode>app-header</DocsInlineCode>. App Header and App
-            Sidebar remain Components. This template only frames them. Products
-            supply titles, routes, and signed-in identity.
+            <DocsInlineCode>@/components/app-shell</DocsInlineCode>. Pass{" "}
+            <DocsInlineCode>Menu</DocsInlineCode> into the{" "}
+            <DocsInlineCode>sidebar</DocsInlineCode> slot and App Header into{" "}
+            <DocsInlineCode>header</DocsInlineCode>. Menu and App Header remain
+            Components. This template only frames them. Products supply titles,
+            routes, and signed-in identity.
           </>
         }
       >
@@ -88,27 +77,21 @@ export function AppShellDocsPage() {
         </DocsPreview>
       </DocsSection>
 
-      <DocsSection id="sidebar" title="App Sidebar">
-        <DocsPreview code={appSidebarSnippet}>
-          <div className="flex h-[28rem] overflow-hidden rounded-[var(--radius-card)] ring-1 ring-[var(--color-border-subtle)]">
-            <AppSidebar
-              defaultExpanded
-              items={[
-                {
-                  label: "Dashboard",
-                  href: "#",
-                  icon: LayoutDashboardIcon,
-                  active: true,
-                },
-                { label: "Patients", href: "#", icon: UsersIcon },
-                { label: "Uploads", href: "#", icon: UploadIcon },
-                { label: "Messages", href: "#", icon: MessageSquareIcon },
-                { label: "Create", href: "#", icon: PlusIcon },
-                { label: "Clinical", href: "#", icon: StethoscopeIcon },
-                { label: "Orders", href: "#", icon: BriefcaseMedicalIcon },
-                { label: "Sign out", href: "#", icon: LogOutIcon },
-              ]}
-            />
+      <DocsSection
+        id="navigation"
+        title="Navigation"
+        description={
+          <>
+            App Shell consumes{" "}
+            <TextLink href="/docs/components/menu">Menu</TextLink> through its
+            public API. Default and Expandable configurations, collapsed rail
+            behavior, and the Menu API live on the Menu component page.
+          </>
+        }
+      >
+        <DocsPreview code={appShellNavigationSnippet}>
+          <div className="flex h-[24rem] overflow-hidden rounded-[var(--radius-card)] ring-1 ring-[var(--color-border-subtle)]">
+            <AppShellRealScreenPreview />
           </div>
         </DocsPreview>
       </DocsSection>
@@ -122,6 +105,9 @@ export function AppShellDocsPage() {
       </DocsSection>
 
       <DocsSection id="api-reference" title="API Reference">
+        <h3 className="mb-[var(--space-stack-sm)] text-[length:var(--text-title-size)] font-medium">
+          AppShell
+        </h3>
         <DocsApiTable rows={appShellApiRows} />
       </DocsSection>
     </DocsTemplatePage>

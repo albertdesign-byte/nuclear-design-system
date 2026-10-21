@@ -470,9 +470,22 @@ export const timelineCardTocItems = [
 export const appShellTocItems = [
   { id: "installation", label: "Installation" },
   { id: "usage", label: "Usage" },
-  { id: "sidebar", label: "App Sidebar" },
-  { id: "header", label: "App Header" },
+  { id: "preview", label: "Live preview" },
+  { id: "navigation", label: "Navigation" },
   { id: "example", label: "Dashboard Example" },
+  { id: "api-reference", label: "API Reference" },
+];
+
+export const menuTocItems = [
+  { id: "installation", label: "Installation" },
+  { id: "usage", label: "Usage" },
+  { id: "default", label: "Default" },
+  { id: "expandable", label: "Expandable" },
+  { id: "multiple-open", label: "Multiple open groups" },
+  { id: "active-nested", label: "Active nested item" },
+  { id: "collapsed", label: "Collapsed" },
+  { id: "menu-vs-dropdown", label: "Menu vs Dropdown Menu" },
+  { id: "accessibility", label: "Accessibility" },
   { id: "api-reference", label: "API Reference" },
 ];
 

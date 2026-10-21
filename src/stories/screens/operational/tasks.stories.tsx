@@ -25,7 +25,7 @@ import { useState } from "react";
 
 import { AppHeader } from "@/components/app-header";
 import { AppShell } from "@/components/app-shell";
-import { AppSidebar, type AppSidebarNavItem } from "@/components/app-sidebar";
+import { Menu, type MenuNavItem } from "@/components/menu";
 import { Button } from "@/components/button";
 import { Checkbox, CheckboxField } from "@/components/checkbox";
 import { Chip } from "@/components/chip";
@@ -58,7 +58,7 @@ import { getGlobalSearchItems } from "@/data/scan-requests";
 
 import { screenParameters } from "../../../../.storybook/story-meta";
 
-const sidebarItems: AppSidebarNavItem[] = [
+const sidebarItems: MenuNavItem[] = [
   { label: "Dashboard", href: "#", icon: LayoutDashboardIcon },
   { label: "Patients", href: "#", icon: UsersIcon, active: true },
   { label: "Uploads", href: "#", icon: UploadIcon },
@@ -401,7 +401,7 @@ function OperationalTasks() {
 
   return (
     <AppShell
-      sidebar={<AppSidebar items={sidebarItems} logoHref="/" />}
+      sidebar={<Menu items={sidebarItems} logoHref="/" />}
       header={
         <AppHeader
           title="Tasks"

@@ -1,13 +1,13 @@
 import { exampleSnippet, tsxSnippet } from "@/components/docs/primitives/docs-code-snippet";
 
 export const appShellInstallationUiSnippet = tsxSnippet(`import { AppShell } from "@/components/app-shell";
-import { AppSidebar } from "@/components/app-sidebar";
+import { Menu } from "@/components/menu";
 import { AppHeader } from "@/components/app-header";
 
 export function Example() {
   return (
     <AppShell
-      sidebar={<AppSidebar items={[]} />}
+      sidebar={<Menu items={[]} />}
       header={<AppHeader title="Dashboard" />}
     >
       {/* Main content */}
@@ -16,7 +16,7 @@ export function Example() {
 }`);
 
 export const appShellRealScreenSnippet = tsxSnippet(`import { AppShell } from "@/components/app-shell";
-import { AppSidebar } from "@/components/app-sidebar";
+import { Menu } from "@/components/menu";
 import { AppHeader } from "@/components/app-header";
 import { GlobalSearchBar } from "@/components/global-search-bar";
 import { UserProfileBlock } from "@/components/user-profile-block";
@@ -24,7 +24,7 @@ import { UserProfileBlock } from "@/components/user-profile-block";
 export function Example() {
   return (
     <AppShell
-      sidebar={<AppSidebar items={sidebarItems} logoHref="/" />}
+      sidebar={<Menu items={sidebarItems} logoHref="/" />}
       header={
         <AppHeader
           title="Dashboard"
@@ -39,22 +39,18 @@ export function Example() {
 }`);
 
 export const appShellUsageSnippet = exampleSnippet(
-  `<AppShell sidebar={<AppSidebar items={items} />} header={<AppHeader title="Dashboard" />}>
+  `<AppShell sidebar={<Menu items={items} />} header={<AppHeader title="Dashboard" />}>
   {children}
 </AppShell>`,
   { imports: ['import { AppShell } from "@/components/app-shell";'] }
 );
 
-export const appSidebarSnippet = exampleSnippet(
-  `<AppSidebar
-  logoHref="/"
-  items={[
-    { label: "Dashboard", href: "/dashboard", icon: LayoutDashboardIcon, active: true },
-    { label: "Patients", href: "/patients", icon: UsersIcon },
-    { label: "Messages", href: "/messages", icon: MessageSquareIcon },
-  ]}
-  defaultExpanded={false}
-  onExpandedChange={(expanded) => console.log(expanded)}
-/>`,
-  { imports: ['import { AppSidebar } from "@/components/app-sidebar";'] }
+export const appShellNavigationSnippet = exampleSnippet(
+  `<AppShell
+  sidebar={<Menu items={items} logoHref="/" />}
+  header={<AppHeader title="Dashboard" />}
+>
+  {children}
+</AppShell>`,
+  { imports: ['import { Menu } from "@/components/menu";'] }
 );

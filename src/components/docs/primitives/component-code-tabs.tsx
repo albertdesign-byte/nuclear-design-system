@@ -41,6 +41,7 @@ export function ComponentCodeTabs({
 
   return (
     <Card
+      data-toc-exclude=""
       className={cn(
         "min-w-0 isolate overflow-hidden rounded-[var(--docs-preview-radius)] border-[var(--docs-chrome-border)] py-0 shadow-none",
         className

@@ -14,7 +14,7 @@ import { useState } from "react";
 
 import { AppHeader } from "@/components/app-header";
 import { AppShell } from "@/components/app-shell";
-import { AppSidebar, type AppSidebarNavItem } from "@/components/app-sidebar";
+import { Menu, type MenuNavItem } from "@/components/menu";
 import { DashboardGrid, DashboardGridItem } from "@/components/dashboard-grid";
 import {
   DataTable,
@@ -35,7 +35,7 @@ import { UserProfileBlock } from "@/components/user-profile-block";
 
 const sidebarItems = (
   dashboardHref: string
-): AppSidebarNavItem[] => [
+): MenuNavItem[] => [
   { label: "Dashboard", href: dashboardHref, icon: LayoutDashboardIcon, active: true },
   { label: "Patients", href: "#", icon: UsersIcon },
   { label: "Uploads", href: "#", icon: UploadIcon },
@@ -130,7 +130,7 @@ export function DashboardScreen({
   return (
     <AppShell
       className={className}
-      sidebar={<AppSidebar items={sidebarItems(dashboardHref)} logoHref="/" />}
+      sidebar={<Menu items={sidebarItems(dashboardHref)} logoHref="/" />}
       header={
         <AppHeader
           title="Dashboard"

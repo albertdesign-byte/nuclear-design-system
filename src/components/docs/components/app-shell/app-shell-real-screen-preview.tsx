@@ -15,7 +15,7 @@ import {
 
 import { AppHeader } from "@/components/app-header";
 import { AppShell } from "@/components/app-shell";
-import { AppSidebar } from "@/components/app-sidebar";
+import { Menu } from "@/components/menu";
 import { GlobalSearchBar } from "@/components/global-search-bar";
 import { UserProfileBlock } from "@/components/user-profile-block";
 
@@ -38,7 +38,7 @@ export function AppShellRealScreenPreview({
   return (
     <AppShell
       className="h-full min-h-0"
-      sidebar={<AppSidebar items={previewItems} logoHref="/" />}
+      sidebar={<Menu items={previewItems} logoHref="/" />}
         header={
           <AppHeader
             title="Dashboard"

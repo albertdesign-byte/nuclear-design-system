@@ -107,7 +107,7 @@ export function LogoDocsPage() {
           <DocsSection
             id="inverse"
             title="Inverse"
-            description="Use on dark surfaces such as the expanded App Sidebar."
+            description="Use on dark surfaces such as the expanded Menu."
           >
             <DocsPreview code={logoInverseSnippet}>
               <div className="flex w-full items-center rounded-[var(--radius-md)] bg-[var(--color-action-primary)] px-[var(--space-inline-md)] py-[var(--space-stack-sm)]">

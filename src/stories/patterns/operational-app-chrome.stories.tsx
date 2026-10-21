@@ -11,7 +11,7 @@ import { useState } from "react";
 
 import { AppHeader } from "@/components/app-header";
 import { AppShell } from "@/components/app-shell";
-import { AppSidebar } from "@/components/app-sidebar";
+import { Menu } from "@/components/menu";
 import { GlobalSearchBar } from "@/components/global-search-bar";
 import { UserProfileBlock } from "@/components/user-profile-block";
 
@@ -36,7 +36,7 @@ function OperationalAppChrome({
 
   return (
     <AppShell
-      sidebar={<AppSidebar items={sidebarItems} logoHref="/" />}
+      sidebar={<Menu items={sidebarItems} logoHref="/" />}
       header={
         <AppHeader
           title="Dashboard"

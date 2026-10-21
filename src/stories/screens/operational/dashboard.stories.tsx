@@ -15,7 +15,7 @@ import { useState } from "react";
 
 import { AppHeader } from "@/components/app-header";
 import { AppShell } from "@/components/app-shell";
-import { AppSidebar, type AppSidebarNavItem } from "@/components/app-sidebar";
+import { Menu, type MenuNavItem } from "@/components/menu";
 import { GlobalSearchBar } from "@/components/global-search-bar";
 import { UserProfileBlock } from "@/components/user-profile-block";
 import { getGlobalSearchItems } from "@/data/scan-requests";
@@ -23,7 +23,7 @@ import { getGlobalSearchItems } from "@/data/scan-requests";
 import { screenParameters } from "../../../../.storybook/story-meta";
 import { WorkspaceTabsPreview } from "../../patterns/workspace-tabs-preview";
 
-const sidebarItems: AppSidebarNavItem[] = [
+const sidebarItems: MenuNavItem[] = [
   { label: "Dashboard", href: "#", icon: LayoutDashboardIcon, active: true },
   { label: "Patients", href: "#", icon: UsersIcon },
   { label: "Uploads", href: "#", icon: UploadIcon },
@@ -42,7 +42,7 @@ function OperationalDashboard() {
 
   return (
     <AppShell
-      sidebar={<AppSidebar items={sidebarItems} logoHref="/" />}
+      sidebar={<Menu items={sidebarItems} logoHref="/" />}
       header={
         <AppHeader
           title="Dashboard"
@@ -75,7 +75,7 @@ const meta = {
       ...screenParameters.docs,
       description: {
         component:
-          "MPF Portal Dashboard assembled from existing Nuclear assets: AppShell, AppSidebar, AppHeader, Workspace tabs, DashboardGrid, and Worklist table. Header search is hidden on Scan Search so two search fields are not shown at once. Demo data is the existing scan-request fixture. Not a new template or pattern.",
+          "MPF Portal Dashboard assembled from existing Nuclear assets: AppShell, Menu, AppHeader, Workspace tabs, DashboardGrid, and Worklist table. Header search is hidden on Scan Search so two search fields are not shown at once. Demo data is the existing scan-request fixture. Not a new template or pattern.",
       },
     },
   },

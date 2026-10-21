@@ -63,3 +63,13 @@
 .docs-sidebar [data-slot="scroll-area-viewport"] {
   font-family: var(--font-family-sans);
 }
+
+.docs-toc-target {
+  scroll-margin-top: calc(var(--docs-header-height) + var(--space-stack-md));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.docs-shell) {
+    scroll-behavior: smooth;
+  }
+}

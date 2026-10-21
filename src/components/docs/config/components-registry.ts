@@ -414,6 +414,45 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     relatedComponents: ["/docs/components/tabs", "/docs/components/separator"],
   },
   {
+    title: "Menu",
+    href: "/docs/components/menu",
+    description:
+      "Collapsible application navigation rail. Default is a flat list of links. Expandable adds one nested level.",
+    status: "stable",
+    aliases: ["app sidebar", "sidebar", "nav rail", "application menu"],
+    keywords: [
+      "navigation",
+      "sidebar",
+      "menu",
+      "expandable",
+      "collapsed",
+      "rail",
+    ],
+    figma: "",
+    storybook: "Components/Menu",
+    category: "Navigation",
+    tokens: [
+      "--color-action-primary",
+      "--color-action-primary-text",
+      "--spacing-64",
+      "--z-sticky",
+    ],
+    accessibility: [
+      "keyboard",
+      "aria-current",
+      "aria-expanded",
+      "aria-controls",
+      "nav",
+      "tooltip",
+    ],
+    relatedComponents: [
+      "/docs/components/logo",
+      "/docs/components/app-footer",
+      "/docs/components/dropdown-menu",
+      "/docs/components/accordion",
+    ],
+  },
+  {
     title: "App Footer",
     href: "/docs/components/app-footer",
     description:
@@ -880,7 +919,10 @@ export const componentsRegistry: ComponentRegistryEntry[] = [
     category: "Layout",
     tokens: ["--color-action-primary"],
     accessibility: ["alt", "aria-label"],
-    relatedComponents: ["/docs/components/app-footer"],
+    relatedComponents: [
+      "/docs/components/app-footer",
+      "/docs/components/menu",
+    ],
   },
   {
     title: "Dashboard Panel",
